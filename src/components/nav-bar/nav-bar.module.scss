@@ -1,0 +1,28 @@
+@use "src/styles/colors";
+
+.NavBar {
+  display: flex;
+  flex-direction: column;
+  width: 4rem;
+  height: 100vh;
+  background: colors.$n-100;
+}
+
+.header{
+  flex-basis: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body{
+  display: flex;
+  flex-basis: 70%;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 15%;
+}
