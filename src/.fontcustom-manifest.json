@@ -1,0 +1,95 @@
+{
+  "checksum": {
+    "previous": "2e48294139917f4f326155b69b9237c01bb446f3ed6172c3ffa10cdb93bf6db8",
+    "current": "2e48294139917f4f326155b69b9237c01bb446f3ed6172c3ffa10cdb93bf6db8"
+  },
+  "fonts": [
+    "./font_icons/font_custom_2e48294139917f4f326155b69b9237c0.ttf",
+    "./font_icons/font_custom_2e48294139917f4f326155b69b9237c0.svg",
+    "./font_icons/font_custom_2e48294139917f4f326155b69b9237c0.woff",
+    "./font_icons/font_custom_2e48294139917f4f326155b69b9237c0.eot",
+    "./font_icons/font_custom_2e48294139917f4f326155b69b9237c0.woff2"
+  ],
+  "glyphs": {
+    "account-circle": {
+      "codepoint": 61696,
+      "source": "./assets/icons/account-circle.svg"
+    },
+    "download": {
+      "codepoint": 61697,
+      "source": "./assets/icons/download.svg"
+    },
+    "logo": {
+      "codepoint": 61698,
+      "source": "./assets/icons/logo.svg"
+    },
+    "material-symbols_add-circle-outline": {
+      "codepoint": 61699,
+      "source": "./assets/icons/material-symbols_add-circle-outline.svg"
+    },
+    "material-symbols_data-usage": {
+      "codepoint": 61700,
+      "source": "./assets/icons/material-symbols_data-usage.svg"
+    },
+    "material-symbols_keyboard-arrow-down": {
+      "codepoint": 61701,
+      "source": "./assets/icons/material-symbols_keyboard-arrow-down.svg"
+    },
+    "material-symbols_play-circle-outline": {
+      "codepoint": 61702,
+      "source": "./assets/icons/material-symbols_play-circle-outline.svg"
+    },
+    "mdi_question-mark-circle-outline": {
+      "codepoint": 61703,
+      "source": "./assets/icons/mdi_question-mark-circle-outline.svg"
+    },
+    "mingcute_book-6-line": {
+      "codepoint": 61704,
+      "source": "./assets/icons/mingcute_book-6-line.svg"
+    },
+    "ph_heart-straight-bold": {
+      "codepoint": 61705,
+      "source": "./assets/icons/ph_heart-straight-bold.svg"
+    },
+    "ph_tag-bold": {
+      "codepoint": 61706,
+      "source": "./assets/icons/ph_tag-bold.svg"
+    },
+    "upload": {
+      "codepoint": 61707,
+      "source": "./assets/icons/upload.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": "fontcustom.yml",
+    "copyright": "",
+    "css3": false,
+    "css_selector": ".fa-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "font_custom",
+    "force": true,
+    "input": {
+      "templates": "./assets/icons",
+      "vectors": "./assets/icons"
+    },
+    "no_hash": false,
+    "output": {
+      "css": "./src",
+      "fonts": "./font_icons",
+      "preview": "./font_icons"
+    },
+    "preprocessor_path": "./font_icons",
+    "quiet": false,
+    "templates": [
+      "scss"
+    ]
+  },
+  "templates": [
+    "./src/_font_custom.scss"
+  ]
+}

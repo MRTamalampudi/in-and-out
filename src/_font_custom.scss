@@ -1,0 +1,75 @@
+//
+// Icon Font: font_custom
+//
+
+@font-face {
+  font-family: "font_custom";
+  src: url("./assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff2") format("woff2"),
+       url("./assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff") format("woff"),
+       url("./assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.ttf") format("truetype"),
+       url("./assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.svg#font_custom") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "font_custom";
+    src: url("./assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.svg#font_custom") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.fa-account-circle:before,
+.fa-add-circle:before,
+.fa-arrow-down:before,
+.fa-book:before,
+.fa-data-usage:before,
+.fa-download:before,
+.fa-heart:before,
+.fa-logo:before,
+.fa-play-circle:before,
+.fa-question-mark-circle:before,
+.fa-tag:before,
+.fa-upload:before {
+  display: inline-block;
+  font-family: "font_custom";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.fa-account-circle:before { content: "\f100"; }
+.fa-add-circle:before { content: "\f10c"; }
+.fa-arrow-down:before { content: "\f10d"; }
+.fa-book:before { content: "\f10e"; }
+.fa-data-usage:before { content: "\f10f"; }
+.fa-download:before { content: "\f101"; }
+.fa-heart:before { content: "\f110"; }
+.fa-logo:before { content: "\f102"; }
+.fa-play-circle:before { content: "\f111"; }
+.fa-question-mark-circle:before { content: "\f112"; }
+.fa-tag:before { content: "\f113"; }
+.fa-upload:before { content: "\f10b"; }
+
+$font-font_custom-account-circle: "\f100";
+$font-font_custom-add-circle: "\f10c";
+$font-font_custom-arrow-down: "\f10d";
+$font-font_custom-book: "\f10e";
+$font-font_custom-data-usage: "\f10f";
+$font-font_custom-download: "\f101";
+$font-font_custom-heart: "\f110";
+$font-font_custom-logo: "\f102";
+$font-font_custom-play-circle: "\f111";
+$font-font_custom-question-mark-circle: "\f112";
+$font-font_custom-tag: "\f113";
+$font-font_custom-upload: "\f10b";

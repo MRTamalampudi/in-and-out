@@ -1,0 +1,95 @@
+{
+  "checksum": {
+    "previous": "613da84b0242fa79570f6159ec9154e93d419dc614f8c90e54a00ca1f08cc5e8",
+    "current": "613da84b0242fa79570f6159ec9154e93d419dc614f8c90e54a00ca1f08cc5e8"
+  },
+  "fonts": [
+    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.ttf",
+    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.svg",
+    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff",
+    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.eot",
+    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff2"
+  ],
+  "glyphs": {
+    "account-circle": {
+      "codepoint": 61696,
+      "source": "./src/assets/icons/account-circle.svg"
+    },
+    "add-circle": {
+      "codepoint": 61708,
+      "source": "./src/assets/icons/add-circle.svg"
+    },
+    "arrow-down": {
+      "codepoint": 61709,
+      "source": "./src/assets/icons/arrow-down.svg"
+    },
+    "book": {
+      "codepoint": 61710,
+      "source": "./src/assets/icons/book.svg"
+    },
+    "data-usage": {
+      "codepoint": 61711,
+      "source": "./src/assets/icons/data-usage.svg"
+    },
+    "download": {
+      "codepoint": 61697,
+      "source": "./src/assets/icons/download.svg"
+    },
+    "heart": {
+      "codepoint": 61712,
+      "source": "./src/assets/icons/heart.svg"
+    },
+    "logo": {
+      "codepoint": 61698,
+      "source": "./src/assets/icons/logo.svg"
+    },
+    "play-circle": {
+      "codepoint": 61713,
+      "source": "./src/assets/icons/play-circle.svg"
+    },
+    "question-mark-circle": {
+      "codepoint": 61714,
+      "source": "./src/assets/icons/question-mark-circle.svg"
+    },
+    "tag": {
+      "codepoint": 61715,
+      "source": "./src/assets/icons/tag.svg"
+    },
+    "upload": {
+      "codepoint": 61707,
+      "source": "./src/assets/icons/upload.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": "fontcustom.yml",
+    "copyright": "",
+    "css3": false,
+    "css_selector": ".fa-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "font_custom",
+    "force": true,
+    "input": {
+      "templates": "./src/assets/icons",
+      "vectors": "./src/assets/icons"
+    },
+    "no_hash": false,
+    "output": {
+      "css": "./src/",
+      "fonts": "./src/assets/font_icons",
+      "preview": "./src/assets/font_icons"
+    },
+    "preprocessor_path": "./src/assets/font_icons",
+    "quiet": false,
+    "templates": [
+      "scss"
+    ]
+  },
+  "templates": [
+    "./src/_font_custom.scss"
+  ]
+}

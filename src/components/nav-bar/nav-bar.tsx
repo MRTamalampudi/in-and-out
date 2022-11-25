@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styles from './nav-bar.module.scss';
-import {logo} from "../../assests/icons";
 import {NavItem} from "../atoms/nav-item/nav-item";
 
 interface NavBarProps {}
@@ -9,7 +8,7 @@ const NavBar = (props:NavBarProps) => {
     return (
         <div className={styles.NavBar}>
             <div className={styles.header}>
-                <img src={logo}/>
+                <i className={`${styles.logo} fa-logo`}></i>
             </div>
             <div className={styles.body}>
                 <NavItem/>

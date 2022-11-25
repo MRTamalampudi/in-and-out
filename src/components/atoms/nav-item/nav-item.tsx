@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styles from './nav-item.module.scss';
-import {accountCircle} from "../../../assests/icons";
 import {Tooltip} from "@mantine/core";
 
 interface NavItemProps {}
@@ -11,7 +10,7 @@ export const NavItem = (props:NavItemProps) => {
         <div className={`${styles.NavItem}`}>
 
             <span className={styles.border}></span>
-                <img src={accountCircle} className={styles.img}/>
+            <i className={'fa-download'}></i>
         </div>
         </Tooltip>
     )

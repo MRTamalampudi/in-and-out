@@ -1,9 +1,9 @@
 @tailwind components;
 @tailwind utilities;
-
+@import "font_custom";
 @font-face {
     font-family: 'Inter';
-    src: local('Inter'), url("./assests/fonts/inter/Inter-Regular.ttf") format('truetype');
+    src: local('Inter'), url("./assets/fonts/inter/Inter-Regular.ttf") format('truetype');
 }
 
 *{
@@ -26,3 +26,5 @@
     font-weight: bolder;
     text-transform: uppercase;
 }
+
+//

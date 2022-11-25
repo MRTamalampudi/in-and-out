@@ -1,0 +1,18 @@
+font_name: font_custom
+css_selector: .fa-{{glyph}}
+preprocessor_path: "./src/assets/font_icons"
+autowidth: false
+no_hash: false
+force: true
+debug: false
+quiet: false
+
+input:
+  vectors: ./src/assets/icons
+
+output:
+  fonts: ./src/assets/font_icons
+  css: ./src/
+
+templates:
+  - scss
