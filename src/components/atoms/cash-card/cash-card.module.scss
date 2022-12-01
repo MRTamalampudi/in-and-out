@@ -1,0 +1,45 @@
+@use "src/styles/colors";
+@import "src/styles/typography";
+
+.CashCard {
+  width: 100%;
+  padding: 1rem ;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cashIn{
+  background: linear-gradient(94.7deg, #014D40 -3.6%, #2cbc98 142.21%);
+}
+.cashOut{
+  color: #829AB1;
+  background: linear-gradient(95.18deg, #911111 -6.14%, #D64545 104.57%);
+}
+.balance{
+  background: linear-gradient(93.76deg, #0A558C 0.38%, #2680C2 108.54%);
+}
+.title{
+  @extend .f-14-b;
+  color: colors.$g-200;
+  position: relative;
+  z-index: 10;
+}
+.amount{
+  @extend .f-20;
+  color: colors.$g-200;
+  position: relative;
+  z-index: 10;
+}
+.bgDecor{
+  @extend .f-40-b;
+  color: colors.$g-200;
+  opacity: 7%;
+  position: absolute;
+  bottom: -1.25rem;
+  text-transform: uppercase;
+  z-index: 0;
+}
