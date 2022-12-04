@@ -23,7 +23,7 @@ const CashCard = (props:CashCardProps) => {
   return (
       <div className={`${styles.CashCard} ${style}`}>
           <span className={styles.title}>{title}</span>
-          <span className={styles.amount}>$ 5000</span>
+          <span className={styles.amount}>$5000</span>
           <span className={styles.bgDecor}>{title}</span>
       </div>
   )

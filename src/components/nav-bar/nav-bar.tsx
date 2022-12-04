@@ -11,15 +11,14 @@ const NavBar = (props:NavBarProps) => {
                 <i className={`${styles.logo} fa-logo`}></i>
             </div>
             <div className={styles.body}>
-                <NavItem/>
-                <NavItem/>
-                <NavItem/>
-                <NavItem/>
-                <NavItem/>
+                <NavItem label={"Books"} icon={"fa-book"}/>
+                <NavItem label={"Wishlist"} icon={"fa-heart"}/>
+                <NavItem label={"Subscriptions"} icon={"fa-play-circle"}/>
+                <NavItem label={"Bills"} icon={"fa-data-usage"}/>
             </div>
             <div className={styles.footer}>
-                <NavItem/>
-                <NavItem/>
+                <NavItem label={"Help"} icon={"fa-question-mark-circle"}/>
+                <NavItem label={"Account"} icon={"fa-account-circle"}/>
             </div>
         </div>
     )

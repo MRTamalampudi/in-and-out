@@ -1,0 +1,25 @@
+@use "src/styles/colors";
+@import "src/styles/borders";
+@import "src/styles/typography";
+.SummaryCard {
+  display: flex;
+  flex-direction: column;
+  @extend .border-solid-1;
+  @extend .border-rds-4;
+  padding: 0.5rem 0;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem 0.25rem 1rem;
+    @extend .border-separator-bottom;
+    .title{
+      @extend .f-14-bb;
+      color: colors.$black;
+    }
+    .seeAll{
+      @extend .f-12;
+      color: colors.$g-800;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@use "src/styles/colors";
+@import "src/styles/borders";
+@import "src/styles/typography";
+
+.mantine-DatePicker-input{
+  @extend .border-solid-1;
+  &:focus{
+    @extend .border-solid-1;
+  }
+}

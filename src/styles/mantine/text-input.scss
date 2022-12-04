@@ -1,0 +1,9 @@
+@import "src/styles/borders";
+
+
+.mantine-TextInput-input{
+  @extend .border-solid-1;
+  &:focus{
+    @extend .border-solid-1;
+  }
+}

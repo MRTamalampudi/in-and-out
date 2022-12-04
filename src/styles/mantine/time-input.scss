@@ -1,0 +1,7 @@
+@use "src/styles/colors";
+@import "src/styles/typography";
+@import "src/styles/borders";
+
+.mantine-TimeInput-input{
+  @extend .border-solid-1;
+}

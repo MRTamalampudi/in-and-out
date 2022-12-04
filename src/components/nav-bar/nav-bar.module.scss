@@ -1,12 +1,14 @@
 @use "src/styles/colors";
 @import "/src/font_custom";
+@import "src/styles/borders";
 
 .NavBar {
   display: flex;
   flex-direction: column;
-  width: 4rem;
+  width: 3.5rem;
   height: 100vh;
-  background: colors.$n-100;
+  background: colors.$g-100;
+  @extend .border-separator-right;
 }
 
 .header{

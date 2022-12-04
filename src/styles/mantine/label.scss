@@ -1,0 +1,9 @@
+@import "src/styles/typography";
+
+.mantine-TextInput-label ,
+.mantine-DatePicker-label,
+.mantine-TimeInput-label,
+.mantine-Textarea-label,
+.mantine-Select-label{
+  @extend .f-12-b
+}

@@ -1,0 +1,58 @@
+@use "src/styles/colors";
+@import "src/styles/typography";
+
+
+.TransactionSummary {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  .logoAndContentContainer{
+    display: flex;
+    align-items: center;
+    .brandLogo{
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #829AB1;
+      border-radius: 0.25rem;
+    }
+    .titleAndTimeContainer{
+      display: flex;
+      flex-direction: column;
+      margin-left: 1rem;
+      min-width: 10rem;
+      .content{
+        @extend .f-16-b;
+        color: colors.$black;
+      }
+      .time{
+        @extend .f-12-b;
+        color: colors.$g-1000;
+
+      }
+    }
+  }
+  .amountAndInfoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .amount{
+      @extend .f-16-b;
+      color: colors.$b-700;
+    }
+    .info{
+      @extend .f-10-b;
+      color: colors.$b-700;
+      visibility: hidden;
+    }
+  }
+  &:hover{
+    background: colors.$g-300;
+    .amountAndInfoContainer{
+      .info{
+        visibility: visible;
+      }
+    }
+  }
+}

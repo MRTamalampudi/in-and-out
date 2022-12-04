@@ -1,0 +1,15 @@
+@import "src/styles/typography";
+
+.mantine-Button-label{
+  @extend .f-14-b;
+  letter-spacing: 0.4px;
+}
+
+.mantine-Button-root{
+  &:focus{
+    outline: none;
+  }
+  &:focus-visible{
+    outline: none;
+  }
+}

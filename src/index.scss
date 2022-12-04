@@ -1,30 +1,13 @@
 @tailwind components;
 @tailwind utilities;
 @import "font_custom";
-@font-face {
-    font-family: 'Inter';
-    src: local('Inter'), url("./assets/fonts/inter/Inter-Regular.ttf") format('truetype');
-}
+@import "font-face";
+
 
 *{
     font-family: Inter,sans-serif;
 }
 
-.mantine-Tooltip-tooltip{
-    font-size: xx-small;
-    padding: 0.5rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.25rem;
-}
 
-.mantine-Tabs-tab{
-    border-bottom-width: 0.3rem;
-}
-
-.mantine-TextInput-label{
-    font-size: x-small;
-    font-weight: bolder;
-    text-transform: uppercase;
-}
-
-//
+//mantine
+@import "src/styles/mantine/index";

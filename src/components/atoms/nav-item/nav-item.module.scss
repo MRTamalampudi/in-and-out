@@ -1,3 +1,4 @@
+@use "src/styles/colors";
 .NavItem {
   display: flex;
   width: 100%;
@@ -17,9 +18,13 @@
       display: block;
       width: 7%;
       height: 100%;
-      background: #199473;
+      background: colors.$primary;
       border-bottom-right-radius: 4px;
       border-top-right-radius: 4px;
     }
+  }
+  .icon{
+    color: colors.$n-600;
+    font-size: 20px;
   }
 }

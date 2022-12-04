@@ -5,23 +5,41 @@
   letter-spacing: $letter-spacing;
 }
 
+.f-10{
+  @include typography(0.625rem,400,0.1px)
+}
+.f-10-b{
+  @include typography(0.625rem,500,0.1px)
+}
+.f-12{
+  @include typography(0.75rem,400,0.1px)
+}
+.f-12-b{
+  @include typography(0.75rem,500,0.1px)
+}
+.f-12-bb{
+  @include typography(0.75rem,600,0.2px)
+}
 .f-14{
-  @include typography(0.8rem,500,0.25px)
+  @include typography(0.8rem,400,0px)
 }
 .f-14-b{
-  @include typography(0.8rem,500,0.5px)
+  @include typography(0.8rem,500,0.15px)
+}
+.f-14-bb{
+  @include typography(0.8rem,600,0.15px)
 }
 .f-16{
   @include typography(1rem,500,0.2px);
 }
 .f-16-b{
-  @include typography(1rem,700,0.2px)
+  @include typography(1rem,600,0.2px)
 }
 .f-18{
   @include typography(1.2rem,500,0.2px);
 }
 .f-18-b{
-  @include typography(1.2rem,700,1px);
+  @include typography(1.2rem,700,0px);
 }
 .f-20{
   @include typography(1.25rem,600,0.03rem);

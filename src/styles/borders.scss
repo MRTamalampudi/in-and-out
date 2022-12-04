@@ -1,0 +1,27 @@
+@use "src/styles/colors";
+
+@mixin borderSolid($size){
+  border: #{$size} solid colors.$g-800;
+}
+
+.border-solid-1{
+  @include borderSolid(1px);
+}
+.border-solid-2{
+  @include borderSolid(2px)
+}
+.border-separator-bottom{
+  border-bottom: 0.5px solid colors.$g-400;
+}
+
+.border-separator-right{
+  border-right: 0.5px solid colors.$g-400;
+}
+
+.border-rds-4{
+  border-radius: 0.25rem;
+}
+
+.border-rds-8{
+  border-radius: 0.5rem;
+}

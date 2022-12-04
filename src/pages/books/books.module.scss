@@ -1,0 +1,19 @@
+@use "src/styles/colors";
+@import "src/styles/typography";
+
+.Books {
+  padding: 1rem;
+  width: 100%;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    .left{
+      @extend .f-18-b;
+      color: colors.$n-1000;
+    }
+    .right{
+      display: flex;
+      gap:1rem;
+    }
+  }
+}
