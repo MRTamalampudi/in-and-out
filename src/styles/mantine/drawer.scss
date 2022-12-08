@@ -1,16 +1,3 @@
-@use "src/styles/colors";
-@import "src/styles/typography";
-
-.mantine-Tabs-tab{
-  border-bottom-width: 0.3rem;
-  padding: 1rem 0.5rem;
-  &:hover{
-    background: colors.$g-200;
-  }
+.mantine-Drawer-body{
+  height: 100%;
 }
-
-.mantine-Tabs-tabLabel{
-  @extend .f-16-b;
-  color: colors.$black;
-}
-

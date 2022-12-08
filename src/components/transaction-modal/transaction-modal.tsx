@@ -3,6 +3,7 @@ import styles from './transaction-modal.module.scss';
 import {Button, Drawer, Tabs} from "@mantine/core";
 import {PrimaryTerms} from "../../enums";
 import {CashInForm} from "./cash-in-form";
+import {CashOutForm} from "./cash-out-form";
 
 interface TransactionModalProps {}
 
@@ -27,6 +28,9 @@ const TransactionModal = (props:TransactionModalProps) => {
                     </Tabs.List>
                     <Tabs.Panel value={PrimaryTerms.CASH_IN}>
                         <CashInForm/>
+                    </Tabs.Panel>
+                    <Tabs.Panel value={PrimaryTerms.CASH_OUT}>
+                        <CashOutForm/>
                     </Tabs.Panel>
                 </Tabs>
             </Drawer>

@@ -3,7 +3,7 @@ import {DatePicker, TimeInput} from "@mantine/dates";
 import {Autocomplete, Input, Select, Textarea, TextInput,Button} from "@mantine/core";
 
 
-export const CashInForm = () => {
+export const CashOutForm = () => {
   return(
       <div className={styles.cashIn}>
           <div className={styles.body}>
@@ -20,8 +20,7 @@ export const CashInForm = () => {
           </div>
           <div className={styles.footer}>
               <Button variant={"subtle"} color={"c-blue-gray"} size={"xs"}>Cancel</Button>
-              <Button variant={"outline"} size={"xs"}>Save</Button>
-              <Button size={"xs"}>Save & Add new</Button>
+              <Button color={"c-red"} size={"xs"}>Save</Button>
           </div>
       </div>
   )

@@ -2,8 +2,11 @@
 @import "src/styles/typography";
 
 .Books {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   width: 100%;
+  gap: 1rem;
   .header{
     display: flex;
     justify-content: space-between;
@@ -14,6 +17,13 @@
     .right{
       display: flex;
       gap:1rem;
+    }
+  }
+  .body{
+    .cashCardComponents{
+      display: flex;
+      gap: 0.5rem;
+      height: 4rem;
     }
   }
 }

@@ -19,6 +19,7 @@ export const Colors = ({children}:ColorsProps) => {
                 'c-blue':['#DCEEFB', '#B6E0FE', '#84C5F4', '#62B0E8', '#4098D7', '#2680C2', '#186FAF', '#0F609B', '#0A558C', '#003E6B'],
             },
             primaryColor: "c-teal",
+            focusRing:"never",
 
         }}>
             {children}

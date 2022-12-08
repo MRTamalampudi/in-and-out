@@ -14,12 +14,13 @@
 .mantine-Select-input{
   @extend .f-14-b;
   @extend .border-solid-1;
+  background: colors.$g-200;
   &:focus{
     @extend .border-solid-1;
   }
 }
 .mantine-Select-itemsWrapper{
-  background: colors.$g-100;
+  background: colors.$g-200;
   border-radius: 0.25rem;
 }
 .mantine-Select-dropdown{

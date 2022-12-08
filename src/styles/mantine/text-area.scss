@@ -1,7 +1,9 @@
+@use "src/styles/colors";
 @import "src/styles/borders";
 
 .mantine-Textarea-input{
   @extend .border-solid-1;
+  background-color: colors.$g-200;
   &:focus{
     @extend .border-solid-1;
   }
