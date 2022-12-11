@@ -8,6 +8,7 @@ import CashCard from "./components/atoms/cash-card/cash-card";
 import TransactionSummary from "./components/atoms/transaction-summary/transaction-summary";
 import SummaryCard from "./components/atoms/summary-card/summary-card";
 import Books from "./pages/books/books";
+import Dashboard from "./pages/dashboard/dashboard";
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
         {/*        />*/}
         {/*    <SummaryCard/>*/}
         {/*</div>*/}
-        <Books/>
+        <Dashboard/>
     </div>
   );
 }

@@ -1,1 +1,16 @@
-.Dashboard {}
+@use "src/styles/colors";
+@import "src/styles/typography";
+
+.Dashboard {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  .header{
+    display: flex;
+    @extend .f-18-b;
+    color: colors.$black;
+  }
+  .body{
+
+  }
+}
