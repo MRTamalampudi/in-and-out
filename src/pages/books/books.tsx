@@ -3,7 +3,6 @@ import styles from './books.module.scss';
 import {Button} from "@mantine/core";
 import TransactionModal from "../../components/transaction-modal/transaction-modal";
 import CashCard from "../../components/atoms/cash-card/cash-card";
-import {PrimaryTerms} from "../../enums";
 import Table from "../../components/table/table";
 
 interface BooksProps {}

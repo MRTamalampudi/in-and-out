@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import styles from './transaction-modal.module.scss';
 import {Button, Drawer, Tabs} from "@mantine/core";
-import {PrimaryTerms} from "../../enums";
+import {PrimaryTerms} from "../../enums/primary-terms";
 import {CashInForm} from "./cash-in-form";
 import {CashOutForm} from "./cash-out-form";
 

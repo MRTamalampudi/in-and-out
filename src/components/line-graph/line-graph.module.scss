@@ -1,1 +1,16 @@
-.LineGraph {}
+@use "src/styles/colors";
+@import "src/styles/typography";
+
+.LineGraph {
+  .yAxis{
+    color: colors.$g-1000;
+    @extend .f-10-bb;
+  }
+  .xAxis{
+    color: colors.$g-1000;
+    @extend .f-10-bb;
+    .domain{
+      stroke: colors.$g-1000;
+    }
+  }
+}

@@ -11,6 +11,9 @@
 .f-10-b{
   @include typography(0.625rem,500,0.1px)
 }
+.f-10-bb{
+  @include typography(0.625rem,600,0.1px)
+}
 .f-12{
   @include typography(0.75rem,400,0.1px)
 }

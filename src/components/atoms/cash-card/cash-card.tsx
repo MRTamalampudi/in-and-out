@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './cash-card.module.scss';
-import {PrimaryTerms} from "../../../enums";
+import {PrimaryTerms} from "../../../enums/primary-terms";
 
 
 interface CashCardProps {
