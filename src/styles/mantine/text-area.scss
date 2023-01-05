@@ -3,7 +3,7 @@
 
 .mantine-Textarea-input{
   @extend .border-solid-1;
-  background-color: colors.$g-200;
+  background-color: colors.$g-100;
   &:focus{
     @extend .border-solid-1;
   }

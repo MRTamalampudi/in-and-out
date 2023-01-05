@@ -1,0 +1,12 @@
+@use "src/styles/colors";
+@import "./src/styles/typography";
+
+.mantine-Table-root{
+  thead{
+    background-color: colors.$n-100;
+    @extend .f-14-b;
+  }
+  tbody{
+    @extend .f-16;
+  }
+}

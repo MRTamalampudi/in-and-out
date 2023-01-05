@@ -20,11 +20,13 @@
 
 .mantine-Tabs-tabsList{
   height: 3.5rem;
+  background-color: colors.$g-100;
 }
 
 .mantine-Tabs-panel{
   box-sizing: border-box;
   padding-bottom: 3.5rem;
   height: 100%;
+  background-color: colors.$g-100;
 }
 

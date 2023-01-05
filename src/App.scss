@@ -1,5 +1,7 @@
+@use "styles/colors";
+
 .App{
-  background: #FBFBFD;
+  background: colors.$g-100;
   display: flex;
 }
 .test{

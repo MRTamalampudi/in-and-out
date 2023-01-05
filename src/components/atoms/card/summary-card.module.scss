@@ -1,0 +1,45 @@
+@use "src/styles/colors";
+@import "src/styles/borders";
+@import "src/styles/typography";
+.SummaryCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  @extend .border-solid-1;
+  @extend .border-rds-4;
+  border-color: colors.$g-400;
+  padding: 0.5rem 0.5rem;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+    padding: 0.5rem 0.5rem;
+    .left{
+      display: flex;
+      gap: 0.25rem;
+      align-items: baseline;
+      .title{
+        @extend .f-16-b;
+        color: colors.$black;
+      }
+      .subtitle{
+        @extend .f-12-b;
+        color: colors.$g-1000;
+      }
+    }
+    .right{
+      display: flex;
+      gap: 0.5rem;
+      .seeAll{
+        @extend .f-12;
+        color: colors.$g-800;
+      }
+    }
+  }
+  .body{
+    height: calc(100% - 2.25rem);
+    overflow-y: auto;
+  }
+}

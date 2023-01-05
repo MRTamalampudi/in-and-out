@@ -24,13 +24,16 @@
   @include typography(0.75rem,600,0.2px)
 }
 .f-14{
-  @include typography(0.8rem,400,0px)
+  @include typography(0.875rem,400,0px)
 }
 .f-14-b{
-  @include typography(0.8rem,500,0.15px)
+  @include typography(0.875rem,500,0.15px)
 }
 .f-14-bb{
-  @include typography(0.8rem,600,0.15px)
+  @include typography(0.875rem,600,0.15px)
+}
+.f-14-bbb{
+  @include typography(0.875rem,700,0.15px)
 }
 .f-16{
   @include typography(1rem,500,0.2px);

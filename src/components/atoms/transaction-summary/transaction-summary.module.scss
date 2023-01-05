@@ -7,7 +7,7 @@
   align-items: center;
   border-radius: 0.25rem;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   .logoAndContentContainer{
     display: flex;
     align-items: center;
@@ -23,11 +23,11 @@
       margin-left: 1rem;
       min-width: 10rem;
       .content{
-        @extend .f-16-b;
+        @extend .f-14-bb;
         color: colors.$black;
       }
       .time{
-        @extend .f-12-b;
+        @extend .f-10-bb;
         color: colors.$g-1000;
 
       }
@@ -38,7 +38,7 @@
     flex-direction: column;
     align-items: flex-end;
     .amount{
-      @extend .f-16-b;
+      @extend .f-14-bbb;
       color: colors.$b-700;
     }
     .info{

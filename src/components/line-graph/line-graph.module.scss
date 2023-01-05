@@ -10,7 +10,10 @@
     color: colors.$g-1000;
     @extend .f-10-bb;
     .domain{
-      stroke: colors.$g-1000;
+
     }
+  }
+  .hAxes{
+    stroke: colors.$g-1000;
   }
 }

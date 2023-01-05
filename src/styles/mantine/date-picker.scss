@@ -3,7 +3,7 @@
 @import "src/styles/typography";
 
 .mantine-DatePicker-input{
-  background-color: colors.$g-200;
+  background-color: colors.$g-100;
   @extend .border-solid-1;
   &:focus{
     @extend .border-solid-1;

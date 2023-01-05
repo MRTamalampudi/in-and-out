@@ -39,27 +39,39 @@ const last7Days = () => {
 
 
 const LineGraph= (props:LineGraphProps) => {
-    const [amount,setAmount]=useState<number[]>([25,750,45,60,20,90,80]);
-    const [xBandwidth,setXBandwidth] = useState<number>();
+    const [amount,setAmount]=useState<number[]>([25,70,45,60,20,90,80]);
+    const [width,setWidth] = useState<number>(700);
+    const [height,setHeight] = useState<number>(300);
 
     const svgref = useRef(null);
 
     useEffect(()=>{
+        // @ts-ignore
+        if(svgref?.current?.clientWidth){
+            // @ts-ignore
+            setWidth(svgref?.current?.clientWidth)
+            // @ts-ignore
+            setHeight(svgref?.current?.clientHeight)
+        }
+    },[])
+
+    useEffect(()=>{
+
+
         const svg = d3.select("#chart")
-            .style("height",SVG_HEIGHT+"px")
-            .style("width",SVG_WIDTH+"px");
 
         svg.selectAll(".xAxis").remove();
         svg.selectAll(".yAxis").remove();
         svg.selectAll(".area").remove();
         svg.selectAll(".stroke").remove();
-        svg.selectAll(".circle").remove();
+        svg.selectAll("circle").remove();
+        svg.selectAll(".hAxes").remove();
 
 
         // - - - - -  xAxis  - - - - -
         let xScale = d3.scaleBand()
             .domain(last7Days())
-            .range([30,SVG_WIDTH])
+            .range([30,width])
 
         let xAxis = d3.axisBottom(xScale)
             .tickPadding(4)
@@ -67,24 +79,38 @@ const LineGraph= (props:LineGraphProps) => {
 
         svg.append("g")
             .style("width","400px")
-            .attr("transform", `translate(0,${SVG_HEIGHT-30})`)
+            .attr("transform", `translate(0,${height-30})`)
             .attr("class",`xAxis ${styles.xAxis}`)
             .attr("stroke-width","0.5")
             .call(xAxis)
 
         // - - - - -  yAxis  - - - - -
         let yScale = d3.scaleLinear()
-            .domain([Math.max(...amount),0])
-            .range([30,SVG_HEIGHT-30]);
+            .domain([Math.max(...amount),Math.min(...amount)])
+            .range([30,height-30]).nice(Y_TICKS);
 
 
         let yAxis = d3.axisLeft(yScale)
-            .ticks(Y_TICKS)
-            .tickSizeInner(0);
+            .ticks(5)
+            .tickSizeInner(0)
+
 
         svg.append("g").attr("class",`yAxis ${styles.yAxis}`)
             .attr("transform","translate(30,0)")
             .call(yAxis)
+
+        // - - - - -  horizonatal axes - - - - -
+        const ticks:number[] = yScale.ticks(Y_TICKS)
+        ticks.pop();
+        ticks.forEach(yValue=>{
+            svg.append("line")
+                .attr("x1",30)
+                .attr("x2",width)
+                .attr("y1",yScale(yValue))
+                .attr("y2",yScale(yValue))
+                .attr("stroke-width","0.2")
+                .attr("class",`hAxes ${styles.hAxes}`)
+        })
 
         // - - - - -  stroke  - - - - -
         let line = d3.line<number>()
@@ -102,7 +128,7 @@ const LineGraph= (props:LineGraphProps) => {
         // - - - - -  area  - - - - -
         let area = d3.area<number>()
             .x((value,index)=>(index+1)*xScale.bandwidth()-xScale.bandwidth()/2)
-            .y0(SVG_HEIGHT-30)
+            .y0(height-30)
             .y1((value,index)=>yScale(value))
 
         svg.append("path")
@@ -149,7 +175,7 @@ const LineGraph= (props:LineGraphProps) => {
         lg.append("stop")
             .attr("offset", "0%")
             .style("stop-color",PRIMARY_RED )
-            .style("stop-opacity", 0.25);
+            .style("stop-opacity", 0.30);
         lg.append("stop")
             .attr("offset", "100%")
             .style("stop-color", PRIMARY_RED)
@@ -157,12 +183,12 @@ const LineGraph= (props:LineGraphProps) => {
 
         //- - - - -  Removes yAxis line  - - - - -
         svg.select(".yAxis .domain").remove();
-    })
+    },[width])
 
 
   return (
       <div className={styles.LineGraph}>
-          <svg ref={svgref} id={"chart"} >
+          <svg ref={svgref} id={"chart"} viewBox={'0 0 1100 150'} >
           </svg>
       </div>
   )

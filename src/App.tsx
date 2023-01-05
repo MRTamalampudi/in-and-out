@@ -6,9 +6,11 @@ import {NavItem} from "./components/atoms/nav-item/nav-item";
 import NavBar from "./components/nav-bar/nav-bar";
 import CashCard from "./components/atoms/cash-card/cash-card";
 import TransactionSummary from "./components/atoms/transaction-summary/transaction-summary";
-import SummaryCard from "./components/atoms/summary-card/summary-card";
+import Card from "./components/atoms/card/card";
 import Books from "./pages/books/books";
 import Dashboard from "./pages/dashboard/dashboard";
+import LineGraph from "./components/line-graph/line-graph";
+import MyResponsiveLine from "./components/chart-js-graph/chart-js-graph";
 
 
 function App() {
@@ -36,7 +38,12 @@ function App() {
         {/*        />*/}
         {/*    <SummaryCard/>*/}
         {/*</div>*/}
-        <Dashboard/>
+        {/*<Dashboard/>*/}
+        <Books/>
+        {/*<LineGraph/>*/}
+        {/*<div style={{width:'900px',height:'500px'}}>*/}
+        {/*    <MyResponsiveLine/>*/}
+        {/*</div>*/}
     </div>
   );
 }

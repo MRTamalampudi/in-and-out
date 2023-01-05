@@ -1,0 +1,39 @@
+@use "src/styles/colors";
+@import "src/styles/gradients";
+@import "src/styles/typography";
+
+.CategoryCard {
+  position: relative;
+  @extend .gray-gradient;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 5rem;
+  padding: 0.5rem;
+  .icon{
+    color: colors.$g-100 ;
+  }
+  .amountCategory{
+    display: flex;
+    flex-direction: column;
+    .amount{
+      @extend .f-14-b;
+      color: colors.$g-100;
+    }
+    .category{
+      @extend .f-12-b;
+      color: colors.$g-100;
+    }
+  }
+  .bgDecor{
+    position: absolute;
+    right:0;
+    bottom: 0;
+    transform-origin: bottom right;
+    transform: rotate(-90deg) translateX(105%);
+    @extend .f-24;
+    color: colors.$g-100;
+    opacity: 10%;
+  }
+}
