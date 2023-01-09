@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useState} from 'react';
 import styles from './dashboard.module.scss';
 import LineGraph from "../../components/line-graph/line-graph";
 import {Select} from "@mantine/core";
@@ -9,10 +9,26 @@ import CategoryCard from "../../components/atoms/category-card/category-card";
 import {CategoriesSummary} from "./categories";
 import TransactionSummary from "../../components/atoms/transaction-summary/transaction-summary";
 import {TransactionsSummary} from "./transactions";
+import {Period} from "../../enums/filters";
 
 interface DashboardProps {}
 
 const Dashboard = (props:DashboardProps) => {
+
+    const [timePeriod,setTimePeriod]=useState<string>(Period.LAST_7_DAYS);
+
+    const SelectPeriod = () => {
+        let data = Object.values(Period)
+            .filter((value) => value!='Period')
+            .map((data)=>({value:data,label:data}))
+        return (
+            <Select data={data} value={timePeriod} onChange={(value)=>setTimePeriod(value!)} label={Period.PERIOD} size={'xs'}/>
+        )
+    }
+    // const SelectBooks = () => {
+    //     return (
+    //     )
+    // }
   return(
       <div className={styles.Dashboard}>
           <div className={styles.header}>
@@ -24,41 +40,7 @@ const Dashboard = (props:DashboardProps) => {
                   <div className={styles.top}>
                       <div className={styles.filtersContainer}>
                           <div className={styles.right}>
-                              <Select
-                                  label="Your favorite framework/library"
-                                  placeholder="Pick one"
-                                  size={"xs"}
-                                  rightSection={<i className={"fa-arrow-down"}/>}
-                                  data={[
-                                      { value: 'react', label: 'React' },
-                                      { value: 'ng', label: 'Angular' },
-                                      { value: 'svelte', label: 'Svelte' },
-                                      { value: 'vue', label: 'Vue' },
-                                  ]}/>
-                              <Select
-                                  label="Your favorite framework/library"
-                                  placeholder="Pick one"
-                                  size={'xs'}
-                                  rightSection={<i className={"fa-arrow-down"}/>}
-                                  data={[
-                                      { value: 'react', label: 'React' },
-                                      { value: 'ng', label: 'Angular' },
-                                      { value: 'svelte', label: 'Svelte' },
-                                      { value: 'vue', label: 'Vue' },
-                                  ]}/>
-                          </div>
-                          <div>
-                              <Select
-                                  label="Your favorite framework/library"
-                                  placeholder="Pick one"
-                                  size={'xs'}
-                                  rightSection={<i className={"fa-arrow-down"}/>}
-                                  data={[
-                                      { value: 'react', label: 'React' },
-                                      { value: 'ng', label: 'Angular' },
-                                      { value: 'svelte', label: 'Svelte' },
-                                      { value: 'vue', label: 'Vue' },
-                                  ]}/>
+                              <SelectPeriod/>
                           </div>
                       </div>
                       <div className={styles.cashCardsContainer}>

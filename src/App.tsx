@@ -11,15 +11,23 @@ import Books from "./pages/books/books";
 import Dashboard from "./pages/dashboard/dashboard";
 import LineGraph from "./components/line-graph/line-graph";
 import MyResponsiveLine from "./components/chart-js-graph/chart-js-graph";
+import {TransactionsData} from "./static-data/transactions";
+import {Outlet} from "react-router";
+
+
 
 
 function App() {
-    const [open,setOpen] = useState<boolean>(false);
+    const TRANSACTION = 'transaction'
+
+    if(!sessionStorage.getItem(TRANSACTION)){
+        sessionStorage.setItem(TRANSACTION,JSON.stringify(TransactionsData))
+    }
+
   return (
     <div className="App" >
-        {/*<Button onClick={()=>setOpen(true)}> Open Modal</Button>*/}
-        {/*<TextInput label={"Cash in"} placeholder={"text"}></TextInput>*/}
         <NavBar/>
+        <Outlet/>
         {/*<div className={"test"}>*/}
         {/*    <TransactionSummary time={"Expires Today"}*/}
         {/*    logo={""} title={"Netflix"} amount={"$200"}/>*/}
@@ -39,7 +47,7 @@ function App() {
         {/*    <SummaryCard/>*/}
         {/*</div>*/}
         {/*<Dashboard/>*/}
-        <Books/>
+        {/*<Books/>*/}
         {/*<LineGraph/>*/}
         {/*<div style={{width:'900px',height:'500px'}}>*/}
         {/*    <MyResponsiveLine/>*/}

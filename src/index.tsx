@@ -5,16 +5,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {MantineProvider} from "@mantine/core";
 import {Colors} from "./theme/colors";
+import {Route, Routes} from "react-router";
+import Dashboard from "./pages/dashboard/dashboard";
+import { BrowserRouter } from "react-router-dom";
+import Books from "./pages/books/books";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
       <Colors>
-          <App />
+          <BrowserRouter>
+              <Routes>
+                  <Route  path={'/'} element={
+                      <App/>
+                  }>
+                      <Route path={'dashboard'} element={<Dashboard/>}/>
+                      <Route path={'books'} element={<Books/>}/>
+                  </Route>
+              </Routes>
+          </BrowserRouter>
       </Colors>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

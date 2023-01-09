@@ -27,7 +27,7 @@ const TransactionModal = (props:TransactionModalProps) => {
                         <Tabs.Tab value={PrimaryTerms.CASH_OUT} color={'c-red'}>{PrimaryTerms.CASH_OUT}</Tabs.Tab>
                     </Tabs.List>
                     <Tabs.Panel value={PrimaryTerms.CASH_IN}>
-                        <CashInForm/>
+                        <CashInForm setOpen={setOpen}/>
                     </Tabs.Panel>
                     <Tabs.Panel value={PrimaryTerms.CASH_OUT}>
                         <CashOutForm/>

@@ -18,3 +18,11 @@ export enum Cash_Flow {
     CASH_IN = 'Cash In',
     CASH_OUT = 'Cash Out'
 }
+
+export enum Categories {
+    CATEGORIES = 'Categories',
+    FOOD = 'Food',
+    MAINTAINENCE = 'Maintainence',
+    TRAVELLING = 'Travelling',
+    OTHERS = 'Others'
+}

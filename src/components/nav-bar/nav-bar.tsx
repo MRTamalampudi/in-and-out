@@ -1,6 +1,8 @@
+
 import React, { FC } from 'react';
 import styles from './nav-bar.module.scss';
 import {NavItem} from "../atoms/nav-item/nav-item";
+import {Link} from "react-router-dom";
 
 interface NavBarProps {}
 
@@ -11,8 +13,12 @@ const NavBar = (props:NavBarProps) => {
                 <i className={`${styles.logo} fa-logo`}></i>
             </div>
             <div className={styles.body}>
-                <NavItem label={"Books"} icon={"fa-book"}/>
-                <NavItem label={"Wishlist"} icon={"fa-heart"}/>
+                <Link to={'/books'} >
+                    <NavItem label={"Books"} icon={"fa-book"}/>
+                </Link>
+                <Link to={'/dashboard'}>
+                    <NavItem label={"Wishlist"} icon={"fa-heart"}/>
+                </Link>
                 <NavItem label={"Subscriptions"} icon={"fa-play-circle"}/>
                 <NavItem label={"Bills"} icon={"fa-data-usage"}/>
             </div>

@@ -1,0 +1,14 @@
+@use 'src/styles/colors';
+@import "src/styles/typography";
+
+.mantine-TextInput-error{
+  color: colors.$red-500;
+  @extend .f-12-b;
+}
+.mantine-Input-invaild,
+.mantine-TextInput-invalid
+{
+  color: colors.$red-500;
+  background-color: colors.$red-100;
+  @extend .border-solid-1;
+}

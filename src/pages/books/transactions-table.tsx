@@ -2,6 +2,9 @@ import {Select, Table} from '@mantine/core';
 import Card from "../../components/atoms/card/card";
 import {Cash_Flow, Payment_Mode, Period} from "../../enums/filters";
 import styles from "./books.module.scss";
+import {useEffect, useState} from "react";
+import {Transacation} from "../../model/transacations.model";
+import {TransactionService} from "../../service/transaction.service";
 
 const elements = [
     {position: 6, mass: 12.011, symbol: 'C', name: 'Carbon'},
@@ -11,105 +14,22 @@ const elements = [
     {position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium'},
 ];
 
-const data = [
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },{
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },{
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },{
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },{
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    },
-    {
-        note: 'Spent money on breakfast',
-        partyName: 'Krishna Sagar',
-        transactionDate: '12-12-2022',
-        category: 'Food',
-        paymentMode: 'Online',
-        amount: '$5000'
-    }
-]
 
 
 export const TransactionsTable = () => {
-    const rows = data.map((row) => (
-        <tr key={row.note} className={styles.table1}>
+    const [transactionData,setTransactionData]=useState<Transacation[]>();
+
+    const destroy = (id:number) =>{
+        setTransactionData(TransactionService.destroy(id))
+    }
+
+    useEffect(()=>{
+        setTransactionData(TransactionService.indexAll());
+    },[])
+
+
+    const rows = transactionData?.map((row) => (
+        <tr key={row.id} className={styles.table1}>
             <td>{row.note}</td>
             <td>{row.partyName}</td>
             <td>{row.transactionDate}</td>
@@ -118,7 +38,7 @@ export const TransactionsTable = () => {
             <td>{row.amount}</td>
             <td>
                 <div className={styles.actions}>
-                    <i className={'fa-account-circle'} />
+                    <i className={'fa-account-circle'} onClick={()=>destroy(row.id!)} />
                     <i className={'fa-upload'}/>
                 </div>
             </td>
