@@ -1,14 +1,14 @@
 {
   "checksum": {
-    "previous": "613da84b0242fa79570f6159ec9154e93d419dc614f8c90e54a00ca1f08cc5e8",
-    "current": "613da84b0242fa79570f6159ec9154e93d419dc614f8c90e54a00ca1f08cc5e8"
+    "previous": "ad4a600b6d073d5a2e95e44c2770c8011270c246575a3bbcd04321280df31a3a",
+    "current": "ad4a600b6d073d5a2e95e44c2770c8011270c246575a3bbcd04321280df31a3a"
   },
   "fonts": [
-    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.ttf",
-    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.svg",
-    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff",
-    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.eot",
-    "./src/assets/font_icons/font_custom_613da84b0242fa79570f6159ec9154e9.woff2"
+    "./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.ttf",
+    "./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.svg",
+    "./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff",
+    "./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.eot",
+    "./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff2"
   ],
   "glyphs": {
     "account-circle": {
@@ -23,17 +23,33 @@
       "codepoint": 61709,
       "source": "./src/assets/icons/arrow-down.svg"
     },
+    "bell": {
+      "codepoint": 61716,
+      "source": "./src/assets/icons/bell.svg"
+    },
     "book": {
       "codepoint": 61710,
       "source": "./src/assets/icons/book.svg"
+    },
+    "dashboard": {
+      "codepoint": 61717,
+      "source": "./src/assets/icons/dashboard.svg"
     },
     "data-usage": {
       "codepoint": 61711,
       "source": "./src/assets/icons/data-usage.svg"
     },
+    "delete": {
+      "codepoint": 61718,
+      "source": "./src/assets/icons/delete.svg"
+    },
     "download": {
       "codepoint": 61697,
       "source": "./src/assets/icons/download.svg"
+    },
+    "edit": {
+      "codepoint": 61719,
+      "source": "./src/assets/icons/edit.svg"
     },
     "heart": {
       "codepoint": 61712,
@@ -50,6 +66,10 @@
     "question-mark-circle": {
       "codepoint": 61714,
       "source": "./src/assets/icons/question-mark-circle.svg"
+    },
+    "search": {
+      "codepoint": 61720,
+      "source": "./src/assets/icons/search.svg"
     },
     "tag": {
       "codepoint": 61715,
