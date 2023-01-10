@@ -1,5 +1,6 @@
 @use "src/styles/colors";
 @import "src/styles/borders";
+@import "src/styles/typography";
 
 .mantine-Textarea-input{
   @extend .border-solid-1;

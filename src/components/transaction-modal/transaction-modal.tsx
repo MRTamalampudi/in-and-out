@@ -1,36 +1,46 @@
-import React, {FC, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './transaction-modal.module.scss';
 import {Button, Drawer, Tabs} from "@mantine/core";
 import {PrimaryTerms} from "../../enums/primary-terms";
-import {CashInForm} from "./cash-in-form";
-import {CashOutForm} from "./cash-out-form";
+import {TransactionForm} from "./transaction-form";
+import {Transacation} from "../../model/transacations.model";
 
-interface TransactionModalProps {}
+interface TransactionModalProps {
+    openButton?:React.ReactNode,
+    isEdit?:boolean,
+    trasaction?:Transacation,
+    transactionType?:PrimaryTerms.CASH_IN|PrimaryTerms.CASH_OUT,
 
-const TransactionModal = (props:TransactionModalProps) => {
+}
+
+const TransactionModal = ({trasaction,isEdit=false,openButton,transactionType=PrimaryTerms.CASH_IN}:TransactionModalProps) => {
     const [open,setOpen]=useState<boolean>(false);
     const modalState = () => {setOpen(prevState => !prevState)}
+    const OpenButton = () => {
+      return (<Button size={'xs'}
+                      leftIcon={<i className={"fa-add-circle"}/>} >
+          Add Transaction</Button>)
+    }
     return(
         <div className={styles.TransactionModal}>
-            <Button size={'xs'}
-                    leftIcon={<i className={"fa-add-circle"}/>}
-                    onClick={modalState}>
-                Add Transaction</Button>
+            <div onClick={modalState}>
+                {openButton || <OpenButton/>}
+            </div>
             <Drawer opened={open}
                     size={"xl"}
                     withCloseButton={false}
                     onClose={modalState}
                     position={"right"}>
-                <Tabs defaultValue={PrimaryTerms.CASH_IN}>
+                <Tabs defaultValue={transactionType}>
                     <Tabs.List grow={true}>
                         <Tabs.Tab value={PrimaryTerms.CASH_IN} >{PrimaryTerms.CASH_IN}</Tabs.Tab>
                         <Tabs.Tab value={PrimaryTerms.CASH_OUT} color={'c-red'}>{PrimaryTerms.CASH_OUT}</Tabs.Tab>
                     </Tabs.List>
                     <Tabs.Panel value={PrimaryTerms.CASH_IN}>
-                        <CashInForm setOpen={setOpen}/>
+                        <TransactionForm transaction={trasaction} transactionType={PrimaryTerms.CASH_IN} setOpen={setOpen}/>
                     </Tabs.Panel>
                     <Tabs.Panel value={PrimaryTerms.CASH_OUT}>
-                        <CashOutForm/>
+                        <TransactionForm transaction={trasaction} transactionType={PrimaryTerms.CASH_OUT} setOpen={setOpen}/>
                     </Tabs.Panel>
                 </Tabs>
             </Drawer>

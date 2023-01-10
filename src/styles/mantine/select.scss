@@ -12,7 +12,6 @@
   letter-spacing: 0px;
 }
 .mantine-Select-input{
-  @extend .f-14-b;
   @extend .border-solid-1;
   background: colors.$g-100;
   &:focus{

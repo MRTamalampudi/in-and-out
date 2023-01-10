@@ -1,10 +1,11 @@
-import {Select, Table} from '@mantine/core';
+import {Table} from '@mantine/core';
 import Card from "../../components/atoms/card/card";
-import {Cash_Flow, Payment_Mode, Period} from "../../enums/filters";
 import styles from "./books.module.scss";
 import {useEffect, useState} from "react";
 import {Transacation} from "../../model/transacations.model";
 import {TransactionService} from "../../service/transaction.service";
+import TransactionModal from "../../components/transaction-modal/transaction-modal";
+import {PrimaryTerms} from "../../enums/primary-terms";
 
 const elements = [
     {position: 6, mass: 12.011, symbol: 'C', name: 'Carbon'},
@@ -17,6 +18,7 @@ const elements = [
 
 
 export const TransactionsTable = () => {
+    const [isEdit,setIsEdit]=useState<boolean>(false)
     const [transactionData,setTransactionData]=useState<Transacation[]>();
 
     const destroy = (id:number) =>{
@@ -38,8 +40,11 @@ export const TransactionsTable = () => {
             <td>{row.amount}</td>
             <td>
                 <div className={styles.actions}>
-                    <i className={'fa-account-circle'} onClick={()=>destroy(row.id!)} />
-                    <i className={'fa-upload'}/>
+                    <i className={'fa-account-circle'} onClick={() => destroy(row.id!)} />
+                    <TransactionModal transactionType={PrimaryTerms.CASH_OUT}
+                                      isEdit={true}
+                                      trasaction={row}
+                                      openButton={<i className={'fa-upload'} onClick={()=>setIsEdit((prevState)=>!prevState)}/>}/>
                 </div>
             </td>
         </tr>

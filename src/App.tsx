@@ -13,6 +13,7 @@ import LineGraph from "./components/line-graph/line-graph";
 import MyResponsiveLine from "./components/chart-js-graph/chart-js-graph";
 import {TransactionsData} from "./static-data/transactions";
 import {Outlet} from "react-router";
+import UnderConstruction from "./components/under-construction/under-construction";
 
 
 
@@ -28,6 +29,7 @@ function App() {
     <div className="App" >
         <NavBar/>
         <Outlet/>
+        <UnderConstruction/>
         {/*<div className={"test"}>*/}
         {/*    <TransactionSummary time={"Expires Today"}*/}
         {/*    logo={""} title={"Netflix"} amount={"$200"}/>*/}

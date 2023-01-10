@@ -1,4 +1,5 @@
 import {Payment_Mode} from "../enums/filters";
+import {PrimaryTerms} from "../enums/primary-terms";
 
 
 export  class Transacation {
@@ -9,4 +10,5 @@ export  class Transacation {
     public category?: string;
     public paymentMode?: string;
     public amount?: string;
+    public type?:PrimaryTerms.CASH_IN|PrimaryTerms.CASH_OUT;
 }

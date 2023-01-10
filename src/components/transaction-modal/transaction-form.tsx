@@ -1,24 +1,25 @@
 import styles from './transaction-modal.module.scss';
 import {DatePicker, TimeInput} from "@mantine/dates";
-import {Autocomplete, Input, Select, Textarea, TextInput,Button} from "@mantine/core";
-import {hasLength, useForm,} from "@mantine/form";
-import formatters from "chart.js/dist/core/core.ticks";
+import {Button, Select, Textarea, TextInput} from "@mantine/core";
+import {useForm,} from "@mantine/form";
 import {Dispatch, SetStateAction, useState} from "react";
 import {Regex} from "../../constants/regex";
-import {Categories, Payment_Mode, Period} from "../../enums/filters";
+import {Categories, Payment_Mode} from "../../enums/filters";
 import {TransactionService} from "../../service/transaction.service";
 import {Transacation} from "../../model/transacations.model";
-
+import {PrimaryTerms} from "../../enums/primary-terms";
 
 
 interface CashInFormProps {
     setOpen: Dispatch<SetStateAction<boolean>>
+    transactionType?:PrimaryTerms.CASH_OUT | PrimaryTerms.CASH_IN,
+    transaction?:Transacation
 }
 
 
-export const CashInForm = ({setOpen}:CashInFormProps) => {
-    const [category,setCategory] = useState<string>(Categories.MAINTAINENCE);
-    const [paymentMode,setPaymentMode] = useState<string>(Payment_Mode.CASH);
+export const TransactionForm = ({transaction,setOpen,transactionType=PrimaryTerms.CASH_IN}:CashInFormProps) => {
+    const [category,setCategory] = useState<string>(transaction?.category||Categories.MAINTAINENCE);
+    const [paymentMode,setPaymentMode] = useState<string>(transaction?.paymentMode||Payment_Mode.CASH);
 
     const SelectCategory = () => {
       let data = Object.values(Categories)
@@ -57,9 +58,9 @@ export const CashInForm = ({setOpen}:CashInFormProps) => {
         initialValues:{
             date:new Date(),
             time: new Date(),
-            amount: '',
-            note:'',
-            party_name:''
+            amount: transaction?.amount || '',
+            note: transaction?.note || '',
+            party_name:transaction?.partyName ||''
         },
         validateInputOnChange:true,
         validate : (values) => ({
@@ -70,6 +71,44 @@ export const CashInForm = ({setOpen}:CashInFormProps) => {
         })
     })
 
+    const CashInFooter = () => {
+        return (
+            <div className={styles.footer}>
+                <Button variant={"subtle"}
+                        onClick={()=>setOpen(false)}
+                        color={"c-blue-gray"}
+                        size={"xs"}>Cancel</Button>
+                <Button type={"submit"}
+                        onClick={()=>{form.validate();console.log(form.values)}}
+                        variant={"outline"}
+                        size={"xs"}>Save</Button>
+                <Button onClick={()=>handleSave()}
+                        size={"xs"}>Save & Add new</Button>
+            </div>
+        )
+    }
+
+    const CashOutFooter = () => {
+      return (
+          <div className={styles.footer}>
+              <Button variant={"subtle"}
+                      color={"c-blue-gray"}
+                      size={"xs"}
+                      onClick={()=>setOpen(false)}>Cancel</Button>
+              <Button color={"c-red"} size={"xs"}>Save</Button>
+          </div>
+      )
+    }
+
+    const footer = () => {
+        switch (transactionType) {
+            case PrimaryTerms.CASH_IN:
+                return <CashInFooter/>
+            case PrimaryTerms.CASH_OUT:
+                return <CashOutFooter/>
+        }
+    }
+
 
   return(
       <div className={styles.cashIn} >
@@ -79,25 +118,14 @@ export const CashInForm = ({setOpen}:CashInFormProps) => {
                   <TimeInput placeholder={"Time"}  label={"Time"} clearable={false} {...form.getInputProps('time')} variant={"filled"}></TimeInput>
               </div>
               <TextInput withAsterisk={true} label={"Amount"} variant={"filled"} placeholder={"Amount"} {...form.getInputProps('amount')}></TextInput>
-              <Textarea label={"Note"} variant={"filled"} placeholder={"Make a note"} maxRows={4} minRows={2}></Textarea>
-              <TextInput label={"Party Name"} variant={"filled"} placeholder={"Amount"} {...form.getInputProps('party_name')}></TextInput>
+              <Textarea label={"Note"} variant={"filled"} placeholder={"Make a note"} maxRows={4} minRows={2} {...form.getInputProps('note')}></Textarea>
+              <TextInput label={"Party Name"} variant={"filled"} placeholder={"Party name"} {...form.getInputProps('party_name')}></TextInput>
               <div className={styles.categoryAndPaymentMode}>
                   <SelectCategory/>
                   <SelectPayment/>
               </div>
           </div>
-          <div className={styles.footer}>
-              <Button variant={"subtle"}
-                      onClick={()=>setOpen(false)}
-                      color={"c-blue-gray"}
-                      size={"xs"}>Cancel</Button>
-              <Button type={"submit"}
-                      onClick={()=>{form.validate();console.log(form.values)}}
-                      variant={"outline"}
-                      size={"xs"}>Save</Button>
-              <Button onClick={()=>handleSave()}
-                  size={"xs"}>Save & Add new</Button>
-          </div>
+          {footer()}
       </div>
   )
 }
