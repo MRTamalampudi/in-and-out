@@ -41,7 +41,7 @@ const BookName = () => {
             <span className={styles.left} contentEditable={isEdit}>Book name</span>
             {isEdit ?
                 <Loader size={'xs'} variant={'dots'}/> :
-                <i className={`${styles.icon} fa-upload`} onClick={edit}/> }
+                <i className={`${styles.icon} fa-edit`} onClick={edit}/> }
         </div>
     )
 }
@@ -52,7 +52,7 @@ const Books = (props:BooksProps) => {
           <div className={styles.header}>
               <BookName/>
               <div className={styles.right}>
-                  <TextInput icon={<i className={`fa-upload`} />} size={"xs"} />
+                  <TextInput icon={<i className={`fa-search`} />} size={"xs"} />
                   <TransactionModal/>
               </div>
           </div>

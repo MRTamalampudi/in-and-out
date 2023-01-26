@@ -17,7 +17,7 @@ root.render(
       <Colors>
           <BrowserRouter>
               <Routes>
-                  <Route  path={'/'} element={
+                  <Route  path={'/'}  element={
                       <App/>
                   }>
                       <Route path={'dashboard'} element={<Dashboard/>}/>

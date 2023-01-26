@@ -13,6 +13,9 @@ const NavBar = (props:NavBarProps) => {
                 <i className={`${styles.logo} fa-logo`}></i>
             </div>
             <div className={styles.body}>
+                <Link to={'/dashboard'}>
+                    <NavItem label={"Wishlist"} icon={"fa-dashboard"}/>
+                </Link>
                 <Link to={'/books'} >
                     <NavItem label={"Books"} icon={"fa-book"}/>
                 </Link>

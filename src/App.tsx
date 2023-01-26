@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {Button, Drawer, Select, Tabs, TextInput} from '@mantine/core';
 import {Colors} from "./constants/colors";
@@ -12,7 +12,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import LineGraph from "./components/line-graph/line-graph";
 import MyResponsiveLine from "./components/chart-js-graph/chart-js-graph";
 import {TransactionsData} from "./static-data/transactions";
-import {Outlet} from "react-router";
+import {Outlet, useNavigate} from "react-router";
 import UnderConstruction from "./components/under-construction/under-construction";
 
 
@@ -20,6 +20,11 @@ import UnderConstruction from "./components/under-construction/under-constructio
 
 function App() {
     const TRANSACTION = 'transaction'
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        navigate('/dashboard',{replace:true})
+    },[])
 
     if(!sessionStorage.getItem(TRANSACTION)){
         sessionStorage.setItem(TRANSACTION,JSON.stringify(TransactionsData))

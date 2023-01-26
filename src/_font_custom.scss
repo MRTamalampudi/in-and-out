@@ -4,10 +4,10 @@
 
 @font-face {
   font-family: "font_custom";
-  src: url("./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff2") format("woff2"),
-       url("./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff") format("woff"),
-       url("./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.ttf") format("truetype"),
-       url("./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.svg#font_custom") format("svg");
+  src: url("./assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff2") format("woff2"),
+       url("./assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.woff") format("woff"),
+       url("./assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.ttf") format("truetype"),
+       url("./assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.svg#font_custom") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: "font_custom";
-    src: url("./src/assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.svg#font_custom") format("svg");
+    src: url("./assets/font_icons/font_custom_ad4a600b6d073d5a2e95e44c2770c801.svg#font_custom") format("svg");
   }
 }
 

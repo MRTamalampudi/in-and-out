@@ -40,11 +40,11 @@ export const TransactionsTable = () => {
             <td>{row.amount}</td>
             <td>
                 <div className={styles.actions}>
-                    <i className={'fa-account-circle'} onClick={() => destroy(row.id!)} />
+                    <i className={'fa-delete'} onClick={() => destroy(row.id!)} />
                     <TransactionModal transactionType={PrimaryTerms.CASH_OUT}
                                       isEdit={true}
                                       trasaction={row}
-                                      openButton={<i className={'fa-upload'} onClick={()=>setIsEdit((prevState)=>!prevState)}/>}/>
+                                      openButton={<i className={'fa-edit'} onClick={()=>setIsEdit((prevState)=>!prevState)}/>}/>
                 </div>
             </td>
         </tr>
