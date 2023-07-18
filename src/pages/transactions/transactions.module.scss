@@ -1,0 +1,17 @@
+@import "src/styles/flex";
+@import "src/styles/size";
+
+.Transactions {
+  height: 100%;
+  @extend .flex-column;
+  @extend .p-16;
+  @extend .row-gap-16;
+  .top{
+
+  }
+  .bottom{
+    height: calc(100% - 5rem);
+    @extend .flex-row;
+    @extend .column-gap-16;
+  }
+}

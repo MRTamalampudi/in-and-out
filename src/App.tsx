@@ -12,29 +12,37 @@ import Dashboard from "./pages/dashboard/dashboard";
 import LineGraph from "./components/line-graph/line-graph";
 import MyResponsiveLine from "./components/chart-js-graph/chart-js-graph";
 import {TransactionsData} from "./static-data/transactions";
-import {Outlet, useNavigate} from "react-router";
+import {Outlet, useLocation, useNavigate} from "react-router";
 import UnderConstruction from "./components/under-construction/under-construction";
+import Header from "./components/header/header";
+import Table from "./components/table/table";
+import Summary from "./components/summary/summary";
+import TransactionForm from "./pages/transactions/transaction-form";
+
 
 
 
 
 function App() {
-    const TRANSACTION = 'transaction'
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        navigate('/dashboard',{replace:true})
-    },[])
-
-    if(!sessionStorage.getItem(TRANSACTION)){
-        sessionStorage.setItem(TRANSACTION,JSON.stringify(TransactionsData))
-    }
+    const location  = useLocation();
 
   return (
     <div className="App" >
         <NavBar/>
-        <Outlet/>
-        <UnderConstruction/>
+        <div className={"appContainer"}>
+            <Header
+                title={"Transactions"}
+                back
+                notification
+            />
+            <div className={"outlet"}>
+                <Outlet/>
+            </div>
+        </div>
+        {/*<Outlet/>*/}
+        {/*<UnderConstruction/>*/}
         {/*<div className={"test"}>*/}
         {/*    <TransactionSummary time={"Expires Today"}*/}
         {/*    logo={""} title={"Netflix"} amount={"$200"}/>*/}

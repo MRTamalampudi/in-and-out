@@ -5,7 +5,7 @@
 
 .mantine-TextInput-input{
   @extend .border-solid-1;
-  background-color: colors.$g-100 ;
+  background-color: white ;
   &:focus{
     @extend .border-solid-1;
   }

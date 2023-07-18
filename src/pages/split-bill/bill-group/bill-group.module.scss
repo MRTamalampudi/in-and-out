@@ -1,0 +1,16 @@
+@use "src/styles/colors";
+@import "src/styles/size";
+
+.BillGroup {
+  background: colors.$background-color;
+  height: 100%;
+  .header{
+    height: 8rem;
+  }
+  .body{
+    height: calc(100% - 8rem);
+
+    @extend .p-16;
+
+  }
+}

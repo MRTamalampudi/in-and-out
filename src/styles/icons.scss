@@ -1,0 +1,28 @@
+@import "size";
+
+.icon24{
+  @extend .w24p;
+  @extend .h24p;
+}
+
+.icon32{
+  @extend .w32p;
+  @extend .h32p;
+}
+
+.icon20{
+  @extend .w20p;
+  @extend .h20p;
+}
+
+//.icon40{
+//  @extend .w40p;
+//  @extend .h40p;
+//}
+
+@for $i from 5 through 25{
+  .icon#{$i*4}{
+    @extend .w#{$i*4}p;
+    @extend .h#{$i*4}p;
+  }
+}

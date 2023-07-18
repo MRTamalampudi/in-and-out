@@ -1,0 +1,54 @@
+@import "src/styles/borders";
+@import "src/styles/flex";
+@import "src/styles/size";
+@import "src/styles/typography";
+
+.GroupBillHeader{
+  min-height: 8rem;
+  max-height: 8rem;
+  align-items: center;
+
+  @extend .flex-row;
+  @extend .border-separator-bottom;
+  @extend .p-16;
+  @extend .row-gap-8;
+
+  .groupAvatar{
+
+  }
+
+  .groupDetails{
+    width: 100%;
+
+    @extend .flex-column;
+    @extend .row-gap-8;
+
+    .title{
+      @extend .f-16-b;
+    }
+
+    .details{
+      justify-content: space-between;
+
+      @extend .flex-row;
+      .left{
+
+        @extend .flex-row;
+        @extend .column-gap-16;
+
+        .members{
+
+        }
+
+        .billShares{
+
+        }
+
+      }
+      .right{
+
+      }
+    }
+
+  }
+}

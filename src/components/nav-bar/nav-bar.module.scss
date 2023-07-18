@@ -1,13 +1,14 @@
 @use "src/styles/colors";
 @import "/src/font_custom";
 @import "src/styles/borders";
+@import "src/styles/size";
 
 .NavBar {
   display: flex;
   flex-direction: column;
   width: 3.5rem;
   height: 100vh;
-  background: colors.$g-100;
+  background: white;
   @extend .border-separator-right;
 }
 
@@ -27,10 +28,18 @@
 .footer{
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-basis: 15%;
+  @extend .mb-24;
 }
 
 .logo{
   color: colors.$p-700;
   font-size: 2rem;  
+}
+
+.customIcon{
+  svg{
+    fill: #199473;
+  }
 }

@@ -1,0 +1,27 @@
+@for $i from 1 through 20 {
+  .flex-basis-#{$i}\/20 {
+    flex-basis: $i * 5%;
+  }
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+@for $i from 1 through 5 {
+  .column-gap-#{$i*4} {
+    column-gap: $i * 4px;
+  }
+}
+
+@for $i from 1 through 5 {
+  .row-gap-#{$i*4} {
+    row-gap: $i * 4px;
+  }
+}

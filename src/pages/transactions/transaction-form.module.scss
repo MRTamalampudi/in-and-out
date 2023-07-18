@@ -1,0 +1,39 @@
+@import "src/styles/borders";
+@import "src/styles/flex";
+@import "src/styles/size";
+
+.TransactionForm {
+  width: 30rem;
+  overflow: hidden;
+  background: white;
+
+  @extend .flex-column;
+  @extend .border-solid-1;
+  @extend .border-rds-8;
+
+  .body{
+    height: calc(100% - 6.2rem);
+
+    @extend .mx-16;
+    @extend .my-8;
+    @extend .flex-column;
+    @extend .row-gap-4;
+
+    .col2{
+      display: flex;
+
+      @extend .column-gap-8;
+    }
+  }
+
+  .footer{
+    height: 3rem;
+    align-items: center;
+    justify-content: right;
+
+    @extend .pr-8;
+    @extend .column-gap-8;
+    @extend .flex-row;
+    @extend .border-separator-top
+  }
+}

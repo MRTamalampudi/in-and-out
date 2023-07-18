@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@iconify/tools": "^3.0.2",
     "@mantine/core": "^5.9.0",
     "@mantine/dates": "^5.9.0",
     "@mantine/form": "^5.10.0",

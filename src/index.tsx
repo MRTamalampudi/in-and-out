@@ -9,6 +9,8 @@ import {Route, Routes} from "react-router";
 import Dashboard from "./pages/dashboard/dashboard";
 import { BrowserRouter } from "react-router-dom";
 import Books from "./pages/books/books";
+import Transactions from "./pages/transactions/transactions";
+import SplitBill from "./pages/split-bill/split-bill";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,7 +23,8 @@ root.render(
                       <App/>
                   }>
                       <Route path={'dashboard'} element={<Dashboard/>}/>
-                      <Route path={'books'} element={<Books/>}/>
+                      <Route path={'splitbill'} element={<SplitBill/>}/>
+                      <Route path={'transactions'} element={<Transactions/>}/>
                   </Route>
               </Routes>
           </BrowserRouter>

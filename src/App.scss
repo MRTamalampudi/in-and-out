@@ -1,4 +1,9 @@
 @use "styles/colors";
+@import "styles/size";
+@import "styles/typography";
+@import "styles/radius";
+@import "styles/flex";
+@import "styles/icons";
 
 .App{
   background: colors.$g-100;
@@ -10,4 +15,31 @@
   gap: 2rem;
   margin: 3rem;
   width: 20rem;
+}
+
+.icon24{
+  @extend .w24p;
+  @extend .h24p;
+}
+
+.icon32{
+  @extend .w32p;
+  @extend .h32p;
+}
+
+.icon20{
+   @extend .w20p;
+   @extend .h20p;
+ }
+
+
+.appContainer{
+  display: flex;
+  flex-direction: column;
+  width: calc(100% + -3.5rem);
+  height: 100vh;
+}
+
+.outlet{
+  height: calc(100% - 3rem);
 }

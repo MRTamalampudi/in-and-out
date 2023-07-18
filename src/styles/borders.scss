@@ -1,14 +1,19 @@
 @use "src/styles/colors";
 
 @mixin borderSolid($size){
-  border: #{$size} solid colors.$g-800;
+  border: #{$size} solid colors.$g-400;
+}
+
+@mixin borderRadius($radius){
+  border-radius: $radius;
+  overflow: hidden;
 }
 
 .border-solid-1{
-  @include borderSolid(1px);
+  @include borderSolid(0.5px);
 }
 .border-solid-2{
-  @include borderSolid(2px)
+  @include borderSolid(1px)
 }
 .border-separator-bottom{
   border-bottom: 0.5px solid colors.$g-400;
@@ -18,10 +23,15 @@
   border-right: 0.5px solid colors.$g-400;
 }
 
+.border-separator-top{
+  border-top: 0.5px solid colors.$g-400;
+}
+
 .border-rds-4{
-  border-radius: 0.25rem;
+  @include borderRadius(0.25rem);
 }
 
 .border-rds-8{
-  border-radius: 0.5rem;
+  @include borderRadius(0.5rem);
 }
+

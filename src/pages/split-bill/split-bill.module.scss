@@ -1,0 +1,26 @@
+@use "src/styles/colors";
+@import "src/styles/size";
+@import "src/styles/borders";
+@import "src/styles/flex";
+
+.SplitBill {
+  height: 100%;
+
+  @extend .p-16;
+  @extend .flex-row;
+  @extend .column-gap-16;
+
+  .left{
+    min-width: 25rem;
+    background: colors.$background-color;
+
+    @extend .border-rds-8;
+  }
+  .right{
+    width: 100%;
+    background: colors.$background-color;
+
+    @extend .border-solid-1;
+    @extend .border-rds-8;
+  }
+}
