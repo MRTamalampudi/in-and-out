@@ -72,6 +72,9 @@
     thead{
       position: sticky;
       top: 0;
+
+      @extend .f-14-b;
+
       tr{
         background-color: colors.$g-300;
       }

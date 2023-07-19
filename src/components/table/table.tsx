@@ -16,14 +16,17 @@ const Table= (
     {
         children,
         title,
+        rounded = true,
+        borders = true,
     }:TableProps) => {
 
     
     return (
         <div className={
             `${styles.Table}
-             ${styles.borders}
-             ${styles.radius}`}>
+             ${borders ? styles.borders : ""}
+             ${rounded ? styles.radius : ""}
+             `}>
             <div className={styles.metaRow}>
                 <div className={styles.right}>
                     <span

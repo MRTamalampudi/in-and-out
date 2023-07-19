@@ -37,6 +37,27 @@
         @extend .column-gap-16;
 
         .members{
+          @extend .flex-row;
+          flex-direction: row-reverse;
+          img {
+            width: 24px;
+            position: relative;
+            transition: transform 0.2s;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin-left: -8px;
+          }
+
+          img:last-child{
+            border: 2px solid white;
+            margin: 0;
+          }
+
+          img:hover {
+            transform: scale(1.2);
+            z-index: 1;
+          }
+
 
         }
 

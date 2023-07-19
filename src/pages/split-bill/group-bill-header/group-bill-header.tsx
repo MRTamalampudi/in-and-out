@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './group-bill-header.module.scss';
 import {avatar} from "../../../assets/icons";
+import {netflix} from "../../../assets";
 
 interface GroupBillHeaderProps {
 
@@ -24,7 +25,11 @@ const GroupBillHeader = (
                 <div className={styles.details}>
                     <div className={styles.left}>
                         <div className={styles.members}>
-                            members
+                            <img src={netflix}/>
+                            <img src={netflix}/>
+                            <img src={netflix}/>
+                            <img src={netflix}/>
+                            <img src={netflix}/>
                         </div>
                         <div className={styles.billShares}>
                             shares

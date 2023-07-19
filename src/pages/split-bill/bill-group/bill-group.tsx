@@ -14,6 +14,8 @@ const BillGroup: FC<BillGroupProps> = () => (
           <Table
               title={"Transactions"}
               entries={true}
+              rounded={false}
+              borders={false}
           >
           <thead>
           <tr>
