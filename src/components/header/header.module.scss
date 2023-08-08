@@ -1,5 +1,6 @@
-@import "./src/styles/borders";
-@import "./src/styles/size";
+@import "src/styles/size";
+@import "src/styles/borders";
+@import "src/styles/cursor";
 
 .Header {
   display: flex;
@@ -17,4 +18,8 @@
   display: flex;
   column-gap: 0.5rem;
   align-items: center;
+}
+
+.close{
+  @extend .pointer;
 }

@@ -1,0 +1,16 @@
+@import "../shadows";
+@import "../borders";
+@import "../typography";
+
+.mantine-Menu-dropdown{
+  @extend .shadow-1;
+  @extend .border-solid-1;
+}
+
+.mantine-Menu-divider{
+  @extend .border-separator-top;
+}
+
+.mantine-Menu-item{
+  @extend .f-12;
+}

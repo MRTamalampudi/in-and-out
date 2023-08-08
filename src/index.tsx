@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import Books from "./pages/books/books";
 import Transactions from "./pages/transactions/transactions";
 import SplitBill from "./pages/split-bill/split-bill";
+import Demo from "./pages/demo/demo";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,9 +23,10 @@ root.render(
                   <Route  path={'/'}  element={
                       <App/>
                   }>
-                      <Route path={'dashboard'} element={<Dashboard/>}/>
+                      <Route path={'dashboard'} element={<Books/>}/>
                       <Route path={'splitbill'} element={<SplitBill/>}/>
                       <Route path={'transactions'} element={<Transactions/>}/>
+                      <Route path={'settings'} element={<Demo/>}/>
                   </Route>
               </Routes>
           </BrowserRouter>

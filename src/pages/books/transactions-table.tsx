@@ -25,9 +25,9 @@ export const TransactionsTable = () => {
         setTransactionData(TransactionService.destroy(id))
     }
 
-    useEffect(()=>{
-        setTransactionData(TransactionService.indexAll());
-    },[])
+    // useEffect(()=>{
+    //     setTransactionData(TransactionService.indexAll());
+    // },[])
 
 
     const rows = transactionData?.map((row) => (

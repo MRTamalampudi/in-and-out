@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './transactions.module.scss';
 import Summary from "../../components/summary/summary";
-import Table from "../../components/table/table";
+import Table from "../../components/table";
 import TransactionForm from "./transaction-form";
 
 interface TransactionsProps {}

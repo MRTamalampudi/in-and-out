@@ -9,14 +9,33 @@
       "withStyle": true,
       "withTest": false,
       "withStory": false,
-      "withLazy": false
+      "withLazy": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts"
+      }
     },
     "page": {
       "path": "src/pages",
       "withLazy": false,
       "withStory": false,
       "withStyle": true,
-      "withTest": false
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts"
+      }
+    },
+    "split-bill": {
+      "path": "src/pages/split-bill",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts"
+      }
     }
   },
   "usesStyledComponents": false

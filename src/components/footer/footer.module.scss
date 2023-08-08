@@ -1,0 +1,26 @@
+@import "src/styles/size";
+@import "src/styles/borders";
+@import "src/styles/flex";
+
+.Footer {
+  display: flex;
+  max-height: 3rem;
+  min-height: 3rem;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  background: white;
+
+  @extend .border-separator-top;
+  @extend .px-16;
+
+  .left{
+    @extend .flex-row;
+    @extend .column-gap-8;
+  }
+
+  .right{
+    @extend .flex-row;
+    @extend .column-gap-8;
+  }
+}

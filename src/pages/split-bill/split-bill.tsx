@@ -1,15 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './split-bill.module.scss';
-import Table from "../../components/table/table";
-import BillGroup from "./bill-group/bill-group";
+import Table from "../../components/table";
+import BillGroup from "./bill-group";
+import {plusOutline} from "../../assets/icons";
+import {Menu} from "@mantine/core";
+import BillForm from "./bill-form";
+import GroupForm from "./group-form";
+
+
+
 
 interface SplitBillProps {}
 
 const SplitBill = (
     {}:SplitBillProps
 ) => {
+
+    const [billFormOpened,setBillFormOpened] = useState<boolean>(false);
+    const [groupFormOpened,setGroupBillFormOpened] = useState<boolean>(false);
+
+
     return (
         <div className={styles.SplitBill}>
+            <div className={"modal"}>
+                <BillForm
+                    opened={billFormOpened}
+                    setOpened={setBillFormOpened}
+                />
+                <GroupForm
+                    opened={groupFormOpened}
+                    setOpened={setGroupBillFormOpened}
+                />
+            </div>
+            <Menu position={"left-end"}>
+                <Menu.Target>
+                    <div className={styles.addNew}>
+                        <img src={plusOutline} className={"icon24"}/>
+                    </div>
+                </Menu.Target>
+                <Menu.Dropdown>
+                    <Menu.Item onClick={()=> setBillFormOpened(true)}>
+                        New Bill
+                    </Menu.Item>
+                    <Menu.Divider/>
+                    <Menu.Item onClick={()=>setGroupBillFormOpened(true)}>
+                        New Group
+                    </Menu.Item>
+                </Menu.Dropdown>
+            </Menu>
             <div className={styles.left}>
                 <Table title={"Groups"}>
                     <tbody>

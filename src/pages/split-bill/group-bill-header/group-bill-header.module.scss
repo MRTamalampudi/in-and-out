@@ -1,7 +1,9 @@
-@import "src/styles/borders";
-@import "src/styles/flex";
-@import "src/styles/size";
-@import "src/styles/typography";
+@use "styles/colors";
+@import "styles/borders";
+@import "styles/flex";
+@import "styles/size";
+@import "styles/typography";
+@import "styles/cursor";
 
 .GroupBillHeader{
   min-height: 8rem;
@@ -11,10 +13,17 @@
   @extend .flex-row;
   @extend .border-separator-bottom;
   @extend .p-16;
-  @extend .row-gap-8;
+  @extend .column-gap-16;
 
   .groupAvatar{
+    @extend .border-solid-1;
+    @include height(100px);
+    @include width(100px);
 
+    img{
+      height: 100px;
+      width: 100px;
+    }
   }
 
   .groupDetails{
@@ -29,12 +38,13 @@
 
     .details{
       justify-content: space-between;
+      align-items: center;
 
       @extend .flex-row;
       .left{
 
         @extend .flex-row;
-        @extend .column-gap-16;
+        @extend .column-gap-8;
 
         .members{
           @extend .flex-row;
@@ -58,10 +68,30 @@
             z-index: 1;
           }
 
+          .extra{
+            background-color: colors.$g-300;
+            border: 2px solid white;
+            align-items: center;
+            justify-content: center;
+
+            @extend .ml-8;
+            @extend .px-8;
+            @extend .f-12-bb;
+            @extend .flex-row;
+            @extend .border-rds-8;
+            @extend .pointer;
+
+          }
+
 
         }
 
         .billShares{
+
+          @extend .flex-row;
+          @extend .column-gap-4;
+          @extend .f-14-b;
+
 
         }
 
@@ -72,4 +102,19 @@
     }
 
   }
+}
+
+.lent{
+  color: colors.$primary;
+
+  @extend .f-14-bb;
+  @extend .pointer;
+}
+
+.owes{
+  color: colors.$primary-red;
+
+  @extend .f-14-bb;
+  @extend .pointer;
+
 }

@@ -1,24 +1,42 @@
 import React, { FC } from 'react';
 import styles from './header.module.scss';
-import {backOutline, notificationOutline} from "../../assets/icons"
+import {backOutline, dClose, notificationOutline} from "../../assets/icons"
 import {Button, Menu, Tooltip} from '@mantine/core';
 
 interface HeaderProps {
     title: string,
     back?:boolean,
     notification?:boolean,
+    close?:boolean,
+    onClose?:()=>void;
 }
 
 const Header = (
     {
         title,
         back,
-        notification
+        notification,
+        close = false,
+        onClose
     } :HeaderProps
 ) => {
     
     const honorBackButton = () => {
      window.history.back();
+    }
+
+    const Close = () => {
+      return (
+          <>
+              {close &&
+                  <img
+                      src={dClose}
+                      className={`${styles.close} icon24`}
+                      onClick={onClose}
+                  />
+              }
+          </>
+      )
     }
 
   return (
@@ -35,6 +53,7 @@ const Header = (
               </span>
           </div>
           <div>
+              <Close/>
               {
                   notification &&
                   <Menu position={"bottom-end"}>

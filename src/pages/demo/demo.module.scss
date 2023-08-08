@@ -1,0 +1,30 @@
+@import "styles/index";
+
+.Demo {
+  width: 30rem;
+
+  @extend .border-solid-1;
+  @extend .border-rds-8;
+  @extend .m-16;
+
+  .body{
+    @extend .flex-column;
+    @extend .row-gap-8;
+
+    .rows{
+      align-items: flex-end;
+      height: 100%;
+      @extend .flex-row;
+      @extend .column-gap-8;
+      flex-basis: 100%;
+
+      > * {
+        width: 100%;
+      }
+    }
+
+    .members{
+      height: 20rem;
+    }
+  }
+}

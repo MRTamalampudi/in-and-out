@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './transaction-form.module.scss';
 import {TextInput,Button} from "@mantine/core";
-import Header from "../../components/header/header";
+import Header from "../../components/header";
 
 interface TransactionFormProps {}
 

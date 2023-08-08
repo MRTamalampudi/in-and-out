@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './bill-group.module.scss';
-import GroupBillHeader from "../group-bill-header/group-bill-header";
-import Table from "../../../components/table/table";
+import GroupBillHeader from "pages/split-bill/group-bill-header";
+import Table from "components/table";
 
 interface BillGroupProps {}
 

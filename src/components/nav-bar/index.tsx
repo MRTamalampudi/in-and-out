@@ -28,9 +28,15 @@ const NavBar = (props:NavBarProps) => {
                 </Link>
             </div>
             <div className={styles.footer}>
-                <NavItem label={"Settings"} icon={"settingsOutline"}/>
-                <NavItem label={"Logout"} icon={"logoutOutline"}/>
-                <img src={avatar} className={"icon32 mt-8"}/>
+                <Link to={'/settings'}>
+                    <NavItem label={"Settings"} icon={"settingsOutline"}/>
+                </Link>
+                <Link to={'/settings'}>
+                    <NavItem label={"Settings"} icon={"logoutOutline"}/>
+                </Link>
+                <Link to={'/profile'} className={styles.profile}>
+                    <img src={avatar} className={"icon32 mt-8"}/>
+                </Link>
             </div>
         </div>
     )

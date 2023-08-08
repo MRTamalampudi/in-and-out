@@ -10,6 +10,9 @@ import budgetOutline from "./budget-outline.svg"
 import filterOutline from "./filter-outline.svg"
 import sortOutline from "./sort-outline.svg"
 import searchOutline from "./search-outline.svg"
+import dClose from "./d-close.svg"
+import plusOutline from "./plus-outline-alone.svg"
+import label from "./label.svg"
 
 
 
@@ -25,5 +28,8 @@ export {
     invoiceOutline,
     filterOutline,
     sortOutline,
-    searchOutline
+    searchOutline,
+    dClose,
+    plusOutline,
+    label
 }

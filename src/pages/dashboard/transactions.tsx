@@ -7,9 +7,9 @@ import {Loader} from "@mantine/core";
 
 export const TransactionsSummary = () => {
     const [data,setData] = useState<Transacation[]>();
-    useEffect(()=>{
-        setData(TransactionService.indexAll(5))
-    },[])
+    // useEffect(()=>{
+    //     setData(TransactionService.indexAll(5))
+    // },[])
     const Transactions = () => {
         return(
          <>

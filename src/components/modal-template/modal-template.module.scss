@@ -1,0 +1,16 @@
+@import "styles/size";
+@import "styles/borders";
+
+.Modal {
+
+  @extend .border-rds-8;
+  
+}
+
+.body{
+  background-color: white;
+}
+
+.padding{
+  @extend .p-16;
+}

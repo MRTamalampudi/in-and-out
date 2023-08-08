@@ -2,7 +2,8 @@
 
 @for $i from 0 through 200 {
   .w#{$i*4}p{
-    width: $i*4px;
+    max-width: $i*4px;
+    min-width: $i*4px;
   }
 }
 
@@ -100,6 +101,16 @@
   .p-#{$i*4}{
     padding: $i*4px;
   }
+}
+
+@mixin height($height){
+  max-height: $height;
+  min-height: $height;
+}
+
+@mixin width($width){
+  max-width: $width;
+  min-width: $width;
 }
 
 
