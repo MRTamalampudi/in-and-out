@@ -1,5 +1,5 @@
 
-
+//width
 @for $i from 0 through 200 {
   .w#{$i*4}p{
     max-width: $i*4px;
@@ -7,12 +7,13 @@
   }
 }
 
-
+//height
 @for $i from 0 through 200 {
   .h#{$i*4}p{
     height: $i*4px;
   }
 }
+
 
 @for $i from 0 through 30 {
   .ml-#{$i*4}{

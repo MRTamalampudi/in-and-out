@@ -2,11 +2,13 @@
 @import "size";
 @import "flex";
 @import "borders";
+@import "cursor";
 
 @for $i from 5 through 25{
   .icon#{$i*4}{
     @extend .w#{$i*4}p;
     @extend .h#{$i*4}p;
+    @extend .pointer;
   }
 }
 
@@ -21,5 +23,6 @@
     @extend .h#{$i*4}p;
     @extend .icon#{$i*4};
     @extend .border-rds-8;
+    @extend .pointer;
   }
 }

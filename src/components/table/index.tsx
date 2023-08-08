@@ -12,6 +12,7 @@ interface TableProps {
     rounded?:boolean;
     usePagination?:boolean;
     metaRow?:boolean;
+    height?:number;
 }
 
 const Table= (
@@ -22,6 +23,7 @@ const Table= (
         borders = true,
         usePagination = true,
         metaRow = true,
+        height = undefined,
     }:TableProps) => {
 
     const MetaRow = () => {
@@ -58,11 +60,14 @@ const Table= (
 
     
     return (
-        <div className={
+        <div
+            className={
             `${styles.Table}
              ${borders ? styles.borders : ""}
              ${rounded ? styles.radius : ""}
-             `}>
+             ${height ? "h"+height+"p" : styles.defaultHeight}
+             `}
+        >
             {metaRow && <MetaRow/>}
             <table className={styles.table}>
                 {children}
