@@ -18,6 +18,7 @@ import Header from "./components/header";
 import Table from "./components/table";
 import Summary from "./components/summary/summary";
 import TransactionForm from "./pages/transactions/transaction-form";
+import "./i18n"
 
 
 

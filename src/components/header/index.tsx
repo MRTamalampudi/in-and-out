@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styles from './header.module.scss';
 import {backOutline, dClose, notificationOutline} from "../../assets/icons"
 import {Button, Menu, Tooltip} from '@mantine/core';
+import {useTranslation} from "react-i18next";
 
 interface HeaderProps {
     title: string,
@@ -20,6 +21,8 @@ const Header = (
         onClose
     } :HeaderProps
 ) => {
+
+    const {t} = useTranslation();
     
     const honorBackButton = () => {
      window.history.back();
@@ -49,7 +52,7 @@ const Header = (
               />}
               <span
                   className={"f-16-b"}>
-                  {title}
+                  {t("transactions")}
               </span>
           </div>
           <div>
