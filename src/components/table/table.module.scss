@@ -3,6 +3,7 @@
 @import "styles/borders";
 @import "styles/typography";
 @import "styles/size";
+@import "styles/flex";
 
 .Table {
   display: flex;
@@ -71,6 +72,7 @@
     thead{
       position: sticky;
       top: 0;
+      z-index: 1;
 
       @extend .f-14-b;
 
@@ -86,9 +88,10 @@
       justify-content: center;
 
       @extend .border-separator-bottom;
+      @extend .column-gap-8;
 
       td,th{
-        flex-basis: 100%;
+
       }
 
       th:nth-child(1),td:nth-child(1){
@@ -96,7 +99,7 @@
       }
 
       th:nth-last-child(1),td:nth-last-child(1){
-        @extend .pl-16;
+        @extend .pr-16;
       }
     }
 

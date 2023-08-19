@@ -35,8 +35,7 @@ function App() {
         <div className={"appContainer"}>
             <Header
                 title={"Transactions"}
-                back
-                notification
+                pageHeader={true}
             />
             <div className={"outlet"}>
                 <Outlet/>

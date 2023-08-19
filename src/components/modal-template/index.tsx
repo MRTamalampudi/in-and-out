@@ -26,7 +26,6 @@ const ModalTemplate = ({
         <div className={styles.Modal}>
             <Header
                 title={title}
-                close={true}
                 onClose={onClose}
             />
             <div className={`${styles.body} ${padding ? styles.padding : ""}`}>

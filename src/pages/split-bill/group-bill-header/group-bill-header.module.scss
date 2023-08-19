@@ -97,7 +97,8 @@
 
       }
       .right{
-
+        @extend .flex-row;
+        @extend .column-gap-8;
       }
     }
 

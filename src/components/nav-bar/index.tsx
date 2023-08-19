@@ -7,6 +7,7 @@ import "./icons.scss"
 import "../../styles/size.scss"
 
 import {avatar} from "../../assets/icons";
+import {BaseRoutes} from "../../constants/base-routes";
 
 interface NavBarProps {}
 
@@ -17,10 +18,10 @@ const NavBar = (props:NavBarProps) => {
                 <i className={`${styles.logo} fa-logo`}></i>
             </div>
             <div className={styles.body}>
-                <Link to={'/transactions'}>
+                <Link to={`/${BaseRoutes.TRANSACTIONS}`}>
                     <NavItem label={"Transactions"} icon={"transactionsOutline"}/>
                 </Link>
-                <Link to={'/splitbill'} >
+                <Link to={`/${BaseRoutes.SPLIT_BILL}`} >
                     <NavItem label={"Split Bill"} icon={"invoiceOutline"}/>
                 </Link>
                 <Link to={'/dashboard'}>
@@ -28,7 +29,7 @@ const NavBar = (props:NavBarProps) => {
                 </Link>
             </div>
             <div className={styles.footer}>
-                <Link to={'/settings'}>
+                <Link to={`/${BaseRoutes.SETTINGS}`}>
                     <NavItem label={"Settings"} icon={"settingsOutline"}/>
                 </Link>
                 <Link to={'/settings'}>

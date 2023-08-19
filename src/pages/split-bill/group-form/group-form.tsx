@@ -13,12 +13,16 @@ const GroupForm = ({
     opened,
     setOpened
 }:GroupFormProps) => {
+
+
+
   return (
       <div className={styles.GroupForm}>
           <Modal
               opened={opened}
               onClose={()=>setOpened(false)}
               withCloseButton={false}
+              centered={true}
           >
               <ModalTemplate
                   onClose={()=>setOpened(false)}
@@ -67,7 +71,6 @@ const GroupForm = ({
                               <td>Yoshi Tannamuri</td>
                               <td>Canada</td>
                           </tr>
-
                           </tbody>
                       </Table>
                   </div>

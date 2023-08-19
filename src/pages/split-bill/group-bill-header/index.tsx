@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './group-bill-header.module.scss';
 import {netflix, scenery} from "../../../assets";
 import {Menu, Popover} from "@mantine/core";
-import {Table} from "components";
+import {Icon, Table} from "components";
+import {editOutline, trashOutline} from "../../../assets/icons";
 
 interface GroupBillHeaderProps {
 
@@ -164,7 +165,8 @@ const GroupBillHeader = (
                         </div>
                     </div>
                     <div className={styles.right}>
-                        right
+                        <Icon src={editOutline} size={"xl"}/>
+                        <Icon src={trashOutline} size={"xl"}/>
                     </div>
                 </div>
             </div>

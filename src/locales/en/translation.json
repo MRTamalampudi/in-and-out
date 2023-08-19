@@ -1,3 +1,18 @@
 {
-  "transactions": "Transactions 143"
+  "global": {
+    "transactions": "Transactions",
+    "splitBill": "Split Bill",
+    "budget": "Budget",
+    "settings": "Settings",
+    "userProfile": "User Profile"
+  },
+  "new": "New {{name}}",
+
+
+  "splitBill": {
+    "groups": "Groups",
+    "bills": "Bills",
+    "filter": "Filter {{context}}",
+    "sort": "Sort {{context}}"
+  }
 }

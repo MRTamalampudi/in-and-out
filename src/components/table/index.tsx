@@ -1,8 +1,9 @@
 import React, {FC, useRef} from 'react';
 import styles from './table.module.scss';
-import {TextInput,Pagination} from "@mantine/core";
+import {TextInput, Pagination, Tooltip} from "@mantine/core";
 import {filterOutline, searchOutline, sortOutline} from "../../assets/icons";
 import {instanceOf} from "prop-types";
+import {useTranslation} from "react-i18next";
 
 interface TableProps {
     title:string;
@@ -26,13 +27,15 @@ const Table= (
         height = undefined,
     }:TableProps) => {
 
+    const { t } = useTranslation();
+
     const MetaRow = () => {
       return (
           <div className={styles.metaRow}>
               <div className={styles.right}>
                     <span
                         className={styles.title}>
-                        {title}
+                        {t(title)}
                     </span>
                   <span
                       className={styles.entries}>
@@ -45,14 +48,24 @@ const Table= (
                       size={"xs"}
                       className={`${styles.search}`}
                   />
-                  <img
-                      src={sortOutline}
-                      className={`${styles.sort} icon24`}
-                  />
-                  <img
-                      src={filterOutline}
-                      className={"icon24"}
-                  />
+                  <Tooltip
+                      label={t("splitBill.sort",{context:t(title)})}
+                      position={"bottom-end"}
+                  >
+                      <img
+                          src={sortOutline}
+                          className={"icon24"}
+                      />
+                  </Tooltip>
+                  <Tooltip
+                      label={t("splitBill.filter",{context:t(title)})}
+                      position={"bottom-end"}
+                  >
+                      <img
+                          src={filterOutline}
+                          className={"icon24"}
+                      />
+                  </Tooltip>
               </div>
           </div>
       )

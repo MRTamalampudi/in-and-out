@@ -12,6 +12,7 @@ import Books from "./pages/books/books";
 import Transactions from "./pages/transactions/transactions";
 import SplitBill from "./pages/split-bill/split-bill";
 import Demo from "./pages/demo/demo";
+import {BaseRoutes} from "./constants/base-routes";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,9 +25,9 @@ root.render(
                       <App/>
                   }>
                       <Route path={'dashboard'} element={<Books/>}/>
-                      <Route path={'splitbill'} element={<SplitBill/>}/>
-                      <Route path={'transactions'} element={<Transactions/>}/>
-                      <Route path={'settings'} element={<Demo/>}/>
+                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBill/>}/>
+                      <Route path={BaseRoutes.TRANSACTIONS} element={<Transactions/>}/>
+                      <Route path={'settings/test'} element={<Demo/>}/>
                   </Route>
               </Routes>
           </BrowserRouter>
@@ -36,4 +37,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

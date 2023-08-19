@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import styles from './icon.module.scss';
 
 interface IconProps {
     src:string,
@@ -7,9 +6,9 @@ interface IconProps {
 }
 
 const Icon = ({
-    src,
-    size
-}:IconProps) => {
+                  src,
+                  size
+              }:IconProps) => {
 
     const iconSize = () => {
         switch (size) {
@@ -26,7 +25,7 @@ const Icon = ({
 
     return (
         <div className={`${iconSize()}`}>
-            <img src={src} className={"icon24"}/>
+            <img src={src} className={"icon20"}/>
         </div>
     )
 }

@@ -1,7 +1,6 @@
-@use "src/styles/colors";
-@import "/src/font_custom";
-@import "src/styles/borders";
-@import "src/styles/size";
+@use "styles/colors";
+@import "styles/borders";
+@import "styles/size";
 
 .NavBar {
   display: flex;
