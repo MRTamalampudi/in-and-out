@@ -6,7 +6,7 @@ const GlobalConstants = () => {
 
 
 
-  const LOCALES = ()=> {
+  const LOCALES = () :Record<string, string>=> {
       return {
           TRANSACTIONS: t(GLOBAL + "transactions"),
           SPLIT_BILL: t(GLOBAL + "splitBill"),

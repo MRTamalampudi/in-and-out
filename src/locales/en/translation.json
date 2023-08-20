@@ -10,9 +10,17 @@
 
 
   "splitBill": {
-    "groups": "Groups",
+    "bill": "Bill",
     "bills": "Bills",
+    "group": "Group",
+    "groups": "Groups",
     "filter": "Filter {{context}}",
-    "sort": "Sort {{context}}"
+    "sort": "Sort {{context}}",
+    "new": "New {{context}}"
+  },
+
+  "transactions": {
+    "transactions": "Transactions",
+    "transaction": "transaction"
   }
 }

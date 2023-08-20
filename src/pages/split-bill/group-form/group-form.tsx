@@ -5,11 +5,13 @@ import {ModalTemplate, Table} from "../../../components";
 import {netflix} from "../../../assets";
 
 interface GroupFormProps {
+    title:string,
     opened:boolean,
     setOpened:(opened:boolean)=>void,
 }
 
 const GroupForm = ({
+    title,
     opened,
     setOpened
 }:GroupFormProps) => {
@@ -26,7 +28,7 @@ const GroupForm = ({
           >
               <ModalTemplate
                   onClose={()=>setOpened(false)}
-                  title={"Add Group"}
+                  title={title}
                   primaryAction={()=>{}}
                   secondaryAction={()=>{}}
               >

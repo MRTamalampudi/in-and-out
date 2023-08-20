@@ -36,6 +36,17 @@
       "customTemplates": {
         "index": "src/templates/index.ts"
       }
+    },
+    "transactions": {
+      "path": "src/pages/transactions",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts"
+      }
     }
   },
   "usesStyledComponents": false

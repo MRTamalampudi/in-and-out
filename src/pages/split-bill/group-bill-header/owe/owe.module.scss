@@ -1,0 +1,11 @@
+@import "styles/colors";
+@import "styles/cursor";
+
+.lent {
+  @extend .primary;
+}
+
+.owe {
+  @extend .pointer;
+  @extend .primary-red;
+}

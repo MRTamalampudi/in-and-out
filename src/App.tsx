@@ -3,7 +3,6 @@ import './App.scss';
 import {Button, Drawer, Select, Tabs, TextInput} from '@mantine/core';
 import {Colors} from "./constants/colors";
 import {NavItem} from "./components/atoms/nav-item/nav-item";
-import NavBar from "./components/nav-bar";
 import CashCard from "./components/atoms/cash-card/cash-card";
 import TransactionSummary from "./components/atoms/transaction-summary/transaction-summary";
 import Card from "./components/atoms/card/card";
@@ -19,6 +18,7 @@ import Table from "./components/table";
 import Summary from "./components/summary/summary";
 import TransactionForm from "./pages/transactions/transaction-form";
 import "./i18n"
+import {NavBar} from "components";
 
 
 

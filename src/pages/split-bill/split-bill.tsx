@@ -8,6 +8,7 @@ import BillForm from "./bill-form";
 import GroupForm from "./group-form";
 import {useTranslation} from "react-i18next";
 import Groups from "./groups";
+import {SplitBillConstants} from "./split-bill-constants";
 
 
 
@@ -33,6 +34,8 @@ const SplitBill = (
 
 const BillAndGroupFormModal = () => {
 
+    const {locales} = SplitBillConstants();
+
     const [billFormOpened,setBillFormOpened] = useState<boolean>(false);
     const [groupFormOpened,setGroupBillFormOpened] = useState<boolean>(false);
     const {t} = useTranslation();
@@ -40,10 +43,12 @@ const BillAndGroupFormModal = () => {
       <>
           <div className={"modal"}>
               <BillForm
+                  title={locales.NEW_BILL}
                   opened={billFormOpened}
                   setOpened={setBillFormOpened}
               />
               <GroupForm
+                  title={locales.NEW_GROUP}
                   opened={groupFormOpened}
                   setOpened={setGroupBillFormOpened}
               />

@@ -2,27 +2,29 @@ import React, { FC } from 'react';
 import styles from './bills.module.scss';
 import {Table} from "components";
 import {useTranslation} from "react-i18next";
-import {Checkbox} from "@mantine/core";
+import {Checkbox, Tooltip} from "@mantine/core";
 import {SplitBillConstants} from "../split-bill-constants";
+import {fakerEN_IN as faker} from "@faker-js/faker";
 
 interface BillsProps {}
 
 type Bill= {
+    id:number,
     bill:string,
     paidBy:string,
     paidOn:string,
-    amount:string,
-    myShare:string
+    amount:number,
+    myShare:number
 }
 
-const headings = {
+const dataAttributes = {
     CHECK_BOX : {
         name: "CheckBox",
         className:"flex-basis-1/20"
     },
     BILL : {
         name: "Bill",
-        className:"flex-basis-7/20"
+        className:"flex-basis-7/20 truncate"
     },
     PAID_BY: {
         name: "Paid by",
@@ -50,121 +52,47 @@ const Bills = (
 
     const {t} =  useTranslation();
 
-    const data:Bill[] = [
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-        {
-            bill: "Testing",
-            paidOn: "12/02/2022",
-            paidBy: "ManikantaReddy",
-            amount: "$300",
-            myShare: "$20"
-        },
-    ]
+    const data:Bill[] = []
+
+    for (let i = 0; i < 20; i++) {
+        data.push({
+            id:i,
+            bill: faker.word.words({count:{min:3,max:5}}),
+            paidOn: faker.date.anytime().toLocaleDateString(),
+            paidBy: faker.person.firstName(),
+            amount: Number(faker.finance.amount({min:30,max:100,dec:0})),
+            myShare: Number(faker.finance.amount({min:30,max:100,dec:0})),
+        })
+    }
 
 
 
   return (
       <Table
-          title={SplitBillConstants().LOCALES().BILLS}
+          title={SplitBillConstants().locales.BILLS}
           entries={true}
           rounded={false}
           borders={false}
       >
           <thead>
           <tr>
-              <th className={headings.CHECK_BOX.className}>
+              <th className={dataAttributes.CHECK_BOX.className}>
                   <Checkbox size={"xs"}/>
               </th>
-              <th className={headings.BILL.className}>
-                  {headings.BILL.name}
+              <th className={dataAttributes.BILL.className}>
+                  {dataAttributes.BILL.name}
               </th>
-              <th className={headings.PAID_BY.className}>
-                  {headings.PAID_BY.name}
+              <th className={dataAttributes.PAID_BY.className}>
+                  {dataAttributes.PAID_BY.name}
               </th>
-              <th className={headings.PAID_ON.className}>
-                  {headings.PAID_ON.name}
+              <th className={dataAttributes.PAID_ON.className}>
+                  {dataAttributes.PAID_ON.name}
               </th>
-              <th className={headings.AMOUNT.className}>
-                  {headings.AMOUNT.name}
+              <th className={dataAttributes.AMOUNT.className}>
+                  {dataAttributes.AMOUNT.name}
               </th>
-              <th className={headings.MY_SHARE.className}>
-                  {headings.MY_SHARE.name}
+              <th className={dataAttributes.MY_SHARE.className}>
+                  {dataAttributes.MY_SHARE.name}
               </th>
           </tr>
           </thead>
@@ -172,7 +100,7 @@ const Bills = (
           {
               data.map(bill=>{
                   return (
-                      <Bill bill={bill}/>
+                      <Bill key={bill.id} bill={bill}/>
                   )
               })
           }
@@ -191,23 +119,28 @@ const Bill = ({
 }:BillProps) => {
     return (
         <tr className={styles.row}>
-            <td className={headings.CHECK_BOX.className}>
+            <td className={dataAttributes.CHECK_BOX.className}>
                 <Checkbox size={"xs"}/>
             </td>
-            <td className={headings.BILL.className}>
-                {bill.bill}
+            <td className={dataAttributes.BILL.className}>
+                <Tooltip label={bill.bill} position={"bottom"}>
+                    <span>
+                        {bill.bill}
+                    </span>
+                </Tooltip>
+
             </td>
-            <td className={headings.PAID_BY.className}>
+            <td className={dataAttributes.PAID_BY.className}>
                 {bill.paidBy}
             </td>
-            <td className={headings.PAID_ON.className}>
+            <td className={dataAttributes.PAID_ON.className}>
                 {bill.paidOn}
             </td>
-            <td className={headings.AMOUNT.className}>
-                {bill.amount}
+            <td className={dataAttributes.AMOUNT.className}>
+                {`$ ${bill.amount}`}
             </td>
-            <td className={headings.MY_SHARE.className}>
-                {bill.myShare}
+            <td className={dataAttributes.MY_SHARE.className}>
+                {`$ ${bill.myShare}`}
             </td>
         </tr>
     )

@@ -5,11 +5,16 @@ import {notificationOutline} from "assets/icons";
 import {Icon, Table, ModalTemplate} from "components";
 
 interface BillFormProps {
+    title:string;
     opened:boolean;
     setOpened:(bool:boolean)=>void;
 }
 
-const BillForm = ({opened,setOpened}:BillFormProps) => {
+const BillForm = ({
+    title,
+    opened,
+    setOpened
+}:BillFormProps) => {
 
 
   return (
@@ -25,7 +30,7 @@ const BillForm = ({opened,setOpened}:BillFormProps) => {
           >
               <ModalTemplate
                   onClose={()=>{setOpened(false)}}
-                  title={"Add bill"}
+                  title={title}
                   primaryAction={()=>{}}
                   secondaryAction={()=>{}}
               >

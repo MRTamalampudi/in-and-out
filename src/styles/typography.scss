@@ -68,3 +68,7 @@
 .f-40-b{
   @include typography(2.5rem,bolder,0.03rem);
 }
+
+.currency{
+  font-family: RobotoMono,monospace;
+}
