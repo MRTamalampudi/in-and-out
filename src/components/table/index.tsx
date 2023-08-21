@@ -1,7 +1,7 @@
-import React, {FC, useRef} from 'react';
+import React, {Children, cloneElement, FC, isValidElement, useRef} from 'react';
 import styles from './table.module.scss';
-import {TextInput, Pagination, Tooltip} from "@mantine/core";
-import {filterOutline, searchOutline, sortOutline} from "../../assets/icons";
+import {TextInput, Pagination, Tooltip, Checkbox} from "@mantine/core";
+import {filterOutline, searchOutline, sortOutline, trashOutline} from "../../assets/icons";
 import {instanceOf} from "prop-types";
 import {useTranslation} from "react-i18next";
 
@@ -14,6 +14,8 @@ interface TableProps {
     usePagination?:boolean;
     metaRow?:boolean;
     height?:number;
+    checked?:boolean;
+    selectedList?:number[];
 }
 
 const Table= (
@@ -25,9 +27,15 @@ const Table= (
         usePagination = true,
         metaRow = true,
         height = undefined,
+        checked = false,
+        selectedList = []
     }:TableProps) => {
 
     const { t } = useTranslation();
+
+    if(selectedList?.length){
+
+    }
 
     const MetaRow = () => {
       return (
@@ -71,6 +79,28 @@ const Table= (
       )
     }
 
+    const ActionsRow = () => {
+        return (
+            <div className={styles.actionRow}>
+                <div className={styles.right}>
+                    <Checkbox size={"xs"} className={"flex-basis-1/20"}/>
+                    <span className={"flex-basis-19/20"}> 5 selected</span>
+                </div>
+                <div className={styles.left}>
+                    <Tooltip
+                        label={t("table.delete",{context:t(title)})}
+                        position={"bottom-end"}
+                    >
+                        <img
+                            src={trashOutline}
+                            className={"icon24"}
+                        />
+                    </Tooltip>
+                </div>
+            </div>
+        )
+    }
+
     
     return (
         <div
@@ -83,7 +113,16 @@ const Table= (
         >
             {metaRow && <MetaRow/>}
             <table className={styles.table}>
-                {children}
+                {selectedList?.length ? (
+                    React.Children.map(children, (child: React.ReactNode, index: number) => {
+                        if (React.isValidElement(child) && child.type === 'thead') {
+                            return React.cloneElement(child, {}, <ActionsRow />);
+                        }
+                        return child;
+                    })
+                ) : (
+                    children
+                )}
             </table>
             {
              usePagination &&

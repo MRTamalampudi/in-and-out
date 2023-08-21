@@ -91,8 +91,7 @@
       @extend .column-gap-8;
 
       td,th{
-        display: flex;
-        align-items: center;
+
       }
 
       th:nth-child(1),td:nth-child(1){
@@ -143,4 +142,26 @@
 
 .defaultHeight{
   height: 100%;
+}
+
+.actionRow{
+  display: flex ;
+  justify-content: space-between ;
+  width: 100%;
+  align-items: center;
+  background-color: colors.$y-200 ;
+
+
+  @include height(2.5rem);
+  @extend .px-16;
+  @extend .border-separator-bottom;
+
+  .right{
+    @extend .f-14-b;
+    @extend .flex-row;
+    @extend .column-gap-8;
+  }
+  .left{
+
+  }
 }

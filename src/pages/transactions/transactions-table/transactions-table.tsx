@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Table} from "components";
 import TransactionsConstants from "../transactions-constants";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
 import TransactionType from "../../../components/transaction-type";
 import {TransactionTypes} from "../../../components/transaction-type/transaction-type";
+import {HandleSelection} from "../../../utils/handleSelection";
 
 interface TransactionsTableProps {}
 
@@ -51,6 +52,8 @@ type Transaction = {
 
 const TransactionsTable = () => {
 
+    const [selectionList,setSelectionList] = useState<number[]>([]);
+
     const data:Transaction[] = []
 
     for (let i = 0; i < 20; i++) {
@@ -65,9 +68,16 @@ const TransactionsTable = () => {
         })
     }
 
+    const handlesSelection= (id: number, checked: boolean) => {
+        setSelectionList((prevState)=> {
+            const updatedList = HandleSelection(prevState, id, checked);
+            console.log(updatedList); // Log the updated value
+            return updatedList;
+        })
+    }
     const locales = TransactionsConstants().locales;
     return (
-        <Table title={locales.TRANSACTIONS}>
+        <Table selectedList={selectionList} title={locales.TRANSACTIONS}>
             <thead>
             <tr>
                 <td className={dataAttributes.CHECK_BOX.className}>
@@ -97,7 +107,7 @@ const TransactionsTable = () => {
             {
                 data.map(transaction=> {
                    return (
-                       <Transaction_ key={transaction.id} transaction={transaction} />
+                       <Transaction_ handleSelection={handlesSelection} key={transaction.id} transaction={transaction} />
                    )
                 })
             }
@@ -109,12 +119,17 @@ const TransactionsTable = () => {
 
 interface TransactionProps{
     transaction:Transaction;
+    handleSelection:(id:number,chekced:boolean)=>void;
 }
-const Transaction_ = ({transaction}:TransactionProps) =>{
+const Transaction_ = (
+    {
+        transaction,
+        handleSelection
+    }:TransactionProps) =>{
     return (
         <tr>
             <td className={dataAttributes.CHECK_BOX.className}>
-                <Checkbox size={"xs"}/>
+                <Checkbox size={"xs"} onChange={(event)=>{handleSelection(transaction.id,event.currentTarget.checked)}}/>
             </td>
             <td className={dataAttributes.NOTE.className}>
                 <Tooltip

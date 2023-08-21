@@ -22,5 +22,11 @@
   "transactions": {
     "transactions": "Transactions",
     "transaction": "transaction"
+  },
+
+  "table": {
+    "filter": "Filter {{context}}",
+    "sort": "Sort {{context}}",
+    "delete": "Delete {{context}}"
   }
 }

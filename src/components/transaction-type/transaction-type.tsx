@@ -28,8 +28,8 @@ type
 
     
     return (
-        <div className={className[type]}>
-            <span>
+        <div className={styles.container} >
+            <span className={className[type]}>
                 {type}
             </span>
         </div>
