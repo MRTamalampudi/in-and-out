@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
-import styles from './transactions-table.module.scss';
+import React from 'react';
 import {Table} from "components";
 import TransactionsConstants from "../transactions-constants";
 import {Checkbox, Tooltip} from "@mantine/core";
-import {fakerAR, fakerEN_IN} from "@faker-js/faker";
+import {fakerEN_IN} from "@faker-js/faker";
+import TransactionType from "../../../components/transaction-type";
+import {TransactionTypes} from "../../../components/transaction-type/transaction-type";
 
 interface TransactionsTableProps {}
 
@@ -44,7 +45,7 @@ type Transaction = {
     transactee:string,
     date:string,
     category:string,
-    type:string,
+    type:TransactionTypes,
     amount:string,
 }
 
@@ -59,7 +60,7 @@ const TransactionsTable = () => {
             transactee: fakerEN_IN.person.firstName(),
             date: fakerEN_IN.date.anytime().toLocaleDateString(),
             category: fakerEN_IN.commerce.department(),
-            type: "Cash In",
+            type: TransactionTypes.OWE,
             amount:`$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`
         })
     }
@@ -135,9 +136,9 @@ const Transaction_ = ({transaction}:TransactionProps) =>{
                 {transaction.category}
             </td>
             <td className={dataAttributes.TYPE.className}>
-                {transaction.type}
+                <TransactionType type={transaction.type} />
             </td>
-            <td className={dataAttributes.AMOUNT.className}>
+            <td className={`${dataAttributes.AMOUNT.className} currency`}>
                 {transaction.amount}
             </td>
         </tr>

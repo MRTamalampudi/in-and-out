@@ -1,4 +1,4 @@
-@use "src/styles/colors";
+@use "styles/colors";
 
 @mixin borderSolid($size){
   border: #{$size} solid colors.$g-400;
@@ -7,6 +7,12 @@
 @mixin borderRadius($radius){
   border-radius: $radius;
   overflow: hidden;
+}
+
+@mixin border($color,$size,$style){
+  border-width: $size;
+  border-color: $color;
+  border-style: $style;
 }
 
 .border-solid-1{

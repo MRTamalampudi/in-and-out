@@ -91,7 +91,8 @@
       @extend .column-gap-8;
 
       td,th{
-
+        display: flex;
+        align-items: center;
       }
 
       th:nth-child(1),td:nth-child(1){

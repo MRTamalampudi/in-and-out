@@ -1,0 +1,57 @@
+@use "styles/colors";
+@import "styles/borders";
+@import "styles/typography";
+@import "styles/flex";
+@import "styles/size";
+
+.TransactionType {}
+
+
+.cashIn{
+  color: colors.$p-700;
+  background-color: colors.$p-200;
+  display: inline-block;
+
+
+  @include border(colors.$p-700,1px,dashed);
+  @extend .border-rds-4;
+  @extend .f-12-bb;
+  @extend .px-8;
+  @extend .py-4;
+}
+
+.cashOut{
+  color: colors.$red-700;
+  background-color: colors.$red-200;
+  display: inline-block;
+
+  @include border(colors.$red-700,1px,dashed);
+  @extend .border-rds-4;
+  @extend .f-12-bb;
+  @extend .px-8;
+  @extend .py-4;
+}
+
+.lent{
+  color: colors.$purple-700;
+  background-color: colors.$purple-100;
+  display: inline-block;
+
+  @include border(colors.$purple-700,1px,dashed);
+  @extend .border-rds-4;
+  @extend .f-12-bb;
+  @extend .px-8;
+  @extend .py-4;
+}
+
+.owe{
+  color: colors.$y-700;
+  background-color: colors.$y-200;
+  display: inline-block;
+
+  @include border(colors.$y-700,1px,dashed);
+  @extend .border-rds-4;
+  @extend .f-12-bb;
+  @extend .px-8;
+  @extend .py-4;
+}
