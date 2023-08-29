@@ -1,16 +1,15 @@
-@import "src/styles/size";
-@import "src/styles/borders";
-@import "src/styles/flex";
+@import "styles/size";
+@import "styles/borders";
+@import "styles/flex";
 
 .Footer {
   display: flex;
-  max-height: 3rem;
-  min-height: 3rem;
   align-items: center;
   width: 100%;
   justify-content: space-between;
   background: white;
 
+  @include height(3rem);
   @extend .border-separator-top;
   @extend .px-16;
 

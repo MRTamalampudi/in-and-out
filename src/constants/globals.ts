@@ -4,7 +4,11 @@ const GlobalConstants = () => {
   const GLOBAL:string = "global."
   const {t} = useTranslation();
 
-
+  const CONSTANTS = () =>{
+      return {
+          TRANSACTIONS : "transactions"
+      }
+  }
 
   const LOCALES = () :Record<string, string>=> {
       return {
@@ -17,7 +21,7 @@ const GlobalConstants = () => {
     }
 
     return {
-      LOCALES
+      LOCALES, CONSTANTS
     }
 }
 

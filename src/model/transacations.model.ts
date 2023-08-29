@@ -1,14 +1,14 @@
 import {Payment_Mode} from "../enums/filters";
 import {PrimaryTerms} from "../enums/primary-terms";
+import {TransactionTypes} from "../components/transaction-type/transaction-type";
 
 
-export  class Transacation {
+export  class Transaction {
     public id?: number;
     public note?: string;
-    public partyName?: string;
-    public transactionDate?: string;
+    public transactee?: string;
+    public date?: string;
     public category?: string;
-    public paymentMode?: string;
+    public type?: TransactionTypes;
     public amount?: string;
-    public type?:PrimaryTerms.CASH_IN|PrimaryTerms.CASH_OUT;
 }

@@ -70,7 +70,7 @@ const Bills = (
   return (
       <Table
           title={SplitBillConstants().locales.BILLS}
-          entries={true}
+          totalElements={20}
           rounded={false}
           borders={false}
       >
