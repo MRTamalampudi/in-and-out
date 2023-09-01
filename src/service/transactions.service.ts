@@ -15,17 +15,17 @@ class TransactionsService implements BaseService<Transaction>{
     }
 
     index(query: string): Transaction[] {
-        const data_:Transaction[] = []
+        const data_: Transaction[] = []
         for (let i = 0; i < 20; i++) {
-            data_.push({
-                id:i,
-                note: fakerEN_IN.word.words({count:{min:3,max:5}}),
-                transactee: fakerEN_IN.person.firstName(),
-                date: fakerEN_IN.date.anytime().toLocaleDateString(),
-                category: fakerEN_IN.commerce.department(),
-                type: TransactionTypes.OWE,
-                amount:`$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`
-            })
+            const transaction:Transaction = new Transaction();
+            transaction.id = i;
+            transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
+            transaction.transactee = fakerEN_IN.person.firstName();
+            transaction.category = fakerEN_IN.commerce.department();
+            transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
+            transaction.type = TransactionTypes.OWE;
+            transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
+            data_.push(transaction)
         }
         return data_;
     }
