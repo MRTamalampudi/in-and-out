@@ -6,27 +6,23 @@
 @import "styles/typography";
 @import "styles/gradients";
 
-.Demo {
-  @extend .m-16;
-  display: flex;
-  column-gap: 16px;
-}
-
 
 
 $gradients: (
         strings.$balance: ".blue-gradient",
         strings.$cashOut: ".red-gradient",
         strings.$cashIn: ".green-gradient",
+        strings.$lent: ".purple-gradient",
+        strings.$owe: ".yellow-gradient",
 );
 
 @mixin cardStyles($gradient){
+  flex-basis: 100%;
   position: relative;
   display: flex;
   align-items: center;
 
   @include height(5rem);
-  @include width(15rem);
   @extend .border-rds-8;
   @extend #{$gradient};
 }
@@ -37,7 +33,7 @@ $gradients: (
   left: 0.24rem;
 
   @include height(4.5rem);
-  @include width(14.5rem);
+  @include width(calc(100% - 0.5rem));
   @extend .border-rds-6;
 
   @if $background{
@@ -106,4 +102,10 @@ $gradients: (
   @include mainMixin(strings.$cashIn);
 }
 
+.lent{
+  @include mainMixin(strings.$lent);
+}
 
+.owe{
+  @include mainMixin(strings.$owe);
+}

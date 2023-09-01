@@ -74,10 +74,11 @@
       top: 0;
       z-index: 10;
 
-      @extend .f-14-b;
+      @extend .f-14-bb;
 
       tr{
         background-color: colors.$g-300;
+
       }
     }
 
@@ -106,6 +107,9 @@
     tbody{
       tr{
         height: 2.5rem;
+        td{
+          @extend .f-14;
+        }
       }
     }
   }

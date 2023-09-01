@@ -1,6 +1,10 @@
+@import "styles/typography";
+@import "styles/size";
+
+
 .mantine-Tooltip-tooltip{
-  font-size: xx-small;
-  padding: 0.5rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.25rem;
+
+  @extend .f-10;
+  @extend .px-8;
+  @extend .py-4;
 }

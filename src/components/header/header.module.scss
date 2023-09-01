@@ -4,14 +4,13 @@
 
 .Header {
   display: flex;
-  max-height: 3rem;
-  min-height: 3rem;
   align-items: center;
   width: 100%;
   justify-content: space-between;
   background: white;
   @extend .border-separator-bottom;
   @extend .px-16;
+  @include height(3rem)
 }
 
 .right,.left{

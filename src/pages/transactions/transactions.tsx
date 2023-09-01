@@ -4,6 +4,7 @@ import Summary from "../../components/summary/summary";
 import Table from "../../components/table";
 import TransactionForm from "./transaction-form";
 import TransactionsTable from "./transactions-table";
+import TransactionTypeCard from "../../components/transaction-type-card";
 
 interface TransactionsProps {}
 
@@ -13,7 +14,11 @@ const Transactions = (
   return (
       <div className={styles.Transactions}>
           <div className={styles.top}>
-              <Summary/>
+              <TransactionTypeCard type={"Cash in"} amount={300}/>
+              <TransactionTypeCard type={"Cash out"} amount={50}/>
+              <TransactionTypeCard type={"Lent"} amount={50}/>
+              <TransactionTypeCard type={"Owe"} amount={50}/>
+              <TransactionTypeCard type={"Balance"} amount={200}/>
           </div>
           <div className={styles.bottom}>
               <TransactionsTable/>

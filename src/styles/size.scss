@@ -15,6 +15,7 @@
 }
 
 
+//margin
 @for $i from 0 through 30 {
   .ml-#{$i*4}{
     margin-left: $i*4px;
@@ -59,7 +60,7 @@
   }
 }
 
-
+//padding
 @for $i from 0 through 30 {
   .pl-#{$i*4}{
     padding-left: $i*4px;
@@ -102,6 +103,10 @@
   .p-#{$i*4}{
     padding: $i*4px;
   }
+}
+
+.defaultPadding{
+  @extend .p-12;
 }
 
 @mixin height($height){

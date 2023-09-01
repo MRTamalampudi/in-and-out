@@ -25,3 +25,11 @@
     row-gap: $i * 4px;
   }
 }
+
+.defaultColumnGap{
+  @extend .column-gap-12;
+}
+
+.defaultRowGap{
+  @extend .row-gap-12;
+}

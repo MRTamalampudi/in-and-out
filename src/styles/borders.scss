@@ -16,11 +16,17 @@
 }
 
 .border-solid-1{
-  @include borderSolid(0.5px);
+  @include borderSolid(1px);
 }
+
 .border-solid-2{
-  @include borderSolid(1px)
+  @include borderSolid(2px)
 }
+
+.border-solid-3{
+  @include borderSolid(3px)
+}
+
 .border-separator-bottom{
   border-bottom: 0.5px solid colors.$g-400;
 }
@@ -39,5 +45,9 @@
 
 .border-rds-8{
   @include borderRadius(0.5rem);
+}
+
+.border-rds-6{
+  @include borderRadius(0.375rem);
 }
 

@@ -50,6 +50,10 @@
 .f-20{
   @include typography(1.25rem,600,0.03rem);
 }
+.f-20-b{
+   @include typography(1.25rem,700,0.03rem);
+ }
+
 .f-24{
   @include typography(1.5rem,700,0.5px)
 }

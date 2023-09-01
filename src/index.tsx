@@ -24,7 +24,7 @@ root.render(
                   }>
                       <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBill/>}/>
                       <Route path={BaseRoutes.TRANSACTIONS} element={<Transactions/>}/>
-                      <Route path={'settings/test'} element={<Demo/>}/>
+                      <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>
                   </Route>
               </Routes>
           </BrowserRouter>
