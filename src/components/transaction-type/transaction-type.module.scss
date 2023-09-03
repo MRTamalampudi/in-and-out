@@ -7,53 +7,32 @@
 .TransactionType {}
 
 
-.cashIn{
-  color: colors.$p-700;
-  background-color: colors.$p-200;
+@mixin common-style($text-color, $bg-color) {
+  color: $text-color;
+  background-color: $bg-color;
   display: inline-block;
 
-
-  @include border(colors.$p-700,1px,dashed);
+  @include border($text-color, 1px, dashed);
   @extend .border-rds-4;
-  @extend .f-12-bb;
+  @extend .subtitle-bold;
   @extend .px-8;
   @extend .py-4;
 }
 
-.cashOut{
-  color: colors.$red-700;
-  background-color: colors.$red-200;
-  display: inline-block;
-
-  @include border(colors.$red-700,1px,dashed);
-  @extend .border-rds-4;
-  @extend .f-12-bb;
-  @extend .px-8;
-  @extend .py-4;
+.cashIn {
+  @include common-style(colors.$p-700, colors.$p-200);
 }
 
-.lent{
-  color: colors.$purple-700;
-  background-color: colors.$purple-100;
-  display: inline-block;
-
-  @include border(colors.$purple-700,1px,dashed);
-  @extend .border-rds-4;
-  @extend .f-12-bb;
-  @extend .px-8;
-  @extend .py-4;
+.cashOut {
+  @include common-style(colors.$red-700, colors.$red-200);
 }
 
-.owe{
-  color: colors.$y-700;
-  background-color: colors.$y-200;
-  display: inline-block;
+.lent {
+  @include common-style(colors.$purple-700, colors.$purple-100);
+}
 
-  @include border(colors.$y-700,1px,dashed);
-  @extend .border-rds-4;
-  @extend .f-12-bb;
-  @extend .px-8;
-  @extend .py-4;
+.owe {
+  @include common-style(colors.$y-700, colors.$y-200);
 }
 
 .container{

@@ -33,7 +33,7 @@
     @extend .row-gap-8;
 
     .title{
-      @extend .f-16-b;
+      @extend .heading-4;
     }
 
     .details{
@@ -76,7 +76,7 @@
 
             @extend .ml-8;
             @extend .px-8;
-            @extend .f-12-bb;
+            @extend .subtitle;
             @extend .flex-row;
             @extend .border-rds-8;
             @extend .pointer;
@@ -87,10 +87,11 @@
         }
 
         .billShares{
+          align-items: center;
 
           @extend .flex-row;
           @extend .column-gap-4;
-          @extend .f-14-b;
+          @extend .body-text;
 
 
         }
@@ -108,14 +109,14 @@
 .lent{
   color: colors.$primary;
 
-  @extend .f-14-bb;
+  @extend .body-text-bold;
   @extend .pointer;
 }
 
 .owes{
   color: colors.$primary-red;
 
-  @extend .f-14-bb;
+  @extend .body-text-bold;
   @extend .pointer;
 
 }

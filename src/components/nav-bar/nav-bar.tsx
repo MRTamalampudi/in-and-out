@@ -1,12 +1,12 @@
 
 import React, { FC } from 'react';
 import styles from './nav-bar.module.scss';
-import {NavItem} from "../atoms/nav-item/nav-item";
 import {Link} from "react-router-dom";
 import "../../styles/size.scss"
 import {avatar} from "../../assets/icons";
 import {BaseRoutes} from "../../constants/base-routes";
 import {GlobalConstants} from "../../constants";
+import {NavItem} from "components";
 
 interface NavBarProps {}
 

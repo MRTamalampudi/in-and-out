@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './nav-item.module.scss';
 import {Tooltip} from "@mantine/core";
-import * as icons from "../../../assets/icons"
+import * as icons from "../../assets/icons"
 
 interface NavItemProps {
     label:string;

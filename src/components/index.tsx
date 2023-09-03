@@ -4,6 +4,7 @@ import ModalTemplate from "./modal-template";
 import Footer from "./footer";
 import NavBar from "./nav-bar";
 import Icon from "./icon"
+import {NavItem} from "./nav-item/nav-item";
 
 
 export {
@@ -12,5 +13,6 @@ export {
     ModalTemplate,
     Footer,
     NavBar,
-    Icon
+    Icon,
+    NavItem
 }

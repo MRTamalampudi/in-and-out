@@ -4,9 +4,9 @@
 .mantine-Table-root{
   thead{
     background-color: colors.$n-100;
-    @extend .f-14-b;
+    @extend .body-text;
   }
   tbody{
-    @extend .f-16;
+    @extend .heading-4;
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface TheadProps {
-    handleSelectAll:(checked:boolean)=>void;
+    handleSelectAll?:(checked:boolean)=>void;
     children:React.ReactNode;
     selectedCount?:number;
 }

@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {add, setProducts} from "../../../redux/slice/transaction-slice";
 import {use} from "i18next";
 import {RootState} from "../../../redux";
+import {useSearchParams} from "react-router-dom";
 
 interface TransactionsTableProps {}
 
@@ -58,6 +59,8 @@ export type Transaction = {
 
 const TransactionsTable = () => {
 
+    const [searchParams,setSearchParams] = useSearchParams();
+
     const dispatch = useDispatch();
 
 
@@ -98,6 +101,8 @@ const TransactionsTable = () => {
     }
 
     const handlesSelection= (id: number, checked: boolean) => {
+        setSearchParams(((prev)=> new URLSearchParams({id:`${id}`,test:"tes"})))
+        console.log(searchParams.get("id"))
         setSelectionList((prevState)=> {
             const updatedList = HandleSelection(prevState, id, checked);
             setSelectAllChecked(updatedList.length==data.length)

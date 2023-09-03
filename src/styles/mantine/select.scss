@@ -1,15 +1,14 @@
-@use "src/styles/colors";
-@import "src/styles/typography";
-@import "src/font_custom";
-@import "src/styles/borders";
+@use "styles/colors";
+@import "styles/typography";
+@import "font_custom";
+@import "styles/borders";
 
 .mantine-Select-label{
-  @extend .f-12-bb;
+  @extend .subtitle;
   color: colors.$black;
 }
 .mantine-Select-item{
-  @extend .f-14;
-  letter-spacing: 0px;
+  @extend .body-text;
 }
 .mantine-Select-input{
   @extend .border-solid-1;

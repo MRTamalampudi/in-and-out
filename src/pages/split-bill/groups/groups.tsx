@@ -35,7 +35,9 @@ const Groups = (
     }
 
     return (
-        <Table title={"splitBill.groups"}>
+        <Table
+            title={"splitBill.groups"}
+        >
             <tbody>
             {
                 data.map(group=> {

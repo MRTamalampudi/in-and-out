@@ -1,0 +1,36 @@
+@use "src/styles/colors";
+.NavItem {
+  display: flex;
+  width: 100%;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .border{
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7%;
+    height: 0;
+    transition: height 200ms;
+  }
+  &:hover{
+    .img{
+      display: block;
+      fill: #199473;
+    }
+    .border{
+      height: 100%;
+      background: colors.$primary;
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
+      transition: height 200ms;
+    }
+  }
+  .icon{
+    color: colors.$n-600;
+    font-size: 20px;
+  }
+}

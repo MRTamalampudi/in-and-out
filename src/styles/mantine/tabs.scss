@@ -1,5 +1,5 @@
-@use "src/styles/colors";
-@import "src/styles/typography";
+@use "styles/colors";
+@import "styles/typography";
 
 .mantine-Tabs-tab{
   border-bottom-width: 0.3rem;
@@ -10,7 +10,7 @@
 }
 
 .mantine-Tabs-tabLabel{
-  @extend .f-16-b;
+  @extend .heading-4;
   color: colors.$black;
 }
 

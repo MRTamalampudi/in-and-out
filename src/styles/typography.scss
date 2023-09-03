@@ -1,76 +1,84 @@
 
-@mixin typography($font-size,$font-weight,$letter-spacing){
+@mixin typography($font-size,$font-weight){
   font-size: $font-size;
   font-weight: $font-weight;
-  letter-spacing: $letter-spacing;
+  font-stretch: 100%;
+  letter-spacing: normal;
+  line-height: normal;
+  text-rendering: optimizeLegibility;
+  text-decoration: solid rgb(60, 65, 73);
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: normal;
 }
 
-.f-10{
-  @include typography(0.625rem,400,0.1px)
+@for $i from 10 through 20 {
+  .f-#{$i}{
+    @include typography(#{$i/16}rem,400)
+  }
+  .f-#{$i}-b{
+    @include typography(#{$i/16}rem,500)
+  }
+  .f-#{$i}-bb{
+    @include typography(#{$i/16}rem,600)
+  }
+  .f-#{$i}-bbb{
+    @include typography(#{$i/16}rem,700)
+  }
 }
-.f-10-b{
-  @include typography(0.625rem,500,0.1px)
-}
-.f-10-bb{
-  @include typography(0.625rem,600,0.1px)
-}
-.f-12{
-  @include typography(0.75rem,400,0.1px)
-}
-.f-12-b{
-  @include typography(0.75rem,500,0.1px)
-}
-.f-12-bb{
-  @include typography(0.75rem,600,0.2px)
-}
-.f-14{
-  @include typography(0.875rem,400,0px)
-}
-.f-14-b{
-  @include typography(0.875rem,500,0.15px)
-}
-.f-14-bb{
-  @include typography(0.875rem,600,0.15px)
-}
-.f-14-bbb{
-  @include typography(0.875rem,700,0.15px)
-}
-.f-16{
-  @include typography(1rem,500,0.2px);
-}
-.f-16-b{
-  @include typography(1rem,600,0.2px)
-}
-.f-18{
-  @include typography(1.2rem,500,0.2px);
-}
-.f-18-b{
-  @include typography(1.2rem,700,0px);
-}
-.f-20{
-  @include typography(1.25rem,600,0.03rem);
-}
-.f-20-b{
-   @include typography(1.25rem,700,0.03rem);
- }
 
-.f-24{
-  @include typography(1.5rem,700,0.5px)
+@for $i from 6 through 10{
+  .f-#{$i*4}{
+    @include typography(#{($i*4)/16}rem,400)
+  }
+  .f-#{$i*4}-b{
+    @include typography(#{($i*4)/16}rem,500)
+  }
+  .f-#{$i*4}-bb{
+    @include typography(#{($i*4)/16}rem,600)
+  }
+  .f-#{$i*4}-bbb{
+    @include typography(#{($i*4)/16}rem,700)
+  }
 }
-.f-28{
-  @include typography(1.75rem,700,0.03rem);
+
+.small-text{
+  @extend .f-10;
 }
-.f-32{
-  @include typography(2rem,700,0.03rem);
+
+.subtitle{
+  @extend .f-12-b;
 }
-.f-36{
-  @include typography(2.25rem,700,0.03rem);
+
+.subtitle-bold{
+  @extend .f-12-bb;
 }
-.f-40{
-  @include typography(2.5rem,700,0.03rem);
+
+.body-text{
+  @extend .f-13-b;
 }
-.f-40-b{
-  @include typography(2.5rem,bolder,0.03rem);
+
+.body-text-bold{
+  @extend .f-13-bb;
+}
+
+.button-text{
+  @extend .f-13-b;
+}
+
+.heading-4{
+  @extend .f-16-bb;
+}
+
+.heading-3{
+  @extend .f-18-b;
+}
+
+.heading-2{
+  @extend .f-20-bb;
+}
+
+.heading-1{
+  @extend .f-24-bb;
 }
 
 .currency{

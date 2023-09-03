@@ -1,7 +1,7 @@
 @import "styles/typography";
 
 .mantine-Button-label{
-  @extend .f-14-b;
+  @extend .button-text;
   letter-spacing: 0.4px;
 }
 

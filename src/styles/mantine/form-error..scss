@@ -1,9 +1,9 @@
-@use 'src/styles/colors';
-@import "src/styles/typography";
+@use 'styles/colors';
+@import "styles/typography";
 
 .mantine-TextInput-error{
   color: colors.$red-500;
-  @extend .f-12-b;
+  @extend .subtitle;
 }
 .mantine-Input-invaild,
 .mantine-TextInput-invalid

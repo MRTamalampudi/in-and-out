@@ -31,11 +31,11 @@
       align-items: baseline;
 
       .title{
-        @extend .f-16-b;
+        @extend .heading-4;
       }
 
       .entries{
-        @extend .f-12;
+        @extend .subtitle;
       }
     }
 
@@ -67,14 +67,14 @@
     position: relative;
     flex-basis: 100%;
 
-    @extend .f-14;
+    @extend .body-text;
 
     thead{
       position: sticky;
       top: 0;
       z-index: 10;
 
-      @extend .f-14-bb;
+      @extend .body-text-bold;
 
       tr{
         background-color: colors.$g-300;
@@ -108,7 +108,7 @@
       tr{
         height: 2.5rem;
         td{
-          @extend .f-14;
+          @extend .body-text;
         }
       }
     }
@@ -161,7 +161,7 @@
   @extend .border-separator-bottom;
 
   .right{
-    @extend .f-14-b;
+    @extend .body-text;
     @extend .flex-row;
     @extend .column-gap-8;
   }

@@ -61,14 +61,14 @@ $gradients: (
 }
 
 @mixin titleMixin($context){
-  @extend .f-14-b;
+  @extend .body-text;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}
 }
 
 @mixin contentMixin($context){
-  @extend .f-20;
+  @extend .heading-2;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}
