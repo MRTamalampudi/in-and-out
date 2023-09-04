@@ -3,10 +3,19 @@
 @import "styles/typography";
 
 
-.mantine-TextInput-input{
+.mantine-TextInput-input,.mantine-Input-input{
+  @extend .body-text;
   @extend .border-solid-1;
   background-color: #fbfbfb;
   &:focus{
     @extend .border-solid-1;
   }
+}
+
+.mantine-TextInput-icon{
+  @extend .border-separator-right;
+}
+
+.mantine-TextInput-input[data-with-icon]{
+  padding-left: 2.25rem;
 }

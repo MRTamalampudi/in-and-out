@@ -5,6 +5,7 @@ import Header from "../../../components/header";
 import {useTransactionsConstants} from "../../../constants";
 import TransactionTypeBadge from "../../../components/transaction-type";
 import {TransactionTypeEnum} from "../../../enums";
+import {DatePicker, DateTimePicker} from "@mantine/dates";
 
 interface TransactionFormProps {}
 
@@ -29,6 +30,7 @@ const TransactionForm = ({}:TransactionFormProps) => {
                       label={transactionLocales.AMOUNT}
                       size={"xs"}
                       placeholder={transactionsPlaceholder.AMOUNT}
+                      icon={<span className={"f-13"}>₹</span>}
                   />
                   <TransactionTypeSelect/>
               </div>
@@ -37,10 +39,13 @@ const TransactionForm = ({}:TransactionFormProps) => {
                   size={"xs"}
                   placeholder={transactionLocales.TRANSACTEE}
               />
-              <TextInput
-                  label={transactionLocales.TIME_DATE}
+              <DateTimePicker
+                  label="Pick date and time"
+                  placeholder="Pick date and time"
+                  maw={400}
+                  mx="auto"
                   size={"xs"}
-                  placeholder={transactionLocales.TIME_DATE}
+                  valueFormat="DD MMM YYYY hh:mm A"
               />
               <div className={styles.col2}>
                   <TextInput

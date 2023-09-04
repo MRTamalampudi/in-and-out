@@ -6,10 +6,10 @@
     "@emotion/react": "^11.10.5",
     "@faker-js/faker": "^8.0.2",
     "@iconify/tools": "^3.0.2",
-    "@mantine/core": "^5.9.0",
-    "@mantine/dates": "^5.9.0",
+    "@mantine/core": "^6.0.19",
+    "@mantine/dates": "^6.0.19",
     "@mantine/form": "^5.10.0",
-    "@mantine/hooks": "^5.9.0",
+    "@mantine/hooks": "^6.0.19",
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",
     "@reduxjs/toolkit": "^1.9.5",
@@ -21,18 +21,15 @@
     "@types/node": "^10.9.0",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "chart.js": "^4.0.1",
-    "d3": "^7.7.0",
     "dayjs": "^1.11.6",
     "i18next": "^23.4.3",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.0.3",
     "react-redux": "^8.1.2",
     "react-router": "^6.6.1",
     "react-router-dom": "^6.6.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -78,7 +75,7 @@
     "prop-types": "^15.8.1",
     "sass": "^1.56.1",
     "tailwindcss": "^3.2.2",
-    "webpack": "^5.74.0"
+    "webpack": "5.76.0"
   },
   "settings": {
     "import/resolver": {

@@ -15,10 +15,15 @@
   .body{
     height: calc(100% - 6.2rem);
 
+
     @extend .mx-16;
     @extend .my-8;
     @extend .flex-column;
     @extend .row-gap-4;
+
+    > * {
+      width: 100%;
+    }
 
     .col2{
       display: flex;
