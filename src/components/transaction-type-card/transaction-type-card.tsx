@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import styles from './transaction-type-card.module.scss';
-import {TransactionType} from "types";
-import TransactionTypeConstants from "../../constants/transaction-type-constants";
-import TransactionsConstants from "../../pages/transactions/transactions-constants";
+import TransactionTypeEnum from "enums/transaction-type-enum";
 
 interface TransactionTypeCardProps {
-    type:TransactionType;
+    type:TransactionTypeEnum;
     amount:number,
 }
 
@@ -16,24 +14,24 @@ const TransactionTypeCard = (
     }:TransactionTypeCardProps
 ) => {
     const className = {
-        [TransactionTypeConstants.CASH_IN]: {
-            name: TransactionTypeConstants.CASH_IN,
+        [TransactionTypeEnum.CASH_IN]: {
+            name: TransactionTypeEnum.CASH_IN,
             className: styles.cashIn,
         },
-        [TransactionTypeConstants.CASH_OUT]: {
-            name: TransactionTypeConstants.CASH_OUT,
+        [TransactionTypeEnum.CASH_OUT]: {
+            name: TransactionTypeEnum.CASH_OUT,
             className: styles.cashOut,
         },
-        [TransactionTypeConstants.BALANCE]: {
-            name: TransactionTypeConstants.BALANCE,
+        [TransactionTypeEnum.BALANCE]: {
+            name: TransactionTypeEnum.BALANCE,
             className: styles.balance,
         },
-        [TransactionTypeConstants.LENT]: {
-            name: TransactionTypeConstants.LENT,
+        [TransactionTypeEnum.LENT]: {
+            name: TransactionTypeEnum.LENT,
             className: styles.lent,
         },
-        [TransactionTypeConstants.OWE]: {
-            name: TransactionTypeConstants.OWE,
+        [TransactionTypeEnum.OWE]: {
+            name: TransactionTypeEnum.OWE,
             className: styles.owe,
         },
     };

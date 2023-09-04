@@ -1,32 +1,13 @@
 import {useLocation} from "react-router";
 import styles from "./header.module.scss";
 import {backOutline, notificationOutline} from "../../assets/icons";
-import {GlobalConstants} from "../../constants";
+import {useGlobalConstants} from "constants/index";
 import {Menu, Tooltip} from "@mantine/core";
 import React from "react";
 import {BaseRoutes} from "../../constants/base-routes";
 
 interface PageHeaderProps {
 
-}
-
-const titleBaseRoute = (baseRoute:string):string => {
-
-    const locales = GlobalConstants().LOCALES();
-    switch (baseRoute) {
-        case BaseRoutes.TRANSACTIONS:
-            return locales.TRANSACTIONS;
-        case BaseRoutes.SPLIT_BILL:
-            return locales.SPLIT_BILL;
-        case BaseRoutes.BUDGET:
-            return locales.BUDGET;
-        case BaseRoutes.SETTINGS:
-            return locales.SETTINGS;
-        case BaseRoutes.USER_PROFILE:
-            return locales.USER_PROFILE;
-        default:
-            return "Expenses"
-    }
 }
 
 const PageHeader = ({}:PageHeaderProps) => {
@@ -39,6 +20,17 @@ const PageHeader = ({}:PageHeaderProps) => {
         window.history.back();
     }
 
+    const {globalLocales} = useGlobalConstants();
+    const routeToLocaleMap:{[BaseRoutes:string]:string} = {
+        [BaseRoutes.TRANSACTIONS]: globalLocales.TRANSACTIONS,
+        [BaseRoutes.SPLIT_BILL]: globalLocales.SPLIT_BILL,
+        [BaseRoutes.BUDGET]: globalLocales.BUDGET,
+        [BaseRoutes.SETTINGS]: globalLocales.SETTINGS,
+        [BaseRoutes.USER_PROFILE]: globalLocales.USER_PROFILE,
+    };
+
+    const defaultLocale:string = "Expenses";
+
     return (
         <>
             <div className={styles.right}>
@@ -48,9 +40,10 @@ const PageHeader = ({}:PageHeaderProps) => {
                     onClick={honorBackButton}
                 />
                 <span
-                    className={"f-16-b"}>
-                  {titleBaseRoute(baseRoute)}
-              </span>
+                    className={styles.title}
+                >
+                    { routeToLocaleMap[baseRoute] || defaultLocale }
+                </span>
             </div>
             <div>
                 <Menu position={"bottom-end"}>

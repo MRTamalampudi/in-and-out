@@ -1,18 +1,17 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Table} from "components";
-import TransactionsConstants from "../transactions-constants";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
-import TransactionType from "../../../components/transaction-type";
-import {TransactionTypes} from "../../../components/transaction-type/transaction-type";
 import {HandleSelectAll, HandleSelection} from "../../../utils/handleSelection";
 import Thead from "../../../components/footer/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
-import {add, setProducts} from "../../../redux/slice/transaction-slice";
-import {use} from "i18next";
+import { setProducts} from "../../../redux/slice/transaction-slice";
 import {RootState} from "../../../redux";
 import {useSearchParams} from "react-router-dom";
+import {useTransactionsConstants} from "constants/index";
+import TransactionTypeBadge from "../../../components/transaction-type";
+import {TransactionTypeEnum} from "enums";
 
 interface TransactionsTableProps {}
 
@@ -53,7 +52,7 @@ export type Transaction = {
     transactee:string,
     date:string,
     category:string,
-    type:TransactionTypes,
+    type:TransactionTypeEnum,
     amount:string,
 }
 
@@ -79,7 +78,7 @@ const TransactionsTable = () => {
                 transactee: fakerEN_IN.person.firstName(),
                 date: fakerEN_IN.date.anytime().toLocaleDateString(),
                 category: fakerEN_IN.commerce.department(),
-                type: TransactionTypes.OWE,
+                type: TransactionTypeEnum.OWE,
                 amount:`$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`
             })
         }
@@ -109,7 +108,7 @@ const TransactionsTable = () => {
             return updatedList;
         })
     }
-    const locales = TransactionsConstants().locales;
+    const {transactionLocales} = useTransactionsConstants();
 
     const Heading = () => {
       return (
@@ -148,7 +147,7 @@ const TransactionsTable = () => {
     return (
         <Table
             selectedList={selectionList}
-            title={locales.TRANSACTIONS}
+            title={transactionLocales.TRANSACTIONS}
             totalElements={20}
         >
             {
@@ -219,7 +218,7 @@ const Transaction_ = (
                 {transaction.category}
             </td>
             <td className={dataAttributes.TYPE.className}>
-                <TransactionType type={transaction.type} />
+                <TransactionTypeBadge type={transaction.type} />
             </td>
             <td className={`${dataAttributes.AMOUNT.className} currency`}>
                 {transaction.amount}

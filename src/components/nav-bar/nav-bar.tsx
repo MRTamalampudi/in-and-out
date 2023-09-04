@@ -1,12 +1,13 @@
 
-import React, { FC } from 'react';
+import React from 'react';
 import styles from './nav-bar.module.scss';
 import {Link} from "react-router-dom";
 import "../../styles/size.scss"
 import {avatar} from "../../assets/icons";
 import {BaseRoutes} from "../../constants/base-routes";
-import {GlobalConstants} from "../../constants";
 import {NavItem} from "components";
+import {useGlobalConstants} from "constants/index";
+import globals from "../../constants/globals";
 
 interface NavBarProps {}
 
@@ -18,24 +19,24 @@ type navItem = {
 }
 
 
-const navItems = ():navItem[] => {
+const NavItems = ():navItem[] => {
 
-    const locales = GlobalConstants().LOCALES();
+    const {globalLocales} = useGlobalConstants();
 
     const items:navItem[] = [
         {
             link:BaseRoutes.TRANSACTIONS,
-            label:locales.TRANSACTIONS,
+            label:globalLocales.TRANSACTIONS,
             icon:"transactionsOutline"
         },
         {
             link:BaseRoutes.SPLIT_BILL,
-            label:locales.SPLIT_BILL,
+            label:globalLocales.SPLIT_BILL,
             icon:"invoiceOutline"
         },
         {
             link:BaseRoutes.BUDGET,
-            label:locales.BUDGET,
+            label:globalLocales.BUDGET,
             icon:"budgetOutline"
         },
     ]
@@ -51,7 +52,7 @@ const NavBar = (props:NavBarProps) => {
             </div>
             <div className={styles.body}>
                 {
-                    navItems().map(navItem => {
+                    NavItems().map(navItem => {
                         return (
                             <Link key={navItem.label} to={`/${navItem.link}`}>
                                 <NavItem label={navItem.label} icon={navItem.icon}/>

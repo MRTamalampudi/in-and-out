@@ -3,8 +3,6 @@ import styles from './header.module.scss';
 import {backOutline, dClose, notificationOutline} from "assets/icons"
 import { Menu, Tooltip} from '@mantine/core';
 import {useTranslation} from "react-i18next";
-import {useLocation} from "react-router";
-import { GlobalConstants } from "constants/index";
 import PageHeader from "./page-header";
 import ModalHeader from "./modal-header";
 

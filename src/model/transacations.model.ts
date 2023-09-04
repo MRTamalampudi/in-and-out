@@ -1,6 +1,4 @@
-import {Payment_Mode} from "../enums/filters";
-import {PrimaryTerms} from "../enums/primary-terms";
-import {TransactionTypes} from "../components/transaction-type/transaction-type";
+import {TransactionTypeEnum} from "enums";
 
 
 export  class Transaction {
@@ -9,7 +7,7 @@ export  class Transaction {
     private _transactee: string;
     private _date: string;
     private _category: string;
-    private _type: TransactionTypes;
+    private _type: TransactionTypeEnum;
     private _amount: string;
 
     get id(): number {
@@ -52,11 +50,11 @@ export  class Transaction {
         this._category = value;
     }
 
-    get type(): TransactionTypes {
+    get type(): TransactionTypeEnum {
         return this._type;
     }
 
-    set type(value: TransactionTypes) {
+    set type(value: TransactionTypeEnum) {
         this._type = value;
     }
 

@@ -1,5 +1,5 @@
-type TransactionType = "Cash in" | "Cash out" | "Lent" | "Owe" | "Balance";
+type transactionType = "Cash in" | "Cash out" | "Lent" | "Owe" | "Balance";
 
 export type {
-    TransactionType
+    transactionType
 }

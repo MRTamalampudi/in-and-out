@@ -4,7 +4,7 @@ import {Outlet, useLocation, useNavigate} from "react-router";
 import UnderConstruction from "./components/under-construction/under-construction";
 import Header from "./components/header";
 import Table from "./components/table";
-import TransactionForm from "./pages/transactions/transaction-form";
+import TransactionForm from "./pages/transactions/transaction-form/transaction-form";
 import "./i18n"
 import {NavBar} from "components";
 import {Provider} from "react-redux";

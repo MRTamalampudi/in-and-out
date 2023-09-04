@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styles from './transactions.module.scss';
-import TransactionForm from "./transaction-form";
 import TransactionsTable from "./transactions-table";
-import TransactionTypeCard from "../../components/transaction-type-card";
+import TransactionForm from "./transaction-form";
+import {TransactionTypeCard} from "components";
+import {TransactionTypeEnum} from "../../enums";
 
 interface TransactionsProps {}
 
@@ -12,11 +13,11 @@ const Transactions = (
   return (
       <div className={styles.Transactions}>
           <div className={styles.top}>
-              <TransactionTypeCard type={"Cash in"} amount={300}/>
-              <TransactionTypeCard type={"Cash out"} amount={50}/>
-              <TransactionTypeCard type={"Lent"} amount={50}/>
-              <TransactionTypeCard type={"Owe"} amount={50}/>
-              <TransactionTypeCard type={"Balance"} amount={200}/>
+              <TransactionTypeCard type={TransactionTypeEnum.CASH_IN} amount={300}/>
+              <TransactionTypeCard type={TransactionTypeEnum.CASH_OUT} amount={50}/>
+              <TransactionTypeCard type={TransactionTypeEnum.LENT} amount={50}/>
+              <TransactionTypeCard type={TransactionTypeEnum.OWE} amount={50}/>
+              <TransactionTypeCard type={TransactionTypeEnum.BALANCE} amount={200}/>
           </div>
           <div className={styles.bottom}>
               <TransactionsTable/>

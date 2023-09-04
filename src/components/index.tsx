@@ -5,6 +5,7 @@ import Footer from "./footer";
 import NavBar from "./nav-bar";
 import Icon from "./icon"
 import {NavItem} from "./nav-item/nav-item";
+import  TransactionTypeCard from "./transaction-type-card"
 
 
 export {
@@ -14,5 +15,6 @@ export {
     Footer,
     NavBar,
     Icon,
-    NavItem
+    NavItem,
+    TransactionTypeCard
 }

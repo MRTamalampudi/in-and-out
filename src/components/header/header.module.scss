@@ -1,6 +1,7 @@
 @import "styles/size";
 @import "styles/borders";
 @import "styles/cursor";
+@import "styles/typography";
 
 .Header {
   display: flex;
@@ -17,6 +18,10 @@
   display: flex;
   column-gap: 0.5rem;
   align-items: center;
+}
+
+.right .title{
+  @extend .heading-4;
 }
 
 .close{

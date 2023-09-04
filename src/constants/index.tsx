@@ -1,6 +1,8 @@
-import GlobalConstants  from "./globals";
+import useGlobalConstants  from "./globals";
+import useTransactionsConstants from "./transaction-constants";
 
 
 export {
-    GlobalConstants,
+    useGlobalConstants,
+    useTransactionsConstants,
 }

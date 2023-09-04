@@ -4,11 +4,24 @@
     "splitBill": "Split Bill",
     "budget": "Budget",
     "settings": "Settings",
-    "userProfile": "User Profile"
+    "userProfile": "User Profile",
+    "timeDate": "Time & Date",
+    "transactee": "Transactee",
+    "category": "Category",
+    "paymentMode": "Payment Mode",
+    "labels": "Labels",
+    "cashIn": "Cash in",
+    "cashOut": "Cash out",
+    "lent": "Lent",
+    "owe": "Owe",
+    "balance": "Balance",
+    "amount": "Amount",
+    "transactionType": "Transaction type",
+    "placeholder": {
+      "amount": "$37"
+    }
   },
   "new": "New {{name}}",
-
-
   "splitBill": {
     "bill": "Bill",
     "bills": "Bills",
@@ -21,7 +34,11 @@
 
   "transactions": {
     "transactions": "Transactions",
-    "transaction": "transaction"
+    "transaction": "Transaction",
+    "note": "Note",
+    "placeholder": {
+      "note": "eg: purchased fruits"
+    }
   },
 
   "table": {

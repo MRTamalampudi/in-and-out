@@ -2,7 +2,7 @@ import {BaseService} from "./base-service";
 import {Transaction} from "../model/transacations.model";
 import {useDispatch} from "react-redux";
 import {fakerEN_IN} from "@faker-js/faker";
-import {TransactionTypes} from "../components/transaction-type/transaction-type";
+import {TransactionTypeEnum} from "../enums";
 
 
 class TransactionsService implements BaseService<Transaction>{
@@ -23,7 +23,7 @@ class TransactionsService implements BaseService<Transaction>{
             transaction.transactee = fakerEN_IN.person.firstName();
             transaction.category = fakerEN_IN.commerce.department();
             transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
-            transaction.type = TransactionTypes.OWE;
+            transaction.type = TransactionTypeEnum.OWE;
             transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
             data_.push(transaction)
         }
