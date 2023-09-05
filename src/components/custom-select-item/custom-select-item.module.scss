@@ -1,0 +1,22 @@
+@import "styles/size";
+@import "styles/borders";
+@import "styles/typography";
+
+.CustomSelectItem {
+  display: flex;
+  align-items: center;
+
+  @extend .border-solid-1;
+  @extend .border-rds-8;
+  .image{
+
+    @include height(2rem);
+    @include width(2rem);
+    @extend .border-separator-right;
+    @extend .p-4;
+  }
+  .value{
+    @extend .px-8;
+    @extend .body-text;
+  }
+}

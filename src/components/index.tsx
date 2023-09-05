@@ -6,6 +6,7 @@ import NavBar from "./nav-bar";
 import Icon from "./icon"
 import {NavItem} from "./nav-item/nav-item";
 import  TransactionTypeCard from "./transaction-type-card"
+import TransactionTypeBadge from "./transaction-type";
 
 
 export {
@@ -16,5 +17,6 @@ export {
     NavBar,
     Icon,
     NavItem,
-    TransactionTypeCard
+    TransactionTypeCard,
+    TransactionTypeBadge
 }

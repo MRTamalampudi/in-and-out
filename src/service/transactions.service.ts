@@ -1,6 +1,5 @@
 import {BaseService} from "./base-service";
 import {Transaction} from "../model/transacations.model";
-import {useDispatch} from "react-redux";
 import {fakerEN_IN} from "@faker-js/faker";
 import {TransactionTypeEnum} from "../enums";
 

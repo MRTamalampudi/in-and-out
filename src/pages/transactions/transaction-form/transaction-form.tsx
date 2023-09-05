@@ -1,11 +1,10 @@
 import React, {forwardRef} from 'react';
 import styles from './transaction-form.module.scss';
 import {Button, Select, TextInput} from "@mantine/core";
-import Header from "../../../components/header";
-import {useTransactionsConstants} from "../../../constants";
-import TransactionTypeBadge from "../../../components/transaction-type";
-import {TransactionTypeEnum} from "../../../enums";
-import {DatePicker, DateTimePicker} from "@mantine/dates";
+import {useTransactionsConstants} from "constants/index";
+import {TransactionTypeEnum} from "enums";
+import { DateTimePicker} from "@mantine/dates";
+import {Header, TransactionTypeBadge} from "components";
 
 interface TransactionFormProps {}
 
@@ -18,14 +17,20 @@ const TransactionForm = ({}:TransactionFormProps) => {
 
   return (
       <div className={styles.TransactionForm}>
-          <Header title={"Edit transaction"}/>
-          <div className={styles.body}>
+          <Header
+              title={"Edit transaction"}
+          />
+          <div
+              className={styles.body}
+          >
               <TextInput
                   label={transactionLocales.NOTE}
                   size={"xs"}
                   placeholder={transactionsPlaceholder.NOTE}
               />
-              <div className={styles.col2}>
+              <div
+                  className={styles.col2}
+              >
                   <TextInput
                       label={transactionLocales.AMOUNT}
                       size={"xs"}
@@ -47,7 +52,9 @@ const TransactionForm = ({}:TransactionFormProps) => {
                   size={"xs"}
                   valueFormat="DD MMM YYYY hh:mm A"
               />
-              <div className={styles.col2}>
+              <div
+                  className={styles.col2}
+              >
                   <TextInput
                       label={"Category"}
                       size={"xs"}
@@ -62,7 +69,9 @@ const TransactionForm = ({}:TransactionFormProps) => {
                   size={"xs"}
               />
           </div>
-          <div className={styles.footer}>
+          <div
+              className={styles.footer}
+          >
               <Button
                   size={"xs"}
                   variant={"outline"}
@@ -83,8 +92,8 @@ const TransactionTypeSelect = () => {
 
     // @ts-ignore
     const data: { value: TransactionTypeEnum; label: TransactionTypeEnum }[] = Object.values(TransactionTypeEnum)
-        .filter((value) => value !== TransactionTypeEnum.BALANCE)
-        .map((value) => ({ value, label: value }));
+        .filter((value:TransactionTypeEnum):boolean => value !== TransactionTypeEnum.BALANCE)
+        .map((value:TransactionTypeEnum):{value:string,label:string} => ({ value, label: value }));
 
     interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
         value:TransactionTypeEnum;
