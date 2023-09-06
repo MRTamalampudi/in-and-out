@@ -18,7 +18,9 @@
     "amount": "Amount",
     "transactionType": "Transaction type",
     "placeholder": {
-      "amount": "37"
+      "amount": "37",
+      "paymentMode": "select Payment mode",
+      "category": "select category"
     }
   },
   "new": "New {{name}}",

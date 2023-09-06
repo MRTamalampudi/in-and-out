@@ -12,10 +12,11 @@ const CustomSelectItem = ({
 }:CustomSelectItemProps) => {
     return (
         <div className={styles.CustomSelectItem}>
-            <img
-                src={imgUrl}
-                className={styles.image}
-            />
+            <div className={styles.image}>
+                <img
+                    src={imgUrl}
+                />
+            </div>
             <span
                 className={styles.value}
             >

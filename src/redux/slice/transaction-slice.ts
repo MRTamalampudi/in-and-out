@@ -1,19 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Transaction} from "pages/transactions/transactions-table/transactions-table";
+
 import {TransactionTypeEnum} from "enums";
+import {Transaction} from "../../model/transacations.model";
 
 
 
 const initialState:Transaction[] = [
-    {
-        id:21,
-        amount:"Testing",
-        transactee:"test",
-        date:"adsfdsad",
-        type:TransactionTypeEnum.OWE,
-        note:"sdsa",
-        category:"esd",
-    }
+    new Transaction(),
 ];
 
 

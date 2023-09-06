@@ -5,6 +5,12 @@ import {useTransactionsConstants} from "constants/index";
 import {TransactionTypeEnum} from "enums";
 import { DateTimePicker} from "@mantine/dates";
 import {Header, TransactionTypeBadge} from "components";
+import {PaymentModeEnum} from "../../../enums";
+import CustomSelectItem from "../../../components/custom-select-item";
+import {netflix} from "../../../assets";
+import {PaymentModeAttributes} from "../../../enumAttributes";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../redux";
 
 interface TransactionFormProps {}
 
@@ -14,6 +20,101 @@ const TransactionForm = ({}:TransactionFormProps) => {
         transactionLocales,
         transactionsPlaceholder
     } = useTransactionsConstants();
+
+    const TransactionTypeSelect = () => {
+
+        // @ts-ignore
+        const data: { value: TransactionTypeEnum; label: TransactionTypeEnum }[] = Object.values(TransactionTypeEnum)
+            .filter((value:TransactionTypeEnum):boolean => value !== TransactionTypeEnum.BALANCE)
+            .map((value:TransactionTypeEnum):{value:string,label:string} => ({ value, label: value }));
+
+        interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+            value:TransactionTypeEnum;
+        }
+
+        const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+            ({ value, ...others }: ItemProps, ref) => (
+                <div ref={ref} {...others}>
+                    <TransactionTypeBadge type={value}/>
+                </div>
+            )
+        );
+
+
+
+        return (
+            <>
+                <Select
+                    itemComponent={SelectItem}
+                    data={data}
+                    size={"xs"}
+                    label={"TransactionType"}
+                />
+            </>
+        )
+    }
+
+    const PaymentModeSelect = () => {
+
+        // @ts-ignore
+        const data = Object.values(PaymentModeEnum)
+            .map((value:PaymentModeEnum) => ({ value, label: value,imgUrl:PaymentModeAttributes[value].imgUrl }));
+
+        interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+            value:PaymentModeEnum;
+            imgUrl:string
+        }
+
+        const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+            ({ value,imgUrl, ...others }: ItemProps, ref) => (
+                <div ref={ref} {...others}>
+                    <CustomSelectItem
+                        imgUrl={imgUrl}
+                        value={value}
+                    />
+                </div>
+            )
+        );
+
+
+
+        return (
+            <>
+                <Select
+                    itemComponent={SelectItem}
+                    data={data}
+                    size={"xs"}
+                    label={"Payment Mode"}
+                    placeholder={transactionsPlaceholder.PAYMENT_MODE}
+                    maxDropdownHeight={200}
+                />
+            </>
+        )
+    }
+
+    const CategorySelect = () => {
+
+
+        const data = useSelector((state:RootState) => state.categories).map((data_:string)=>{return {"value":data_,"label":data_}})
+
+        interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+            value:TransactionTypeEnum;
+        }
+
+
+
+        return (
+            <>
+                <Select
+                    data={data}
+                    size={"xs"}
+                    label={"Category"}
+                    placeholder={transactionsPlaceholder.CATEGORY}
+                    maxDropdownHeight={200}
+                />
+            </>
+        )
+    }
 
   return (
       <div className={styles.TransactionForm}>
@@ -55,14 +156,8 @@ const TransactionForm = ({}:TransactionFormProps) => {
               <div
                   className={styles.col2}
               >
-                  <TextInput
-                      label={"Category"}
-                      size={"xs"}
-                  />
-                  <TextInput
-                      label={"Payment Mode"}
-                      size={"xs"}
-                  />
+                  <CategorySelect/>
+                  <PaymentModeSelect/>
               </div>
               <TextInput
                   label={"Labels"}
@@ -88,37 +183,6 @@ const TransactionForm = ({}:TransactionFormProps) => {
   )
 }
 
-const TransactionTypeSelect = () => {
 
-    // @ts-ignore
-    const data: { value: TransactionTypeEnum; label: TransactionTypeEnum }[] = Object.values(TransactionTypeEnum)
-        .filter((value:TransactionTypeEnum):boolean => value !== TransactionTypeEnum.BALANCE)
-        .map((value:TransactionTypeEnum):{value:string,label:string} => ({ value, label: value }));
-
-    interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-        value:TransactionTypeEnum;
-    }
-
-    const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-        ({ value, ...others }: ItemProps, ref) => (
-            <div ref={ref} {...others}>
-                <TransactionTypeBadge type={value}/>
-            </div>
-        )
-    );
-
-
-
-    return (
-        <>
-            <Select
-                itemComponent={SelectItem}
-                data={data}
-                size={"xs"}
-                label={"TransactionType"}
-            />
-        </>
-    )
-}
 
 export default TransactionForm;

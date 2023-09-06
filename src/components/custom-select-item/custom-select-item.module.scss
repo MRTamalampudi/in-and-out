@@ -7,13 +7,19 @@
   align-items: center;
 
   @extend .border-solid-1;
-  @extend .border-rds-8;
+  @extend .border-rds-4;
   .image{
-
+    display: flex;
+    align-items: center;
     @include height(2rem);
     @include width(2rem);
     @extend .border-separator-right;
     @extend .p-4;
+
+    img{
+      margin:auto 0;
+      width: 100%;
+    }
   }
   .value{
     @extend .px-8;

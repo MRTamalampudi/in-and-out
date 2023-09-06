@@ -3,7 +3,7 @@ import styles from './demo.module.scss';
 import TransactionTypeCard from "../../components/transaction-type-card";
 import {TransactionTypeEnum} from "../../enums";
 import CustomSelectItem from "../../components/custom-select-item";
-import {netflix} from "../../assets";
+import {netflix, upi} from "../../assets";
 
 interface DemoProps {}
 
@@ -13,7 +13,7 @@ const Demo = () => {
         <div className={styles.Demo}>
             <CustomSelectItem
                 value={"CryptoCurrency"}
-                imgUrl={netflix}
+                imgUrl={upi}
             />
         </div>
     )

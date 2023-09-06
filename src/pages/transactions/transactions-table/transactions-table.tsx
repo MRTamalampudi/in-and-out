@@ -12,6 +12,7 @@ import {useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
 import TransactionTypeBadge from "../../../components/transaction-type";
 import {TransactionTypeEnum} from "enums";
+import {Transaction} from "../../../model/transacations.model";
 
 interface TransactionsTableProps {}
 
@@ -46,16 +47,6 @@ const dataAttributes = {
     }
 }
 
-export type Transaction = {
-    id:number,
-    note:string,
-    transactee:string,
-    date:string,
-    category:string,
-    type:TransactionTypeEnum,
-    amount:string,
-}
-
 const TransactionsTable = () => {
 
     const [searchParams,setSearchParams] = useSearchParams();
@@ -72,15 +63,15 @@ const TransactionsTable = () => {
     useMemo(()=>{
         const data_:Transaction[] = [];
         for (let i = 0; i < 20; i++) {
-            data_.push({
-                id:i,
-                note: fakerEN_IN.word.words({count:{min:3,max:5}}),
-                transactee: fakerEN_IN.person.firstName(),
-                date: fakerEN_IN.date.anytime().toLocaleDateString(),
-                category: fakerEN_IN.commerce.department(),
-                type: TransactionTypeEnum.OWE,
-                amount:`$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`
-            })
+            const transaction:Transaction = new Transaction();
+            transaction.id = i;
+            transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
+            transaction.transactee = fakerEN_IN.person.firstName();
+            transaction.category = fakerEN_IN.commerce.department();
+            transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
+            transaction.type = TransactionTypeEnum.OWE;
+            transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
+            data_.push(transaction)
         }
         dispatch(setProducts(data_))
     },[])

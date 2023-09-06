@@ -17,7 +17,7 @@ const useGlobalConstants = () => {
       BUDGET: t(GLOBAL + "budget"),
       SETTINGS: t(GLOBAL + "settings"),
       USER_PROFILE: t(GLOBAL + "userProfile"),
-      CATEGORY: t(GLOBAL+ "labels"),
+      CATEGORY: t(GLOBAL+ "category"),
       PAYMENT_MODE: t(GLOBAL+ "paymentMode"),
       TRANSACTEE: t(GLOBAL+ "transactee"),
       TIME_DATE: t(GLOBAL + "timeDate"),
@@ -25,13 +25,15 @@ const useGlobalConstants = () => {
       TRANSACTION_TYPE: t(GLOBAL + "transactionType")
     }
 
-    const gloabalPlacholders = {
+    const globalPlacholders = {
       AMOUNT: t(PLACEHOLDER + "amount"),
+        PAYMENT_MODE: t(PLACEHOLDER + "paymentMode"),
+        CATEGORY: t(PLACEHOLDER + "category")
     }
 
     return {
       globalLocales,
-        gloabalPlacholders,
+        globalPlacholders,
 
   }
 }

@@ -6,7 +6,7 @@ const useTransactionsConstants = () => {
     const TRANSACTIONS_CONST:string = "transactions.";
     const PLACEHOLDER:string = "transactions.placeholder.";
     const {t} = useTranslation();
-    const {globalLocales,gloabalPlacholders} = useGlobalConstants();
+    const {globalLocales,globalPlacholders} = useGlobalConstants();
 
     const transactionLocales = {
         TRANSACTIONS:t(TRANSACTIONS_CONST + "transactions"),
@@ -21,7 +21,9 @@ const useTransactionsConstants = () => {
 
     const transactionsPlaceholder = {
         NOTE: t(PLACEHOLDER + "note"),
-        AMOUNT: gloabalPlacholders.AMOUNT,
+        AMOUNT: globalPlacholders.AMOUNT,
+        PAYMENT_MODE: globalPlacholders.PAYMENT_MODE,
+        CATEGORY: globalPlacholders.CATEGORY
     }
 
     return {

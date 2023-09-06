@@ -1,23 +1,21 @@
 import {PaymentModeEnum} from "enums";
+import {bitcoin, card, money, netbank, upi} from "../assets";
 
 const PaymentModeAttributes:Record<PaymentModeEnum, {imgUrl:string}> = {
     [PaymentModeEnum.CASH]: {
-        imgUrl: ""
+        imgUrl: money
     },
     [PaymentModeEnum.UPI]: {
-        imgUrl: ""
+        imgUrl: upi
     },
     [PaymentModeEnum.DEBIT_CARD]: {
-        imgUrl: ""
-    },
-    [PaymentModeEnum.CREDIT_CARD]: {
-        imgUrl: ""
+        imgUrl: card
     },
     [PaymentModeEnum.NET_BANKING]: {
-        imgUrl: ""
+        imgUrl: netbank
     },
     [PaymentModeEnum.CRYPTO_CURRENCY]: {
-        imgUrl: ""
+        imgUrl: bitcoin
     }
 
 }
