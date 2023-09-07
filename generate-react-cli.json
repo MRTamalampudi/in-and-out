@@ -47,6 +47,29 @@
       "customTemplates": {
         "index": "src/templates/index.ts"
       }
+    },
+    "transaction-form": {
+      "path": "src/pages/transactions/transaction-form",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts"
+      }
+    },
+    "icons": {
+      "path": "src/components/icons",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": false,
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts",
+        "component": "src/templates/icon-template/TemplateName.tsx"
+      }
     }
   },
   "usesStyledComponents": false

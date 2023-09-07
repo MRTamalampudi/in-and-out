@@ -6,12 +6,12 @@ import {HandleSelectAll, HandleSelection} from "../../../utils/handleSelection";
 import Thead from "../../../components/footer/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
-import { setProducts} from "../../../redux/slice/transaction-slice";
+import {setProducts} from "../../../redux/slice/transaction-slice";
 import {RootState} from "../../../redux";
 import {useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
 import TransactionTypeBadge from "../../../components/transaction-type";
-import {TransactionTypeEnum} from "enums";
+import {PaymentModeEnum, TransactionTypeEnum} from "enums";
 import {Transaction} from "../../../model/transacations.model";
 
 interface TransactionsTableProps {}
@@ -71,6 +71,7 @@ const TransactionsTable = () => {
             transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
             transaction.type = TransactionTypeEnum.OWE;
             transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
+            transaction.paymentMode = PaymentModeEnum.UPI;
             data_.push(transaction)
         }
         dispatch(setProducts(data_))

@@ -3,9 +3,10 @@ import styles from './group-bill-header.module.scss';
 import {netflix, scenery} from "../../../assets";
 import {Menu, Popover} from "@mantine/core";
 import {Icon, Table} from "components";
-import {editOutline, trashOutline} from "../../../assets/icons";
+import {trashOutline} from "../../../assets/icons";
 import Lent from "./lent";
 import Owe from "./owe";
+import {EditIcon} from "../../../components/icons/edit-icon";
 
 interface GroupBillHeaderProps {
 
@@ -43,7 +44,7 @@ const GroupBillHeader = (
                         </div>
                     </div>
                     <div className={styles.right}>
-                        <Icon src={editOutline} size={"xl"}/>
+                        <EditIcon width={24} height={24}/>
                         <Icon src={trashOutline} size={"xl"}/>
                     </div>
                 </div>

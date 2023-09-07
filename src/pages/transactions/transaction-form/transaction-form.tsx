@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef, useEffect} from 'react';
 import styles from './transaction-form.module.scss';
 import {Button, Select, TextInput} from "@mantine/core";
 import {useTransactionsConstants} from "constants/index";
@@ -11,15 +11,47 @@ import {netflix} from "../../../assets";
 import {PaymentModeAttributes} from "../../../enumAttributes";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux";
+import {useSearchParams} from "react-router-dom";
+import {FieldValues, useForm} from "react-hook-form";
+import {mode} from "d3";
+import {ErrorIcon} from "../../../components/icons";
+import FormError from "../../../components/form-error";
+import PaymentModeSelect from "./payment-mode-select";
 
 interface TransactionFormProps {}
 
 const TransactionForm = ({}:TransactionFormProps) => {
 
+    const [searchParams,setSearchParams]=useSearchParams();
+    const {
+        register,
+        handleSubmit,
+        formState:{errors},
+    } = useForm({mode: "onSubmit"});
+
     const {
         transactionLocales,
         transactionsPlaceholder
     } = useTransactionsConstants();
+
+    const noteValidation = {
+        ...register(transactionLocales.NOTE,{
+            required:true,
+            maxLength:{
+                value:2,
+                message:"Max 2 length"
+            }
+        })
+    }
+
+    const paymentModeValidation = {
+        ...register(transactionLocales.PAYMENT_MODE,{
+            required:{
+                value:true,
+                message:"Mandatory"
+            }
+        })
+    }
 
     const TransactionTypeSelect = () => {
 
@@ -48,49 +80,14 @@ const TransactionForm = ({}:TransactionFormProps) => {
                     itemComponent={SelectItem}
                     data={data}
                     size={"xs"}
-                    label={"TransactionType"}
+                    label={transactionLocales.TRANSACTION_TYPE}
+                    placeholder={transactionsPlaceholder.TRANSACTION_TYPE}
                 />
             </>
         )
     }
 
-    const PaymentModeSelect = () => {
 
-        // @ts-ignore
-        const data = Object.values(PaymentModeEnum)
-            .map((value:PaymentModeEnum) => ({ value, label: value,imgUrl:PaymentModeAttributes[value].imgUrl }));
-
-        interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-            value:PaymentModeEnum;
-            imgUrl:string
-        }
-
-        const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-            ({ value,imgUrl, ...others }: ItemProps, ref) => (
-                <div ref={ref} {...others}>
-                    <CustomSelectItem
-                        imgUrl={imgUrl}
-                        value={value}
-                    />
-                </div>
-            )
-        );
-
-
-
-        return (
-            <>
-                <Select
-                    itemComponent={SelectItem}
-                    data={data}
-                    size={"xs"}
-                    label={"Payment Mode"}
-                    placeholder={transactionsPlaceholder.PAYMENT_MODE}
-                    maxDropdownHeight={200}
-                />
-            </>
-        )
-    }
 
     const CategorySelect = () => {
 
@@ -125,10 +122,15 @@ const TransactionForm = ({}:TransactionFormProps) => {
               className={styles.body}
           >
               <TextInput
+                  {...noteValidation}
                   label={transactionLocales.NOTE}
                   size={"xs"}
                   placeholder={transactionsPlaceholder.NOTE}
               />
+              {
+                  errors[transactionLocales.NOTE]?.message &&
+                  <FormError message={errors[transactionLocales.NOTE]?.message!.toString()!} />
+              }
               <div
                   className={styles.col2}
               >
@@ -141,9 +143,13 @@ const TransactionForm = ({}:TransactionFormProps) => {
                   <TransactionTypeSelect/>
               </div>
               <TextInput
+                  {...register("transactee",{
+                      required:true,
+                      maxLength:3
+                  })}
                   label={transactionLocales.TRANSACTEE}
                   size={"xs"}
-                  placeholder={transactionLocales.TRANSACTEE}
+                  placeholder={transactionsPlaceholder.TRANSACTEE}
               />
               <DateTimePicker
                   label="Pick date and time"
@@ -157,12 +163,11 @@ const TransactionForm = ({}:TransactionFormProps) => {
                   className={styles.col2}
               >
                   <CategorySelect/>
-                  <PaymentModeSelect/>
+                  <PaymentModeSelect
+                      label={transactionLocales.PAYMENT_MODE}
+                      placeholder={transactionsPlaceholder.PAYMENT_MODE}
+                  />
               </div>
-              <TextInput
-                  label={"Labels"}
-                  size={"xs"}
-              />
           </div>
           <div
               className={styles.footer}
@@ -175,6 +180,7 @@ const TransactionForm = ({}:TransactionFormProps) => {
               </Button>
               <Button
                   size={"xs"}
+                  onClick={handleSubmit((d)=>console.log(d))}
               >
                   Update
               </Button>

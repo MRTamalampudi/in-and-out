@@ -1,4 +1,5 @@
 import {TransactionTypeEnum} from "enums";
+import {PaymentModeEnum} from "../enums";
 
 
 export  class Transaction {
@@ -9,6 +10,15 @@ export  class Transaction {
     private _category: string;
     private _type: TransactionTypeEnum;
     private _amount: string;
+    private _paymentMode:PaymentModeEnum;
+
+    get paymentMode(): PaymentModeEnum {
+        return this._paymentMode;
+    }
+
+    set paymentMode(value: PaymentModeEnum) {
+        this._paymentMode = value;
+    }
 
     get id(): number {
         return this._id;

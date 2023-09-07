@@ -20,7 +20,9 @@
     "placeholder": {
       "amount": "37",
       "paymentMode": "select Payment mode",
-      "category": "select category"
+      "category": "select category",
+      "transactee": "select Transactee",
+      "transactionType": "select TransactionType"
     }
   },
   "new": "New {{name}}",

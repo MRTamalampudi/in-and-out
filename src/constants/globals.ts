@@ -28,7 +28,9 @@ const useGlobalConstants = () => {
     const globalPlacholders = {
       AMOUNT: t(PLACEHOLDER + "amount"),
         PAYMENT_MODE: t(PLACEHOLDER + "paymentMode"),
-        CATEGORY: t(PLACEHOLDER + "category")
+        CATEGORY: t(PLACEHOLDER + "category"),
+        TRANSACTEE: t(PLACEHOLDER + "transactee"),
+        TRANSACTION_TYPE: t(PLACEHOLDER + "transactionType")
     }
 
     return {

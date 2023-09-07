@@ -4,6 +4,7 @@
 @import "styles/typography";
 @import "styles/size";
 @import "styles/flex";
+@import "styles/cursor";
 
 .Table {
   display: flex;
@@ -107,6 +108,8 @@
     tbody{
       tr{
         height: 2.5rem;
+
+        @extend .pointer;
         td{
           @extend .body-text;
         }

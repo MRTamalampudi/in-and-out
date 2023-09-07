@@ -23,7 +23,9 @@ const useTransactionsConstants = () => {
         NOTE: t(PLACEHOLDER + "note"),
         AMOUNT: globalPlacholders.AMOUNT,
         PAYMENT_MODE: globalPlacholders.PAYMENT_MODE,
-        CATEGORY: globalPlacholders.CATEGORY
+        CATEGORY: globalPlacholders.CATEGORY,
+        TRANSACTEE: globalPlacholders.TRANSACTEE,
+        TRANSACTION_TYPE: globalPlacholders.TRANSACTION_TYPE,
     }
 
     return {
