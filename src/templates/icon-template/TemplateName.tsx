@@ -1,5 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import IconProps from "components/icons/icon-props";
+import {useFill} from "utils/use-fill";
 
 const TemplateName = ({
     className,
@@ -7,11 +8,8 @@ const TemplateName = ({
     width= 24
 }:IconProps) => {
 
-    const [fill,setFill] = useState<string>("red");
     const iconRef = useRef(null);
-    useEffect(()=>{
-        setFill(getComputedStyle(iconRef?.current!).color)
-    },[fill])
+    const {fill} = useFill(iconRef);
 
     return (
         <>
@@ -25,7 +23,6 @@ const TemplateName = ({
                 viewBox="0 0 100 100"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className={className}
             >
 
             </svg>

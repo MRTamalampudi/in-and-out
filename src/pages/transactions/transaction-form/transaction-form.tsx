@@ -44,13 +44,17 @@ const TransactionForm = ({}:TransactionFormProps) => {
         })
     }
 
-    const paymentModeValidation = {
+    const {onChange:handler,ref} = {
         ...register(transactionLocales.PAYMENT_MODE,{
             required:{
                 value:true,
                 message:"Mandatory"
             }
         })
+    }
+
+    const transact = {
+
     }
 
     const TransactionTypeSelect = () => {
@@ -77,6 +81,7 @@ const TransactionForm = ({}:TransactionFormProps) => {
         return (
             <>
                 <Select
+                    onChange={(e)=>handler}
                     itemComponent={SelectItem}
                     data={data}
                     size={"xs"}

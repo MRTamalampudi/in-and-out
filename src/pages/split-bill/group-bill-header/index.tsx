@@ -6,7 +6,8 @@ import {Icon, Table} from "components";
 import {trashOutline} from "../../../assets/icons";
 import Lent from "./lent";
 import Owe from "./owe";
-import {EditIcon} from "../../../components/icons/edit-icon";
+import {EditIcon} from "../../../components/icons";
+import DeleteIcon from "../../../components/icons/delete-icon";
 
 interface GroupBillHeaderProps {
 
@@ -44,8 +45,8 @@ const GroupBillHeader = (
                         </div>
                     </div>
                     <div className={styles.right}>
-                        <EditIcon width={24} height={24}/>
-                        <Icon src={trashOutline} size={"xl"}/>
+                        <EditIcon width={24} height={24} className={"error-text"}/>
+                        <DeleteIcon width={24} height={24} className={"error-text"}/>
                     </div>
                 </div>
             </div>

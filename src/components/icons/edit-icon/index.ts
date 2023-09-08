@@ -1,2 +1,1 @@
-
-export { EditIcon } from './edit-icon';
+export {default} from "./edit-icon"

@@ -90,7 +90,7 @@
           align-items: center;
 
           @extend .flex-row;
-          @extend .column-gap-4;
+          @extend .column-gap-8;
           @extend .body-text;
 
 
@@ -99,7 +99,7 @@
       }
       .right{
         @extend .flex-row;
-        @extend .column-gap-8;
+        @extend .column-gap-4;
       }
     }
 

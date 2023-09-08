@@ -1,2 +1,2 @@
 
-export { default } from './template-name';
+export {default} from './template-name';
