@@ -6,7 +6,7 @@ export  class Transaction {
     private _id: number;
     private _note: string;
     private _transactee: string;
-    private _date: string;
+    private _date: Date;
     private _category: string;
     private _type: TransactionTypeEnum;
     private _amount: string;
@@ -44,11 +44,11 @@ export  class Transaction {
         this._transactee = value;
     }
 
-    get date(): string {
+    get date(): Date {
         return this._date;
     }
 
-    set date(value: string) {
+    set date(value: Date) {
         this._date = value;
     }
 

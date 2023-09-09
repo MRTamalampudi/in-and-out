@@ -4,7 +4,7 @@ import {TextInput, Pagination, Tooltip, Checkbox} from "@mantine/core";
 import {filterOutline, searchOutline, sortOutline, trashOutline} from "../../assets/icons";
 import {instanceOf, number} from "prop-types";
 import {useTranslation} from "react-i18next";
-import Thead from "../footer/thead";
+import Thead from "./thead";
 import MetaRow from "./meta-row";
 
 interface TableProps {

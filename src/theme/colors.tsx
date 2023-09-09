@@ -10,7 +10,7 @@ export const Colors = ({children}:ColorsProps) => {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-            fontFamily:'Inter',
+            fontFamily:"Inter_",
             colors:{
                 'c-teal':['#EFFCF6', '#C6F7E2', '#8EEDC7', '#65D6AD', '#3EBD93', '#27AB83', '#199473', '#147D64', '#0C6B58', '#014D40'],
                 'c-red':['#FFEEEE', '#FACDCD', '#F29B9B', '#E66A6A', '#D64545', '#BA2525', '#A61B1B', '#911111', '#780A0A', '#610404'],

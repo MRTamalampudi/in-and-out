@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {SplitBillConstants} from "../split-bill-constants";
 import {fakerEN_IN as faker} from "@faker-js/faker";
-import Thead from "../../../components/footer/thead";
+import Thead from "../../../components/table/thead";
 
 interface BillsProps {}
 

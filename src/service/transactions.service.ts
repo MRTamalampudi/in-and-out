@@ -21,7 +21,7 @@ class TransactionsService implements BaseService<Transaction>{
             transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
             transaction.transactee = fakerEN_IN.person.firstName();
             transaction.category = fakerEN_IN.commerce.department();
-            transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
+            transaction.date =  fakerEN_IN.date.anytime();
             transaction.type = TransactionTypeEnum.OWE;
             transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
             data_.push(transaction)

@@ -3,7 +3,7 @@ import {Table} from "components";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
 import {HandleSelectAll, HandleSelection} from "../../../utils/handleSelection";
-import Thead from "../../../components/footer/thead";
+import Thead from "../../../components/table/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
 import {setProducts} from "../../../redux/slice/transaction-slice";
@@ -68,7 +68,7 @@ const TransactionsTable = () => {
             transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
             transaction.transactee = fakerEN_IN.person.firstName();
             transaction.category = fakerEN_IN.commerce.department();
-            transaction.date =  fakerEN_IN.date.anytime().toLocaleDateString()
+            transaction.date =  fakerEN_IN.date.anytime();
             transaction.type = TransactionTypeEnum.OWE;
             transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
             transaction.paymentMode = PaymentModeEnum.UPI;
@@ -204,7 +204,7 @@ const Transaction_ = (
                 {transaction.transactee}
             </td>
             <td className={dataAttributes.DATE.className}>
-                {transaction.date}
+                {transaction.date.toLocaleDateString()}
             </td>
             <td className={dataAttributes.CATEGORY.className}>
                 {transaction.category}

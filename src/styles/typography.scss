@@ -83,4 +83,5 @@
 
 .currency{
   font-family: RobotoMono,monospace;
+  @extend .body-text-bold;
 }

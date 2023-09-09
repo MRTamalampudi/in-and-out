@@ -4,14 +4,13 @@ import React, {forwardRef} from "react";
 import CustomSelectItem from "../../../../components/custom-select-item";
 import {Menu, Select} from "@mantine/core";
 import Label = Menu.Label;
+import {useController} from "react-hook-form";
 
 
-interface PaymentModeSelectProps {
-    label:string,
-    placeholder?:string,
-}
 
-const PaymentModeSelect = (props:PaymentModeSelectProps) => {
+const PaymentModeSelect = (props:any) => {
+
+    const {field} = useController(props)
 
     // @ts-ignore
     const data = Object.values(PaymentModeEnum)
@@ -38,6 +37,7 @@ const PaymentModeSelect = (props:PaymentModeSelectProps) => {
     return (
         <>
             <Select
+                {...field}
                 itemComponent={SelectItem}
                 data={data}
                 size={"xs"}
