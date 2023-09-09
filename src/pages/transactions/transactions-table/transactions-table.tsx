@@ -70,7 +70,7 @@ const TransactionsTable = () => {
             transaction.category = fakerEN_IN.commerce.department();
             transaction.date =  fakerEN_IN.date.anytime();
             transaction.type = TransactionTypeEnum.OWE;
-            transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
+            transaction.amount = parseInt(fakerEN_IN.finance.amount({min:100,max:500,dec:0}));
             transaction.paymentMode = PaymentModeEnum.UPI;
             data_.push(transaction)
         }
@@ -92,8 +92,7 @@ const TransactionsTable = () => {
     }
 
     const handlesSelection= (id: number, checked: boolean) => {
-        setSearchParams(((prev)=> new URLSearchParams({id:`${id}`,test:"tes"})))
-        console.log(searchParams.get("id"))
+        setSearchParams(((prev)=> new URLSearchParams({id:`${id}`})))
         setSelectionList((prevState)=> {
             const updatedList = HandleSelection(prevState, id, checked);
             setSelectAllChecked(updatedList.length==data.length)

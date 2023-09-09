@@ -1,9 +1,7 @@
-import React, { FC } from 'react';
-import styles from './amount-input.module.scss';
-import {TextInput} from "@mantine/core";
+import React from 'react';
+import {NumberInput} from "@mantine/core";
 import {InputProps} from "../input-props";
-import {FieldValues, useController, UseControllerProps} from "react-hook-form";
-import {useGlobalConstants} from "../../../../constants";
+import {FieldValues, useController} from "react-hook-form";
 
 const AmountInput = <T extends FieldValues>(props:InputProps<T>) => {
 
@@ -13,13 +11,15 @@ const AmountInput = <T extends FieldValues>(props:InputProps<T>) => {
 
 
   return (
-      <TextInput
+      <NumberInput
           {...field}
           ref={null}
           label={label}
           placeholder={placeholder}
           size={"xs"}
           icon={<span className={"f-13"}>₹</span>}
+          hideControls={true}
+          error={formState.errors.root?.message}
       />
   )
 }

@@ -14,6 +14,14 @@ import TransacteeSelect from "./transactee-select";
 import DateTimeSelect from "./date-time-select";
 import CategorySelect from "./category-select";
 import {PaymentModeEnum, TransactionTypeEnum} from "../../../enums";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+import TransactionsService from "../../../service/transactions.service";
+import {useDispatch, useSelector} from "react-redux";
+import {add} from "../../../redux/slice/transaction-slice";
+import {Simulate} from "react-dom/test-utils";
+import {RootState} from "../../../redux";
+
 
 interface TransactionFormProps {}
 
@@ -21,24 +29,51 @@ const TransactionForm = ({}:TransactionFormProps) => {
 
     const [searchParams,setSearchParams]=useSearchParams();
 
+    if(searchParams.get("id")){
+        const paramData = useSelector((state:RootState)=>state.transactions.filter(value => value.id == parseInt(searchParams.get("id")!)))
+        console.log(paramData[0])
+    }
+
+    const dispatch = useDispatch();
+
+
     const {
         transactionLocales,
         transactionsPlaceholder
     } = useTransactionsConstants();
 
-    const deaultVa:Transaction = new Transaction();
-    deaultVa.date=new Date();
-    deaultVa.paymentMode= PaymentModeEnum.UPI;
-    deaultVa.type= TransactionTypeEnum.CASH_IN;
+    const deaultVa:Partial<Transaction> = {
+        date:new Date(),
+        paymentMode:PaymentModeEnum.UPI,
+        type:TransactionTypeEnum.CASH_IN,
+    }
 
-
-
-    const {control,handleSubmit}=useForm<Transaction>({
-        mode:"onSubmit",
-        defaultValues:deaultVa,
+    // @ts-ignore
+    const transactionSchema = z.object<Transaction>({
+        note: z.string().min(1,"Note is required"),
+        date:z.date(),
+        amount:z.number().min(1,{message:"Please enter amount"}),
+        paymentMode:z.string().min(1,{message:"please enter payment mode"}),
+        type:z.string().min(1),
+        transactee:z.string(),
+        category:z.string(),
     })
 
-    const onSubmit = (data:Transaction) => console.log(data);
+
+
+
+
+    const {control,handleSubmit,formState}=useForm<Transaction>({
+        mode:"onSubmit",
+        defaultValues: deaultVa,
+        resolver:zodResolver(transactionSchema)
+    })
+
+    const onSubmit = (data:Transaction) => {
+        const transactionService = new TransactionsService();
+        transactionService.create(data)
+            .then(dispatch(add(data)))
+    };
 
 
   return (

@@ -19,6 +19,9 @@ const transactionSlice = createSlice({
         },
         setProducts(state,action:PayloadAction<Transaction[]>){
             return [...action.payload]
+        },
+        get(state){
+
         }
     }
 })

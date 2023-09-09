@@ -6,8 +6,11 @@ import {TransactionTypeEnum} from "../enums";
 
 class TransactionsService implements BaseService<Transaction>{
 
-    create(data: Transaction): Transaction {
-        return data;
+    create(data: Transaction): Promise<Transaction> {
+        console.log({...data})
+        return new Promise<Transaction>((resolve,reject)=>{
+            resolve(data)
+        })
     }
 
     delete(id: number): void {
@@ -23,7 +26,7 @@ class TransactionsService implements BaseService<Transaction>{
             transaction.category = fakerEN_IN.commerce.department();
             transaction.date =  fakerEN_IN.date.anytime();
             transaction.type = TransactionTypeEnum.OWE;
-            transaction.amount = `$${fakerEN_IN.finance.amount({min:100,max:500,dec:0})}`;
+            transaction.amount = parseInt(fakerEN_IN.finance.amount({min:100,max:500,dec:0}));
             data_.push(transaction)
         }
         return data_;

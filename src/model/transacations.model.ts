@@ -9,7 +9,7 @@ export  class Transaction {
     private _date: Date;
     private _category: string;
     private _type: TransactionTypeEnum;
-    private _amount: string;
+    private _amount: number;
     private _paymentMode:PaymentModeEnum;
 
     get paymentMode(): PaymentModeEnum {
@@ -68,11 +68,11 @@ export  class Transaction {
         this._type = value;
     }
 
-    get amount(): string {
+    get amount(): number {
         return this._amount;
     }
 
-    set amount(value: string) {
+    set amount(value: number) {
         this._amount = value;
     }
 }
