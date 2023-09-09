@@ -29,10 +29,7 @@ const TransactionForm = ({}:TransactionFormProps) => {
 
     const [searchParams,setSearchParams]=useSearchParams();
 
-    if(searchParams.get("id")){
-        const paramData = useSelector((state:RootState)=>state.transactions.filter(value => value.id == parseInt(searchParams.get("id")!)))
-        console.log(paramData[0])
-    }
+
 
     const dispatch = useDispatch();
 
