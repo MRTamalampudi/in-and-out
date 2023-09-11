@@ -8,11 +8,13 @@ import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
 import {setProducts} from "../../../redux/slice/transaction-slice";
 import {RootState} from "../../../redux";
-import {useSearchParams} from "react-router-dom";
+import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
 import TransactionTypeBadge from "../../../components/transaction-type";
 import {PaymentModeEnum, TransactionTypeEnum} from "enums";
 import {Transaction} from "../../../model/transacations.model";
+import {Tr} from "../../../components/table/tbody";
+import {useNavigate} from "react-router";
 
 interface TransactionsTableProps {}
 
@@ -78,9 +80,6 @@ const TransactionsTable = () => {
     },[])
 
     data = useSelector((state:RootState)=> state.transactions);
-
-    const selectdata = useSelector((state:RootState)=> state.transactions);
-    console.log(selectdata)
 
     function handleSelectALl(cheked:boolean) {
         setSelectionList((prevState)=>{
@@ -179,10 +178,21 @@ const Transaction_ = (
     {
         transaction,
         handleSelection,
-        selectionList
+        selectionList,
     }:TransactionProps) =>{
+
+    const {transactionId}= useParams();
+    const navigate = useNavigate();
+
+    function updateQueryParams() {
+        navigate(transaction.id.toString());
+    }
+
+    const selected = transactionId == transaction.id?.toString();
+
+
     return (
-        <tr>
+        <Tr selected={selected} onClick={updateQueryParams}>
             <td className={dataAttributes.CHECK_BOX.className}>
                 <Checkbox size={"xs"}
                           checked={selectionList.indexOf(transaction.id) > -1}
@@ -214,7 +224,7 @@ const Transaction_ = (
             <td className={`${dataAttributes.AMOUNT.className} currency`}>
                 {transaction.amount}
             </td>
-        </tr>
+        </Tr>
     )
 }
 

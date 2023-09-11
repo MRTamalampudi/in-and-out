@@ -1,4 +1,4 @@
-import Table from "./table";
+import Table from "./table/table";
 import Header from "./header";
 import ModalTemplate from "./modal-template";
 import Footer from "./footer";

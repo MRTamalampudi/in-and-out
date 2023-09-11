@@ -1,6 +1,6 @@
-@import "src/styles/borders";
-@import "src/styles/flex";
-@import "src/styles/size";
+@import "styles/borders";
+@import "styles/flex";
+@import "styles/size";
 
 .TransactionForm {
   max-width: 25rem;
@@ -29,6 +29,10 @@
       display: flex;
 
       @extend .column-gap-8;
+
+      > * {
+        flex-basis: 100%;
+      }
     }
   }
 

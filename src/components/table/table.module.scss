@@ -78,7 +78,7 @@
       @extend .body-text-bold;
 
       tr{
-        background-color: colors.$g-300;
+        background-color: colors.$g-400;
         th{
           @extend .body-text-bold;
         }
@@ -111,6 +111,7 @@
     tbody{
       tr{
         height: 2.5rem;
+        text-decoration: none;
 
         @extend .pointer;
         td{
@@ -173,5 +174,15 @@
   }
   .left{
 
+  }
+}
+
+.cTrSelected{
+  background-color: colors.$g-300;
+}
+
+.cTr {
+  &:hover{
+    background-color: colors.$g-300;
   }
 }

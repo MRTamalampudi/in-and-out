@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './transaction-form.module.scss';
 import {Button} from "@mantine/core";
 import {useTransactionsConstants} from "constants/index";
 import {Header} from "components";
-import {useSearchParams} from "react-router-dom";
 import PaymentModeSelect from "./payment-mode-select";
 import AmountInput from "./amount-input";
 import {useForm} from "react-hook-form";
@@ -17,34 +16,28 @@ import {PaymentModeEnum, TransactionTypeEnum} from "../../../enums";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import TransactionsService from "../../../service/transactions.service";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {add} from "../../../redux/slice/transaction-slice";
-import {Simulate} from "react-dom/test-utils";
-import {RootState} from "../../../redux";
 
 
-interface TransactionFormProps {}
+interface TransactionFormProps {
+    defaultValue:Partial<Transaction>,
+}
 
-const TransactionForm = ({}:TransactionFormProps) => {
+const TransactionForm = ({defaultValue}:TransactionFormProps) => {
 
-    const [searchParams,setSearchParams]=useSearchParams();
+    console.log(defaultValue)
 
-
+    useEffect(()=>{
+        reset(defaultValue);
+        console.log(JSON.stringify(defaultValue))
+    },[defaultValue])
 
     const dispatch = useDispatch();
-
-
     const {
         transactionLocales,
         transactionsPlaceholder
     } = useTransactionsConstants();
-
-    const deaultVa:Partial<Transaction> = {
-        date:new Date(),
-        paymentMode:PaymentModeEnum.UPI,
-        type:TransactionTypeEnum.CASH_IN,
-    }
-
     // @ts-ignore
     const transactionSchema = z.object<Transaction>({
         note: z.string().min(1,"Note is required"),
@@ -56,15 +49,22 @@ const TransactionForm = ({}:TransactionFormProps) => {
         category:z.string(),
     })
 
-
-
-
-
-    const {control,handleSubmit,formState}=useForm<Transaction>({
+    const deaultVa:Partial<Transaction> = {
+        date:new Date(),
+        paymentMode:PaymentModeEnum.UPI,
+        type:TransactionTypeEnum.CASH_IN,
+    }
+    const {control,
+        handleSubmit,
+        formState,
+        setValue,
+        reset,
+    }=useForm<Transaction>({
         mode:"onSubmit",
         defaultValues: deaultVa,
-        resolver:zodResolver(transactionSchema)
+        resolver:zodResolver(transactionSchema),
     })
+
 
     const onSubmit = (data:Transaction) => {
         const transactionService = new TransactionsService();

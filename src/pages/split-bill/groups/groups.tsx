@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './groups.module.scss';
-import Table from "../../../components/table";
+import Table from "../../../components/table/table";
 import {netflix} from "../../../assets";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";

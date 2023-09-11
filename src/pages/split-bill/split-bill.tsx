@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from './split-bill.module.scss';
-import Table from "../../components/table";
+import Table from "../../components/table/table";
 import BillGroup from "./bill-group";
 import {plusOutline} from "../../assets/icons";
 import {Menu} from "@mantine/core";
