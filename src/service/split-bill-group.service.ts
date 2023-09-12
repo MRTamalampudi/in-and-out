@@ -24,6 +24,7 @@ class SplitBillGroupService implements BaseService<SplitBillGroup>{
             splitBillGroup.name = fakerEN_IN.word.words({count:{min:2,max:3}});
             splitBillGroup.lentShare = parseInt(fakerEN_IN.finance.amount({min:20,max:99,dec:0}));
             splitBillGroup.oweShare = parseInt(fakerEN_IN.finance.amount({min:20,max:99,dec:0}));
+            data.push(splitBillGroup)
         }
 
         return Promise.resolve(data);

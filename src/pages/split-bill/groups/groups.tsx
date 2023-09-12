@@ -12,6 +12,9 @@ import SplitBillGroupService from "../../../service/split-bill-group.service";
 import {index} from "../../../redux/slice/split-bill-group-slice";
 import {RootState} from "../../../redux";
 import {SplitBillGroup} from "../../../model/splitBillGroups.model";
+import {Tr} from "../../../components/table/tbody";
+import {SPLITBILL_SLUGS} from "../routes";
+import {useNavigate} from "react-router";
 
 interface GroupsProps {}
 
@@ -94,8 +97,15 @@ interface GroupProps {
 
 const Group = ({group}:GroupProps) => {
 
+    const {[SPLITBILL_SLUGS.SPLITBILL_GROUP_ID]:groupId} = useParams();
+    const navigate = useNavigate();
+
+    const updateQueryParams = () => {
+      navigate(`groups/${group.id}`);
+    }
+
     return (
-        <tr className={`pointer`}>
+        <Tr className={`pointer`} onClick={updateQueryParams}>
             <td className={dataAttributes.checkBox.className}>
                 <Checkbox size={"xs"}/>
             </td>
@@ -113,11 +123,11 @@ const Group = ({group}:GroupProps) => {
                 </Tooltip>
             </td>
             <td className={dataAttributes.lent.className}>
-                {group.lentShare}
+                ${group.lentShare}
             </td>
             <td className={dataAttributes.owe.className}>
-                {group.oweShare}
+                ${group.oweShare}
             </td>
-        </tr>
+        </Tr>
     )
 }
