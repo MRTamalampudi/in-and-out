@@ -17,7 +17,7 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import TransactionsService from "../../../service/transactions.service";
 import {useDispatch} from "react-redux";
-import {add} from "../../../redux/slice/transaction-slice";
+import {add, edit} from "../../../redux/slice/transaction-slice";
 
 
 interface TransactionFormProps {
@@ -26,7 +26,7 @@ interface TransactionFormProps {
 
 const TransactionForm = ({defaultValue}:TransactionFormProps) => {
 
-    console.log(defaultValue)
+
 
     useEffect(()=>{
         reset(defaultValue);
@@ -47,6 +47,7 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
         type:z.string().min(1),
         transactee:z.string(),
         category:z.string(),
+        id:z.number().optional(),
     })
 
     const deaultVa:Partial<Transaction> = {
@@ -54,22 +55,43 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
         paymentMode:PaymentModeEnum.UPI,
         type:TransactionTypeEnum.CASH_IN,
     }
+
+    const emptyValues:Partial<Transaction>= {
+        paymentMode: PaymentModeEnum.UPI,
+        type: TransactionTypeEnum.CASH_IN,
+        amount: 0,
+        date: new Date(),
+        category: "",
+        note: "",
+        transactee: ""
+    }
+
     const {control,
         handleSubmit,
         formState,
         setValue,
         reset,
+        getValues
     }=useForm<Transaction>({
         mode:"onSubmit",
         defaultValues: deaultVa,
         resolver:zodResolver(transactionSchema),
     })
+    
+    const clearAll = () => {
+      reset(emptyValues);
+    }
 
 
     const onSubmit = (data:Transaction) => {
         const transactionService = new TransactionsService();
-        transactionService.create(data)
-            .then(dispatch(add(data)))
+        if(data.id){
+            transactionService.update(data)
+                .then(dispatch(edit(data)))
+        } else {
+            transactionService.create(data)
+                .then(dispatch(add(data)))
+        }
     };
 
 
@@ -138,15 +160,17 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
               <Button
                   size={"xs"}
                   variant={"outline"}
+                  onClick={clearAll}
               >
-                  Cancel
+                  Clear all
               </Button>
               <Button
                   size={"xs"}
                   type={"submit"}
                   onClick={handleSubmit(onSubmit)}
+                  disabled={!formState.isValid}
               >
-                  Update
+                  {getValues("id") ? "Update" : "Add"}
               </Button>
           </div>
       </div>

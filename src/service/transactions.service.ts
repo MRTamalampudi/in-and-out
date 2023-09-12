@@ -7,7 +7,6 @@ import {TransactionTypeEnum} from "../enums";
 class TransactionsService implements BaseService<Transaction>{
 
     create(data: Transaction): Promise<Transaction> {
-        console.log({...data})
         return new Promise<Transaction>((resolve,reject)=>{
             resolve(data)
         })
@@ -16,7 +15,7 @@ class TransactionsService implements BaseService<Transaction>{
     delete(id: number): void {
     }
 
-    index(query: string): Transaction[] {
+    index(query: string): Promise<Transaction[]> {
         const data_: Transaction[] = []
         for (let i = 0; i < 20; i++) {
             const transaction:Transaction = new Transaction();
@@ -29,12 +28,13 @@ class TransactionsService implements BaseService<Transaction>{
             transaction.amount = parseInt(fakerEN_IN.finance.amount({min:100,max:500,dec:0}));
             data_.push(transaction)
         }
-        return data_;
+        return new Promise<Transaction[]>(resolve => resolve(data_));
     }
 
-    update(data: Transaction): Transaction {
-
-        return data;
+    update(data: Transaction): Promise<Transaction> {
+        return new Promise<Transaction>((resolve,reject)=>{
+            resolve(data)
+        })
     }
 
     get(id: number): Transaction {

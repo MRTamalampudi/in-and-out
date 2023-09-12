@@ -1,9 +1,17 @@
-import React, { FC } from 'react';
+import React, {FC, useEffect, useMemo} from 'react';
 import styles from './groups.module.scss';
 import Table from "../../../components/table/table";
 import {netflix} from "../../../assets";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
+import Thead from "../../../components/table/thead";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import splitBillGroupService from "../../../service/split-bill-group.service";
+import SplitBillGroupService from "../../../service/split-bill-group.service";
+import {index} from "../../../redux/slice/split-bill-group-slice";
+import {RootState} from "../../../redux";
+import {SplitBillGroup} from "../../../model/splitBillGroups.model";
 
 interface GroupsProps {}
 
@@ -15,6 +23,24 @@ export type Group = {
     owe:string,
 }
 
+const dataAttributes = {
+    "checkBox": {
+        "className":"flex-basis-1/20",
+    },
+    "avatar":{
+        "className":"flex-basis-2/20",
+    },
+    "name":{
+        "className":"flex-basis-11/20 truncate",
+    },
+    "lent":{
+        "className":"flex-basis-3/20 f-14-bb primary currency",
+    },
+    "owe":{
+        "className":"flex-basis-3/20 f-14-bb primary-red currency",
+    }
+}
+
 
 const Groups = (
     {
@@ -22,22 +48,26 @@ const Groups = (
     }:GroupsProps
 ) => {
 
-    const data:Group[] = []
+    const dispatch = useDispatch();
 
-    for (let i = 0; i < 20; i++) {
-        data.push({
-            id:i,
-            avatar:netflix,
-            name: fakerEN_IN.lorem.words({min:2,max:4}),
-            lent: `$${fakerEN_IN.finance.amount({min:20,max:30,dec:0})}`,
-            owe: `$${fakerEN_IN.finance.amount({min:20,max:30,dec:0})}`
-        })
-    }
+
+    useEffect(()=>{
+        const splitBillGroupService = new SplitBillGroupService();
+        splitBillGroupService.index("")
+            .then((data)=>{
+                dispatch(index(data))
+            })
+    },[])
+
+    const data = useSelector((state:RootState)=>state.splitBillGroup);
 
     return (
         <Table
             title={"splitBill.groups"}
         >
+            <Thead>
+
+            </Thead>
             <tbody>
             {
                 data.map(group=> {
@@ -57,30 +87,13 @@ export default Groups;
 
 
 interface GroupProps {
-    group:Group
+    group:SplitBillGroup
 }
 
 
 
 const Group = ({group}:GroupProps) => {
 
-    const dataAttributes = {
-        "checkBox": {
-            "className":"flex-basis-1/20",
-        },
-        "avatar":{
-            "className":"flex-basis-2/20",
-        },
-        "name":{
-            "className":"flex-basis-11/20 truncate",
-        },
-        "lent":{
-            "className":"flex-basis-3/20 f-14-bb primary currency",
-        },
-        "owe":{
-            "className":"flex-basis-3/20 f-14-bb primary-red currency",
-        }
-    }
     return (
         <tr className={`pointer`}>
             <td className={dataAttributes.checkBox.className}>
@@ -100,10 +113,10 @@ const Group = ({group}:GroupProps) => {
                 </Tooltip>
             </td>
             <td className={dataAttributes.lent.className}>
-                {group.lent}
+                {group.lentShare}
             </td>
             <td className={dataAttributes.owe.className}>
-                {group.owe}
+                {group.oweShare}
             </td>
         </tr>
     )

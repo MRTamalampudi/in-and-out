@@ -185,7 +185,7 @@ const Transaction_ = (
     const navigate = useNavigate();
 
     function updateQueryParams() {
-        navigate(transaction.id.toString());
+        navigate(transaction.id?.toString());
     }
 
     const selected = transactionId == transaction.id?.toString();
@@ -219,7 +219,7 @@ const Transaction_ = (
                 {transaction.category}
             </td>
             <td className={dataAttributes.TYPE.className}>
-                <TransactionTypeBadge type={transaction.type} />
+                <TransactionTypeBadge type={transaction.type!} />
             </td>
             <td className={`${dataAttributes.AMOUNT.className} currency`}>
                 {transaction.amount}

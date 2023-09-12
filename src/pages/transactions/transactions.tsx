@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux";
 import {Transaction} from "../../model/transacations.model";
+import {TRANSACTIONS_SLUGS} from "./routes";
 
 interface TransactionsProps {}
 
@@ -15,21 +16,14 @@ const Transactions = (
     {}:TransactionsProps
 ) => {
 
-    const {transactionId}=useParams();
-
-    const deaultVa:Partial<Transaction> = {
-        date:new Date(),
-        paymentMode:PaymentModeEnum.UPI,
-        type:TransactionTypeEnum.CASH_IN,
-    }
+    const {[TRANSACTIONS_SLUGS.TRANSACTION_ID]:transactionId}=useParams();
 
 
 
     const da = useSelector((state:RootState)=>state.transactions.find(transaction=>transaction.id?.toString() == transactionId));
 
     const dd = () => {
-        console.log(da || deaultVa)
-      return da || deaultVa;
+      return da;
     }
 
     console.log(transactionId)
@@ -47,7 +41,7 @@ const Transactions = (
           </div>
           <div className={styles.bottom}>
               <TransactionsTable/>
-              <TransactionForm defaultValue={dd()}/>
+              <TransactionForm defaultValue={dd()!}/>
           </div>
       </div>
   )

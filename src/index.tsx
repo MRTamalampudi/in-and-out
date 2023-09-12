@@ -11,6 +11,8 @@ import Transactions from "./pages/transactions/transactions";
 import SplitBill from "./pages/split-bill/split-bill";
 import Demo from "./pages/demo/demo";
 import {BaseRoutes} from "./constants/base-routes";
+import SplitBillRoutes from "./pages/split-bill/routes";
+import TransactionRoutes from "./pages/transactions/routes";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,9 +24,11 @@ root.render(
                   <Route  path={'/'}  element={
                       <App/>
                   }>
-                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBill/>}/>
+                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBill/>}>
+                          {SplitBillRoutes()}
+                      </Route>
                       <Route path={BaseRoutes.TRANSACTIONS} element={<Transactions/>}>
-                          <Route path={":transactionId"} element={<Transactions/>}/>
+                          {TransactionRoutes()}
                       </Route>
                       <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>
                   </Route>
