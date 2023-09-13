@@ -4,7 +4,9 @@ import {Button, Checkbox, Popover} from "@mantine/core";
 import {Table} from "../../../../components";
 import {fakerEN_IN} from "@faker-js/faker";
 
-interface LentProps {}
+type LentProps = {
+    amount:number,
+}
 
 
 type LentTransaction = {
@@ -28,7 +30,7 @@ const dataAttributes = {
     },
 }
 
-const Lent = () => {
+const Lent = ({amount}:LentProps) => {
 
     const [disable,setDisable] = useState<boolean>(true);
 
@@ -69,7 +71,7 @@ const Lent = () => {
                   >
                       Lent
                       <span className={"currency"}>
-                          $30
+                          {`$${amount}`}
                       </span>
                   </span>
             </Popover.Target>

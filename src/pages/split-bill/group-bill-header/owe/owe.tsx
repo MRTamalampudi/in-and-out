@@ -4,7 +4,9 @@ import {Button, Checkbox, Popover} from "@mantine/core";
 import {Table} from "../../../../components";
 import {fakerEN_IN} from "@faker-js/faker";
 
-interface oweProps {}
+interface oweProps {
+    amount:number,
+}
 
 
 type oweTransaction = {
@@ -28,7 +30,7 @@ const dataAttributes = {
     },
 }
 
-const Owe = () => {
+const Owe = ({amount}:oweProps) => {
 
     const checkedList:number[]=[];
 
@@ -70,7 +72,7 @@ const Owe = () => {
                   >
                       owe
                       <span className={"currency"}>
-                          $30
+                          {`$${amount}`}
                       </span>
                   </span>
             </Popover.Target>
