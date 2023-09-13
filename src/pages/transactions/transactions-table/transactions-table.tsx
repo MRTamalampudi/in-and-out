@@ -15,6 +15,7 @@ import {PaymentModeEnum, TransactionTypeEnum} from "enums";
 import {Transaction} from "../../../model/transacations.model";
 import {Tr} from "../../../components/table/tbody";
 import {useNavigate} from "react-router";
+import {tableRowProps} from "../../../components/table/table-row-props";
 
 interface TransactionsTableProps {}
 
@@ -129,7 +130,7 @@ const TransactionsTable = () => {
                    return (
                        <Transaction_
                            key={transaction.id}
-                           transaction={transaction}
+                           data={transaction}
                            setSelectionList={setSelectionList}
                            checkBoxSelected={selectionList.indexOf(transaction.id)>-1}
                        />
@@ -147,26 +148,26 @@ interface TransactionProps{
     setSelectionList:Dispatch<SetStateAction<number[]>>;
     checkBoxSelected:boolean;
 }
-const Transaction_ = (
+const Transaction_ = <T extends {id:number}> (
     {
-        transaction,
+        data,
         setSelectionList,
         checkBoxSelected,
-    }:TransactionProps) =>{
+    }:tableRowProps<any>) =>{
 
     const {transactionId}= useParams();
     const navigate = useNavigate();
 
     function updateQueryParams() {
-        navigate(transaction.id?.toString());
+        navigate(data.id?.toString());
     }
 
-    const selected = transactionId == transaction.id?.toString();
+    const selected = transactionId == data.id?.toString();
 
 
     return (
         <Tr
-            rowData={transaction}
+            rowData={data}
             setSelection={setSelectionList}
             selected={selected}
             onClick={updateQueryParams}
@@ -174,28 +175,28 @@ const Transaction_ = (
         >
             <td className={dataAttributes.NOTE.className}>
                 <Tooltip
-                    label={transaction.note}
+                    label={data.note}
                     position={"bottom"}
                 >
                     <span>
-                        {transaction.note}
+                        {data.note}
                     </span>
                 </Tooltip>
             </td>
             <td className={dataAttributes.TRANSACTEE.className}>
-                {transaction.transactee}
+                {data.transactee}
             </td>
             <td className={dataAttributes.DATE.className}>
-                {transaction.date.toLocaleDateString()}
+                {data.date.toLocaleDateString()}
             </td>
             <td className={dataAttributes.CATEGORY.className}>
-                {transaction.category}
+                {data.category}
             </td>
             <td className={dataAttributes.TYPE.className}>
-                <TransactionTypeBadge type={transaction.type!} />
+                <TransactionTypeBadge type={data.type!} />
             </td>
             <td className={`${dataAttributes.AMOUNT.className} currency`}>
-                {transaction.amount}
+                {data.amount}
             </td>
         </Tr>
     )

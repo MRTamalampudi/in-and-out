@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, memo, SetStateAction} from "react";
 import {Checkbox} from "@mantine/core";
 import {selectAllHandler} from "../../utils/selectionHandler";
 
@@ -8,7 +8,7 @@ type TheadProps <T extends {id:number}> = {
     setSelection:Dispatch<SetStateAction<number[]>>
 }
 
-const Thead = <T extends {id:number}>(
+const Thead = memo(<T extends {id:number}>(
     {
         children,
         data,
@@ -37,6 +37,6 @@ const Thead = <T extends {id:number}>(
           </tr>
       </thead>
   )
-}
+})
 
 export default Thead;

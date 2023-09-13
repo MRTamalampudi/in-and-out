@@ -18,6 +18,8 @@ import {useNavigate} from "react-router";
 import ActionsRow from "../../../components/table/actions-row";
 import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandler";
 import {Transaction} from "../../../model/transacations.model";
+import {tableRowProps} from "../../../components/table/table-row-props";
+import {number} from "prop-types";
 
 interface GroupsProps {}
 
@@ -56,6 +58,7 @@ const Groups = (
 ) => {
 
     const dispatch = useDispatch();
+    const [selectionList,setSelectionList] = useState<number[]>([]);
 
 
     useEffect(()=>{
@@ -66,63 +69,54 @@ const Groups = (
             })
     },[])
 
-    const [selectionList,setSelectionList] = useState<number[]>([]);
-
-    const [selectAllChecked,setSelectAllChecked] = useState<boolean>(false);
-
     const data = useSelector((state:RootState)=>state.splitBillGroup);
 
 
     const Heading = () => {
       return (
-          <thead>
-              <tr>
-                  <th className={dataAttributes.CHECK_BOX.className}>
-                      <Checkbox size={"xs"}/>
-                  </th>
-                  <th className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
-                      {dataAttributes.NAME.name}
-                  </th>
-                  <th className={dataAttributes.LENT.className}>
-                      {dataAttributes.LENT.name}
-                  </th>
-                  <th className={dataAttributes.OWE.className}>
-                      {dataAttributes.OWE.name}
-                  </th>
-              </tr>
-          </thead>
+          <Thead
+              data={data}
+              setSelection={setSelectionList}
+          >
+              <th className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
+                  {dataAttributes.NAME.name}
+              </th>
+              <th className={dataAttributes.LENT.className}>
+                  {dataAttributes.LENT.name}
+              </th>
+              <th className={dataAttributes.OWE.className}>
+                  {dataAttributes.OWE.name}
+              </th>
+          </Thead>
       )
     }
 
-    function handleSelectALl(cheked:boolean) {
-        setSelectionList((prevState)=>{
-            const updatsedList:number[] = selectAllHandler<SplitBillGroup>(data,selectionList,cheked);
-            console.log(updatsedList);
-            setSelectAllChecked(updatsedList.length == data.length);
-            return updatsedList
-        })
-    }
-
-    const handlesSelection= (id: number, checked: boolean) => {
-        setSelectionList((prevState)=> {
-            const updatedList = selectionHandler(prevState, id, checked);
-            setSelectAllChecked(updatedList.length==data.length)
-            return updatedList;
-        })
-    }
 
     return (
         <Table
             title={"splitBill.groups"}
+            totalElements={data.length}
         >
-            <Heading/>
+            {
+                selectionList.length ?
+                    <ActionsRow
+                        data={data}
+                        setSelection={setSelectionList}
+                        checked={selectionList.length == data.length}
+                        selectedCount={selectionList.length}
+                    /> :
+                    <Heading/>
+            }
             <tbody>
             {
                 data.map(group=> {
                     return (
                         <Group
                             key = {group.id}
-                            group={group}/>
+                            data={group}
+                            checkBoxSelected={selectionList.indexOf(group.id)>-1}
+                            setSelectionList={setSelectionList}
+                        />
                     )
                 })
             }
@@ -134,43 +128,44 @@ const Groups = (
 export default Groups;
 
 
-interface GroupProps {
-    group:SplitBillGroup
-}
 
 
 
-const Group = ({group}:GroupProps) => {
+
+const Group =<T extends {id:number} >({data,setSelectionList,checkBoxSelected}:tableRowProps<any>) => {
 
     const {[SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]:groupId} = useParams();
     const navigate = useNavigate();
 
     const updateQueryParams = () => {
-      navigate(`groups/${group.id}`);
+      navigate(`groups/${data.id}`);
     }
 
     return (
-        <tr className={`pointer`} onClick={updateQueryParams}>
-            <td className={dataAttributes.CHECK_BOX.className}>
-                <Checkbox size={"xs"}/>
-            </td>
+        <Tr
+            className={`pointer`}
+            onClick={updateQueryParams}
+            checkBoxSelected={checkBoxSelected}
+            rowData={data}
+            setSelection={setSelectionList}
+        >
             <td className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
                 <img
                     className={"icon24"}
-                    src={group.avatar}
+                    src={data.avatar}
                 />
-                <Tooltip label={group.name} position={"bottom"}>
+                <Tooltip label={data.name} position={"bottom"}>
                     <span className={"truncate"}>
-                        {group.name}
+                        {data.name}
                     </span>
                 </Tooltip>
             </td>
             <td className={dataAttributes.LENT.className}>
-                ${group.lentShare}
+                ${data.lentShare}
             </td>
             <td className={dataAttributes.OWE.className}>
-                ${group.oweShare}
+                ${data.oweShare}
             </td>
-        </tr>
+        </Tr>
     )
 }
