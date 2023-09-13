@@ -1,21 +1,40 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
+import {Checkbox} from "@mantine/core";
+import {selectAllHandler} from "../../utils/selectionHandler";
 
-interface TheadProps {
-    handleSelectAll?:(checked:boolean)=>void;
+type TheadProps <T extends {id:number}> = {
     children:React.ReactNode;
-    selectedCount?:number;
+    data: T[],
+    setSelection:Dispatch<SetStateAction<number[]>>
 }
 
-const Thead = (
+const Thead = <T extends {id:number}>(
     {
         children,
-        selectedCount,
-        handleSelectAll,
-    }:TheadProps
+        data,
+        setSelection,
+    }:TheadProps<T>
 ) => {
+    
+    function handleSelection(checked:boolean) {
+        setSelection((prevState)=> {
+            const handle = selectAllHandler(data, prevState, checked);
+            console.log(handle);
+            return handle;
+        })
+    }
+    
   return (
       <thead>
-      {children}
+          <tr>
+              <td>
+                  <Checkbox
+                      size={"xs"}
+                      onChange={(event)=>handleSelection(event.currentTarget.checked)}
+                  />
+              </td>
+              {children}
+          </tr>
       </thead>
   )
 }

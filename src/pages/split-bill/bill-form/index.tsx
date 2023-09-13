@@ -26,7 +26,7 @@ const BillForm = ({
               size={640}
               centered={true}
               closeOnEscape={true}
-              radius={"lg"}
+              radius={"md"}
           >
               <ModalTemplate
                   onClose={()=>{setOpened(false)}}

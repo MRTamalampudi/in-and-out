@@ -1,4 +1,4 @@
-export function HandleSelection(selectionList:number[],id:number,chekced:boolean):number[]{
+export function selectionHandler(selectionList:number[], id:number, chekced:boolean):number[]{
     const index:number = selectionList.indexOf(id);
   if(chekced){
       return [...selectionList,id]
@@ -12,7 +12,7 @@ export function HandleSelection(selectionList:number[],id:number,chekced:boolean
   }
 }
 
-export function HandleSelectAll<T extends {id:number}>
+export function selectAllHandler<T extends {id:number}>
 (
     data:T[],
     selectedList:number[],

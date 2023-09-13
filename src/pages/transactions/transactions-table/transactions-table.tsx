@@ -1,8 +1,8 @@
-import React, {useMemo, useState} from 'react';
+import React, {Dispatch, SetStateAction, useMemo, useState} from 'react';
 import {Table} from "components";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
-import {HandleSelectAll, HandleSelection} from "../../../utils/handleSelection";
+import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandler";
 import Thead from "../../../components/table/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
@@ -51,14 +51,8 @@ const dataAttributes = {
 
 const TransactionsTable = () => {
 
-    const [searchParams,setSearchParams] = useSearchParams();
-
     const dispatch = useDispatch();
-
-
     const [selectionList,setSelectionList] = useState<number[]>([]);
-
-    const [selectAllChecked,setSelectAllChecked] = useState<boolean>(false);
 
     let data:Transaction[] =[];
 
@@ -81,36 +75,16 @@ const TransactionsTable = () => {
 
     data = useSelector((state:RootState)=> state.transactions);
 
-    function handleSelectALl(cheked:boolean) {
-        setSelectionList((prevState)=>{
-           const updatsedList:number[] = HandleSelectAll<Transaction>(data,selectionList,cheked);
-           console.log(updatsedList);
-            setSelectAllChecked(updatsedList.length == data.length);
-           return updatsedList
-        })
-    }
 
-    const handlesSelection= (id: number, checked: boolean) => {
-        setSearchParams(((prev)=> new URLSearchParams({id:`${id}`})))
-        setSelectionList((prevState)=> {
-            const updatedList = HandleSelection(prevState, id, checked);
-            setSelectAllChecked(updatedList.length==data.length)
-            return updatedList;
-        })
-    }
     const {transactionLocales} = useTransactionsConstants();
+
 
     const Heading = () => {
       return (
-          <Thead handleSelectAll={handleSelectALl}>
-              <tr>
-                  <td className={dataAttributes.CHECK_BOX.className}>
-                      <Checkbox
-                          checked={selectAllChecked}
-                          size={"xs"}
-                          onChange={(event)=>{handleSelectALl(event.currentTarget.checked)}}
-                      />
-                  </td>
+          <Thead
+              data={data}
+              setSelection={setSelectionList}
+          >
                   <td className={dataAttributes.NOTE.className}>
                       {dataAttributes.NOTE.name}
                   </td>
@@ -129,7 +103,6 @@ const TransactionsTable = () => {
                   <td className={dataAttributes.AMOUNT.className}>
                       {dataAttributes.AMOUNT.name}
                   </td>
-              </tr>
           </Thead>
       )
     }
@@ -143,10 +116,10 @@ const TransactionsTable = () => {
             {
                 selectionList.length ?
                     <ActionsRow
-                        checked={selectAllChecked}
-                        numberOfElements={data.length}
+                        checked={selectionList.length == data.length}
                         selectedCount={selectionList.length}
-                        handleSelectALl={handleSelectALl}
+                        data={data}
+                        setSelection={setSelectionList}
                     /> :
                     <Heading/>
             }
@@ -155,10 +128,10 @@ const TransactionsTable = () => {
                 data.map(transaction=> {
                    return (
                        <Transaction_
-                           handleSelection={handlesSelection}
                            key={transaction.id}
                            transaction={transaction}
-                           selectionList={selectionList}
+                           setSelectionList={setSelectionList}
+                           checkBoxSelected={selectionList.indexOf(transaction.id)>-1}
                        />
                    )
                 })
@@ -171,14 +144,14 @@ const TransactionsTable = () => {
 
 interface TransactionProps{
     transaction:Transaction;
-    handleSelection:(id:number,chekced:boolean)=>void;
-    selectionList:number[];
+    setSelectionList:Dispatch<SetStateAction<number[]>>;
+    checkBoxSelected:boolean;
 }
 const Transaction_ = (
     {
         transaction,
-        handleSelection,
-        selectionList,
+        setSelectionList,
+        checkBoxSelected,
     }:TransactionProps) =>{
 
     const {transactionId}= useParams();
@@ -192,13 +165,13 @@ const Transaction_ = (
 
 
     return (
-        <Tr selected={selected} onClick={updateQueryParams}>
-            <td className={dataAttributes.CHECK_BOX.className}>
-                <Checkbox size={"xs"}
-                          checked={selectionList.indexOf(transaction.id) > -1}
-                          onChange={(event)=>{handleSelection(transaction.id,event.currentTarget.checked)}}
-                />
-            </td>
+        <Tr
+            rowData={transaction}
+            setSelection={setSelectionList}
+            selected={selected}
+            onClick={updateQueryParams}
+            checkBoxSelected={checkBoxSelected}
+        >
             <td className={dataAttributes.NOTE.className}>
                 <Tooltip
                     label={transaction.note}

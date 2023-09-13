@@ -1,9 +1,13 @@
+@use "styles/colors";
 @import "styles/typography";
 
 .mantine-TextInput-label ,
+.mantine-NumberInput-label,
+.mantine-DateTimePicker-label,
 .mantine-DatePicker-label,
 .mantine-TimeInput-label,
 .mantine-Textarea-label,
 .mantine-Select-label{
+  color: colors.$g-1000;
   @extend .subtitle;
 }

@@ -3,15 +3,22 @@ import {Route, Routes} from "react-router";
 import SplitBill from "./split-bill";
 
 
-export const SPLITBILL_SLUGS = {
+export const SPLITBILL_ROUTES = {
     SPLITBILL_GROUP_ID:"splitBillGroupId",
+    GROUPS: "groups",
+    BILLS: "bills",
+    BILL_ID: "billId"
 }
 
 const SplitBillRoutes = () => {
   return (
       <>
-          <Route path="groups" element={<SplitBill />}>
-              <Route path={`:${SPLITBILL_SLUGS.SPLITBILL_GROUP_ID}`} element={<SplitBill />} />
+          <Route path={SPLITBILL_ROUTES.GROUPS} element={<SplitBill />}>
+              <Route path={`:${SPLITBILL_ROUTES.SPLITBILL_GROUP_ID}`} element={<SplitBill />}>
+                  <Route path={SPLITBILL_ROUTES.BILLS} element={<SplitBill/>}>
+                      <Route path={`:${SPLITBILL_ROUTES.BILL_ID}`} element={<SplitBill/>}/>
+                  </Route>
+              </Route>
           </Route>
       </>
   )

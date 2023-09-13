@@ -25,6 +25,7 @@ const GroupForm = ({
               onClose={()=>setOpened(false)}
               withCloseButton={false}
               centered={true}
+              radius={"md"}
           >
               <ModalTemplate
                   onClose={()=>setOpened(false)}

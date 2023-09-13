@@ -1,13 +1,10 @@
 import React from 'react';
 import styles from './group-bill-header.module.scss';
-import {netflix, scenery} from "../../../assets";
-import {Menu, Popover} from "@mantine/core";
-import {Icon, Table} from "components";
-import {trashOutline} from "../../../assets/icons";
+import {netflix, scenery} from "assets";
 import Lent from "./lent";
 import Owe from "./owe";
-import {EditIcon} from "../../../components/icons";
-import DeleteIcon from "../../../components/icons/delete-icon";
+import {EditIcon} from "components/icons";
+import DeleteIcon from "components/icons/delete-icon";
 
 interface GroupBillHeaderProps {
 

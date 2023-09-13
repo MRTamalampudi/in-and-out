@@ -75,7 +75,7 @@ const Bills = (
           rounded={false}
           borders={false}
       >
-          <Thead>
+          <thead>
           <tr>
               <th className={dataAttributes.CHECK_BOX.className}>
                   <Checkbox size={"xs"}/>
@@ -96,7 +96,7 @@ const Bills = (
                   {dataAttributes.MY_SHARE.name}
               </th>
           </tr>
-          </Thead>
+          </thead>
           <tbody>
           {
               data.map(bill=>{

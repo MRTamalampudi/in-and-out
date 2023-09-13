@@ -51,7 +51,8 @@ $gradients: (
   @extend .flex-column;
   color: white;
   justify-content: center;
-  @extend .pl-16;
+  align-items: center;
+  width: 100%;
 }
 
 @mixin gradientTextMixin($context){
@@ -61,7 +62,8 @@ $gradients: (
 }
 
 @mixin titleMixin($context){
-  @extend .body-text;
+  @extend .subtitle;
+  @extend .mb-2;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}
@@ -69,6 +71,7 @@ $gradients: (
 
 @mixin contentMixin($context){
   @extend .heading-2;
+  @extend .pr-2;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}

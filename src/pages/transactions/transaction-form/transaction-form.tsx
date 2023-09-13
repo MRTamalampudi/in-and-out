@@ -168,7 +168,6 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
                   size={"xs"}
                   type={"submit"}
                   onClick={handleSubmit(onSubmit)}
-                  disabled={!formState.isValid}
               >
                   {getValues("id") ? "Update" : "Add"}
               </Button>

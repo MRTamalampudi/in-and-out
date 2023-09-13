@@ -101,6 +101,7 @@
 
       th:nth-child(1),td:nth-child(1){
         @extend .pl-16;
+        @extend .pr-8;
       }
 
       th:nth-last-child(1),td:nth-last-child(1){
@@ -157,14 +158,11 @@
 
 .actionRow{
   display: flex ;
-  justify-content: space-between ;
-  width: 100%;
   align-items: center;
-  background-color: colors.$y-200 ;
+  background-color: colors.$y-200 !important;
 
 
   @include height(2.5rem);
-  @extend .px-16;
   @extend .border-separator-bottom;
 
   .right{

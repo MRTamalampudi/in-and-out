@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 import Thead from "./thead";
 import MetaRow from "./meta-row";
 
-interface TableProps {
+type TableProps = {
     title:string;
     children:React.ReactNode;
     totalElements?:number;
@@ -23,7 +23,7 @@ interface TableProps {
 
 
 
-const Table= (
+const Table=(
     {
         children,
         title,

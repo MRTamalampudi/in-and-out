@@ -1,5 +1,7 @@
-import React, {HTMLProps} from "react";
+import React, {Dispatch, HTMLProps, SetStateAction} from "react";
 import styles from "./table.module.scss"
+import {Checkbox} from "@mantine/core";
+import {selectionHandler} from "../../utils/selectionHandler";
 
 type tbodyProps = {
     children:React.ReactNode
@@ -12,15 +14,21 @@ export const Tbody = ({children}:tbodyProps) => {
       )
 }
 
-type trProps = {
+type trProps <T extends {id:number}>= {
     selected?: boolean,
-    children: React.ReactNode
+    children: React.ReactNode,
+    rowData: T,
+    setSelection:Dispatch<SetStateAction<number[]>>,
+    checkBoxSelected:boolean,
 } & HTMLProps<HTMLTableRowElement>
-export const Tr = ({
-                       selected = false,
-                       children,
-                       onClick
-}:trProps) => {
+export const Tr = <T extends {id:number}>(
+    {
+        selected = false,
+        children, onClick,
+        rowData,
+        setSelection,
+        checkBoxSelected=false,
+    }:trProps<T>) => {
 
     const classNames = () => {
       let className = ``;
@@ -28,8 +36,19 @@ export const Tr = ({
       return className;
     }
 
+    function handleSelection(id:number,checked:boolean) {
+        setSelection(prevState => selectionHandler(prevState, id, checked))
+    }
+
   return (
       <tr onClick={onClick} className={`${styles.cTr} ${classNames()} `} >
+          <td>
+              <Checkbox
+                  size={"xs"}
+                  onChange={(event)=>handleSelection(rowData.id,event.currentTarget.checked)}
+                  checked={checkBoxSelected}
+              />
+          </td>
           {children}
       </tr>
   )

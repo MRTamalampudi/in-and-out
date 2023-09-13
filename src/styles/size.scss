@@ -1,107 +1,107 @@
 
 //width
 @for $i from 0 through 200 {
-  .w#{$i*4}p{
-    max-width: $i*4px;
-    min-width: $i*4px;
+  .w#{$i*2}p{
+    max-width: $i*2px;
+    min-width: $i*2px;
   }
 }
 
 //height
 @for $i from 0 through 200 {
-  .h#{$i*4}p{
-    height: $i*4px;
+  .h#{$i*2}p{
+    height: $i*2px;
   }
 }
 
 
 //margin
-@for $i from 0 through 30 {
-  .ml-#{$i*4}{
-    margin-left: $i*4px;
+@for $i from 0 through 60 {
+  .ml-#{$i*2}{
+    margin-left: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .mr-#{$i*4}{
-    margin-right: $i*4px;
+@for $i from 0 through 60 {
+  .mr-#{$i*2}{
+    margin-right: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .mt-#{$i*4}{
-    margin-top: $i*4px;
+@for $i from 0 through 60 {
+  .mt-#{$i*2}{
+    margin-top: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .mb-#{$i*4}{
-    margin-bottom: $i*4px;
+@for $i from 0 through 60 {
+  .mb-#{$i*2}{
+    margin-bottom: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .mx-#{$i*4}{
-    margin-left: $i*4px;
-    margin-right: $i*4px;
+@for $i from 0 through 60 {
+  .mx-#{$i*2}{
+    margin-left: $i*2px;
+    margin-right: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .my-#{$i*4}{
-    margin-top: $i*4px;
-    margin-bottom: $i*4px;
+@for $i from 0 through 60 {
+  .my-#{$i*2}{
+    margin-top: $i*2px;
+    margin-bottom: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .m-#{$i*4}{
-    margin: $i*4px;
+@for $i from 0 through 60 {
+  .m-#{$i*2}{
+    margin: $i*2px;
   }
 }
 
 //padding
-@for $i from 0 through 30 {
-  .pl-#{$i*4}{
-    padding-left: $i*4px;
+@for $i from 0 through 60 {
+  .pl-#{$i*2}{
+    padding-left: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .pr-#{$i*4}{
-  padding-right: $i*4px;
+@for $i from 0 through 60 {
+  .pr-#{$i*2}{
+  padding-right: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .pt-#{$i*4}{
-    padding-top: $i*4px;
+@for $i from 0 through 60 {
+  .pt-#{$i*2}{
+    padding-top: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .pb-#{$i*4}{
-    padding-bottom: $i*4px;
+@for $i from 0 through 60 {
+  .pb-#{$i*2}{
+    padding-bottom: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .px-#{$i*4}{
-    padding-left: $i*4px;
-    padding-right: $i*4px;
+@for $i from 0 through 60 {
+  .px-#{$i*2}{
+    padding-left: $i*2px;
+    padding-right: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .py-#{$i*4}{
-    padding-top: $i*4px;
-    padding-bottom: $i*4px;
+@for $i from 0 through 60 {
+  .py-#{$i*2}{
+    padding-top: $i*2px;
+    padding-bottom: $i*2px;
   }
 }
 
-@for $i from 0 through 30 {
-  .p-#{$i*4}{
-    padding: $i*4px;
+@for $i from 0 through 60 {
+  .p-#{$i*2}{
+    padding: $i*2px;
   }
 }
 

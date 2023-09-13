@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import styles from './groups.module.scss';
 import Table from "../../../components/table/table";
 import {netflix} from "../../../assets";
@@ -13,8 +13,11 @@ import {index} from "../../../redux/slice/split-bill-group-slice";
 import {RootState} from "../../../redux";
 import {SplitBillGroup} from "../../../model/splitBillGroups.model";
 import {Tr} from "../../../components/table/tbody";
-import {SPLITBILL_SLUGS} from "../routes";
+import {SPLITBILL_ROUTES} from "../routes";
 import {useNavigate} from "react-router";
+import ActionsRow from "../../../components/table/actions-row";
+import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandler";
+import {Transaction} from "../../../model/transacations.model";
 
 interface GroupsProps {}
 
@@ -27,20 +30,21 @@ export type Group = {
 }
 
 const dataAttributes = {
-    "checkBox": {
-        "className":"flex-basis-1/20",
+    CHECK_BOX: {
+        name: "Check box",
+        className:"flex-basis-1/20",
     },
-    "avatar":{
-        "className":"flex-basis-2/20",
+    NAME:{
+        name: "Group",
+        "className":"flex-basis-10/20 truncate",
     },
-    "name":{
-        "className":"flex-basis-11/20 truncate",
+    LENT:{
+        name: "Lent",
+        "className":"flex-basis-4/20 f-14-bb primary currency",
     },
-    "lent":{
-        "className":"flex-basis-3/20 f-14-bb primary currency",
-    },
-    "owe":{
-        "className":"flex-basis-3/20 f-14-bb primary-red currency",
+    OWE:{
+        name: "Owe",
+        "className":"flex-basis-4/20 f-14-bb primary-red currency",
     }
 }
 
@@ -62,15 +66,56 @@ const Groups = (
             })
     },[])
 
+    const [selectionList,setSelectionList] = useState<number[]>([]);
+
+    const [selectAllChecked,setSelectAllChecked] = useState<boolean>(false);
+
     const data = useSelector((state:RootState)=>state.splitBillGroup);
+
+
+    const Heading = () => {
+      return (
+          <thead>
+              <tr>
+                  <th className={dataAttributes.CHECK_BOX.className}>
+                      <Checkbox size={"xs"}/>
+                  </th>
+                  <th className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
+                      {dataAttributes.NAME.name}
+                  </th>
+                  <th className={dataAttributes.LENT.className}>
+                      {dataAttributes.LENT.name}
+                  </th>
+                  <th className={dataAttributes.OWE.className}>
+                      {dataAttributes.OWE.name}
+                  </th>
+              </tr>
+          </thead>
+      )
+    }
+
+    function handleSelectALl(cheked:boolean) {
+        setSelectionList((prevState)=>{
+            const updatsedList:number[] = selectAllHandler<SplitBillGroup>(data,selectionList,cheked);
+            console.log(updatsedList);
+            setSelectAllChecked(updatsedList.length == data.length);
+            return updatsedList
+        })
+    }
+
+    const handlesSelection= (id: number, checked: boolean) => {
+        setSelectionList((prevState)=> {
+            const updatedList = selectionHandler(prevState, id, checked);
+            setSelectAllChecked(updatedList.length==data.length)
+            return updatedList;
+        })
+    }
 
     return (
         <Table
             title={"splitBill.groups"}
         >
-            <Thead>
-
-            </Thead>
+            <Heading/>
             <tbody>
             {
                 data.map(group=> {
@@ -97,7 +142,7 @@ interface GroupProps {
 
 const Group = ({group}:GroupProps) => {
 
-    const {[SPLITBILL_SLUGS.SPLITBILL_GROUP_ID]:groupId} = useParams();
+    const {[SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]:groupId} = useParams();
     const navigate = useNavigate();
 
     const updateQueryParams = () => {
@@ -105,29 +150,27 @@ const Group = ({group}:GroupProps) => {
     }
 
     return (
-        <Tr className={`pointer`} onClick={updateQueryParams}>
-            <td className={dataAttributes.checkBox.className}>
+        <tr className={`pointer`} onClick={updateQueryParams}>
+            <td className={dataAttributes.CHECK_BOX.className}>
                 <Checkbox size={"xs"}/>
             </td>
-            <td className={dataAttributes.avatar.className}>
+            <td className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
                 <img
                     className={"icon24"}
                     src={group.avatar}
                 />
-            </td>
-            <td className={dataAttributes.name.className}>
                 <Tooltip label={group.name} position={"bottom"}>
-                    <span>
+                    <span className={"truncate"}>
                         {group.name}
                     </span>
                 </Tooltip>
             </td>
-            <td className={dataAttributes.lent.className}>
+            <td className={dataAttributes.LENT.className}>
                 ${group.lentShare}
             </td>
-            <td className={dataAttributes.owe.className}>
+            <td className={dataAttributes.OWE.className}>
                 ${group.oweShare}
             </td>
-        </Tr>
+        </tr>
     )
 }

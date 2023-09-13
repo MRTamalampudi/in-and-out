@@ -1,41 +1,51 @@
 import styles from "./table.module.scss";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {trashOutline} from "../../assets/icons";
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {number} from "prop-types";
 import {useTranslation} from "react-i18next";
+import {selectAllHandler} from "../../utils/selectionHandler";
 
 
-interface ActionsRowProps {
-    numberOfElements:number,
-    selectedCount:number,
+type ActionsRowProps <T extends {id:number} >= {
+    data: T[],
+    setSelection:Dispatch<SetStateAction<number[]>>
     checked:boolean,
-    handleSelectALl:(checked:boolean)=>void;
+    selectedCount:number,
 }
 
-const ActionsRow = (
+const ActionsRow = <T extends {id:number} >(
     {
-        selectedCount,
-        numberOfElements,
+        data,
+        setSelection,
         checked,
-        handleSelectALl,
-    }:ActionsRowProps) => {
+        selectedCount,
+    }:ActionsRowProps<T>) => {
 
     const {t} = useTranslation();
 
+    function handleSelection(checked:boolean) {
+        setSelection((prevState)=> {
+            const handle = selectAllHandler(data, prevState, checked);
+            console.log(handle);
+            return handle;
+        })
+    }
+
     return (
         <thead>
-            <div className={styles.actionRow}>
-                <div className={styles.right}>
+            <tr className={styles.actionRow}>
+                <th>
                     <Checkbox
                         checked={checked}
                         size={"xs"}
-                        className={"flex-basis-1/20"}
-                        onChange={(event)=>handleSelectALl(event.currentTarget.checked)}
+                        onChange={(event)=>handleSelection(event.currentTarget.checked)}
                     />
-                    <span className={"flex-basis-19/20"}>{`${selectedCount} selected`}</span>
-                </div>
-                <div className={styles.left}>
+                </th>
+                <th className={"flex-basis-19/20"}>
+                    {`${selectedCount} selected`}
+                </th>
+                <th className={"flex-basis-1/20"}>
                     <Tooltip
                         label={"test"}
                         position={"bottom-end"}
@@ -45,8 +55,8 @@ const ActionsRow = (
                             className={"icon24"}
                         />
                     </Tooltip>
-                </div>
-            </div>
+                </th>
+            </tr>
         </thead>
     )
 }
