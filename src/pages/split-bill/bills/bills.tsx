@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useState} from 'react';
 import styles from './bills.module.scss';
 import {Table} from "components";
 import {useTranslation} from "react-i18next";
@@ -6,6 +6,11 @@ import {Checkbox, Tooltip} from "@mantine/core";
 import {SplitBillConstants} from "../split-bill-constants";
 import {fakerEN_IN as faker} from "@faker-js/faker";
 import Thead from "../../../components/table/thead";
+import {useDispatch} from "react-redux";
+import {number} from "prop-types";
+import {tableRowProps} from "../../../components/table/table-row-props";
+import {Tbody, Tr} from "../../../components/table/tbody";
+import ActionsRow from "../../../components/table/actions-row";
 
 interface BillsProps {}
 
@@ -19,13 +24,9 @@ type Bill= {
 }
 
 const dataAttributes = {
-    CHECK_BOX : {
-        name: "CheckBox",
-        className:"flex-basis-1/20"
-    },
     BILL : {
         name: "Bill",
-        className:"flex-basis-7/20 truncate"
+        className:"flex-basis-8/20 truncate"
     },
     PAID_BY: {
         name: "Paid by",
@@ -51,7 +52,8 @@ const Bills = (
     }:BillsProps
 ) => {
 
-    const {t} =  useTranslation();
+    const dispatch = useDispatch();
+    const [selectionList,setSelectionList] = useState<number[]>([]);
 
     const data:Bill[] = []
 
@@ -67,19 +69,12 @@ const Bills = (
     }
 
 
-
-  return (
-      <Table
-          title={SplitBillConstants().locales.BILLS}
-          totalElements={20}
-          rounded={false}
-          borders={false}
-      >
-          <thead>
-          <tr>
-              <th className={dataAttributes.CHECK_BOX.className}>
-                  <Checkbox size={"xs"}/>
-              </th>
+    const Heading = () => {
+      return (
+          <Thead
+              data={data}
+              setSelection={setSelectionList}
+          >
               <th className={dataAttributes.BILL.className}>
                   {dataAttributes.BILL.name}
               </th>
@@ -95,13 +90,39 @@ const Bills = (
               <th className={dataAttributes.MY_SHARE.className}>
                   {dataAttributes.MY_SHARE.name}
               </th>
-          </tr>
-          </thead>
+          </Thead>
+      )
+    }
+
+
+
+  return (
+      <Table
+          title={SplitBillConstants().locales.BILLS}
+          totalElements={20}
+          rounded={false}
+          borders={false}
+      >
+          {
+              selectionList.length ?
+                  <ActionsRow
+                      data={data}
+                      setSelection={setSelectionList}
+                      checked={selectionList.length == data.length}
+                      selectedCount={selectionList.length}
+                  /> :
+                  <Heading/>
+          }
           <tbody>
           {
               data.map(bill=>{
                   return (
-                      <Bill key={bill.id} bill={bill}/>
+                      <Bill
+                          key={bill.id}
+                          data={bill}
+                          setSelectionList={setSelectionList}
+                          checkBoxSelected={selectionList.indexOf(bill.id) > -1}
+                      />
                   )
               })
           }
@@ -112,37 +133,37 @@ const Bills = (
 
 export default Bills;
 
-interface BillProps {
-    bill:Bill
-}
-const Bill = ({
-    bill
-}:BillProps) => {
+
+const Bill =<T extends {id:number}> ({
+    data,setSelectionList,checkBoxSelected
+}:tableRowProps<any>) => {
     return (
-        <tr className={styles.row}>
-            <td className={dataAttributes.CHECK_BOX.className}>
-                <Checkbox size={"xs"}/>
-            </td>
+        <Tr
+            className={styles.row}
+            checkBoxSelected={checkBoxSelected}
+            rowData={data}
+            setSelection={setSelectionList}
+        >
             <td className={dataAttributes.BILL.className}>
-                <Tooltip label={bill.bill} position={"bottom"}>
+                <Tooltip label={data.bill} position={"bottom"}>
                     <span>
-                        {bill.bill}
+                        {data.bill}
                     </span>
                 </Tooltip>
 
             </td>
             <td className={dataAttributes.PAID_BY.className}>
-                {bill.paidBy}
+                {data.paidBy}
             </td>
             <td className={dataAttributes.PAID_ON.className}>
-                {bill.paidOn}
+                {data.paidOn}
             </td>
             <td className={dataAttributes.AMOUNT.className}>
-                {`$ ${bill.amount}`}
+                {`$ ${data.amount}`}
             </td>
             <td className={dataAttributes.MY_SHARE.className}>
-                {`$ ${bill.myShare}`}
+                {`$ ${data.myShare}`}
             </td>
-        </tr>
+        </Tr>
     )
 }
