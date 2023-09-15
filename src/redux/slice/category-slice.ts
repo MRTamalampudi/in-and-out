@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Transaction} from "../../model/transacations.model";
 
 const initialState:string[] =[
         "Food and Groceries",
@@ -22,9 +23,15 @@ const categorySlice = createSlice({
     reducers:{
         add(state,action:PayloadAction<string>){
             state.push(action.payload);
-        }
+        },
+        index(state,action:PayloadAction<string[]>){
+            return [...action.payload]
+        },
     }
 })
 
-export const {add} = categorySlice.actions;
+export const {
+    add,
+    index
+} = categorySlice.actions;
 export default categorySlice.reducer;

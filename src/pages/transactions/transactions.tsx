@@ -26,8 +26,6 @@ const Transactions = (
       return da;
     }
 
-    console.log(transactionId)
-
 
 
   return (

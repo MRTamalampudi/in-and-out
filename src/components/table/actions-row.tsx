@@ -27,7 +27,6 @@ const ActionsRow = <T extends {id:number} >(
     function handleSelection(checked:boolean) {
         setSelection((prevState)=> {
             const handle = selectAllHandler(data, prevState, checked);
-            console.log(handle);
             return handle;
         })
     }
@@ -40,6 +39,7 @@ const ActionsRow = <T extends {id:number} >(
                         checked={checked}
                         size={"xs"}
                         onChange={(event)=>handleSelection(event.currentTarget.checked)}
+                        indeterminate={data.length != selectedCount}
                     />
                 </th>
                 <th className={"flex-basis-19/20"}>

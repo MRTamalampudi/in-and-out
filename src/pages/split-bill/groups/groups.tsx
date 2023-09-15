@@ -32,21 +32,17 @@ export type Group = {
 }
 
 const dataAttributes = {
-    CHECK_BOX: {
-        name: "Check box",
-        className:"flex-basis-1/20",
-    },
     NAME:{
         name: "Group",
-        "className":"flex-basis-10/20 truncate",
+        "className":"flex-basis-12/20 truncate",
     },
     LENT:{
         name: "Lent",
-        "className":"flex-basis-4/20 f-14-bb primary currency",
+        "className":"flex-basis-4/20",
     },
     OWE:{
         name: "Owe",
-        "className":"flex-basis-4/20 f-14-bb primary-red currency",
+        "className":"flex-basis-4/20",
     }
 }
 
@@ -160,10 +156,10 @@ const Group =<T extends {id:number} >({data,setSelectionList,checkBoxSelected}:t
                     </span>
                 </Tooltip>
             </td>
-            <td className={dataAttributes.LENT.className}>
+            <td className={`${dataAttributes.LENT.className} currency primary f-14-bb`}>
                 ${data.lentShare}
             </td>
-            <td className={dataAttributes.OWE.className}>
+            <td className={`${dataAttributes.OWE.className} currency primary-red f-14-bb`}>
                 ${data.oweShare}
             </td>
         </Tr>

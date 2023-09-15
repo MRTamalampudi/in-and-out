@@ -17,7 +17,7 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import TransactionsService from "../../../service/transactions.service";
 import {useDispatch} from "react-redux";
-import {add, edit} from "../../../redux/slice/transaction-slice";
+import {add, update} from "../../../redux/slice/transaction-slice";
 
 
 interface TransactionFormProps {
@@ -30,7 +30,6 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
 
     useEffect(()=>{
         reset(defaultValue);
-        console.log(JSON.stringify(defaultValue))
     },[defaultValue])
 
     const dispatch = useDispatch();
@@ -87,7 +86,7 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
         const transactionService = new TransactionsService();
         if(data.id){
             transactionService.update(data)
-                .then(dispatch(edit(data)))
+                .then(dispatch(update(data)))
         } else {
             transactionService.create(data)
                 .then(dispatch(add(data)))

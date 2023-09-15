@@ -46,6 +46,7 @@ export const Tr = <T extends {id:number}>(
               <Checkbox
                   size={"xs"}
                   onChange={(event)=>handleSelection(rowData.id,event.currentTarget.checked)}
+                  onClick={(event)=>{event.stopPropagation()}}
                   checked={checkBoxSelected}
               />
           </td>

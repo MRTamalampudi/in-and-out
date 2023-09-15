@@ -6,7 +6,7 @@ import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandle
 import Thead from "../../../components/table/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
-import {setProducts} from "../../../redux/slice/transaction-slice";
+import {index} from "../../../redux/slice/transaction-slice";
 import {RootState} from "../../../redux";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
@@ -71,7 +71,7 @@ const TransactionsTable = () => {
             transaction.paymentMode = PaymentModeEnum.UPI;
             data_.push(transaction)
         }
-        dispatch(setProducts(data_))
+        dispatch(index(data_))
     },[])
 
     data = useSelector((state:RootState)=> state.transactions);

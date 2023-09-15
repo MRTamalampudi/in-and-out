@@ -1,4 +1,4 @@
-import avatar from './avatar-outline.svg'
+import avatar from './avatar-outline1.svg'
 import avatarSolid from "./avatar-solid.svg"
 import backOutline from "./back-outline.svg"
 import notificationOutline from "./notification-outline.svg"

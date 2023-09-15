@@ -29,7 +29,6 @@ const GroupBillHeader = (
         }
     });
 
-    console.log(data,groupId)
     return (
         <div className={styles.GroupBillHeader}>
             <img

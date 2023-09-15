@@ -19,7 +19,6 @@ const Thead = memo(<T extends {id:number}>(
     function handleSelection(checked:boolean) {
         setSelection((prevState)=> {
             const handle = selectAllHandler(data, prevState, checked);
-            console.log(handle);
             return handle;
         })
     }

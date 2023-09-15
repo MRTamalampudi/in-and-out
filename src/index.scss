@@ -4,23 +4,7 @@
 @import "font-face";
 
 
-*{
-    font-family: Inter_,sans-serif;
-}
 
-*::-webkit-scrollbar {
-    width: 0.2rem;
-}
-
-*::-webkit-scrollbar-track {
-}
-
-*::-webkit-scrollbar-thumb {
-    position: absolute;
-    background-color: #d0d0d0;
-    border-radius: 0.2rem;
-    z-index: 100;
-}
 
 
 //mantine

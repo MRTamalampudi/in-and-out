@@ -17,10 +17,10 @@ const transactionSlice = createSlice({
         add(state,action:PayloadAction<Transaction>){
             state.push(action.payload);
         },
-        setProducts(state,action:PayloadAction<Transaction[]>){
+        index(state,action:PayloadAction<Transaction[]>){
             return [...action.payload]
         },
-        edit(state,action:PayloadAction<Transaction>){
+        update(state,action:PayloadAction<Transaction>){
            const index =  state.findIndex(value => value.id == action.payload.id);
            state[index] = action.payload;
         }
@@ -28,7 +28,7 @@ const transactionSlice = createSlice({
 })
 export const {
     add,
-    setProducts,
-    edit
+    index,
+    update
 } = transactionSlice.actions;
 export default transactionSlice.reducer;
