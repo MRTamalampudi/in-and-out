@@ -6,13 +6,13 @@ import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandle
 import Thead from "../../../components/table/thead";
 import ActionsRow from "../../../components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
-import {index} from "../../../redux/slice/transaction-slice";
+import {index} from "../../../redux/slice/transaction.slice";
 import {RootState} from "../../../redux";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
 import TransactionTypeBadge from "../../../components/transaction-type";
 import {PaymentModeEnum, TransactionTypeEnum} from "enums";
-import {Transaction} from "../../../model/transacations.model";
+import {Transaction} from "../../../model/transacation.model";
 import {Tr} from "../../../components/table/tbody";
 import {useNavigate} from "react-router";
 import {tableRowProps} from "../../../components/table/table-row-props";
@@ -46,7 +46,7 @@ const dataAttributes = {
     },
     "AMOUNT": {
         name: "Amount",
-        className:"flex-basis-2/20"
+        className:"flex-basis-2/20 text-align-right"
     }
 }
 

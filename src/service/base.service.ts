@@ -1,4 +1,4 @@
-import {Transaction} from "../model/transacations.model";
+import {Transaction} from "../model/transacation.model";
 
 export interface BaseService<T>{
     index:(query:string)=>Promise<T[]>,

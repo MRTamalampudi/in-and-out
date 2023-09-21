@@ -81,7 +81,12 @@
   @extend .f-24-bb;
 }
 
+.text-align-right{
+  text-align: right;
+}
+
 .currency{
   font-family: RobotoMono,monospace;
   @extend .body-text-bold;
+  @extend .text-align-right;
 }

@@ -7,8 +7,8 @@ import {MantineProvider} from "@mantine/core";
 import {Colors} from "./theme/colors";
 import {Route, Routes} from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Transactions from "./pages/transactions/transactions";
-import SplitBill from "./pages/split-bill/split-bill";
+import TransactionsPage from "./pages/transactions/transactions.page";
+import SplitBillPage from "./pages/split-bill/split-bill.page";
 import Demo from "./pages/demo/demo";
 import {BaseRoutes} from "./constants/base-routes";
 import SplitBillRoutes from "./pages/split-bill/routes";
@@ -24,10 +24,10 @@ root.render(
                   <Route  path={'/'}  element={
                       <App/>
                   }>
-                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBill/>}>
+                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}>
                           {SplitBillRoutes()}
                       </Route>
-                      <Route path={BaseRoutes.TRANSACTIONS} element={<Transactions/>}>
+                      <Route path={BaseRoutes.TRANSACTIONS} element={<TransactionsPage/>}>
                           {TransactionRoutes()}
                       </Route>
                       <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>

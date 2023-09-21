@@ -9,15 +9,15 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import splitBillGroupService from "../../../service/split-bill-group.service";
 import SplitBillGroupService from "../../../service/split-bill-group.service";
-import {index} from "../../../redux/slice/split-bill-group-slice";
+import {index} from "../../../redux/slice/split-bill-group.slice";
 import {RootState} from "../../../redux";
-import {SplitBillGroup} from "../../../model/splitBillGroups.model";
+import {SplitBillGroup} from "../../../model/split-bill-group.model";
 import {Tr} from "../../../components/table/tbody";
 import {SPLITBILL_ROUTES} from "../routes";
 import {useNavigate} from "react-router";
 import ActionsRow from "../../../components/table/actions-row";
 import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandler";
-import {Transaction} from "../../../model/transacations.model";
+import {Transaction} from "../../../model/transacation.model";
 import {tableRowProps} from "../../../components/table/table-row-props";
 import {number} from "prop-types";
 
@@ -38,11 +38,11 @@ const dataAttributes = {
     },
     LENT:{
         name: "Lent",
-        "className":"flex-basis-4/20",
+        "className":"flex-basis-4/20 text-align-right",
     },
     OWE:{
         name: "Owe",
-        "className":"flex-basis-4/20",
+        "className":"flex-basis-4/20 text-align-right",
     }
 }
 

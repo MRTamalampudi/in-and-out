@@ -1,10 +1,10 @@
-import {BaseService} from "./base-service";
-import {Transaction} from "../model/transacations.model";
+import {BaseService} from "./base.service";
+import {Transaction} from "../model/transacation.model";
 import {fakerEN_IN} from "@faker-js/faker";
 import {TransactionTypeEnum} from "../enums";
 
 
-class TransactionsService implements BaseService<Transaction>{
+class TransactionService implements BaseService<Transaction>{
 
     create(data: Transaction): Promise<Transaction> {
         return new Promise<Transaction>((resolve,reject)=>{
@@ -43,4 +43,4 @@ class TransactionsService implements BaseService<Transaction>{
 
 }
 
-export default TransactionsService;
+export default TransactionService;

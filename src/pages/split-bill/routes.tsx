@@ -1,6 +1,6 @@
 import React from "react";
 import {Route, Routes} from "react-router";
-import SplitBill from "./split-bill";
+import SplitBillPage from "./split-bill.page";
 
 
 export const SPLITBILL_ROUTES = {
@@ -13,10 +13,10 @@ export const SPLITBILL_ROUTES = {
 const SplitBillRoutes = () => {
   return (
       <>
-          <Route path={SPLITBILL_ROUTES.GROUPS} element={<SplitBill />}>
-              <Route path={`:${SPLITBILL_ROUTES.SPLITBILL_GROUP_ID}`} element={<SplitBill />}>
-                  <Route path={SPLITBILL_ROUTES.BILLS} element={<SplitBill/>}>
-                      <Route path={`:${SPLITBILL_ROUTES.BILL_ID}`} element={<SplitBill/>}/>
+          <Route path={SPLITBILL_ROUTES.GROUPS} element={<SplitBillPage />}>
+              <Route path={`:${SPLITBILL_ROUTES.SPLITBILL_GROUP_ID}`} element={<SplitBillPage />}>
+                  <Route path={SPLITBILL_ROUTES.BILLS} element={<SplitBillPage/>}>
+                      <Route path={`:${SPLITBILL_ROUTES.BILL_ID}`} element={<SplitBillPage/>}/>
                   </Route>
               </Route>
           </Route>

@@ -7,12 +7,12 @@ import {PaymentModeEnum, TransactionTypeEnum} from "../../enums";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux";
-import {Transaction} from "../../model/transacations.model";
+import {Transaction} from "../../model/transacation.model";
 import {TRANSACTIONS_SLUGS} from "./routes";
 
 interface TransactionsProps {}
 
-const Transactions = (
+const TransactionsPage = (
     {}:TransactionsProps
 ) => {
 
@@ -45,4 +45,4 @@ const Transactions = (
   )
 }
 
-export default Transactions;
+export default TransactionsPage;

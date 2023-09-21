@@ -6,7 +6,7 @@ import {Header} from "components";
 import PaymentModeSelect from "./payment-mode-select";
 import AmountInput from "./amount-input";
 import {useForm} from "react-hook-form";
-import {Transaction} from "model/transacations.model";
+import {Transaction} from "model/transacation.model";
 import TransactionTypeSelect from "./transaction-type-select";
 import NoteInput from "./note-input";
 import TransacteeSelect from "./transactee-select";
@@ -15,9 +15,9 @@ import CategorySelect from "./category-select";
 import {PaymentModeEnum, TransactionTypeEnum} from "../../../enums";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import TransactionsService from "../../../service/transactions.service";
+import TransactionService from "../../../service/transaction.service";
 import {useDispatch} from "react-redux";
-import {add, update} from "../../../redux/slice/transaction-slice";
+import {add, update} from "../../../redux/slice/transaction.slice";
 
 
 interface TransactionFormProps {
@@ -83,7 +83,7 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
 
 
     const onSubmit = (data:Transaction) => {
-        const transactionService = new TransactionsService();
+        const transactionService = new TransactionService();
         if(data.id){
             transactionService.update(data)
                 .then(dispatch(update(data)))

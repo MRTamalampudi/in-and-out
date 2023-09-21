@@ -15,7 +15,7 @@ import {SplitBillConstants} from "./split-bill-constants";
 
 interface SplitBillProps {}
 
-const SplitBill = (
+const SplitBillPage = (
     {}:SplitBillProps
 ) => {
     return (
@@ -75,4 +75,4 @@ const BillAndGroupFormModal = () => {
 
 
 
-export default SplitBill;
+export default SplitBillPage;
