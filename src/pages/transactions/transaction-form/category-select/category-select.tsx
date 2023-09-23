@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from './category-select.module.scss';
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux";
-import {TransactionTypeEnum} from "../../../../enums";
+import {TransactionTypeEnum} from "../../../../enum";
 import {Select} from "@mantine/core";
 import {FieldValues, useController} from "react-hook-form";
 import {InputProps} from "../input-props";

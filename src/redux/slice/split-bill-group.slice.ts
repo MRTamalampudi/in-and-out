@@ -1,8 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {SplitBillGroup} from "../../model/split-bill-group.model";
+import {SplitBillGroup} from "model";
 import {netflix} from "../../assets";
 import {fakerEN_IN} from "@faker-js/faker";
-import {Transaction} from "../../model/transacation.model";
 
 const splitBillGroup:SplitBillGroup = new SplitBillGroup();
 splitBillGroup.id = 1;

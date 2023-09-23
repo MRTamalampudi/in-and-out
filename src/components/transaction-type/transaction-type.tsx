@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './transaction-type.module.scss';
-import TransactionTypeEnum from '../../enums/transaction-type.enum';
+import TransactionTypeEnum from '../../enum/transaction-type.enum';
 
 interface TransactionTypeProps {
     type: TransactionTypeEnum

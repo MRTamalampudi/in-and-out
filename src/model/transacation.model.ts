@@ -1,8 +1,8 @@
-import {TransactionTypeEnum} from "enums";
-import {PaymentModeEnum} from "../enums";
+import {TransactionTypeEnum} from "enum";
+import {PaymentModeEnum} from "../enum";
 
 
-export  class Transaction {
+class Transaction {
     public id: number;
     public note: string;
     public transactee: string;
@@ -12,3 +12,5 @@ export  class Transaction {
     public amount: number;
     public paymentMode:PaymentModeEnum;
 }
+
+export default Transaction;

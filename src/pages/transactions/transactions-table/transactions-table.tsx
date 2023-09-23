@@ -2,22 +2,19 @@ import React, {Dispatch, SetStateAction, useMemo, useState} from 'react';
 import {Table} from "components";
 import {Checkbox, Tooltip} from "@mantine/core";
 import {fakerEN_IN} from "@faker-js/faker";
-import {selectAllHandler, selectionHandler} from "../../../utils/selectionHandler";
-import Thead from "../../../components/table/thead";
-import ActionsRow from "../../../components/table/actions-row";
+import Thead from "components/table/thead";
+import ActionsRow from "components/table/actions-row";
 import {useDispatch, useSelector} from "react-redux";
-import {index} from "../../../redux/slice/transaction.slice";
-import {RootState} from "../../../redux";
+import {index} from "redux/slice/transaction.slice";
+import {RootState} from "redux";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useTransactionsConstants} from "constants/index";
-import TransactionTypeBadge from "../../../components/transaction-type";
-import {PaymentModeEnum, TransactionTypeEnum} from "enums";
-import {Transaction} from "../../../model/transacation.model";
-import {Tr} from "../../../components/table/tbody";
+import TransactionTypeBadge from "components/transaction-type";
+import {PaymentModeEnum, TransactionTypeEnum} from "enum";
+import {Transaction} from "model";
+import {Tr} from "components/table/tbody";
 import {useNavigate} from "react-router";
-import {tableRowProps} from "../../../components/table/table-row-props";
-
-interface TransactionsTableProps {}
+import {tableRowProps} from "components/table/table-row-props";
 
 const dataAttributes = {
     "CHECK_BOX": {

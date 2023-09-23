@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-import {TransactionTypeEnum} from "enums";
-import {Transaction} from "../../model/transacation.model";
+import {Transaction} from "model";
 
 
 

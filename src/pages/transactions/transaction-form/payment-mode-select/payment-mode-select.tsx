@@ -1,4 +1,4 @@
-import {PaymentModeEnum} from "../../../../enums";
+import {PaymentModeEnum} from "../../../../enum";
 import {PaymentModeAttributes} from "../../../../enumAttributes";
 import React, {forwardRef} from "react";
 import CustomSelectItem from "../../../../components/custom-select-item";

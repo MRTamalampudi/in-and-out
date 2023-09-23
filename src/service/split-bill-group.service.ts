@@ -1,5 +1,5 @@
 import {BaseService} from "./base.service";
-import {SplitBillGroup} from "../model/split-bill-group.model";
+import {SplitBillGroup} from "model";
 import {netflix} from "../assets";
 import {fakerEN_IN} from "@faker-js/faker";
 

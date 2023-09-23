@@ -70,6 +70,26 @@
         "index": "src/templates/index.ts",
         "component": "src/templates/icon-template/TemplateName.tsx"
       }
+    },
+    "model": {
+      "path": "src/model",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": false,
+      "withTest": false,
+      "customTemplates": {
+        "component": "src/templates/model/TemplateName.model.ts"
+      }
+    },
+    "enum": {
+      "path": "src/enum",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": false,
+      "withTest": false,
+      "customTemplates": {
+        "component": "src/templates/enum/TemplateName.enum.ts"
+      }
     }
   },
   "usesStyledComponents": false

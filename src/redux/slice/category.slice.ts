@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Transaction} from "../../model/transacation.model";
 
 const initialState:string[] =[
         "Food and Groceries",

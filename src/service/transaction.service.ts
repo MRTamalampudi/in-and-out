@@ -1,7 +1,7 @@
 import {BaseService} from "./base.service";
-import {Transaction} from "../model/transacation.model";
 import {fakerEN_IN} from "@faker-js/faker";
-import {TransactionTypeEnum} from "../enums";
+import {TransactionTypeEnum} from "enum";
+import {Transaction} from "model";
 
 
 class TransactionService implements BaseService<Transaction>{

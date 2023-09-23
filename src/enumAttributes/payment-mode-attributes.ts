@@ -1,4 +1,4 @@
-import {PaymentModeEnum} from "enums";
+import {PaymentModeEnum} from "enum";
 import {bitcoin, card, money, netbank, upi} from "../assets";
 
 const PaymentModeAttributes:Record<PaymentModeEnum, {imgUrl:string}> = {

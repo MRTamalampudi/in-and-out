@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './demo.module.scss';
 import TransactionTypeCard from "../../components/transaction-type-card";
-import {TransactionTypeEnum} from "../../enums";
+import {TransactionTypeEnum} from "../../enum";
 import CustomSelectItem from "../../components/custom-select-item";
 import {netflix, upi} from "../../assets";
 

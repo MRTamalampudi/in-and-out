@@ -1,6 +1,6 @@
 import React, {FC, forwardRef} from 'react';
 import styles from './transaction-type-select.module.scss';
-import {TransactionTypeEnum} from "../../../../enums";
+import {TransactionTypeEnum} from "../../../../enum";
 import {TransactionTypeBadge} from "../../../../components";
 import {Select} from "@mantine/core";
 import {InputProps} from "../input-props";

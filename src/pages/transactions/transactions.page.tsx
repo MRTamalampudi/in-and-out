@@ -3,11 +3,10 @@ import styles from './transactions.module.scss';
 import TransactionsTable from "./transactions-table";
 import TransactionForm from "./transaction-form";
 import {TransactionTypeCard} from "components";
-import {PaymentModeEnum, TransactionTypeEnum} from "../../enums";
+import {TransactionTypeEnum} from "enum";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {RootState} from "../../redux";
-import {Transaction} from "../../model/transacation.model";
+import {RootState} from "redux";
 import {TRANSACTIONS_SLUGS} from "./routes";
 
 interface TransactionsProps {}
