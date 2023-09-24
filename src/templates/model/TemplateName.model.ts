@@ -1,5 +1,5 @@
 class TemplateName {
-    public id:number;
+    id: number;
 }
 
 export default TemplateName;

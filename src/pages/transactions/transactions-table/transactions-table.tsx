@@ -15,6 +15,7 @@ import {Transaction} from "model";
 import {Tr} from "components/table/tbody";
 import {useNavigate} from "react-router";
 import {tableRowProps} from "components/table/table-row-props";
+import {BudgetItem} from "../../../model";
 
 const dataAttributes = {
     "CHECK_BOX": {
@@ -53,6 +54,9 @@ const TransactionsTable = () => {
     const [selectionList,setSelectionList] = useState<number[]>([]);
 
     let data:Transaction[] =[];
+
+
+
 
     useMemo(()=>{
         const data_:Transaction[] = [];
