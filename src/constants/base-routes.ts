@@ -4,4 +4,5 @@ export const BaseRoutes = {
     SPLIT_BILL: "split-bill",
     BUDGET: "budget",
     USER_PROFILE: "user-profile",
+    LOGIN: "login"
 }

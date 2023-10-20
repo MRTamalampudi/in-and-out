@@ -8,6 +8,7 @@ import {BaseRoutes} from "../../constants/base-routes";
 import {NavItem} from "components";
 import {useGlobalConstants} from "constants/index";
 import globals from "../../constants/globals";
+import {Logo} from "components/icons";
 
 interface NavBarProps {}
 
@@ -48,7 +49,11 @@ const NavBar = (props:NavBarProps) => {
     return (
         <div className={styles.NavBar}>
             <div className={styles.header}>
-                <i className={`${styles.logo} fa-logo`}></i>
+                <Logo
+                    height={32}
+                    width={32}
+                    className={"primary"}
+                />
             </div>
             <div className={styles.body}>
                 {

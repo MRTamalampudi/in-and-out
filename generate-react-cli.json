@@ -90,6 +90,18 @@
       "customTemplates": {
         "component": "src/templates/enum/TemplateName.enum.ts"
       }
+    },
+    "form": {
+      "path": "src/components/form",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": false,
+      "withTest": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/index.ts",
+        "component": "src/templates/formInput/TemplateName.tsx"
+      }
     }
   },
   "usesStyledComponents": false

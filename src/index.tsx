@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {MantineProvider} from "@mantine/core";
 import {Colors} from "./theme/colors";
 import {Route, Routes} from "react-router";
 import { BrowserRouter } from "react-router-dom";
@@ -13,6 +11,7 @@ import Demo from "./pages/demo/demo";
 import {BaseRoutes} from "./constants/base-routes";
 import SplitBillRoutes from "./pages/split-bill/routes";
 import TransactionRoutes from "./pages/transactions/routes";
+import Login from "./pages/login";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -32,6 +31,7 @@ root.render(
                       </Route>
                       <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>
                   </Route>
+                  <Route path={BaseRoutes.LOGIN} element={<Login/>}/>
               </Routes>
           </BrowserRouter>
       </Colors>

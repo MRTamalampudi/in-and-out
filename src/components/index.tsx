@@ -7,6 +7,7 @@ import Icon from "./icon"
 import {NavItem} from "./nav-item/nav-item";
 import  TransactionTypeCard from "./transaction-type-card"
 import TransactionTypeBadge from "./transaction-type";
+import * as Icons from "./icons"
 
 
 export {
@@ -18,5 +19,6 @@ export {
     Icon,
     NavItem,
     TransactionTypeCard,
-    TransactionTypeBadge
+    TransactionTypeBadge,
+    Icons
 }
