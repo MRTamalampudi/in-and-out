@@ -38,6 +38,9 @@
 .border-separator-top{
   border-top: 1px solid #eff1f4;
 }
+.border-separator-left{
+  border-left: 1px solid #eff1f4;
+}
 
 .border-rds-4{
   @include borderRadius(0.25rem);

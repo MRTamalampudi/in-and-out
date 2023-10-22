@@ -7,9 +7,6 @@
   @extend .body-text;
   @extend .border-solid-1;
   background-color: #fbfbfb;
-  &:focus{
-    @extend .border-solid-1;
-  }
 }
 
 .mantine-TextInput-icon{

@@ -1,1 +1,42 @@
-.Login {}
+@import "styles/borders";
+@import "styles/size";
+@import "styles/typography";
+
+.Login {
+  display: flex;
+  height: 100vh;
+  background: url("../../assets/icons/plus-d.svg");
+}
+
+.left{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100%;
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    width: 300px;
+  }
+}
+
+.seperator{
+  @extend .border-separator-top;
+}
+
+.right{
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  @include height(100%);
+
+  span{
+    @extend .heading-2;
+  }
+}

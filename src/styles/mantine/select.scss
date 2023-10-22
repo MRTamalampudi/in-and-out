@@ -14,11 +14,8 @@
   }
 }
 .mantine-Select-input{
-  @extend .border-solid-1;
+  //@extend .border-solid-1;
   background: colors.$g-100;
-  &:focus{
-    @extend .border-solid-1;
-  }
 }
 .mantine-Select-itemsWrapper{
   border-radius: 0.25rem;
