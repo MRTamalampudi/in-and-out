@@ -61,7 +61,7 @@ const Table=(
             {
              usePagination &&
                 <div className={styles.pagination}>
-                    <Pagination total={10} size={"xs"}/>
+                    <Pagination total={20} size={"xs"}/>
                 </div>
             }
         </div>
