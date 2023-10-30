@@ -16,6 +16,9 @@ import {Tr} from "components/table/tbody";
 import {useNavigate} from "react-router";
 import {tableRowProps} from "components/table/table-row-props";
 import {BudgetItem} from "../../../model";
+import Page from "../../../model/page";
+import {useQuery} from "@tanstack/react-query";
+import TransactionService from "../../../service/transaction.service";
 
 const dataAttributes = {
     "CHECK_BOX": {
@@ -57,28 +60,19 @@ const TransactionsTable = () => {
 
 
 
+    const transactionService = new TransactionService();
 
-    useMemo(()=>{
-        const data_:Transaction[] = [];
-        for (let i = 0; i < 20; i++) {
-            const transaction:Transaction = new Transaction();
-            transaction.id = i;
-            transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
-            transaction.transactee = fakerEN_IN.person.firstName();
-            transaction.category = fakerEN_IN.commerce.department();
-            transaction.date =  fakerEN_IN.date.anytime();
-            transaction.type = TransactionTypeEnum.OWE;
-            transaction.amount = parseInt(fakerEN_IN.finance.amount({min:100,max:500,dec:0}));
-            transaction.paymentMode = PaymentModeEnum.UPI;
-            data_.push(transaction)
-        }
-        dispatch(index(data_))
-    },[])
+    const transactionClient = useQuery({
+        queryKey:["transactions"],
+        queryFn:()=>transactionService.index(""),
+        staleTime: 1000000,
+    })
 
-    data = useSelector((state:RootState)=> state.transactions);
 
 
     const {transactionLocales} = useTransactionsConstants();
+
+    const page:Page<Transaction> = new Page<Transaction>();
 
 
     const Heading = () => {
@@ -113,7 +107,7 @@ const TransactionsTable = () => {
         <Table
             selectedList={selectionList}
             title={transactionLocales.TRANSACTIONS}
-            totalElements={20}
+            pageData={page}
         >
             {
                 selectionList.length ?
@@ -127,13 +121,13 @@ const TransactionsTable = () => {
             }
             <tbody>
             {
-                data.map(transaction=> {
+                transactionClient.data && transactionClient.data?.content.map(transaction=> {
                    return (
                        <Transaction_
                            key={transaction.id}
                            data={transaction}
                            setSelectionList={setSelectionList}
-                           checkBoxSelected={selectionList.indexOf(transaction.id)>-1}
+                           checked={selectionList.indexOf(transaction.id)>-1}
                        />
                    )
                 })
@@ -147,13 +141,13 @@ const TransactionsTable = () => {
 interface TransactionProps{
     transaction:Transaction;
     setSelectionList:Dispatch<SetStateAction<number[]>>;
-    checkBoxSelected:boolean;
+    checked:boolean;
 }
 const Transaction_ = <T extends {id:number}> (
     {
         data,
         setSelectionList,
-        checkBoxSelected,
+        checked,
     }:tableRowProps<any>) =>{
 
     const {transactionId}= useParams();
@@ -172,7 +166,7 @@ const Transaction_ = <T extends {id:number}> (
             setSelection={setSelectionList}
             selected={selected}
             onClick={updateQueryParams}
-            checkBoxSelected={checkBoxSelected}
+            checkBoxSelected={checked}
         >
             <td className={dataAttributes.NOTE.className}>
                 <Tooltip
@@ -188,7 +182,7 @@ const Transaction_ = <T extends {id:number}> (
                 {data.transactee}
             </td>
             <td className={dataAttributes.DATE.className}>
-                {data.date.toLocaleDateString()}
+                {data.date}
             </td>
             <td className={dataAttributes.CATEGORY.className}>
                 {data.category}

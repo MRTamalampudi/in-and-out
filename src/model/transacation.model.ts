@@ -11,6 +11,8 @@ class Transaction {
     public type: TransactionTypeEnum;
     public amount: number;
     public paymentMode:PaymentModeEnum;
+
+
 }
 
 export default Transaction;

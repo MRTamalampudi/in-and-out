@@ -20,7 +20,6 @@ export const Colors = ({children}:ColorsProps) => {
             },
             primaryColor: "c-teal",
             focusRing:"never",
-
         }}>
             {children}
         </MantineProvider>

@@ -26,43 +26,43 @@ const LentForm = ({
                   primaryAction={()=>{}}
                   padding={false}
               >
-                  <Table
-                      title={"Members"}
-                      usePagination={false}
-                      borders={false}
-                      metaRow={false}
-                  >
-                      <tbody>
-                      <tr>
-                          <td>Maria Anders</td>
-                          <td>Germany</td>
-                      </tr>
-                      <tr>
-                          <td>Francisco Chang</td>
-                          <td>Mexico</td>
-                      </tr>
-                      <tr>
-                          <td>Roland Mendel</td>
-                          <td>Austria</td>
-                      </tr>
-                      <tr>
-                          <td>Helen Bennett</td>
-                          <td>UK</td>
-                      </tr>
-                      <tr>
-                          <td>Yoshi Tannamuri</td>
-                          <td>Canada</td>
-                      </tr>
-                      <tr>
-                          <td>Helen Bennett</td>
-                          <td>UK</td>
-                      </tr>
-                      <tr>
-                          <td>Yoshi Tannamuri</td>
-                          <td>Canada</td>
-                      </tr>
-                      </tbody>
-                  </Table>
+                  {/*<Table*/}
+                  {/*    title={"Members"}*/}
+                  {/*    usePagination={false}*/}
+                  {/*    borders={false}*/}
+                  {/*    metaRow={false}*/}
+                  {/*>*/}
+                  {/*    <tbody>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Maria Anders</td>*/}
+                  {/*        <td>Germany</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Francisco Chang</td>*/}
+                  {/*        <td>Mexico</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Roland Mendel</td>*/}
+                  {/*        <td>Austria</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Helen Bennett</td>*/}
+                  {/*        <td>UK</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Yoshi Tannamuri</td>*/}
+                  {/*        <td>Canada</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Helen Bennett</td>*/}
+                  {/*        <td>UK</td>*/}
+                  {/*    </tr>*/}
+                  {/*    <tr>*/}
+                  {/*        <td>Yoshi Tannamuri</td>*/}
+                  {/*        <td>Canada</td>*/}
+                  {/*    </tr>*/}
+                  {/*    </tbody>*/}
+                  {/*</Table>*/}
               </ModalTemplate>
           </Modal>
       </div>

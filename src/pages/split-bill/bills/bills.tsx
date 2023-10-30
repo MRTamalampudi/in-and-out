@@ -99,7 +99,6 @@ const Bills = (
   return (
       <Table
           title={SplitBillConstants().locales.BILLS}
-          totalElements={20}
           rounded={false}
           borders={false}
       >
@@ -121,7 +120,7 @@ const Bills = (
                           key={bill.id}
                           data={bill}
                           setSelectionList={setSelectionList}
-                          checkBoxSelected={selectionList.indexOf(bill.id) > -1}
+                          checked={selectionList.indexOf(bill.id) > -1}
                       />
                   )
               })
@@ -135,12 +134,12 @@ export default Bills;
 
 
 const Bill =<T extends {id:number}> ({
-    data,setSelectionList,checkBoxSelected
+    data,setSelectionList,checked
 }:tableRowProps<any>) => {
     return (
         <Tr
             className={styles.row}
-            checkBoxSelected={checkBoxSelected}
+            checkBoxSelected={checked}
             rowData={data}
             setSelection={setSelectionList}
         >

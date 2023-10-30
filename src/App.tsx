@@ -10,6 +10,8 @@ import {NavBar} from "components";
 import {Provider} from "react-redux";
 
 import store from "./redux/index";
+import {banner} from "./templates/banner";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 
 
@@ -21,22 +23,17 @@ function App() {
     const location  = useLocation();
 
     useEffect(()=>{
-        console.log(`
-      ___           ___           ___         ___           ___           ___           ___           ___     
-     /  /\\         /__/|         /  /\\       /  /\\         /__/\\         /  /\\         /  /\\         /  /\\    
-    /  /:/_       |  |:|        /  /::\\     /  /:/_        \\  \\:\\       /  /:/_       /  /:/_       /  /:/_   
-   /  /:/ /\\      |  |:|       /  /:/\\:\\   /  /:/ /\\        \\  \\:\\     /  /:/ /\\     /  /:/ /\\     /  /:/ /\\  
-  /  /:/ /:/_   __|__|:|      /  /:/~/:/  /  /:/ /:/_   _____\\__\\:\\   /  /:/ /::\\   /  /:/ /:/_   /  /:/ /::\\ 
- /__/:/ /:/ /\\ /__/::::\\____ /__/:/ /:/  /__/:/ /:/ /\\ /__/::::::::\\ /__/:/ /:/\\:\\ /__/:/ /:/ /\\ /__/:/ /:/\\:\\
- \\  \\:\\/:/ /:/    ~\\~~\\::::/ \\  \\:\\/:/   \\  \\:\\/:/ /:/ \\  \\:\\~~\\~~\\/ \\  \\:\\/:/~/:/ \\  \\:\\/:/ /:/ \\  \\:\\/:/~/:/
-  \\  \\::/ /:/      |~~|:|~~   \\  \\::/     \\  \\::/ /:/   \\  \\:\\  ~~~   \\  \\::/ /:/   \\  \\::/ /:/   \\  \\::/ /:/ 
-   \\  \\:\\/:/       |  |:|      \\  \\:\\      \\  \\:\\/:/     \\  \\:\\        \\__\\/ /:/     \\  \\:\\/:/     \\__\\/ /:/  
-    \\  \\::/        |  |:|       \\  \\:\\      \\  \\::/       \\  \\:\\         /__/:/       \\  \\::/        /__/:/   
-     \\__\\/         |__|/         \\__\\/       \\__\\/         \\__\\/         \\__\\/         \\__\\/         \\__\\/    
-        `)
+        console.log(banner)
     })
 
+    const queryClient = new QueryClient({
+        defaultOptions:{
+
+        }
+    });
+
   return (
+      <QueryClientProvider client={queryClient}>
       <Provider store={store}>
     <div className="App" >
         <NavBar/>
@@ -77,6 +74,7 @@ function App() {
         {/*</div>*/}
     </div>
       </Provider>
+      </QueryClientProvider>
   );
 }
 

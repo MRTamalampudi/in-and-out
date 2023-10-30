@@ -1,29 +1,25 @@
-import React, {Children, cloneElement, FC, isValidElement, useRef} from 'react';
+import React from 'react';
 import styles from './table.module.scss';
-import {TextInput, Pagination, Tooltip, Checkbox} from "@mantine/core";
-import {filterOutline, searchOutline, sortOutline, trashOutline} from "../../assets/icons";
-import {instanceOf, number} from "prop-types";
+import {Pagination} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import Thead from "./thead";
 import MetaRow from "./meta-row";
+import Page from "../../model/page";
 
-type TableProps = {
+type TableProps<T> = {
     title:string;
     children:React.ReactNode;
-    totalElements?:number;
-    numberOfElements?:number;
+    pageData?:Page<T>;
     borders?:boolean;
     rounded?:boolean;
     usePagination?:boolean;
     metaRow?:boolean;
     height?:number;
-    checked?:boolean;
     selectedList?:number[];
 }
 
 
 
-const Table=(
+const Table=<T extends {} >(
     {
         children,
         title,
@@ -32,11 +28,9 @@ const Table=(
         usePagination = true,
         metaRow = true,
         height = undefined,
-        checked = false,
         selectedList = [],
-        totalElements,
-        numberOfElements = 20,
-    }:TableProps) => {
+        pageData
+    }:TableProps<T>) => {
 
     const { t } = useTranslation();
 
@@ -54,7 +48,7 @@ const Table=(
              ${height ? "h"+height+"p" : styles.defaultHeight}
              `}
         >
-            {metaRow && <MetaRow title={title} totalElements={totalElements!}/>}
+            {metaRow && <MetaRow title={title} totalElements={pageData?.totalElements!}/>}
             <table className={styles.table}>
                 {children}
             </table>

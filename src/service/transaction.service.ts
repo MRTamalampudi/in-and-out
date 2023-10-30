@@ -2,6 +2,8 @@ import {BaseService} from "./base.service";
 import {fakerEN_IN} from "@faker-js/faker";
 import {TransactionTypeEnum} from "enum";
 import {Transaction} from "model";
+import axios from "axios";
+import Page from "../model/page";
 
 
 class TransactionService implements BaseService<Transaction>{
@@ -15,20 +17,11 @@ class TransactionService implements BaseService<Transaction>{
     delete(id: number): void {
     }
 
-    index(query: string): Promise<Transaction[]> {
-        const data_: Transaction[] = []
-        for (let i = 0; i < 20; i++) {
-            const transaction:Transaction = new Transaction();
-            transaction.id = i;
-            transaction.note = fakerEN_IN.word.words({count:{min:3,max:5}});
-            transaction.transactee = fakerEN_IN.person.firstName();
-            transaction.category = fakerEN_IN.commerce.department();
-            transaction.date =  fakerEN_IN.date.anytime();
-            transaction.type = TransactionTypeEnum.OWE;
-            transaction.amount = parseInt(fakerEN_IN.finance.amount({min:100,max:500,dec:0}));
-            data_.push(transaction)
-        }
-        return new Promise<Transaction[]>(resolve => resolve(data_));
+    index(query: string): Promise<Page<Transaction>> {
+        return axios
+            .get<Page<Transaction>>("http://localhost:8080/transactions")
+            .then(result=>result.data)
+            .catch(error=> error);
     }
 
     update(data: Transaction): Promise<Transaction> {

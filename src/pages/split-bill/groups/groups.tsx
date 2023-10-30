@@ -52,13 +52,13 @@ const Groups = (
     const [selectionList,setSelectionList] = useState<number[]>([]);
 
 
-    useEffect(()=>{
-        const splitBillGroupService = new SplitBillGroupService();
-        splitBillGroupService.index("")
-            .then((data)=>{
-                dispatch(index(data))
-            })
-    },[])
+    // useEffect(()=>{
+    //     const splitBillGroupService = new SplitBillGroupService();
+    //     splitBillGroupService.index("")
+    //         .then((data)=>{
+    //             dispatch(index(data))
+    //         })
+    // },[])
 
     const data = useSelector((state:RootState)=>state.splitBillGroup);
 
@@ -86,7 +86,6 @@ const Groups = (
     return (
         <Table
             title={"splitBill.groups"}
-            totalElements={data.length}
         >
             {
                 selectionList.length ?
@@ -105,7 +104,7 @@ const Groups = (
                         <Group
                             key = {group.id}
                             data={group}
-                            checkBoxSelected={selectionList.indexOf(group.id)>-1}
+                            checked={selectionList.indexOf(group.id)>-1}
                             setSelectionList={setSelectionList}
                         />
                     )
@@ -123,7 +122,7 @@ export default Groups;
 
 
 
-const Group =<T extends {id:number} >({data,setSelectionList,checkBoxSelected}:tableRowProps<any>) => {
+const Group =<T extends {id:number} >({data,setSelectionList,checked}:tableRowProps<any>) => {
 
     const {[SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]:groupId} = useParams();
     const navigate = useNavigate();
@@ -136,7 +135,7 @@ const Group =<T extends {id:number} >({data,setSelectionList,checkBoxSelected}:t
         <Tr
             className={`pointer`}
             onClick={updateQueryParams}
-            checkBoxSelected={checkBoxSelected}
+            checkBoxSelected={checked}
             rowData={data}
             setSelection={setSelectionList}
         >
