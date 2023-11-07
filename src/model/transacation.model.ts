@@ -12,7 +12,16 @@ class Transaction {
     public amount: number;
     public paymentMode:PaymentModeEnum;
 
+    static deserialize(object:any):Transaction{
+        const transaction:Transaction = {
+            ...object,
+            date:new Date(object.date*1000)
+        };
 
+
+
+        return transaction;
+    }
 }
 
 export default Transaction;

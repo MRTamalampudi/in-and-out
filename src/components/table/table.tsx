@@ -34,9 +34,8 @@ const Table=<T extends {} >(
 
     const { t } = useTranslation();
 
-    if(selectedList?.length){
-
-    }
+    console.log(pageData?.totalElements)
+    console.log(pageData)
 
     
     return (

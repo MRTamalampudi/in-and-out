@@ -72,7 +72,6 @@ const TransactionsTable = () => {
 
     const {transactionLocales} = useTransactionsConstants();
 
-    const page:Page<Transaction> = new Page<Transaction>();
 
 
     const Heading = () => {
@@ -107,7 +106,7 @@ const TransactionsTable = () => {
         <Table
             selectedList={selectionList}
             title={transactionLocales.TRANSACTIONS}
-            pageData={page}
+            pageData={transactionClient.data}
         >
             {
                 selectionList.length ?
@@ -182,7 +181,7 @@ const Transaction_ = <T extends {id:number}> (
                 {data.transactee}
             </td>
             <td className={dataAttributes.DATE.className}>
-                {data.date}
+                {new Date(data.date*1000).toLocaleDateString()}
             </td>
             <td className={dataAttributes.CATEGORY.className}>
                 {data.category}
@@ -191,7 +190,7 @@ const Transaction_ = <T extends {id:number}> (
                 <TransactionTypeBadge type={data.type!} />
             </td>
             <td className={`${dataAttributes.AMOUNT.className} currency`}>
-                {data.amount}
+                {`$${data.amount}`}
             </td>
         </Tr>
     )
