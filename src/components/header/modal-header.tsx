@@ -19,7 +19,7 @@ const ModalHeader = ({
         <>
             <div className={styles.right}>
              <span
-                 className={"f-16-b"}>
+                 className={styles.title}>
                   {t(title)}
               </span>
             </div>

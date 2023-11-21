@@ -17,17 +17,7 @@ const TransactionsPage = (
 
     const {[TRANSACTIONS_SLUGS.TRANSACTION_ID]:transactionId}=useParams();
 
-
-
-    const da = useSelector((state:RootState)=>state.transactions.find(transaction=>transaction.id?.toString() == transactionId));
-
-    const dd = () => {
-      return da;
-    }
-
-
-
-  return (
+    return (
       <div className={styles.Transactions}>
           <div className={styles.top}>
               <TransactionTypeCard type={TransactionTypeEnum.CASH_IN} amount={300}/>
@@ -38,7 +28,7 @@ const TransactionsPage = (
           </div>
           <div className={styles.bottom}>
               <TransactionsTable/>
-              <TransactionForm defaultValue={dd()!}/>
+              <TransactionForm/>
           </div>
       </div>
   )

@@ -1,10 +1,10 @@
 import {useLocation} from "react-router";
 import styles from "./header.module.scss";
-import {backOutline, notificationOutline} from "../../assets/icons";
-import {useGlobalConstants} from "constants/index";
+import {backOutline, notificationOutline} from "assets/icons";
 import {Menu, Tooltip} from "@mantine/core";
 import React from "react";
 import {BaseRoutes} from "../../constants/base-routes";
+import {useGlobalTranslations} from "../../locales/translation-hooks";
 
 interface PageHeaderProps {
 
@@ -20,13 +20,13 @@ const PageHeader = ({}:PageHeaderProps) => {
         window.history.back();
     }
 
-    const {globalLocales} = useGlobalConstants();
+    const {global} = useGlobalTranslations();
     const routeToLocaleMap:{[BaseRoutes:string]:string} = {
-        [BaseRoutes.TRANSACTIONS]: globalLocales.TRANSACTIONS,
-        [BaseRoutes.SPLIT_BILL]: globalLocales.SPLIT_BILL,
-        [BaseRoutes.BUDGET]: globalLocales.BUDGET,
-        [BaseRoutes.SETTINGS]: globalLocales.SETTINGS,
-        [BaseRoutes.USER_PROFILE]: globalLocales.USER_PROFILE,
+        [BaseRoutes.TRANSACTIONS]: global.TRANSACTIONS,
+        [BaseRoutes.SPLIT_BILL]: global.SPLIT_BILL,
+        [BaseRoutes.BUDGET]: global.BUDGET,
+        [BaseRoutes.SETTINGS]: global.SETTINGS,
+        [BaseRoutes.USER_PROFILE]: global.USER_PROFILE,
     };
 
     const defaultLocale:string = "Expenses";

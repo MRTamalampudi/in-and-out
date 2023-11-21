@@ -6,33 +6,55 @@ import {TransactionTypeEnum} from "../../../../enum";
 import {Select} from "@mantine/core";
 import {FieldValues, useController} from "react-hook-form";
 import {InputProps} from "../input-props";
+import useGetTransacteeQuery from "../../../../service/react-query-hooks/transactee-query";
+import {useIndexCategoryQuery} from "../../../../service/category.service";
 
 
 
 const CategorySelect = <T extends FieldValues>(props:InputProps<T>) => {
 
-    const {field}=useController<T>(props);
-
-
-    const data = useSelector((state:RootState) => state.categories).map((data_:string)=>{return {"value":data_,"label":data_}})
-
-    interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-        value:TransactionTypeEnum;
+    const {
+        field:{
+            value:selectedValue,
+            onChange:onFieldChange,
+            ...field
+        }
+    }=useController<T>(props);
+    const categoryQuery = useIndexCategoryQuery();
+    const options= categoryQuery.data?.map(
+        (value) => ({
+            "label":value.name,
+            "value":value.id.toString(),
+            "entity":value
+        })
+    )
+    const getSelectedValue = () => {
+        if(selectedValue && selectedValue.id){
+            return selectedValue.id.toString();
+        } else {
+            return selectedValue
+        }
     }
 
-
+    const handleSelectChange= (e:String) => {
+        const entity = options?.find(
+            (d)=> d.entity.id.toString()==e
+        )?.entity
+        onFieldChange(entity);
+    }
 
     return (
-        <>
-            <Select
-                {...field}
-                data={data}
-                size={"xs"}
-                label={props.label}
-                placeholder={props.placeholder}
-                maxDropdownHeight={200}
-            />
-        </>
+        <Select
+            data={options || []}
+            {...field}
+            onChange={(e)=>{
+                handleSelectChange(e!)
+            }}
+            value={getSelectedValue()}
+            label={props.label}
+            size={"xs"}
+            placeholder={props.placeholder}
+        />
     )
 }
 

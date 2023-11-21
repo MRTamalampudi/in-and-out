@@ -4,36 +4,22 @@ import {TransactionTypeEnum} from "enum";
 import {Transaction} from "model";
 import axios from "axios";
 import Page from "../model/page";
+import * as process from "process";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 
-class TransactionService implements BaseService<Transaction>{
 
-    create(data: Transaction): Promise<Transaction> {
-        return new Promise<Transaction>((resolve,reject)=>{
-            resolve(data)
-        })
-    }
-
-    delete(id: number): void {
-    }
-
-    index(query: string): Promise<Page<Transaction>> {
-        return axios
-            .get<Page<Transaction>>("http://localhost:8080/transactions")
-            .then(result=>result.data)
-            .catch(error=> error);
-    }
-
-    update(data: Transaction): Promise<Transaction> {
-        return new Promise<Transaction>((resolve,reject)=>{
-            resolve(data)
-        })
-    }
-
-    get(id: number): Transaction {
-        return new Transaction();
-    }
-
+export function indexTransactions():Promise<Page<Transaction>> {
+    return axios
+        .get<Page<Transaction>>(process.env.REACT_APP_API_KEY+"/transactions")
+        .then(result=>result.data)
+        .catch(error=> error);
 }
 
-export default TransactionService;
+export function getTransaction(id: number): Promise<Transaction> {
+    return axios.get<Transaction>(process.env.REACT_APP_API_KEY+"/transactions/"+id)
+        .then(response=> Transaction.deserialize(response.data))
+        .catch(error => error)
+}
+

@@ -1,7 +1,10 @@
 @use 'styles/colors';
 @import "styles/typography";
 
-.mantine-TextInput-error{
+.mantine-TextInput-error,
+.mantine-PasswordInput-error,
+.mantine-NumberInput-error
+{
   color: colors.$red-500;
   @extend .subtitle;
 }

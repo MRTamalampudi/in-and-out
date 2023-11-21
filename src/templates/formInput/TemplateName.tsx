@@ -1,5 +1,5 @@
 import {FieldValues, useController} from "react-hook-form";
-import {InputProps} from "components/form/input-props";
+import {InputProps} from "forms/inputs/input-props";
 
 const TemplateName =<T extends FieldValues>(props:InputProps<T>) => {
     const {label,placeholder}=props;

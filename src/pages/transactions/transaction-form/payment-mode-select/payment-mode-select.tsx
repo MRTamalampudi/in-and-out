@@ -1,10 +1,10 @@
-import {PaymentModeEnum} from "../../../../enum";
-import {PaymentModeAttributes} from "../../../../enumAttributes";
+import {PaymentModeEnum} from "enum";
 import React, {forwardRef} from "react";
-import CustomSelectItem from "../../../../components/custom-select-item";
+import CustomSelectItem from "components/custom-select-item";
 import {Menu, Select} from "@mantine/core";
 import Label = Menu.Label;
 import {useController} from "react-hook-form";
+import {PaymentMode} from "../../../../enum/payment-mode.enum";
 
 
 
@@ -14,31 +14,13 @@ const PaymentModeSelect = (props:any) => {
 
     // @ts-ignore
     const data = Object.values(PaymentModeEnum)
-        .map((value:PaymentModeEnum) => ({ value, label: value,imgUrl:PaymentModeAttributes[value].imgUrl }));
+        .map((value:PaymentModeEnum) => ({ value:value.valueOf(), label: value}));
 
-    interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-        value:PaymentModeEnum;
-        imgUrl:string
-    }
-
-    const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-        ({ value,imgUrl, ...others }: ItemProps, ref) => (
-            <div ref={ref} {...others}>
-                <CustomSelectItem
-                    imgUrl={imgUrl}
-                    value={value}
-                />
-            </div>
-        )
-    );
-
-
-
+    console.log(field.value,PaymentModeEnum.CASH)
     return (
         <>
             <Select
                 {...field}
-                itemComponent={SelectItem}
                 data={data}
                 size={"xs"}
                 label={props.label}

@@ -1,24 +1,28 @@
 import {DeepMap, FieldError, FieldValues, useController} from "react-hook-form";
-import {InputProps} from "components/form/input-props";
-import {PasswordInput} from "@mantine/core";
+import {InputProps} from "forms/inputs/input-props";
+import {TextInput} from "@mantine/core";
 import React from "react";
+import useErrorMessage from "../useErrorMessage";
 
-const PasswordInputForm =<T extends FieldValues>(props:InputProps<T>) => {
+const TextInputForm =<T extends FieldValues>(props:InputProps<T>) => {
+
     const {label,placeholder}=props;
     const {field,formState:{errors}} = useController<T>(props);
 
+    const errorMessage = useErrorMessage(errors,props)
+
     return(
         <>
-            <PasswordInput
+            <TextInput
                 {...field}
                 label={label}
                 size={"xs"}
                 placeholder={placeholder}
-                error={errors[props.name] && `${(errors[props.name] as DeepMap<FieldValues, FieldError>).message}`}
+                error={errorMessage}
             />
         </>
     )
 
 };
 
-export default PasswordInputForm;
+export default TextInputForm;

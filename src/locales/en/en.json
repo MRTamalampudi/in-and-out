@@ -16,14 +16,7 @@
     "owe": "Owe",
     "balance": "Balance",
     "amount": "Amount",
-    "transactionType": "Transaction type",
-    "placeholder": {
-      "amount": "37",
-      "paymentMode": "select Payment mode",
-      "category": "select category",
-      "transactee": "select Transactee",
-      "transactionType": "select TransactionType"
-    }
+    "transactionType": "Transaction type"
   },
   "new": "New {{name}}",
   "splitBill": {
@@ -44,10 +37,38 @@
       "note": "eg: purchased fruits"
     }
   },
-
   "table": {
     "filter": "Filter {{context}}",
     "sort": "Sort {{context}}",
     "delete": "Delete {{context}}"
+  },
+  "form": {
+    "labels": {
+      "timeDate": "Time & Date",
+      "transactee": "Transactee",
+      "category": "Category",
+      "paymentMode": "Payment Mode",
+      "transactionType": "Transaction type",
+      "amount": "Amount",
+      "labels": "Labels",
+      "note": "Note",
+      "email": "Email",
+      "password": "Password"
+    },
+    "placeholders": {
+      "amount": "37",
+      "paymentMode": "select Payment mode",
+      "category": "select category",
+      "transactee": "select Transactee",
+      "transactionType": "select TransactionType",
+      "timeDate": "select Time & Date",
+      "note": "eg: purchased fruits",
+      "email": "msdhoni@email.com",
+      "password": "enter password"
+    },
+    "errors": {
+      "email": "Please enter a valid email",
+      "password": "Please enter a valid password"
+    }
   }
 }

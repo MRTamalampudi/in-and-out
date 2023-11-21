@@ -15,10 +15,9 @@ import {Transaction} from "model";
 import {Tr} from "components/table/tbody";
 import {useNavigate} from "react-router";
 import {tableRowProps} from "components/table/table-row-props";
-import {BudgetItem} from "../../../model";
-import Page from "../../../model/page";
 import {useQuery} from "@tanstack/react-query";
-import TransactionService from "../../../service/transaction.service";
+import {indexTransactions} from "service/transaction.service";
+import {useTransactionsTranslations} from "locales/translation-hooks";
 
 const dataAttributes = {
     "CHECK_BOX": {
@@ -53,18 +52,14 @@ const dataAttributes = {
 
 const TransactionsTable = () => {
 
-    const dispatch = useDispatch();
     const [selectionList,setSelectionList] = useState<number[]>([]);
-
-    let data:Transaction[] =[];
-
+    const {transactions:{TRANSACTIONS}} = useTransactionsTranslations();
 
 
-    const transactionService = new TransactionService();
 
     const transactionClient = useQuery({
         queryKey:["transactions"],
-        queryFn:()=>transactionService.index(""),
+        queryFn:()=>indexTransactions(),
         staleTime: 1000000,
     })
 
@@ -77,7 +72,7 @@ const TransactionsTable = () => {
     const Heading = () => {
       return (
           <Thead
-              data={data}
+              data={transactionClient.data?.content!}
               setSelection={setSelectionList}
           >
                   <td className={dataAttributes.NOTE.className}>
@@ -105,15 +100,15 @@ const TransactionsTable = () => {
     return (
         <Table
             selectedList={selectionList}
-            title={transactionLocales.TRANSACTIONS}
+            title={TRANSACTIONS}
             pageData={transactionClient.data}
         >
             {
                 selectionList.length ?
                     <ActionsRow
-                        checked={selectionList.length == data.length}
+                        checked={selectionList.length == transactionClient.data?.content.length}
                         selectedCount={selectionList.length}
-                        data={data}
+                        data={transactionClient.data?.content!}
                         setSelection={setSelectionList}
                     /> :
                     <Heading/>
@@ -178,13 +173,13 @@ const Transaction_ = <T extends {id:number}> (
                 </Tooltip>
             </td>
             <td className={dataAttributes.TRANSACTEE.className}>
-                {data.transactee}
+                {data.transactee.name}
             </td>
             <td className={dataAttributes.DATE.className}>
                 {new Date(data.date*1000).toLocaleDateString()}
             </td>
             <td className={dataAttributes.CATEGORY.className}>
-                {data.category}
+                {data.category.name}
             </td>
             <td className={dataAttributes.TYPE.className}>
                 <TransactionTypeBadge type={data.type!} />

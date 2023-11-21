@@ -12,58 +12,47 @@ import NoteInput from "./note-input";
 import TransacteeSelect from "./transactee-select";
 import DateTimeSelect from "./date-time-select";
 import CategorySelect from "./category-select";
-import {PaymentModeEnum, TransactionTypeEnum} from "enum";
-import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import TransactionService from "../../../service/transaction.service";
-import {useDispatch} from "react-redux";
-import {add, update} from "../../../redux/slice/transaction.slice";
-
-
-interface TransactionFormProps {
-    defaultValue:Partial<Transaction>,
-}
-
-const TransactionForm = ({defaultValue}:TransactionFormProps) => {
+import {useFormLabelsTranslations, useFormPlaceholdersTranslations} from "locales/translation-hooks";
+import {useTransactionFormEssentials} from "../../../forms/hooks";
+import {useParams} from "react-router-dom";
+import {useQuery} from "@tanstack/react-query";
+import {useNavigate} from "react-router";
+import {getTransaction} from "../../../service/transaction.service";
 
 
 
-    useEffect(()=>{
-        reset(defaultValue);
-    },[defaultValue])
 
-    const dispatch = useDispatch();
-    const {
-        transactionLocales,
-        transactionsPlaceholder
-    } = useTransactionsConstants();
-    // @ts-ignore
-    const transactionSchema = z.object<Transaction>({
-        note: z.string().min(1,"Note is required"),
-        date:z.date(),
-        amount:z.number().min(1,{message:"Please enter amount"}),
-        paymentMode:z.string().min(1,{message:"please enter payment mode"}),
-        type:z.string().min(1),
-        transactee:z.string(),
-        category:z.string(),
-        id:z.number().optional(),
+const TransactionForm = () => {
+
+    const {transactionId} = useParams();
+    const tras = useQuery({
+        queryKey:["transactions",transactionId],
+        queryFn: () => getTransaction(Number.parseInt(transactionId!)),
     })
 
-    const deaultVa:Partial<Transaction> = {
-        date:new Date(),
-        paymentMode:PaymentModeEnum.UPI,
-        type:TransactionTypeEnum.CASH_IN,
-    }
+    return (
+        <TransactionFormPresentation data={transactionId ? tras.data : undefined}/>
+    )
+}
 
-    const emptyValues:Partial<Transaction>= {
-        paymentMode: PaymentModeEnum.UPI,
-        type: TransactionTypeEnum.CASH_IN,
-        amount: 0,
-        date: new Date(),
-        category: "",
-        note: "",
-        transactee: ""
-    }
+
+
+export default TransactionForm;
+
+interface TransactionFormPresentationProps {
+    data?:Transaction;
+}
+function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
+
+    const navigate = useNavigate();
+    const {formPlaceholders} = useFormPlaceholdersTranslations();
+    const {formLabels} = useFormLabelsTranslations();
+    let {
+        schema,
+        defaultValues,
+        emptyValues
+    } = useTransactionFormEssentials();
 
     const {control,
         handleSubmit,
@@ -73,108 +62,100 @@ const TransactionForm = ({defaultValue}:TransactionFormProps) => {
         getValues
     }=useForm<Transaction>({
         mode:"onSubmit",
-        defaultValues: deaultVa,
-        resolver:zodResolver(transactionSchema),
+        defaultValues: data || defaultValues,
+        resolver:zodResolver(schema),
     })
-    
+
+    useEffect(()=>{
+        reset(data)
+    },[data])
     const clearAll = () => {
-      reset(emptyValues);
+        reset(emptyValues);
+        navigate("/transactions")
     }
 
-
     const onSubmit = (data:Transaction) => {
-        const transactionService = new TransactionService();
-        if(data.id){
-            transactionService.update(data)
-                .then(dispatch(update(data)))
-        } else {
-            transactionService.create(data)
-                .then(dispatch(add(data)))
-        }
+        console.log(data)
     };
 
 
-  return (
-      <div className={styles.TransactionForm}>
-          <Header
-              title={"Edit transaction"}
-          />
-          <div
-              className={styles.body}
-          >
-              <NoteInput
-                  label={transactionLocales.NOTE}
-                  placeholder={transactionsPlaceholder.NOTE}
-                  control={control}
-                  name={"note"}
-              />
-              <div
-                  className={styles.col2}
-              >
-                  <AmountInput
-                      label={transactionLocales.AMOUNT}
-                      placeholder={transactionsPlaceholder.AMOUNT}
-                      control={control}
-                      name={"amount"}
-                  />
-                  <TransactionTypeSelect
-                      placeholder={transactionsPlaceholder.TRANSACTION_TYPE}
-                      label={transactionLocales.TRANSACTION_TYPE}
-                      control={control}
-                      name={"type"}
-                  />
-              </div>
-              <TransacteeSelect
-                  label={transactionLocales.TRANSACTEE}
-                  placeholder={transactionsPlaceholder.TRANSACTEE}
-                  control={control}
-                  name={"transactee"}
-              />
-              <DateTimeSelect
-                  label={transactionLocales.TIME_DATE}
-                  placeholder={transactionLocales.TIME_DATE}
-                  control={control}
-                  name={"date"}
-              />
-              <div
-                  className={styles.col2}
-              >
-                  <CategorySelect
-                      label={transactionLocales.CATEGORY}
-                      placeholder={transactionsPlaceholder.CATEGORY}
-                      control={control}
-                      name={"category"}
-                  />
-                  <PaymentModeSelect
-                      control={control}
-                      name={"paymentMode"}
-                      label={transactionLocales.PAYMENT_MODE}
-                      placeholder={transactionsPlaceholder.PAYMENT_MODE}
-                  />
-              </div>
-          </div>
-          <div
-              className={styles.footer}
-          >
-              <Button
-                  size={"xs"}
-                  variant={"outline"}
-                  onClick={clearAll}
-              >
-                  Clear all
-              </Button>
-              <Button
-                  size={"xs"}
-                  type={"submit"}
-                  onClick={handleSubmit(onSubmit)}
-              >
-                  {getValues("id") ? "Update" : "Add"}
-              </Button>
-          </div>
-      </div>
-  )
+    return (
+        <div className={styles.TransactionForm}>
+            <Header
+                title={data ? "Edit transaction" : "Add transaction"}
+            />
+            <div
+                className={styles.body}
+            >
+                <NoteInput
+                    label={formLabels.NOTE}
+                    placeholder={formPlaceholders.NOTE}
+                    control={control}
+                    name={"note"}
+                />
+                <div
+                    className={styles.col2}
+                >
+                    <AmountInput
+                        label={formLabels.AMOUNT}
+                        placeholder={formPlaceholders.AMOUNT}
+                        control={control}
+                        name={"amount"}
+                    />
+                    <TransactionTypeSelect
+                        placeholder={formPlaceholders.TRANSACTION_TYPE}
+                        label={formLabels.TRANSACTION_TYPE}
+                        control={control}
+                        name={"type"}
+                    />
+                </div>
+                <TransacteeSelect
+                    label={formLabels.TRANSACTEE}
+                    placeholder={formPlaceholders.TRANSACTEE}
+                    control={control}
+                    name={"transactee"}
+                />
+                <DateTimeSelect
+                    label={formLabels.TIME_DATE}
+                    placeholder={formPlaceholders.TIME_DATE}
+                    control={control}
+                    name={"date"}
+                />
+                <div
+                    className={styles.col2}
+                >
+                    <CategorySelect
+                        label={formLabels.CATEGORY}
+                        placeholder={formPlaceholders.CATEGORY}
+                        control={control}
+                        name={"category"}
+                    />
+                    <PaymentModeSelect
+                        control={control}
+                        name={"paymentMode"}
+                        label={formLabels.PAYMENT_MODE}
+                        placeholder={formPlaceholders.PAYMENT_MODE}
+                    />
+                </div>
+            </div>
+            <div
+                className={styles.footer}
+            >
+                <Button
+                    size={"xs"}
+                    variant={"outline"}
+                    onClick={clearAll}
+                >
+                    Clear all
+                </Button>
+                <Button
+                    size={"xs"}
+                    type={"submit"}
+                    onClick={handleSubmit(onSubmit)}
+                >
+                    {getValues("id") ? "Update" : "Add"}
+                </Button>
+            </div>
+        </div>
+    )
 }
-
-
-
-export default TransactionForm;

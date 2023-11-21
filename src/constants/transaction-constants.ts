@@ -8,6 +8,7 @@ const useTransactionsConstants = () => {
     const {t} = useTranslation();
     const {globalLocales,globalPlacholders} = useGlobalConstants();
 
+
     const transactionLocales = {
         TRANSACTIONS:t(TRANSACTIONS_CONST + "transactions"),
         NOTE: t(TRANSACTIONS_CONST + "note"),
@@ -19,7 +20,7 @@ const useTransactionsConstants = () => {
         TRANSACTION_TYPE: globalLocales.TRANSACTION_TYPE,
     }
 
-    const transactionsPlaceholder = {
+    const transactionsPlaceholder:Record<string, string> = {
         NOTE: t(PLACEHOLDER + "note"),
         AMOUNT: globalPlacholders.AMOUNT,
         PAYMENT_MODE: globalPlacholders.PAYMENT_MODE,
