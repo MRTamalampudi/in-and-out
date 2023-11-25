@@ -15,6 +15,8 @@ type TableProps<T> = {
     metaRow?:boolean;
     height?:number;
     selectedList?:number[];
+    currentPage?:number;
+    setCurrentPage?:(value:number)=>void;
 }
 
 
@@ -29,13 +31,11 @@ const Table=<T extends {} >(
         metaRow = true,
         height = undefined,
         selectedList = [],
-        pageData
+        pageData,
+        currentPage,
+        setCurrentPage,
     }:TableProps<T>) => {
 
-    const { t } = useTranslation();
-
-    console.log(pageData?.totalElements)
-    console.log(pageData)
 
     
     return (
@@ -54,7 +54,13 @@ const Table=<T extends {} >(
             {
              usePagination &&
                 <div className={styles.pagination}>
-                    <Pagination total={20} size={"xs"}/>
+                    <Pagination
+                        total={Math.ceil((pageData?.totalElements || 20 )/20)}
+                        size={"xs"}
+                        siblings={0}
+                        value={currentPage || 1}
+                        onChange={setCurrentPage}
+                    />
                 </div>
             }
         </div>

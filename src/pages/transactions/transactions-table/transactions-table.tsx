@@ -15,7 +15,7 @@ import {Transaction} from "model";
 import {Tr} from "components/table/tbody";
 import {useNavigate} from "react-router";
 import {tableRowProps} from "components/table/table-row-props";
-import {useQuery} from "@tanstack/react-query";
+import {keepPreviousData, useQuery} from "@tanstack/react-query";
 import {indexTransactions} from "service/transaction.service";
 import {useTransactionsTranslations} from "locales/translation-hooks";
 
@@ -54,18 +54,14 @@ const TransactionsTable = () => {
 
     const [selectionList,setSelectionList] = useState<number[]>([]);
     const {transactions:{TRANSACTIONS}} = useTransactionsTranslations();
-
-
+    const [currentPage,setCurrentPage] = useState<number>(1);
 
     const transactionClient = useQuery({
-        queryKey:["transactions"],
-        queryFn:()=>indexTransactions(),
+        queryKey:["transactions",currentPage],
+        queryFn:()=>indexTransactions(currentPage),
+        placeholderData: keepPreviousData,
         staleTime: 1000000,
     })
-
-
-
-    const {transactionLocales} = useTransactionsConstants();
 
 
 
@@ -102,6 +98,8 @@ const TransactionsTable = () => {
             selectedList={selectionList}
             title={TRANSACTIONS}
             pageData={transactionClient.data}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
         >
             {
                 selectionList.length ?

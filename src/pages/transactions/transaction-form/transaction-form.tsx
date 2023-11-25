@@ -16,9 +16,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useFormLabelsTranslations, useFormPlaceholdersTranslations} from "locales/translation-hooks";
 import {useTransactionFormEssentials} from "../../../forms/hooks";
 import {useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useNavigate} from "react-router";
-import {getTransaction} from "../../../service/transaction.service";
+import {createTransaction, getTransaction} from "../../../service/transaction.service";
 
 
 
@@ -29,6 +29,7 @@ const TransactionForm = () => {
     const tras = useQuery({
         queryKey:["transactions",transactionId],
         queryFn: () => getTransaction(Number.parseInt(transactionId!)),
+        enabled: !!transactionId,
     })
 
     return (
@@ -74,8 +75,15 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
         navigate("/transactions")
     }
 
+    const mutation = useMutation({
+        mutationFn:createTransaction,
+        onSuccess:(data, variables, context) => {
+            console.log(data,variables,context)
+        },
+    })
+
     const onSubmit = (data:Transaction) => {
-        console.log(data)
+        data && mutation.mutate(data);
     };
 
 
