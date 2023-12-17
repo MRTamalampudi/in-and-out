@@ -1,3 +1,4 @@
+@use "styles/colors";
 @import "styles/size";
 @import "styles/borders";
 @import "styles/cursor";
@@ -20,7 +21,8 @@
   align-items: center;
 }
 
-.right .title{
+.title {
+  color: #24292FFF;
   @extend .heading-4;
 }
 

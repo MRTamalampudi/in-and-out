@@ -1,6 +1,6 @@
 import Table from "./table/table";
 import Header from "./header";
-import ModalTemplate from "./modal-template";
+import ModalTemplate from "./modal-template/modal-template";
 import Footer from "./footer";
 import NavBar from "./nav-bar";
 import Icon from "./icon"

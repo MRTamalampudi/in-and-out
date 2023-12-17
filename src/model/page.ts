@@ -9,6 +9,7 @@ class Page <T> {
     public first: boolean;
     public last: boolean;
     public empty: boolean;
+
 }
 
 export default Page;

@@ -16,112 +16,6 @@
   container-type: inline-size;
   container-name: tableContainer;
 
-  .metaRow{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-
-    @include height(3rem);
-    @extend .px-16;
-    @extend .border-separator-bottom;
-
-    .right{
-      display: flex;
-      column-gap: 0.5rem;
-      align-items: baseline;
-
-      .title{
-        @extend .heading-4;
-      }
-
-      .entries{
-        @extend .subtitle;
-      }
-    }
-
-    .left{
-      display: flex;
-      column-gap: 0.5rem;
-      align-items: center;
-
-      .search{
-
-      }
-
-      .sort{
-
-      }
-
-      .filter{
-
-      }
-    }
-  }
-
-  .table{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    border-collapse: collapse;
-    overflow-y: auto;
-    position: relative;
-    flex-basis: 100%;
-
-    @extend .body-text;
-
-    thead{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-
-      @extend .body-text-bold;
-
-      tr{
-        background-color: colors.$g-400;
-        th{
-          @extend .body-text-bold;
-        }
-
-      }
-    }
-
-    tr{
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      @extend .border-separator-bottom;
-      @extend .column-gap-8;
-
-      td,th{
-
-      }
-
-      th:nth-child(1),td:nth-child(1){
-        @extend .pl-16;
-        @extend .pr-8;
-      }
-
-      th:nth-last-child(1),td:nth-last-child(1){
-        @extend .pr-16;
-      }
-    }
-
-    tbody{
-      tr{
-        height: 2.5rem;
-        text-decoration: none;
-
-        @extend .pointer;
-        td{
-          @extend .body-text;
-        }
-      }
-    }
-  }
-
   .pagination{
     display: flex;
     align-items: center;
@@ -135,9 +29,6 @@
 @container tableContainer (max-width:30rem){
   .search{
     display: none;
-  }
-  .entries{
-    //display: none;
   }
   .sort{
     display: none;
@@ -154,6 +45,37 @@
 
 .defaultHeight{
   height: 100%;
+}
+
+.metaRow{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+
+  @include height(3rem);
+  @extend .px-16;
+  @extend .border-separator-bottom;
+
+  .right{
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: baseline;
+
+    .title{
+      @extend .heading-4;
+    }
+
+    .entries{
+      @extend .subtitle;
+    }
+  }
+
+  .left{
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+  }
 }
 
 .actionRow{
@@ -182,5 +104,81 @@
 .cTr {
   &:hover{
     background-color: colors.$g-300;
+
+    td[data-action="true"]{
+      visibility: visible;
+      color: red;
+      justify-content: right;
+      @extend .flex-row;
+    }
+  }
+  td[data-action="true"]{
+    visibility: hidden;
   }
 }
+
+.table{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-collapse: collapse;
+  overflow-y: auto;
+  position: relative;
+  flex-basis: 100%;
+
+  @extend .body-text;
+}
+
+thead{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  @extend .body-text-bold;
+
+  tr{
+    background-color: colors.$g-400;
+
+    th{
+      @extend .body-text-bold;
+    }
+
+    th:last-child{
+      @extend .flex-row;
+      justify-content: center;
+    }
+  }
+}
+
+tbody{
+  overflow-y: scroll;
+  tr{
+    height: 2.5rem;
+    text-decoration: none;
+
+    @extend .pointer;
+    td{
+      @extend .body-text;
+    }
+  }
+}
+
+tr{
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @extend .border-separator-bottom;
+  @extend .column-gap-8;
+
+  th:first-child,td:first-child{
+    @extend .pl-16;
+    @extend .pr-8;
+  }
+
+  th:last-child,td:last-child{
+    @extend .pr-16;
+  }
+}
+

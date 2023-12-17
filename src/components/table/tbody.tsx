@@ -1,7 +1,10 @@
-import React, {Dispatch, HTMLProps, SetStateAction} from "react";
+import React, { Dispatch, HTMLProps, SetStateAction, useContext } from "react";
 import styles from "./table.module.scss"
-import {Checkbox} from "@mantine/core";
+import {Checkbox, Tooltip} from "@mantine/core";
 import {selectionHandler} from "../../utils/selectionHandler";
+import DeleteIcon from "../icons/delete-icon";
+import DeleteConfirmationModal from "../delete-confirmation-modal";
+import { TableContext } from "components/table/context";
 
 type tbodyProps = {
     children:React.ReactNode
@@ -18,16 +21,12 @@ type trProps <T extends {id:number}>= {
     selected?: boolean,
     children: React.ReactNode,
     rowData: T,
-    setSelection:Dispatch<SetStateAction<number[]>>,
-    checkBoxSelected:boolean,
 } & HTMLProps<HTMLTableRowElement>
 export const Tr = <T extends {id:number}>(
     {
         selected = false,
         children, onClick,
         rowData,
-        setSelection,
-        checkBoxSelected=false,
     }:trProps<T>) => {
 
     const classNames = () => {
@@ -36,21 +35,30 @@ export const Tr = <T extends {id:number}>(
       return className;
     }
 
-    function handleSelection(id:number,checked:boolean) {
-        setSelection(prevState => selectionHandler(prevState, id, checked))
+
+    const {selectionList,setSelectionList} = useContext(TableContext)
+    function handleSelection(entity:T,checked:boolean) {
+        setSelectionList((prevState)=>selectionHandler(prevState,entity,checked))
+        console.log(selectionList);
     }
 
-  return (
-      <tr onClick={onClick} className={`${styles.cTr} ${classNames()} `} >
+
+
+    return (
+      <tr onClick={onClick} className={`${styles.cTr} ${classNames()} `}>
           <td>
               <Checkbox
                   size={"xs"}
-                  onChange={(event)=>handleSelection(rowData.id,event.currentTarget.checked)}
-                  onClick={(event)=>{event.stopPropagation()}}
-                  checked={checkBoxSelected}
+                  onChange={(event) =>
+                      handleSelection(rowData, event.currentTarget.checked)
+                  }
+                  onClick={(event) => {
+                      event.stopPropagation();
+                  }}
+                  checked={!!selectionList.find((value)=>value.id==rowData.id)}
               />
           </td>
           {children}
       </tr>
-  )
+  );
 }

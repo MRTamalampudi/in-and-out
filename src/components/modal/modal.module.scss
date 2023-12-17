@@ -1,0 +1,16 @@
+@import "styles/borders";
+@import "styles/typography";
+@import "styles/size";
+
+.Modal {}
+
+.footer{
+  @extend .border-separator-top;
+}
+
+.body{
+  @extend .body-text;
+  @extend .px-16;
+  @extend .pt-16;
+  @extend .pb-32;
+}

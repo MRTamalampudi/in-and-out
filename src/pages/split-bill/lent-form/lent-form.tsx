@@ -23,7 +23,6 @@ const LentForm = ({
               <ModalTemplate
                   onClose={()=>setOpened(false)}
                   title={"Lent"}
-                  primaryAction={()=>{}}
                   padding={false}
               >
                   {/*<Table*/}

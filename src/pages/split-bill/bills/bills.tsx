@@ -8,7 +8,7 @@ import {fakerEN_IN as faker} from "@faker-js/faker";
 import Thead from "../../../components/table/thead";
 import {useDispatch} from "react-redux";
 import {number} from "prop-types";
-import {tableRowProps} from "../../../components/table/table-row-props";
+import {TableRowProps} from "../../../components/table/table-row-props";
 import {Tbody, Tr} from "../../../components/table/tbody";
 import ActionsRow from "../../../components/table/actions-row";
 
@@ -73,7 +73,6 @@ const Bills = (
       return (
           <Thead
               data={data}
-              setSelection={setSelectionList}
           >
               <th className={dataAttributes.BILL.className}>
                   {dataAttributes.BILL.name}
@@ -99,19 +98,9 @@ const Bills = (
   return (
       <Table
           title={SplitBillConstants().locales.BILLS}
-          rounded={false}
           borders={false}
       >
-          {
-              selectionList.length ?
-                  <ActionsRow
-                      data={data}
-                      setSelection={setSelectionList}
-                      checked={selectionList.length == data.length}
-                      selectedCount={selectionList.length}
-                  /> :
-                  <Heading/>
-          }
+          <Heading/>
           <tbody>
           {
               data.map(bill=>{
@@ -119,7 +108,6 @@ const Bills = (
                       <Bill
                           key={bill.id}
                           data={bill}
-                          setSelectionList={setSelectionList}
                           checked={selectionList.indexOf(bill.id) > -1}
                       />
                   )
@@ -133,15 +121,13 @@ const Bills = (
 export default Bills;
 
 
-const Bill =<T extends {id:number}> ({
-    data,setSelectionList,checked
-}:tableRowProps<any>) => {
+const Bill = ({
+    data,checked
+}:TableRowProps) => {
     return (
         <Tr
             className={styles.row}
-            checkBoxSelected={checked}
             rowData={data}
-            setSelection={setSelectionList}
         >
             <td className={dataAttributes.BILL.className}>
                 <Tooltip label={data.bill} position={"bottom"}>

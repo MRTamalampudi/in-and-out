@@ -1,7 +1,7 @@
-export function selectionHandler(selectionList:number[], id:number, chekced:boolean):number[]{
-    const index:number = selectionList.indexOf(id);
+export function selectionHandler<T extends {id:number}>(selectionList:T[], entity:T, chekced:boolean):T[]{
+    const index:number = selectionList.findIndex((data,index)=> data.id == entity.id)
   if(chekced){
-      return [...selectionList,id]
+      return [...selectionList,entity]
   } else {
       if (index > -1) {
           selectionList.splice(index, 1)
@@ -15,13 +15,13 @@ export function selectionHandler(selectionList:number[], id:number, chekced:bool
 export function selectAllHandler<T extends {id:number}>
 (
     data:T[],
-    selectedList:number[],
+    selectedList:T[],
     checked:boolean
-):number[] {
+):T[] {
     if(checked){
         data.map(data1=>{
-            if (!(selectedList.includes(data1.id))) {
-                selectedList.push(data1.id);
+            if (!(selectedList.includes(data1))) {
+                selectedList.push(data1);
             }
         })
         return [...selectedList];

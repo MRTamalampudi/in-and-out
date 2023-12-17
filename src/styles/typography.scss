@@ -3,7 +3,6 @@
   font-size: $font-size;
   font-weight: $font-weight;
   font-stretch: 100%;
-  letter-spacing: normal;
   line-height: normal;
   text-rendering: optimizeLegibility;
   text-decoration: solid rgb(60, 65, 73);
@@ -66,7 +65,8 @@
 }
 
 .heading-4{
-  @extend .f-16-b;
+  letter-spacing: -0.2px;
+  @extend .f-14-b;
 }
 
 .heading-3{
@@ -87,6 +87,6 @@
 
 .currency{
   font-family: RobotoMono,monospace;
-  @extend .body-text-bold;
+  @extend .body-text;
   @extend .text-align-right;
 }

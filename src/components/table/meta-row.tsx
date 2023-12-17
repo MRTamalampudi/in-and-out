@@ -1,5 +1,5 @@
 import styles from "./table.module.scss";
-import {TextInput, Tooltip} from "@mantine/core";
+import {Skeleton, TextInput, Tooltip} from "@mantine/core";
 import {filterOutline, sortOutline} from "../../assets/icons";
 import React from "react";
 import {useTranslation} from "react-i18next";
@@ -19,14 +19,22 @@ const MetaRow = ({
     return (
         <div className={styles.metaRow}>
             <div className={styles.right}>
-                    <span
-                        className={styles.title}>
-                        {t(title)}
-                    </span>
                 <span
-                    className={styles.entries}>
-                       {`(${totalElements} entries)`}
-                    </span>
+                    className={styles.title}>
+                    {t(title)}
+                </span>
+                <span className={styles.entries}>
+                    {totalElements == undefined ?
+                        <Skeleton
+                            height={8}
+                            mt={6}
+                            width="70%"
+                            radius="xl"
+                        /> :
+                        `(#${totalElements})`
+                    }
+
+                </span>
             </div>
             <div className={styles.left}>
                 <TextInput

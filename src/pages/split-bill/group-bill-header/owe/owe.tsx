@@ -78,10 +78,7 @@ const Owe = ({amount}:oweProps) => {
             </Popover.Target>
             <Popover.Dropdown>
                 <Table
-                    title={"testing"}
-                    usePagination={false}
                     height={320}
-                    metaRow={false}
                 >
                     <tbody>
                     {

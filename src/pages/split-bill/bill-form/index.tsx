@@ -31,8 +31,6 @@ const BillForm = ({
               <ModalTemplate
                   onClose={()=>{setOpened(false)}}
                   title={title}
-                  primaryAction={()=>{}}
-                  secondaryAction={()=>{}}
               >
                   <div className={styles.body}>
                       <div className={styles.rows}>
@@ -67,7 +65,6 @@ const BillForm = ({
                       <div className={styles.members}>
                           <Table
                               title={"Members"}
-                              usePagination={false}
                           >
                               <tbody>
                               <tr>

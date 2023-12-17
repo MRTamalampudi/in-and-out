@@ -77,10 +77,7 @@ const Lent = ({amount}:LentProps) => {
             </Popover.Target>
             <Popover.Dropdown>
                 <Table
-                    title={"testing"}
-                    usePagination={false}
                     height={320}
-                    metaRow={false}
                 >
                     <tbody>
                     {

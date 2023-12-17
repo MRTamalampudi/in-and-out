@@ -3,9 +3,19 @@ import {PaymentModeEnum} from "../enum";
 import Transactee, {transacteeSchema} from "./transactee.model";
 import Category, {categorySchema} from "./category.model";
 import { z } from "zod";
+import Deserialiser from "./deserialiser";
 
 
-class Transaction {
+class Transaction implements Deserialiser{
+    deserialize(object: any): this {
+        const transaction:this = {
+            ...object,
+            date:new Date(object.date*1000)
+        };
+
+        return transaction;
+    }
+
     public id: number;
     public note: string;
     public transactee: Transactee;

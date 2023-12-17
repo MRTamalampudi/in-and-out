@@ -3,24 +3,20 @@
 @import "styles/size";
 
 .TransactionForm {
-  max-width: 25rem;
-  min-width: 25rem;
   overflow: hidden;
   background: white;
 
   @extend .flex-column;
-  @extend .border-solid-1;
-  @extend .border-rds-8;
-
+  @include width(100%);
   .body{
     height: calc(100% - 6.2rem);
 
 
-    @extend .mx-16;
-    @extend .my-8;
+    //@extend .mx-16;
+    //@extend .my-8;
     @extend .flex-column;
     @extend .row-gap-4;
-
+    @extend .p-16;
     > * {
       width: 100%;
     }
@@ -35,15 +31,15 @@
       }
     }
   }
+}
 
-  .footer{
-    height: 3rem;
-    align-items: center;
-    justify-content: right;
+.footer{
+  height: 3rem;
+  align-items: center;
+  justify-content: right;
 
-    @extend .pr-8;
-    @extend .column-gap-8;
-    @extend .flex-row;
-    @extend .border-separator-top
-  }
+  @extend .pr-8;
+  @extend .column-gap-8;
+  @extend .flex-row;
+  @extend .border-separator-top
 }

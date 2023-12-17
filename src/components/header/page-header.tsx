@@ -1,7 +1,7 @@
 import {useLocation} from "react-router";
 import styles from "./header.module.scss";
 import {backOutline, notificationOutline} from "assets/icons";
-import {Menu, Tooltip} from "@mantine/core";
+import {Menu, Tooltip, useMantineColorScheme} from "@mantine/core";
 import React from "react";
 import {BaseRoutes} from "../../constants/base-routes";
 import {useGlobalTranslations} from "../../locales/translation-hooks";

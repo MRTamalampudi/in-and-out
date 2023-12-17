@@ -8,6 +8,7 @@ const useTransactionsTranslations = () => {
 
     const transactions = {
         TRANSACTIONS:t(TRANSACTIONS + "transactions"),
+        TRANSACTION:t(TRANSACTIONS+"transaction"),
         NOTE: t(TRANSACTIONS + "note"),
         CATEGORY: global.CATEGORY,
         PAYMENT_MODE: global.PAYMENT_MODE,

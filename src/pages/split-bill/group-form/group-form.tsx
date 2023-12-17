@@ -30,8 +30,6 @@ const GroupForm = ({
               <ModalTemplate
                   onClose={()=>setOpened(false)}
                   title={title}
-                  primaryAction={()=>{}}
-                  secondaryAction={()=>{}}
               >
                   <div className={styles.body}>
                       <div className={styles.avatar}>
@@ -43,7 +41,7 @@ const GroupForm = ({
                       />
                       <Table
                           title={"Members"}
-                          usePagination={false}
+                          setCurrentPage={(value:number)=>null}
                       >
                           <tbody>
                           <tr>

@@ -12,7 +12,9 @@
       "withLazy": false,
       "withIndex": true,
       "customTemplates": {
-        "index": "src/templates/index.ts"
+        "index": "src/templates/index.ts",
+        "component": "src/templates/component/TemplateName.tsx",
+        "style": "src/templates/component/TemplateName.module.scss"
       }
     },
     "page": {

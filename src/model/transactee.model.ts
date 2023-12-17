@@ -10,7 +10,11 @@ class Transactee{
 export const transacteeSchema = z.object<Transactee>({
     id:z.number(),
     name:z.string(),
-    description:z.string(),
+    description:z.string().optional(),
 })
+
+type ts = z.infer<typeof transacteeSchema>;
+
+
 
 export default Transactee;

@@ -1,0 +1,29 @@
+@use "styles/colors";
+@import "styles/typography";
+@import "styles/size";
+
+$tr-height : 2rem;
+
+.reciptBill{
+  thead > tr {
+    background: none;
+    border-bottom: gray dashed 1px;
+  }
+
+  tr{
+    @include height($tr-height);
+    color: colors.$g-1000;
+  }
+
+  tbody{
+    overflow-y: auto;
+
+    > tr {
+      border: none;
+    }
+  }
+  td{
+    font-family: Sono_, monospace;
+    @extend .body-text;
+  }
+}

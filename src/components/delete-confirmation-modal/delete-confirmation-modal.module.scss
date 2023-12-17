@@ -1,0 +1,19 @@
+@import "styles/flex";
+@import "styles/size";
+
+.DeleteConfirmationModal {}
+
+.footer{
+  justify-content: right;
+  @extend .flex-row;
+  @extend .p-8;
+  @extend .column-gap-8;
+}
+
+.body{
+  align-items: center;
+  justify-content: center;
+  @extend .flex-column;
+  @include width(100%);
+  @extend .pb-16;
+}

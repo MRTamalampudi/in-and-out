@@ -14,7 +14,7 @@ import {Tr} from "../../../components/table/tbody";
 import {SPLITBILL_ROUTES} from "../routes";
 import {useNavigate} from "react-router";
 import ActionsRow from "../../../components/table/actions-row";
-import {tableRowProps} from "../../../components/table/table-row-props";
+import {TableRowProps} from "../../../components/table/table-row-props";
 
 interface GroupsProps {}
 
@@ -67,7 +67,6 @@ const Groups = (
       return (
           <Thead
               data={data}
-              setSelection={setSelectionList}
           >
               <th className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
                   {dataAttributes.NAME.name}
@@ -87,16 +86,7 @@ const Groups = (
         <Table
             title={"splitBill.groups"}
         >
-            {
-                selectionList.length ?
-                    <ActionsRow
-                        data={data}
-                        setSelection={setSelectionList}
-                        checked={selectionList.length == data.length}
-                        selectedCount={selectionList.length}
-                    /> :
-                    <Heading/>
-            }
+            <Heading/>
             <tbody>
             {
                 data.map(group=> {
@@ -105,7 +95,6 @@ const Groups = (
                             key = {group.id}
                             data={group}
                             checked={selectionList.indexOf(group.id)>-1}
-                            setSelectionList={setSelectionList}
                         />
                     )
                 })
@@ -122,7 +111,7 @@ export default Groups;
 
 
 
-const Group =<T extends {id:number} >({data,setSelectionList,checked}:tableRowProps<any>) => {
+const Group =({data,checked}:TableRowProps) => {
 
     const {[SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]:groupId} = useParams();
     const navigate = useNavigate();
@@ -135,9 +124,7 @@ const Group =<T extends {id:number} >({data,setSelectionList,checked}:tableRowPr
         <Tr
             className={`pointer`}
             onClick={updateQueryParams}
-            checkBoxSelected={checked}
             rowData={data}
-            setSelection={setSelectionList}
         >
             <td className={`${styles.avatarName} ${dataAttributes.NAME.className}`}>
                 <img

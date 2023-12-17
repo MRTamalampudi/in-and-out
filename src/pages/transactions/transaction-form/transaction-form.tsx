@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import styles from './transaction-form.module.scss';
 import {Button} from "@mantine/core";
-import {useTransactionsConstants} from "constants/index";
 import {Header} from "components";
 import PaymentModeSelect from "./payment-mode-select";
 import AmountInput from "./amount-input";
@@ -14,11 +13,12 @@ import DateTimeSelect from "./date-time-select";
 import CategorySelect from "./category-select";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useFormLabelsTranslations, useFormPlaceholdersTranslations} from "locales/translation-hooks";
-import {useTransactionFormEssentials} from "../../../forms/hooks";
+import {useTransactionFormEssentials} from "forms/hooks";
 import {useParams} from "react-router-dom";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useNavigate} from "react-router";
-import {createTransaction, getTransaction} from "../../../service/transaction.service";
+import {createTransaction, getTransaction} from "service/transaction.service";
+import { useCreateTransaction } from "service/react-query-hooks/transaction-query";
 
 
 
@@ -26,14 +26,14 @@ import {createTransaction, getTransaction} from "../../../service/transaction.se
 const TransactionForm = () => {
 
     const {transactionId} = useParams();
-    const tras = useQuery({
+    const transactionQuery = useQuery({
         queryKey:["transactions",transactionId],
         queryFn: () => getTransaction(Number.parseInt(transactionId!)),
-        enabled: !!transactionId,
+        enabled: !!transactionId && !!parseInt(transactionId),
     })
 
     return (
-        <TransactionFormPresentation data={transactionId ? tras.data : undefined}/>
+        <TransactionFormPresentation data={transactionId ? transactionQuery.data : undefined}/>
     )
 }
 
@@ -55,13 +55,13 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
         emptyValues
     } = useTransactionFormEssentials();
 
-    const {control,
+    const {
+        control,
         handleSubmit,
         formState,
-        setValue,
         reset,
         getValues
-    }=useForm<Transaction>({
+    } = useForm<Transaction>({
         mode:"onSubmit",
         defaultValues: data || defaultValues,
         resolver:zodResolver(schema),
@@ -70,28 +70,23 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
     useEffect(()=>{
         reset(data)
     },[data])
-    const clearAll = () => {
+
+    function clearAll(){
         reset(emptyValues);
-        navigate("/transactions")
+        navigate("../new",{relative:"path"})
     }
 
-    const mutation = useMutation({
-        mutationFn:createTransaction,
-        onSuccess:(data, variables, context) => {
-            console.log(data,variables,context)
-        },
-    })
+    const queryClient = useQueryClient();
+
+    const mutation = useCreateTransaction();
 
     const onSubmit = (data:Transaction) => {
-        data && mutation.mutate(data);
+        return console.log(mutation.mutate(data));
     };
 
 
     return (
         <div className={styles.TransactionForm}>
-            <Header
-                title={data ? "Edit transaction" : "Add transaction"}
-            />
             <div
                 className={styles.body}
             >
@@ -160,6 +155,7 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
                     size={"xs"}
                     type={"submit"}
                     onClick={handleSubmit(onSubmit)}
+                    loading={mutation.isPending}
                 >
                     {getValues("id") ? "Update" : "Add"}
                 </Button>

@@ -10,6 +10,8 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../redux";
 import {group} from "d3";
 import {SPLITBILL_ROUTES} from "../routes";
+import PlusCircle from "../../../components/icons/plus-circle";
+import AddNew from "../../../components/add-new";
 
 interface GroupBillHeaderProps {
 

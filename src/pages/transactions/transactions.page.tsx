@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "redux";
 import {TRANSACTIONS_SLUGS} from "./routes";
+import Modal from "./transaction-form/modal";
 
 interface TransactionsProps {}
 
@@ -28,8 +29,8 @@ const TransactionsPage = (
           </div>
           <div className={styles.bottom}>
               <TransactionsTable/>
-              <TransactionForm/>
           </div>
+          <Modal/>
       </div>
   )
 }

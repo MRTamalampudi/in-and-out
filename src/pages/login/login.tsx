@@ -21,6 +21,7 @@ const Login = () => {
 
     const {formLabels} = useFormLabelsTranslations();
     const {formPlaceholders} = useFormPlaceholdersTranslations();
+
     const {
         schema,
         defaultValues,

@@ -43,7 +43,6 @@ const TransactionTypeSelect = <T extends FieldValues>(props:InputProps<T>) => {
         <>
             <Select
                 {...field}
-                itemComponent={SelectItem}
                 data={data}
                 size={"xs"}
                 label={label}

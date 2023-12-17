@@ -19,7 +19,7 @@ const AmountInput = <T extends FieldValues>(props:InputProps<T>) => {
           label={label}
           placeholder={placeholder}
           size={"xs"}
-          icon={<span className={"f-13"}>₹</span>}
+          leftSection={<span className={"f-13"}>₹</span>}
           hideControls={true}
           error={errorMessage}
       />
