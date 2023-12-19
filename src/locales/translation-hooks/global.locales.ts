@@ -1,10 +1,11 @@
 import {useTranslation} from "react-i18next";
+import { useMemo } from "react";
 
 const useGlobalTranslations = () => {
     const GLOBAL:string = "global.";
     const {t} = useTranslation();
 
-    const global = {
+    const global = useMemo(()=>({
         TRANSACTIONS: t(GLOBAL + "transactions"),
         SPLIT_BILL: t(GLOBAL + "splitBill"),
         BUDGET: t(GLOBAL + "budget"),
@@ -16,7 +17,7 @@ const useGlobalTranslations = () => {
         TIME_DATE: t(GLOBAL + "timeDate"),
         AMOUNT:t(GLOBAL + "amount"),
         TRANSACTION_TYPE: t(GLOBAL + "transactionType")
-    }
+    }),[])
 
     return {
         global

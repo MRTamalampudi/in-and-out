@@ -1,12 +1,13 @@
 import {useTranslation} from "react-i18next";
 import useGlobalTranslations from "./global.locales";
+import { useMemo } from "react";
 
 const useFormLabelsTranslations = () => {
     const FORM_LABELS:string = "form.labels.";
     const {t} = useTranslation();
 
 
-    const formLabels = {
+    const formLabels = useMemo(()=>({
         CATEGORY: t(FORM_LABELS + "category"),
         PAYMENT_MODE: t(FORM_LABELS + "paymentMode"),
         TRANSACTEE: t(FORM_LABELS + "transactee"),
@@ -17,7 +18,7 @@ const useFormLabelsTranslations = () => {
         NOTE: t(FORM_LABELS + "note"),
         EMAIL: t(FORM_LABELS + "email"),
         PASSWORD: t(FORM_LABELS + "password")
-    }
+    }),[])
 
     return {
         formLabels

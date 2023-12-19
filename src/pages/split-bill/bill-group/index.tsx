@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styles from './bill-group.module.scss';
 import GroupBillHeader from "pages/split-bill/group-bill-header";
-import Bills from "../bills";
 
 interface BillGroupProps {}
 
@@ -11,7 +10,7 @@ const BillGroup: FC<BillGroupProps> = () => (
           <GroupBillHeader/>
       </div>
       <div className={styles.body}>
-          <Bills/>
+
       </div>
   </div>
 );

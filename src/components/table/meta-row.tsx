@@ -1,18 +1,20 @@
 import styles from "./table.module.scss";
 import {Skeleton, TextInput, Tooltip} from "@mantine/core";
 import {filterOutline, sortOutline} from "../../assets/icons";
-import React from "react";
+import React, { memo } from "react";
 import {useTranslation} from "react-i18next";
 
-interface MetaRowProps {
-    title:string,
-    totalElements:number,
-}
+export type MetaRowProps = {
+    title?: string;
+    totalElements?: number;
+};
 
 const MetaRow = ({
     title,
     totalElements,
 }:MetaRowProps) => {
+
+    console.log("Meta Row render")
 
     const { t } = useTranslation();
 
@@ -65,4 +67,4 @@ const MetaRow = ({
     )
 }
 
-export default MetaRow;
+export default memo(MetaRow);

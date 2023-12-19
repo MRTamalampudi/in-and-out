@@ -86,15 +86,12 @@
 
   @include height(2.5rem);
   @extend .border-separator-bottom;
+}
 
-  .right{
-    @extend .body-text;
-    @extend .flex-row;
-    @extend .column-gap-8;
-  }
-  .left{
-
-  }
+.actions{
+  align-items: center;
+  @extend .flex-row;
+  @extend .column-gap-8;
 }
 
 .cTrSelected{
@@ -180,5 +177,9 @@ tr{
   th:last-child,td:last-child{
     @extend .pr-16;
   }
+}
+
+.display-none{
+  display: none;
 }
 

@@ -22,7 +22,7 @@ const ReceiptBill =({data}: ReceiptBillProps) => {
     return (
         <div className={styles.reciptBill}>
             <Table borders={false} height={data?.length! > 5 ? 300 : undefined}>
-                <Thead>
+                <Thead checkBox={false}>
                     {dataAttr.map((attr) => (
                         <td className={attr.className}>{attr.name}</td>
                     ))}

@@ -1,4 +1,4 @@
-import React, { Dispatch, HTMLProps, SetStateAction, useContext } from "react";
+import React, { Dispatch, HTMLProps, memo, SetStateAction, useContext } from "react";
 import styles from "./table.module.scss"
 import {Checkbox, Tooltip} from "@mantine/core";
 import {selectionHandler} from "../../utils/selectionHandler";
@@ -9,25 +9,25 @@ import { TableContext } from "components/table/context";
 type tbodyProps = {
     children:React.ReactNode
 }
-export const Tbody = ({children}:tbodyProps) => {
+export const Tbody = memo(({children}:tbodyProps) => {
   return (
       <tbody>
         {children}
       </tbody>
       )
-}
+});
 
 type trProps <T extends {id:number}>= {
     selected?: boolean,
     children: React.ReactNode,
     rowData: T,
 } & HTMLProps<HTMLTableRowElement>
-export const Tr = <T extends {id:number}>(
+function Tr<T extends {id:number}>(
     {
         selected = false,
         children, onClick,
         rowData,
-    }:trProps<T>) => {
+    }:trProps<T>){
 
     const classNames = () => {
       let className = ``;
@@ -39,7 +39,6 @@ export const Tr = <T extends {id:number}>(
     const {selectionList,setSelectionList} = useContext(TableContext)
     function handleSelection(entity:T,checked:boolean) {
         setSelectionList((prevState)=>selectionHandler(prevState,entity,checked))
-        console.log(selectionList);
     }
 
 
@@ -62,3 +61,5 @@ export const Tr = <T extends {id:number}>(
       </tr>
   );
 }
+
+export default memo(Tr);

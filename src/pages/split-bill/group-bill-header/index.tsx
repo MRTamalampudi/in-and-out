@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './group-bill-header.module.scss';
 import {netflix, scenery} from "assets";
-import Lent from "./lent";
-import Owe from "./owe";
 import {EditIcon} from "components/icons";
 import DeleteIcon from "components/icons/delete-icon";
 import {useParams} from "react-router-dom";
@@ -53,9 +51,7 @@ const GroupBillHeader = (
                         </div>
                         <div className={styles.billShares}>
                             You
-                            <Lent amount={data?.lentShare!}/>
                             and
-                            <Owe amount={data?.oweShare!}/>
                         </div>
                     </div>
                     <div className={styles.right}>
