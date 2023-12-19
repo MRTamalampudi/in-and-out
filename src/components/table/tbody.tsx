@@ -1,7 +1,7 @@
 import React, { Dispatch, HTMLProps, memo, SetStateAction, useContext } from "react";
 import styles from "./table.module.scss"
 import {Checkbox, Tooltip} from "@mantine/core";
-import {selectionHandler} from "../../utils/selectionHandler";
+import {useSelectHandler} from "utils/useSelectHandler";
 import DeleteIcon from "../icons/delete-icon";
 import DeleteConfirmationModal from "../delete-confirmation-modal";
 import { TableContext } from "components/table/context";
@@ -37,9 +37,7 @@ function Tr<T extends {id:number}>(
 
 
     const {selectionList,setSelectionList} = useContext(TableContext)
-    function handleSelection(entity:T,checked:boolean) {
-        setSelectionList((prevState)=>selectionHandler(prevState,entity,checked))
-    }
+    const selectionHandler = useSelectHandler();
 
 
 
@@ -49,12 +47,12 @@ function Tr<T extends {id:number}>(
               <Checkbox
                   size={"xs"}
                   onChange={(event) =>
-                      handleSelection(rowData, event.currentTarget.checked)
+                      selectionHandler(rowData,event.target.checked)
                   }
                   onClick={(event) => {
                       event.stopPropagation();
                   }}
-                  checked={!!selectionList.find((value)=>value.id==rowData.id)}
+                  checked={selectionList.findIndex((value)=>value.id==rowData.id)>-1}
               />
           </td>
           {children}

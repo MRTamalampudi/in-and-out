@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Table } from "components";
 import { Tooltip } from "@mantine/core";
 import Thead from "components/table/thead";
@@ -151,7 +151,8 @@ const Transaction_ = ({ data }: TableRowProps) => {
         transactions: { TRANSACTION },
     } = useTransactionsTranslations();
 
-    console.log("Transaction Table Row")
+
+    useEffect(()=>console.log("Transaction Table Row"))
 
     return (
         <Tr rowData={data} selected={selected} onClick={updateQueryParams}>

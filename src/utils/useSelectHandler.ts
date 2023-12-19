@@ -1,24 +1,25 @@
 import { useCallback, useContext } from "react";
 import { TableContext } from "components/table/context";
 
-export function selectionHandler<T extends { id: number }>(
-    selectionList: T[],
-    entity: T,
-    chekced: boolean,
-): T[] {
-    const index: number = selectionList.findIndex(
-        (data, index) => data.id == entity.id,
-    );
-    if (chekced) {
-        return [...selectionList, entity];
-    } else {
-        if (index > -1) {
-            selectionList.splice(index, 1);
-            return [...selectionList];
+export function useSelectHandler<T extends { id: number }>(
+): (entity: T, checked: boolean) => void {
+    const {selectionList,setSelectionList} = useContext(TableContext);
+    return  useCallback((entity:T,checked:boolean)=>{
+        const index: number = selectionList.findIndex(
+            (data) => data.id == entity.id,
+        );
+        if (checked) {
+            setSelectionList((prevState)=> [...prevState,entity])
         } else {
-            return selectionList;
+            if (index > -1) {
+                const updatedList = [
+                    ...selectionList.slice(0, index),
+                    ...selectionList.slice(index + 1),
+                ];
+                setSelectionList(updatedList);
+            }
         }
-    }
+    },[selectionList])
 }
 
 export function useSelectAllHandler<T extends { id: number }>(): (
@@ -26,7 +27,6 @@ export function useSelectAllHandler<T extends { id: number }>(): (
 ) => void {
     const { tableData, selectionList, setSelectionList } =
         useContext(TableContext);
-    console.log("outside selectall", tableData);
     return useCallback(
         (checked: boolean) => {
             if (checked) {

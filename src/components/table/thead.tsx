@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useContext, useEffect } from "react";
 import { Checkbox } from "@mantine/core";
-import { useSelectAllHandler } from "utils/selectionHandler";
+import { useSelectAllHandler } from "utils/useSelectHandler";
 import { TableContext } from "components/table/context";
 import ActionsRow, { ActionsRowProps } from "components/table/actions-row";
 
@@ -17,8 +17,6 @@ function Thead<T extends { id: number }>({
     onSelectionListChange,
 }: TheadProps<T>) {
 
-    console.log("theadd")
-
     const selectALlHandler = useSelectAllHandler()
     function handleSelection(event: React.ChangeEvent<HTMLInputElement>) {
         selectALlHandler(event.target.checked);
@@ -27,7 +25,6 @@ function Thead<T extends { id: number }>({
     const { selectionList } = useContext(TableContext);
 
     useEffect(() => {
-        console.log("inside thead useEffect")
         onSelectionListChange && onSelectionListChange(selectionList);
     }, [selectionList]);
 
