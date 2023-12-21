@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import styles from './lent-form.module.scss';
-import {Modal} from "@mantine/core";
-import {ModalTemplate, Table} from "components";
+import React from "react";
+import styles from "./lent-form.module.scss";
+import { Modal } from "@mantine/core";
+import { ModalTemplate } from "components";
 
 interface LentFormProps {
-    opened:boolean,
-    setOpened:(opened:boolean)=>void,
+    opened: boolean;
+    setOpened: (opened: boolean) => void;
 }
 
 const LentForm = ({

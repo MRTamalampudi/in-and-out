@@ -12,18 +12,18 @@
   overflow: hidden;
   flex-direction: column;
   justify-content: space-between;
-  background: white;
   container-type: inline-size;
   container-name: tableContainer;
 
-  .pagination{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
 
-    @include height(3rem);
-    @extend .border-separator-top;
-  }
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include height(3rem);
+  @extend .border-separator-top;
 }
 
 @container tableContainer (max-width:30rem){

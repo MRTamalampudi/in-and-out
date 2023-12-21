@@ -6,13 +6,14 @@
   @extend .flex-column;
   @extend .defaultPadding;
   @extend .defaultRowGap;
-  .top{
-    @extend .flex-row;
-    @extend .column-gap-12;
-  }
+
   .bottom{
-    height: calc(100% - 5.75rem);
-    @extend .flex-row;
-    @extend .defaultColumnGap;
+    @include height(calc(100% - 5.75rem));
+    flex-basis: 100%;
   }
+}
+
+.top{
+  @extend .flex-row;
+  @extend .column-gap-12;
 }

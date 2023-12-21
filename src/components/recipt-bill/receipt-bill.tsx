@@ -1,7 +1,5 @@
 import styles from "./receipt-bill.module.scss";
-import Table from "components/table";
-import Thead from "components/table/thead";
-import { Tbody } from "components/table/tbody";
+import { Table, TableWrapper } from "components/table";
 
 export type ReceiptBillProps = {
     data?: ReceiptData[];
@@ -19,33 +17,43 @@ const ReceiptBill =({data}: ReceiptBillProps) => {
         { name: 'Amount', className: 'flex-basis-4/20 text-align-right' }
     ]
 
+    function renderTableHeaders() {
+        return dataAttr.map((attr, index) => (
+            <td key={index} className={attr.className}>
+                {attr.name}
+            </td>
+        ));
+    }
+
+    function renderTableRows(){
+        if (!data) return null;
+
+        return data.map((rowData) => (
+            <tr key={rowData.id}>
+                {Object.values(rowData).map((cellData, cellIndex) => (
+                    <td key={cellIndex} className={dataAttr[cellIndex].className}>
+                        {cellData}
+                    </td>
+                ))}
+                <td className={"flex-basis-1/20"}>
+
+                </td>
+            </tr>
+        ));
+    }
+
     return (
         <div className={styles.reciptBill}>
-            <Table borders={false} height={data?.length! > 5 ? 300 : undefined}>
-                <Thead checkBox={false}>
-                    {dataAttr.map((attr) => (
-                        <td className={attr.className}>{attr.name}</td>
-                    ))}
-                </Thead>
-                <Tbody>
-                    {
-                        data?.map((data1)=>{
-                            return (
-                                <tr>
-                                    {
-                                        Object.values(data1).map((data2,index)=>{
-                                            return <td className={dataAttr[index].className}>{data2}</td>
-                                        })
-                                    }
-                                    <td className={"flex-basis-1/20"}>
-
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </Tbody>
-            </Table>
+            <TableWrapper borders={false} height={data?.length! > 5 ? 300 : undefined}>
+                <Table>
+                    <Table.Head checkBox={false}>
+                        {renderTableHeaders()}
+                    </Table.Head>
+                    <Table.Body>
+                        {renderTableRows()}
+                    </Table.Body>
+                </Table>
+            </TableWrapper>
         </div>
     );
 };

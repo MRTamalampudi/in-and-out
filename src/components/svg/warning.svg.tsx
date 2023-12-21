@@ -14,12 +14,12 @@ export function WarningSvg({height=100,width=100}:SVGProps) {
             <path
                 d="M59.676 19.6511C62.4867 14.7829 69.5133 14.783 72.324 19.6511L115.011 93.5869C117.821 98.4551 114.308 104.54 108.687 104.54H23.3132C17.6919 104.54 14.1786 98.4551 16.9892 93.5869L59.676 19.6511Z"
                 fill="url(#paint0_radial_749_17)"
-                fill-opacity="0.5"
+                fillOpacity="0.5"
             />
             <path
                 d="M59.676 27.8662C62.4867 22.998 69.5133 22.998 72.324 27.8662L107.896 89.4793C110.707 94.3475 107.194 100.433 101.572 100.433H30.4277C24.8064 100.433 21.293 94.3475 24.1037 89.4793L59.676 27.8662Z"
                 fill="url(#paint1_radial_749_17)"
-                fill-opacity="0.5"
+                fillOpacity="0.5"
             />
             <path
                 d="M59.676 37.9069C62.4867 33.0387 69.5133 33.0387 72.324 37.9069L99.2009 84.459C102.012 89.3272 98.4982 95.4124 92.8769 95.4124H39.1231C33.5018 95.4124 29.9885 89.3272 32.7992 84.459L59.676 37.9069Z"
@@ -38,11 +38,11 @@ export function WarningSvg({height=100,width=100}:SVGProps) {
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="translate(66 72.5928) rotate(90) scale(63.8951 63.8951)"
                 >
-                    <stop stop-color="#C92A2A" />
+                    <stop stopColor="#C92A2A" />
                     <stop
                         offset="0.640562"
-                        stop-color="#FF8352"
-                        stop-opacity="0"
+                        stopColor="#FF8352"
+                        stopOpacity="0"
                     />
                 </radialGradient>
                 <radialGradient
@@ -53,11 +53,11 @@ export function WarningSvg({height=100,width=100}:SVGProps) {
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="translate(66 72.1992) rotate(90) scale(64.6822 64.917)"
                 >
-                    <stop stop-color="#C92A2A" />
+                    <stop stopColor="#C92A2A" />
                     <stop
                         offset="0.640562"
-                        stop-color="#FF8352"
-                        stop-opacity="0"
+                        stopColor="#FF8352"
+                        stopOpacity="0"
                     />
                 </radialGradient>
                 <radialGradient
@@ -68,11 +68,11 @@ export function WarningSvg({height=100,width=100}:SVGProps) {
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="translate(66 71.5029) rotate(90) scale(66.0749 66.7436)"
                 >
-                    <stop stop-color="#C92A2A" />
+                    <stop stopColor="#C92A2A" />
                     <stop
                         offset="0.972736"
-                        stop-color="#FF8352"
-                        stop-opacity="0.85"
+                        stopColor="#FF8352"
+                        stopOpacity="0.85"
                     />
                 </radialGradient>
                 <radialGradient
@@ -83,8 +83,8 @@ export function WarningSvg({height=100,width=100}:SVGProps) {
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="translate(65.7469 49.3167) rotate(90.5026) scale(52.0308 9.63534)"
                 >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0.36" />
+                    <stop stopColor="white" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.36" />
                 </radialGradient>
             </defs>
         </svg>

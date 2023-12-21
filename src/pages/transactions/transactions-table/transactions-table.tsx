@@ -1,17 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Table } from "components";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "@mantine/core";
-import Thead from "components/table/thead";
 import { Action } from "components/table/actions-row";
 import { useParams } from "react-router-dom";
 import TransactionTypeBadge from "components/transaction-type";
 import { Transaction } from "model";
-import Tr from "components/table/tbody";
 import { useNavigate } from "react-router";
-import {
-    TableHeadProps,
-    TableRowProps,
-} from "components/table/table-row-props";
+import { TableRowProps } from "components/table/table-row-props";
 import { useTableEssentials } from "components/table/table-essentials";
 import {
     useDeleteTransaction,
@@ -20,6 +14,8 @@ import {
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { ReceiptData } from "components/recipt-bill/receipt-bill";
 import useTransactionsTranslations from "locales/translation-hooks/transactions.locales";
+import { Table, TableWrapper } from "components/table";
+import { useDebouncedValue } from "@mantine/hooks";
 
 const dataAttributes = {
     NOTE: {
@@ -57,32 +53,45 @@ const TransactionsTable = () => {
         currentPageState: { currentPage, setCurrentPage },
     } = useTableEssentials<Transaction>();
 
+    const [debounced] = useDebouncedValue(currentPage,1000);
+
     const { data } = useIndexTransactions(currentPage);
     const {
-        transactions: { TRANSACTIONS,CATEGORY },
+        transactions: { TRANSACTIONS },
     } = useTransactionsTranslations();
 
     return (
-        <Table
-            title={TRANSACTIONS}
-            totalElements={data?.totalElements!}
-            currentPage={currentPage}
-            data={data?.content}
-            setCurrentPage={setCurrentPage}
-        >
-            <Heading_ />
-            <tbody>
-                {data &&
-                    data?.content.map((transaction) => {
-                        return (
-                            <Transaction_
-                                key={transaction.id}
-                                data={transaction}
-                            />
-                        );
-                    })}
-            </tbody>
-        </Table>
+        <>
+            <TableWrapper
+                title={TRANSACTIONS}
+                totalElements={data?.totalElements!}
+                data={data?.content}
+            >
+                <TableWrapper.MetaRow
+                    totalElements={data?.totalElements}
+                    title={TRANSACTIONS}
+                />
+                <Table>
+                    <Heading />
+                    <Table.Body>
+                        {data &&
+                            data?.content.map((transaction) => {
+                                return (
+                                    <Transaction_
+                                        key={transaction.id}
+                                        data={transaction}
+                                    />
+                                );
+                            })}
+                    </Table.Body>
+                </Table>
+                <TableWrapper.Pagination
+                    currentPage={currentPage}
+                    onPageChange={setCurrentPage}
+                    totalElements={data?.totalElements!}
+                />
+            </TableWrapper>
+        </>
     );
 };
 
@@ -94,13 +103,13 @@ const renderTableHeaders = () => {
     ));
 };
 
-function Heading_<T extends { id: number }>() {
+const Heading = memo(() => {
     const [deleteModalData, setDeleteModalData] = useState<ReceiptData[]>();
     const {
         transactions: { TRANSACTION, TRANSACTIONS },
     } = useTransactionsTranslations();
 
-    console.log("Transaction Heading_")
+    console.log("Transaction Heading_");
 
     function handleSelectedList(entities: Transaction[]): void {
         setDeleteModalData(
@@ -132,30 +141,42 @@ function Heading_<T extends { id: number }>() {
     );
 
     return (
-        <Thead actions={actions} onSelectionListChange={handleSelectedList}>
+        <Table.Head
+            actions={actions}
+            onSelectionListChange={handleSelectedList}
+        >
             {renderTableHeaders()}
-        </Thead>
+        </Table.Head>
     );
-}
+});
 
 const Transaction_ = ({ data }: TableRowProps) => {
     const { transactionId } = useParams();
     const navigate = useNavigate();
 
-    const updateQueryParams = useCallback(()=>navigate(data.id?.toString()),[])
+    const updateQueryParams = useCallback(
+        () => navigate(data.id?.toString()),
+        [],
+    );
 
-    const selected = useMemo(()=>transactionId == data.id?.toString(),[data,transactionId]);
+    const selected = useMemo(
+        () => transactionId == data.id?.toString(),
+        [data, transactionId],
+    );
     const mutation = useDeleteTransaction(data?.id);
 
     const {
         transactions: { TRANSACTION },
     } = useTransactionsTranslations();
 
-
-    useEffect(()=>console.log("Transaction Table Row"))
+    useEffect(() => console.log("Transaction Table Row"));
 
     return (
-        <Tr rowData={data} selected={selected} onClick={updateQueryParams}>
+        <Table.Row
+            rowData={data}
+            selected={selected}
+            onClick={updateQueryParams}
+        >
             <td className={dataAttributes.NOTE.className}>
                 <Tooltip label={data.note} position={"bottom"}>
                     <span>{data.note}</span>
@@ -200,7 +221,7 @@ const Transaction_ = ({ data }: TableRowProps) => {
                     </div>
                 </Tooltip>
             </td>
-        </Tr>
+        </Table.Row>
     );
 };
 

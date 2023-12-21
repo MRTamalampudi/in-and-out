@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
-import styles from './owe-form.module.scss';
-import {Popover} from "@mantine/core";
-import {Table} from "../../../components";
+import React from "react";
+import styles from "./owe-form.module.scss";
+import { Popover } from "@mantine/core";
 
 interface OweFormProps {}
 

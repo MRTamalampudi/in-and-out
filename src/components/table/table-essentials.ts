@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useCallback, useState } from "react";
 
 export const useTableEssentials = <T extends {id:number}> () => {
     const currentPageState= useCurrentPage();
@@ -11,7 +11,9 @@ export const useTableEssentials = <T extends {id:number}> () => {
 }
 
 const useCurrentPage = () => {
-    const [currentPage,setCurrentPage] = useState<number>(1);
+    const [currentPage,setCurrentPage_] = useState<number>(1);
+
+    const setCurrentPage = useCallback(setCurrentPage_,[])
 
     return {
         currentPage,
