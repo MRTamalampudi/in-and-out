@@ -5,13 +5,15 @@ import React, { memo } from "react";
 import {useTranslation} from "react-i18next";
 
 export type MetaRowProps = {
-    title?: string;
+    title: string;
     totalElements?: number;
+    children?:React.ReactNode;
 };
 
 const MetaRow = ({
     title,
     totalElements,
+    children
 }:MetaRowProps) => {
 
     console.log("Meta Row render")
@@ -39,29 +41,7 @@ const MetaRow = ({
                 </span>
             </div>
             <div className={styles.left}>
-                <TextInput
-                    placeholder={"search"}
-                    size={"xs"}
-                    className={`${styles.search}`}
-                />
-                <Tooltip
-                    label={t("splitBill.sort",{context:t(title)})}
-                    position={"bottom-end"}
-                >
-                    <img
-                        src={sortOutline}
-                        className={"icon24"}
-                    />
-                </Tooltip>
-                <Tooltip
-                    label={t("splitBill.filter",{context:t(title)})}
-                    position={"bottom-end"}
-                >
-                    <img
-                        src={filterOutline}
-                        className={"icon24"}
-                    />
-                </Tooltip>
+                {children}
             </div>
         </div>
     )

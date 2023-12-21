@@ -7,6 +7,10 @@ import {useNavigate} from "react-router";
 const TransactionFormModal = () => {
     const {transactionId} = useParams();
     const navigate = useNavigate();
+
+
+    console.log("Modal wwww")
+
   return (
       <ModalWrapper
           target={<AddNew/>}

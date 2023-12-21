@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Tooltip } from "@mantine/core";
+import { TextInput, Tooltip } from "@mantine/core";
 import { Action } from "components/table/actions-row";
 import { useParams } from "react-router-dom";
 import TransactionTypeBadge from "components/transaction-type";
@@ -15,6 +15,7 @@ import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { ReceiptData } from "components/recipt-bill/receipt-bill";
 import useTransactionsTranslations from "locales/translation-hooks/transactions.locales";
 import { Table, TableWrapper } from "components/table";
+import styles from "components/table/table.module.scss";
 import { useDebouncedValue } from "@mantine/hooks";
 
 const dataAttributes = {
@@ -53,26 +54,31 @@ const TransactionsTable = () => {
         currentPageState: { currentPage, setCurrentPage },
     } = useTableEssentials<Transaction>();
 
-    const [debounced] = useDebouncedValue(currentPage,1000);
+    const [searchQuery,setSearchQuery] = useState<string>("");
 
-    const { data } = useIndexTransactions(currentPage);
+    const [deb] = useDebouncedValue(searchQuery,500);
+
+    const { data } = useIndexTransactions(currentPage,deb);
     const {
         transactions: { TRANSACTIONS },
     } = useTransactionsTranslations();
 
     return (
         <>
-            <TableWrapper
-                title={TRANSACTIONS}
-                totalElements={data?.totalElements!}
-                data={data?.content}
-            >
+            <TableWrapper data={data?.content}>
                 <TableWrapper.MetaRow
                     totalElements={data?.totalElements}
                     title={TRANSACTIONS}
-                />
+                >
+                    <TextInput
+                        placeholder={"search"}
+                        size={"xs"}
+                        value={searchQuery}
+                        onChange={(event)=>setSearchQuery(prevState => event.target.value)}
+                    />
+                </TableWrapper.MetaRow>
                 <Table>
-                    <Heading />
+                    <Heading/>
                     <Table.Body>
                         {data &&
                             data?.content.map((transaction) => {

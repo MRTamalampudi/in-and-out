@@ -9,7 +9,7 @@ type TableWrapperProps<T> = {
     borders?: boolean;
     height?: number;
     data?: T[];
-} & MetaRowProps;
+};
 
 const TableWrapper_ = memo(<T extends {}>({
     children,

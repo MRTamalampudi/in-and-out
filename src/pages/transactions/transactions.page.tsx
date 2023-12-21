@@ -1,13 +1,8 @@
-import React from 'react';
-import styles from './transactions.module.scss';
+import React from "react";
+import styles from "./transactions.module.scss";
 import TransactionsTable from "./transactions-table";
-import TransactionForm from "./transaction-form";
-import {TransactionTypeCard} from "components";
-import {TransactionTypeEnum} from "enum";
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "redux";
-import {TRANSACTIONS_SLUGS} from "./routes";
+import { TransactionTypeCard } from "components";
+import { TransactionTypeEnum } from "enum";
 import Modal from "./transaction-form/modal";
 
 interface TransactionsProps {}
@@ -15,8 +10,6 @@ interface TransactionsProps {}
 const TransactionsPage = (
     {}:TransactionsProps
 ) => {
-
-    const {[TRANSACTIONS_SLUGS.TRANSACTION_ID]:transactionId}=useParams();
 
     return (
       <div className={styles.Transactions}>

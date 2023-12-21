@@ -11,9 +11,9 @@ import error = Simulate.error;
 
 const TRANSACTIONS_BASE_URL = process.env.REACT_APP_API_KEY+"/transactions";
 
-export function indexTransactions(page:number=0):Promise<Page<Transaction>> {
+export function indexTransactions(page:number=0,note:string=""):Promise<Page<Transaction>> {
     const adjustedPage = page !== 0 ? page - 1 : 0;
-    const url= `${TRANSACTIONS_BASE_URL}?page=${adjustedPage}&sort=createdAt,desc`
+    const url= `${TRANSACTIONS_BASE_URL}?page=${adjustedPage}&sort=createdAt,desc&q=note~${note}`
     return axios
         .get<Page<Transaction>>(url)
         .then(result=>result.data)

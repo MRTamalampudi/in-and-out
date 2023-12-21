@@ -1,9 +1,8 @@
-import React, { FC } from "react";
+import React from "react";
 import styles from "./delete-confirmation-modal.module.scss";
 import ModalWrapper from "../modal";
 import DeleteIcon from "../icons/delete-icon";
 import useAlertsTranslations from "locales/translation-hooks/alerts.locales";
-import { useTransactionsTranslations } from "locales/translation-hooks";
 import { Button } from "@mantine/core";
 import { CustomEvents } from "constants/custom-events";
 import ReceiptBill from "components/recipt-bill";

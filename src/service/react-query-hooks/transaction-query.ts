@@ -7,13 +7,12 @@ import {
 
 const TRANSACTIONS = "transactions";
 
-export function useIndexTransactions(page:number) {
+export function useIndexTransactions(page:number,note:string) {
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: [TRANSACTIONS, page],
-        queryFn: () => indexTransactions(page),
+        queryKey: [TRANSACTIONS, page,note],
+        queryFn: () => indexTransactions(page,note),
         placeholderData: () => queryClient.getQueryData([TRANSACTIONS, page]),
-        staleTime: 10000,
     });
 }
 
