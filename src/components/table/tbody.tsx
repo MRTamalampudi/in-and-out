@@ -17,6 +17,8 @@ export const Tbody = memo(({children}:tbodyProps) => {
       )
 });
 
+
+
 type trProps <T extends {id:number}>= {
     selected?: boolean,
     children: React.ReactNode,
@@ -38,8 +40,6 @@ function Tr<T extends {id:number}>(
 
     const {selectionList,setSelectionList} = useContext(TableContext)
     const selectionHandler = useSelectHandler();
-
-
 
     return (
       <tr onClick={onClick} className={`${styles.cTr} ${classNames()} `}>

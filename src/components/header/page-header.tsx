@@ -1,10 +1,12 @@
-import {useLocation} from "react-router";
+import { useLocation } from "react-router";
 import styles from "./header.module.scss";
-import {backOutline, notificationOutline} from "assets/icons";
-import {Menu, Tooltip, useMantineColorScheme} from "@mantine/core";
+import { backOutline, notificationOutline } from "assets/icons";
+import { Menu, Tooltip } from "@mantine/core";
 import React from "react";
-import {BaseRoutes} from "../../constants/base-routes";
-import {useGlobalTranslations} from "../../locales/translation-hooks";
+import { BaseRoutes } from "../../constants/base-routes";
+import { useGlobalTranslations } from "../../locales/translation-hooks";
+import TransactionTypeBadge from "components/transaction-type";
+import { TransactionTypeEnum } from "enum";
 
 interface PageHeaderProps {
 
@@ -59,7 +61,6 @@ const PageHeader = ({}:PageHeaderProps) => {
                         <Menu.Item >Settings</Menu.Item>
                         <Menu.Item >Messages</Menu.Item>
                         <Menu.Item >Gallery</Menu.Item>
-
                         <Menu.Divider />
 
                         <Menu.Label>Danger zone</Menu.Label>

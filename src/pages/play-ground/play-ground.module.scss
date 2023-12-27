@@ -1,0 +1,7 @@
+@import "styles/flex";
+
+.PlayGround {
+  margin: 1rem;
+  @extend .flex-column;
+  @extend .row-gap-12;
+}

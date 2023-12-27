@@ -12,6 +12,7 @@ import {BaseRoutes} from "constants/base-routes";
 import SplitBillRoutes from "./pages/split-bill/routes";
 import TransactionRoutes from "./pages/transactions/routes";
 import Login from "./pages/login";
+import PlayGround from "pages/play-ground";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,6 +31,7 @@ root.render(
                           {TransactionRoutes()}
                       </Route>
                       <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>
+                      <Route path={BaseRoutes.PLAY_GROUND} element={<PlayGround/>} />
                   </Route>
                   <Route path={BaseRoutes.LOGIN} element={<Login/>}/>
               </Routes>

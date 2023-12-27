@@ -1,4 +1,4 @@
-import { Button, createTheme, MantineProvider } from "@mantine/core";
+import { Button, createTheme, MantineProvider, Select } from "@mantine/core";
 import { boolean } from "zod";
 
 interface ColorsProps {
@@ -71,15 +71,24 @@ const theme = createTheme({
     },
     primaryColor: "c-teal",
     focusRing: "never",
-    components:{
+    components: {
         Button: Button.extend({
-            defaultProps:{
-                size:"xs"
-            }
-        })
-    }
+            defaultProps: {
+                size: "xs",
+            },
+        }),
+        Select: Select.extend({
+            defaultProps: {
+                size: "xs",
+            },
+        }),
+    },
 });
 
 export const Colors = ({ children }: ColorsProps) => {
-    return <MantineProvider withCssVariables={true} theme={theme}>{children}</MantineProvider>;
+    return (
+        <MantineProvider withCssVariables={true} theme={theme}>
+            {children}
+        </MantineProvider>
+    );
 };

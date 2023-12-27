@@ -1,0 +1,6 @@
+@import "styles/flex";
+
+.filterField{
+  @extend .flex-row;
+  @extend .column-gap-16;
+}

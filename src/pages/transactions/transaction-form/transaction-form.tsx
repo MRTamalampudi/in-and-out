@@ -1,41 +1,41 @@
-import React, {useEffect} from 'react';
-import styles from './transaction-form.module.scss';
-import {Button} from "@mantine/core";
-import {Header} from "components";
+import React, { useEffect } from "react";
+import styles from "./transaction-form.module.scss";
+import { Button } from "@mantine/core";
 import PaymentModeSelect from "./payment-mode-select";
 import AmountInput from "./amount-input";
-import {useForm} from "react-hook-form";
-import {Transaction} from "model";
+import { useForm } from "react-hook-form";
+import { Transaction } from "model";
 import TransactionTypeSelect from "./transaction-type-select";
 import NoteInput from "./note-input";
 import TransacteeSelect from "./transactee-select";
 import DateTimeSelect from "./date-time-select";
 import CategorySelect from "./category-select";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useFormLabelsTranslations, useFormPlaceholdersTranslations} from "locales/translation-hooks";
-import {useTransactionFormEssentials} from "forms/hooks";
-import {useParams} from "react-router-dom";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {useNavigate} from "react-router";
-import {createTransaction, getTransaction} from "service/transaction.service";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+    useFormLabelsTranslations,
+    useFormPlaceholdersTranslations,
+} from "locales/translation-hooks";
+import { useTransactionFormEssentials } from "forms/hooks";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { getTransaction } from "service/transaction.service";
 import { useCreateTransaction } from "service/react-query-hooks/transaction-query";
 
-
-
-
 const TransactionForm = () => {
-
-    const {transactionId} = useParams();
+    const { transactionId } = useParams();
     const transactionQuery = useQuery({
-        queryKey:["transactions",transactionId],
+        queryKey: ["transactions", transactionId],
         queryFn: () => getTransaction(Number.parseInt(transactionId!)),
         enabled: !!transactionId && !!parseInt(transactionId),
-    })
+    });
 
     return (
-        <TransactionFormPresentation data={transactionId ? transactionQuery.data : undefined}/>
-    )
-}
+        <TransactionFormPresentation
+            data={transactionId ? transactionQuery.data : undefined}
+        />
+    );
+};
 
 
 
@@ -58,7 +58,6 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
     const {
         control,
         handleSubmit,
-        formState,
         reset,
         getValues
     } = useForm<Transaction>({
@@ -75,8 +74,6 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
         reset(emptyValues);
         navigate("../new",{relative:"path"})
     }
-
-    const queryClient = useQueryClient();
 
     const mutation = useCreateTransaction();
 
