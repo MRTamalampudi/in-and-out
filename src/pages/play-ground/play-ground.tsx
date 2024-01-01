@@ -19,7 +19,7 @@ const PlayGround = ({}: PlayGroundProps) => {
         <div className={styles.PlayGround}>
             {fields.map((field, index) => {
                 console.log(field.id)
-
+                //eslint-disable-next-line react/no-array-index-key
                 return <FilterField update={update} index={index} />;
             })}
             <Button onClick={() => append({})}>Add filter</Button>

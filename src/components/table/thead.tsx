@@ -1,59 +1,29 @@
-import React, { memo, useCallback, useContext, useEffect } from "react";
-import { Checkbox } from "@mantine/core";
-import { useSelectAllHandler } from "utils/useSelectHandler";
-import { TableContext } from "components/table/context";
-import ActionsRow, { ActionsRowProps } from "components/table/actions-row";
+import React, { memo } from "react";
+import { flexRender, Table } from "@tanstack/react-table";
 
-type TheadProps<T extends { id: number }> = {
-    children: React.ReactNode;
-    checkBox?: boolean;
-    onSelectionListChange?: (entities: T[]) => void;
-} & Omit<ActionsRowProps, "checked">;
+type TheadProps<T> = {
+    table: Table<T>;
+};
 
-function Thead<T extends { id: number }>({
-    children,
-    actions,
-    checkBox = true,
-    onSelectionListChange,
-}: TheadProps<T>) {
-
-    const selectALlHandler = useSelectAllHandler()
-    function handleSelection(event: React.ChangeEvent<HTMLInputElement>) {
-        selectALlHandler(event.target.checked);
-    }
-
-    const { selectionList } = useContext(TableContext);
-
-    useEffect(() => {
-        onSelectionListChange && onSelectionListChange(selectionList);
-    }, [selectionList]);
-
-    const renderCheckBox = useCallback(()=> {
-        return (
-            <>
-                {checkBox && (
-                    <td>
-                        <Checkbox size={"xs"} onChange={handleSelection} />
-                    </td>
-                )}
-            </>
-        );
-    },[checkBox,handleSelection])
+function Thead<T>({ table }: TheadProps<T>) {
 
     return (
         <thead>
-            {selectionList.length ? (
-                <ActionsRow
-                    actions={actions}
-                    onChange={handleSelection}
-                />
-            ) : (
-                <tr>
-                    {renderCheckBox()}
-                    {children}
-                    <td className={"flex-basis-1/20"}></td>
+            {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                        <th
+                            key={header.id}
+                            className={header.column.columnDef.meta?.className}
+                        >
+                            {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                            )}
+                        </th>
+                    ))}
                 </tr>
-            )}
+            ))}
         </thead>
     );
 }

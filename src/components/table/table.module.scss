@@ -17,13 +17,38 @@
 
 }
 
-.pagination{
-  display: flex;
+.pagination {
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   @include height(3rem);
   @extend .border-separator-top;
+  @extend .flex-row;
+  @extend .column-gap-12;
+
+  span{
+    @extend .body-text;
+  }
+
+  > * {
+    flex-basis: 100%;
+
+    @extend .flex-row;
+    @extend .column-gap-12;
+  }
+
+  .left{
+    @extend .pl-16;
+    align-items: center;
+    .select{
+      @include width(5rem)
+    }
+  }
+
+  .center{
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @container tableContainer (max-width:30rem){
@@ -100,6 +125,7 @@
 
 .cTr {
   &:hover{
+
     background-color: colors.$g-300;
 
     td[data-action="true"]{
@@ -164,7 +190,7 @@ tr{
   height: 2.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
 
   @extend .border-separator-bottom;
   @extend .column-gap-8;
@@ -174,7 +200,7 @@ tr{
     @extend .pr-8;
   }
 
-  th:last-child,td:last-child{
+  th:last-child,td:last-child {
     @extend .pr-16;
   }
 }

@@ -1,8 +1,8 @@
 import styles from "components/table/table.module.scss";
 import React from "react";
-import Tr, { Tbody } from "components/table/tbody";
 import Thead from "components/table/thead";
 import Pagination_ from "components/table/pagination";
+import Tbody from "components/table/tbody";
 
 type TableProps_ = {
     children: React.ReactNode;
@@ -14,6 +14,6 @@ const Table = ({ children }: TableProps_) => {
 
 Table.Body = Tbody;
 Table.Head = Thead;
-Table.Row = Tr;
+// Table.Row = Tr;
 
 export default Table;

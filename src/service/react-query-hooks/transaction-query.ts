@@ -4,10 +4,11 @@ import {
     deleteTransaction,
     indexTransactions,
 } from "service/transaction.service";
+import { PaginationState } from "@tanstack/react-table";
 
 const TRANSACTIONS = "transactions";
 
-export function useIndexTransactions(page:number,note:string) {
+export function useIndexTransactions(page:PaginationState,note:string) {
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: [TRANSACTIONS, page,note],
@@ -26,10 +27,10 @@ export function useCreateTransaction() {
     });
 }
 
-export function useDeleteTransaction(transactionId:number) {
+export function useDeleteTransaction() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationKey: [TRANSACTIONS,"delete",transactionId],
+        mutationKey: [TRANSACTIONS,"delete"],
         mutationFn: deleteTransaction,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });

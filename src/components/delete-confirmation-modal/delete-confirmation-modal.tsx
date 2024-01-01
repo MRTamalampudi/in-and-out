@@ -19,11 +19,13 @@ export type ModalFooterButtonProps = {
     secondary?: () => void;
 };
 
-const DeleteConfirmationModal = ({
-    context,
-    primary,
-    data,
-}: DeleteConfirmationModalProps) => {
+const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
+    const { context, primary } = props;
+    const reciptBillProps: ReceiptBillProps = {
+        data: props.data,
+        transformer: props.transformer,
+    };
+
     const {
         alerts: { DELETE, DELETE_MULTIPLE },
     } = useAlertsTranslations(context);
@@ -46,9 +48,11 @@ const DeleteConfirmationModal = ({
             <ModalWrapper.Body>
                 <div className={styles.body}>
                     <WarningSvg width={64} height={64} />
-                    {data?.length! > 1 ? DELETE_MULTIPLE : DELETE}
+                    {reciptBillProps.data?.length! > 1
+                        ? DELETE_MULTIPLE
+                        : DELETE}
                 </div>
-                <ReceiptBill data={data} />
+                <ReceiptBill {...reciptBillProps} />
             </ModalWrapper.Body>
             <ModalWrapper.Footer>
                 <div className={styles.footer}>

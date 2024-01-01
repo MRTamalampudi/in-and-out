@@ -1,0 +1,16 @@
+tr{
+  td{
+    &.action{
+      visibility: hidden;
+    }
+  }
+
+  &:hover{
+    td{
+      &.action{
+        visibility: visible;
+      }
+    }
+  }
+}
+

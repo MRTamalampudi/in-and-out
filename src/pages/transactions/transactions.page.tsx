@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./transactions.module.scss";
-import TransactionsTable from "./transactions-table";
 import { TransactionTypeCard } from "components";
 import { TransactionTypeEnum } from "enum";
 import Modal from "./transaction-form/modal";
+import TransactionTable from "pages/transactions/transaction-table_";
 
 interface TransactionsProps {}
 
@@ -21,7 +21,8 @@ const TransactionsPage = (
               <TransactionTypeCard type={TransactionTypeEnum.BALANCE} amount={200}/>
           </div>
           <div className={styles.bottom}>
-              <TransactionsTable/>
+              {/*<TransactionsTable/>*/}
+              <TransactionTable/>
           </div>
           <Modal/>
       </div>
