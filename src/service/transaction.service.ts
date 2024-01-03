@@ -46,8 +46,10 @@ export function createTransaction(
         .catch((error) => error);
 }
 
-export function deleteTransaction(transactionId: number): Promise<unknown> {
+export function deleteTransaction(transactionIds: number[]): Promise<unknown> {
+    const searchParams = new URLSearchParams()
+    searchParams.set("q",`id@${transactionIds.join(",")}`)
     return axios
-        .delete(`${TRANSACTIONS_BASE_URL}/${transactionId}`)
+        .delete(`${TRANSACTIONS_BASE_URL}?${searchParams.toString()}`)
         .catch((error) => error);
 }

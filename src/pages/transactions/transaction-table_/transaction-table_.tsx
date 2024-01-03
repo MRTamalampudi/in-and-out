@@ -7,7 +7,10 @@ import {
 } from "@tanstack/react-table";
 import { Transaction } from "model";
 import TransactionTypeBadge from "components/transaction-type";
-import { useDeleteTransaction, useIndexTransactions } from "service/react-query-hooks/transaction-query";
+import {
+    useDeleteTransaction,
+    useIndexTransactions,
+} from "service/react-query-hooks/transaction-query";
 import { Table, TableWrapper } from "components/table";
 import { Checkbox } from "@mantine/core";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
@@ -17,7 +20,9 @@ interface TransactionTableProps {}
 
 const TransactionTable = ({}: TransactionTableProps) => {
     const columnHelper = createColumnHelper<Transaction>();
-    const mutate = useDeleteTransaction();
+    const { mutate,isPending,isError,error} = useDeleteTransaction({
+        onSuccess: () => table.resetRowSelection(),
+    });
 
     const columns = [
         {
@@ -105,7 +110,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
                         note: data.note,
                         amount: data.amount,
                     })}
-                    primary={()=>mutate.mutate(row.original.id)}
+                    primary={() => mutate([row.original.id])}
                 />
             ),
             meta: {
@@ -149,6 +154,14 @@ const TransactionTable = ({}: TransactionTableProps) => {
                     data={table
                         .getFilteredSelectedRowModel()
                         .rows.map((rowData) => rowData.original)}
+                    primary={() => {
+                        mutate(
+                            table
+                                .getFilteredSelectedRowModel()
+                                .rows.map((rowData) => rowData.original.id),
+                        );
+                    }}
+                    isPending={isPending}
                 />
             ),
         },

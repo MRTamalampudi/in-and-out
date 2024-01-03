@@ -8,6 +8,7 @@ import { CustomEvents } from "constants/custom-events";
 import ReceiptBill from "components/recipt-bill";
 import { ReceiptBillProps } from "components/recipt-bill/receipt-bill";
 import { WarningSvg } from "components/svg/warning.svg";
+import { isPending } from "@reduxjs/toolkit";
 
 type DeleteConfirmationModalProps = {
     context: string;
@@ -17,10 +18,11 @@ type DeleteConfirmationModalProps = {
 export type ModalFooterButtonProps = {
     primary?: () => void;
     secondary?: () => void;
+    isPending?:boolean;
 };
 
 const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
-    const { context, primary } = props;
+    const { context, primary,isPending = false } = props;
     const reciptBillProps: ReceiptBillProps = {
         data: props.data,
         transformer: props.transformer,
@@ -43,6 +45,8 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
         console.log(keyboardEvent);
     }
 
+
+
     return (
         <ModalWrapper target={<DeleteIcon />}>
             <ModalWrapper.Body>
@@ -64,7 +68,7 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
                     >
                         Cancel
                     </Button>
-                    <Button size={"xs"} color={"c-red"} onClick={primary}>
+                    <Button size={"xs"} color={"c-red"} onClick={primary} loading={isPending}>
                         Delete
                     </Button>
                 </div>
