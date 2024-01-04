@@ -10,16 +10,17 @@ import {
     deleteTransaction,
     indexTransactions,
 } from "service/transaction.service";
-import { PaginationState } from "@tanstack/react-table";
+import { ColumnFiltersState, PaginationState } from "@tanstack/react-table";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
 
 const TRANSACTIONS = "transactions";
 
-export function useIndexTransactions(page: PaginationState, note: string) {
+export function useIndexTransactions(page: PaginationState,filters:ColumnFiltersState) {
+    console.log("index transactionsss")
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: [TRANSACTIONS, page, note],
-        queryFn: () => indexTransactions(page, note),
+        queryKey: [TRANSACTIONS, page, filters],
+        queryFn: () => indexTransactions(page, filters),
         placeholderData: () => queryClient.getQueryData([TRANSACTIONS, page]),
     });
 }

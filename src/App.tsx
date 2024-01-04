@@ -8,7 +8,8 @@ import { Provider } from "react-redux";
 import store from "./redux/index";
 import { banner } from "templates/banner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "@mantine/core/styles.css";
+
+import { Toaster } from "sonner";
 
 const queryClient = new QueryClient({
     defaultOptions: {},
@@ -23,6 +24,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
+                <Toaster />
                 <div className="App">
                     <NavBar />
                     <div className={"appContainer"}>

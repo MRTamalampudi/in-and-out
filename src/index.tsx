@@ -13,6 +13,8 @@ import SplitBillRoutes from "./pages/split-bill/routes";
 import TransactionRoutes from "./pages/transactions/routes";
 import Login from "./pages/login";
 import PlayGround from "pages/play-ground";
+import "@mantine/core/styles.css";
+import "styles/mantine/index.scss"
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

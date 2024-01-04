@@ -7,6 +7,8 @@ import { BaseRoutes } from "../../constants/base-routes";
 import { useGlobalTranslations } from "../../locales/translation-hooks";
 import TransactionTypeBadge from "components/transaction-type";
 import { TransactionTypeEnum } from "enum";
+import { toast } from "sonner";
+import DeleteIcon from "components/icons/delete-icon";
 
 interface PageHeaderProps {
 
@@ -19,6 +21,9 @@ const PageHeader = ({}:PageHeaderProps) => {
     const baseRoute = pathname.split("/")[1];
 
     const honorBackButton = () => {
+        // toast('My action toast', {
+        //     icon:<DeleteIcon height={24} width={24}/>
+        // });
         window.history.back();
     }
 

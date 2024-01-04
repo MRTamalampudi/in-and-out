@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {
+    ColumnFilter, ColumnFiltersState,
     createColumnHelper,
     getCoreRowModel,
     PaginationState,
-    useReactTable,
+    useReactTable
 } from "@tanstack/react-table";
 import { Transaction } from "model";
 import TransactionTypeBadge from "components/transaction-type";
@@ -12,16 +13,22 @@ import {
     useIndexTransactions,
 } from "service/react-query-hooks/transaction-query";
 import { Table, TableWrapper } from "components/table";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, TextInput } from "@mantine/core";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import ActionsRow, { Action } from "components/table/actions-row";
+import { toast } from "sonner";
 
 interface TransactionTableProps {}
 
 const TransactionTable = ({}: TransactionTableProps) => {
     const columnHelper = createColumnHelper<Transaction>();
-    const { mutate,isPending,isError,error} = useDeleteTransaction({
-        onSuccess: () => table.resetRowSelection(),
+    const { mutate, isPending, isError, error } = useDeleteTransaction({
+        onSuccess: () => {
+            toast.success("Deleted successfully", {
+                description: "successfully deleted this transaction",
+            });
+            table.resetRowSelection();
+        },
     });
 
     const columns = [
@@ -52,6 +59,8 @@ const TransactionTable = ({}: TransactionTableProps) => {
             meta: {
                 className: "flex-basis-5/20 truncate",
             },
+            enableColumnFilter: true,
+            filterFn: "includesString",
         }),
         columnHelper.accessor("transactee.name", {
             header: "Transactee",
@@ -119,12 +128,15 @@ const TransactionTable = ({}: TransactionTableProps) => {
         },
     ];
 
+    console.log("asss");
+
+    const [columnFilters,setColumnFilters] = useState<ColumnFiltersState>([])
     const [rowSelection, setRowSelection] = useState({});
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 20,
     });
-    const { data } = useIndexTransactions({ pageIndex, pageSize }, "");
+    const { data } = useIndexTransactions({ pageIndex, pageSize }, columnFilters);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -135,10 +147,17 @@ const TransactionTable = ({}: TransactionTableProps) => {
         state: {
             rowSelection,
             pagination: { pageIndex, pageSize },
+            columnFilters: columnFilters
         },
         manualPagination: true,
         onPaginationChange: setPagination,
+        onColumnFiltersChange:setColumnFilters,
+        enableFilters: true,
+        enableColumnFilters: true,
+        manualFiltering: true,
     });
+
+    console.log(columnFilters)
 
     const actions: Action[] = [
         {
@@ -172,7 +191,9 @@ const TransactionTable = ({}: TransactionTableProps) => {
             <TableWrapper.MetaRow
                 totalElements={data?.totalElements}
                 title={"Transactions"}
-            />
+            >
+                <TextInput placeholder={"search"} onChange={value=>table.getColumn("note")?.setFilterValue(value?.target?.value || "")}/>
+            </TableWrapper.MetaRow>
             <Table>
                 {table.getIsSomeRowsSelected() ||
                 table.getIsAllRowsSelected() ? (

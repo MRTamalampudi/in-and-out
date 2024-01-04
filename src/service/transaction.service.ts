@@ -7,21 +7,21 @@ import Page from "../model/page";
 import * as process from "process";
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
-import { PaginationState } from "@tanstack/react-table";
+import { ColumnFiltersState, PaginationState } from "@tanstack/react-table";
 
 const TRANSACTIONS_BASE_URL = process.env.REACT_APP_API_KEY + "/transactions";
 
 export function indexTransactions(
     { pageIndex, pageSize }: PaginationState,
-    note: string = "",
+    filters:ColumnFiltersState
 ): Promise<Page<Transaction>> {
     const adjustedPage = pageIndex !== 0 ? pageIndex - 1 : 0;
     const urlSearchParams = new URLSearchParams({
         page: adjustedPage.toString(),
         size: pageSize.toString(),
-        sort: "createdAt,desc"
+        sort: "createdAt,desc",
+        q: filters.map(filter=>`${filter.id}~${filter.value}`).join(",")
     });
-    //const url = `${TRANSACTIONS_BASE_URL}?page=${adjustedPage}&sort=createdAt,desc&q=note~${note}`;
     return axios
         .get<Page<Transaction>>(
             `${TRANSACTIONS_BASE_URL}?${urlSearchParams.toString()}`,

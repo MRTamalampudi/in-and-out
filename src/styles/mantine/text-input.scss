@@ -1,12 +1,14 @@
 @use "styles/colors";
 @import "styles/borders";
 @import "styles/typography";
+@import "styles/size";
 
 
-.mantine-TextInput-input,.mantine-Input-input{
+.mantine-TextInput-inputt,.mantine-Input-input{
+  background-color: colors.$g-100;
   @extend .body-text;
   @extend .border-solid-1;
-  background-color: #fbfbfb;
+  @include height(1.75rem);
 }
 
 .mantine-TextInput-icon{

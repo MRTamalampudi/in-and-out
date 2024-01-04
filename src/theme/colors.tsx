@@ -1,4 +1,4 @@
-import { Button, createTheme, MantineProvider, Select } from "@mantine/core";
+import { Button, createTheme, CSSVariablesResolver, MantineProvider, rem, Select, TextInput } from "@mantine/core";
 import { boolean } from "zod";
 
 interface ColorsProps {
@@ -82,12 +82,33 @@ const theme = createTheme({
                 size: "xs",
             },
         }),
+        TextInput: TextInput.extend({
+            defaultProps: {
+                size: "xs"
+            }
+        })
     },
+});
+
+const resolver: CSSVariablesResolver = (theme) => ({
+    variables: {
+        "--notifications-top": rem(2),
+        "--notifications-right": rem(2),
+        "--mantine-spacing-md" : rem(5),
+        "--_input-height": rem(2),
+        "--_input-size": rem(2)
+    },
+    dark: {
+
+    },
+    light: {
+
+    }
 });
 
 export const Colors = ({ children }: ColorsProps) => {
     return (
-        <MantineProvider withCssVariables={true} theme={theme}>
+        <MantineProvider withCssVariables={true} theme={theme} cssVariablesResolver={resolver}>
             {children}
         </MantineProvider>
     );
