@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import IconProps from "components/icons/icon-props";
-import {useFill} from "utils/use-fill";
+import {useFill} from "components/icons/use-fill";
 
 const TemplateName = ({
     className,
@@ -30,4 +30,4 @@ const TemplateName = ({
     )
 };
 
-export default TemplateName;
+export default React.memo(TemplateName);

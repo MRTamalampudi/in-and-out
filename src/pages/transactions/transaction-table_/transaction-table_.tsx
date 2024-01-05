@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import {
-    ColumnFilter, ColumnFiltersState,
+    ColumnFilter,
+    ColumnFiltersState,
     createColumnHelper,
     getCoreRowModel,
     PaginationState,
-    useReactTable
+    SortingState,
+    useReactTable,
 } from "@tanstack/react-table";
 import { Transaction } from "model";
 import TransactionTypeBadge from "components/transaction-type";
@@ -22,7 +24,10 @@ interface TransactionTableProps {}
 
 const TransactionTable = ({}: TransactionTableProps) => {
     const columnHelper = createColumnHelper<Transaction>();
-    const { mutate, isPending, isError, error } = useDeleteTransaction({
+    const mutation = useDeleteTransaction({
+        onError:() => {
+          toast.error("Error while deleting")
+        },
         onSuccess: () => {
             toast.success("Deleted successfully", {
                 description: "successfully deleted this transaction",
@@ -60,7 +65,6 @@ const TransactionTable = ({}: TransactionTableProps) => {
                 className: "flex-basis-5/20 truncate",
             },
             enableColumnFilter: true,
-            filterFn: "includesString",
         }),
         columnHelper.accessor("transactee.name", {
             header: "Transactee",
@@ -103,7 +107,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
             header: "Amount",
             cell: (props) => `$ ${props.getValue()}`,
             meta: {
-                className: "flex-basis-2/20 text-align-right",
+                className: "flex-basis-2/20 sort text-align-right pointer jc-right",
             },
         }),
         {
@@ -119,7 +123,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
                         note: data.note,
                         amount: data.amount,
                     })}
-                    primary={() => mutate([row.original.id])}
+                    primary={() => mutation.mutate([row.original.id])}
                 />
             ),
             meta: {
@@ -130,13 +134,18 @@ const TransactionTable = ({}: TransactionTableProps) => {
 
     console.log("asss");
 
-    const [columnFilters,setColumnFilters] = useState<ColumnFiltersState>([])
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 20,
     });
-    const { data } = useIndexTransactions({ pageIndex, pageSize }, columnFilters);
+    const { data } = useIndexTransactions(
+        { pageIndex, pageSize },
+        columnFilters,
+        sorting,
+    );
 
     const table = useReactTable({
         data: data?.content || [],
@@ -147,17 +156,22 @@ const TransactionTable = ({}: TransactionTableProps) => {
         state: {
             rowSelection,
             pagination: { pageIndex, pageSize },
-            columnFilters: columnFilters
+            columnFilters,
+            sorting,
         },
         manualPagination: true,
         onPaginationChange: setPagination,
-        onColumnFiltersChange:setColumnFilters,
+        onColumnFiltersChange: setColumnFilters,
+        onSortingChange: setSorting,
         enableFilters: true,
         enableColumnFilters: true,
         manualFiltering: true,
+        manualSorting: true,
+        enableSorting: true,
+        enableMultiSort: true,
     });
 
-    console.log(columnFilters)
+    console.log(sorting);
 
     const actions: Action[] = [
         {
@@ -174,17 +188,19 @@ const TransactionTable = ({}: TransactionTableProps) => {
                         .getFilteredSelectedRowModel()
                         .rows.map((rowData) => rowData.original)}
                     primary={() => {
-                        mutate(
+                        mutation.mutate(
                             table
                                 .getFilteredSelectedRowModel()
                                 .rows.map((rowData) => rowData.original.id),
                         );
                     }}
-                    isPending={isPending}
+                    isPending={mutation.isPending}
                 />
             ),
         },
     ];
+
+
 
     return (
         <TableWrapper data={data?.content}>
@@ -192,7 +208,14 @@ const TransactionTable = ({}: TransactionTableProps) => {
                 totalElements={data?.totalElements}
                 title={"Transactions"}
             >
-                <TextInput placeholder={"search"} onChange={value=>table.getColumn("note")?.setFilterValue(value?.target?.value || "")}/>
+                <TextInput
+                    placeholder={"search"}
+                    onChange={(value) =>
+                        table
+                            .getColumn("note")
+                            ?.setFilterValue(value?.target?.value)
+                    }
+                />
             </TableWrapper.MetaRow>
             <Table>
                 {table.getIsSomeRowsSelected() ||

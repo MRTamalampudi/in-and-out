@@ -67,9 +67,7 @@
       "withStory": false,
       "withStyle": false,
       "withTest": false,
-      "withIndex": true,
       "customTemplates": {
-        "index": "src/templates/index.ts",
         "component": "src/templates/icon-template/TemplateName.tsx"
       }
     },

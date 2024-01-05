@@ -1,23 +1,14 @@
-import React, {useEffect, useRef, useState} from 'react';
-import IconProps from "../icon-props";
-import {useFill} from "../../../utils/use-fill";
+import React, { useEffect, useRef, useState } from "react";
+import IconProps from "components/icons/icon-props";
+import { useFill } from "components/icons/use-fill";
 
-
-const EditIcon = ({
-    className,
-    height= 24,
-    width= 24
-}:IconProps) => {
-
+const EditIcon = ({ className, height = 24, width = 24 }: IconProps) => {
     const iconRef = useRef(null);
-    const {fill} = useFill(iconRef);
+    const { fill } = useFill(iconRef);
 
     return (
         <>
-            <span
-                className={className}
-                ref={iconRef}
-            />
+            <span className={className} ref={iconRef} />
             <svg
                 width={width}
                 height={height}
@@ -31,7 +22,7 @@ const EditIcon = ({
                 />
             </svg>
         </>
-    )
-}
+    );
+};
 
-export default EditIcon;
+export default React.memo(EditIcon);

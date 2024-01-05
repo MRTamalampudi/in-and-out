@@ -1,25 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
-import IconProps from "../icon-props";
+import React, { useEffect, useRef, useState } from "react";
+import IconProps from "components/icons/icon-props";
+import { useFill } from "components/icons/use-fill";
 
-const ErrorIcon = ({
-    className,
-    height = 24,
-    width = 24,
-}:IconProps) => {
-
-    const [fill,setFill] = useState<string>("red");
+const ErrorIcon = ({ className, height = 24, width = 24 }: IconProps) => {
     const iconRef = useRef(null);
-    useEffect(()=>{
-        setFill(getComputedStyle(iconRef?.current!).color)
-    },[fill])
+    const {fill} = useFill(iconRef)
     return (
         <>
-            <span
-                className={className}
-                ref={iconRef}
-            >
-
-            </span>
+            <span className={className} ref={iconRef}></span>
             <svg
                 width={width}
                 height={height}
@@ -32,8 +20,7 @@ const ErrorIcon = ({
                     fill={fill}
                 />
             </svg>
-
         </>
-    )
-}
-export default ErrorIcon;
+    );
+};
+export default React.memo(ErrorIcon);

@@ -1,22 +1,14 @@
-import React, {useRef} from 'react';
+import React, { useRef } from "react";
 import IconProps from "components/icons/icon-props";
-import {useFill} from "utils/use-fill";
+import { useFill } from "components/icons/use-fill";
 
-const PlusCircle = ({
-    className,
-    height= 24,
-    width= 24
-}:IconProps) => {
-
+const PlusCircle = ({ className, height = 24, width = 24 }: IconProps) => {
     const iconRef = useRef(null);
-    const {fill} = useFill(iconRef);
+    const { fill } = useFill(iconRef);
 
     return (
         <>
-            <span
-                className={className}
-                ref={iconRef}
-            />
+            <span className={className} ref={iconRef} />
             <svg
                 width={width}
                 height={height}
@@ -40,16 +32,12 @@ const PlusCircle = ({
                 </g>
                 <defs>
                     <clipPath id="clip0_528_3158">
-                        <rect
-                            width="100"
-                            height="100"
-                            fill="white"
-                        />
+                        <rect width="100" height="100" fill="white" />
                     </clipPath>
                 </defs>
             </svg>
         </>
-    )
+    );
 };
 
-export default PlusCircle;
+export default React.memo(PlusCircle);
