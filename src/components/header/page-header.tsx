@@ -9,6 +9,7 @@ import TransactionTypeBadge from "components/transaction-type";
 import { TransactionTypeEnum } from "enum";
 import { toast } from "sonner";
 import DeleteIcon from "components/icons/delete-icon";
+import Checked from "components/icons/checked";
 
 interface PageHeaderProps {
 
@@ -21,9 +22,13 @@ const PageHeader = ({}:PageHeaderProps) => {
     const baseRoute = pathname.split("/")[1];
 
     const honorBackButton = () => {
-        // toast('My action toast', {
-        //     icon:<DeleteIcon height={24} width={24}/>
-        // });
+        toast('My action toast', {
+            icon:<DeleteIcon height={24} width={24}/>
+        });
+        toast("Transaction created",{
+            description:"Successfully entered transaction",
+            icon: <Checked />
+        });
         window.history.back();
     }
 

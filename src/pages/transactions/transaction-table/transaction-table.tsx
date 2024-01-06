@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    ColumnFilter,
     ColumnFiltersState,
     createColumnHelper,
     getCoreRowModel,
@@ -14,19 +13,20 @@ import {
     useDeleteTransaction,
     useIndexTransactions,
 } from "service/react-query-hooks/transaction-query";
-import { Table, TableWrapper } from "components/table";
 import { Checkbox, TextInput } from "@mantine/core";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import ActionsRow, { Action } from "components/table/actions-row";
 import { toast } from "sonner";
+import { TableWrapper } from "components/table";
+import Table from "components/table/table";
 
 interface TransactionTableProps {}
 
 const TransactionTable = ({}: TransactionTableProps) => {
     const columnHelper = createColumnHelper<Transaction>();
     const mutation = useDeleteTransaction({
-        onError:() => {
-          toast.error("Error while deleting")
+        onError: () => {
+            toast.error("Error while deleting");
         },
         onSuccess: () => {
             toast.success("Deleted successfully", {
@@ -107,7 +107,8 @@ const TransactionTable = ({}: TransactionTableProps) => {
             header: "Amount",
             cell: (props) => `$ ${props.getValue()}`,
             meta: {
-                className: "flex-basis-2/20 sort text-align-right pointer jc-right",
+                className:
+                    "flex-basis-2/20 sort text-align-right pointer jc-right",
             },
         }),
         {
@@ -132,20 +133,14 @@ const TransactionTable = ({}: TransactionTableProps) => {
         },
     ];
 
-    console.log("asss");
-
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
-    const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+    const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 20,
     });
-    const { data } = useIndexTransactions(
-        { pageIndex, pageSize },
-        columnFilters,
-        sorting,
-    );
+    const { data } = useIndexTransactions(pagination, columnFilters, sorting);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -155,7 +150,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
         onRowSelectionChange: setRowSelection,
         state: {
             rowSelection,
-            pagination: { pageIndex, pageSize },
+            pagination,
             columnFilters,
             sorting,
         },
@@ -170,8 +165,6 @@ const TransactionTable = ({}: TransactionTableProps) => {
         enableSorting: true,
         enableMultiSort: true,
     });
-
-    console.log(sorting);
 
     const actions: Action[] = [
         {
@@ -200,10 +193,8 @@ const TransactionTable = ({}: TransactionTableProps) => {
         },
     ];
 
-
-
     return (
-        <TableWrapper data={data?.content}>
+        <TableWrapper>
             <TableWrapper.MetaRow
                 totalElements={data?.totalElements}
                 title={"Transactions"}
@@ -228,8 +219,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
             </Table>
             <TableWrapper.Pagination
                 totalElements={data?.totalElements!}
-                pageSize={pageSize}
-                pageIndex={pageIndex}
+                pagination={pagination}
                 onPaginationChange={table.setPagination}
             />
         </TableWrapper>

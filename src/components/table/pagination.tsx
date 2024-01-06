@@ -1,4 +1,4 @@
-import { Button, Pagination, Select } from "@mantine/core";
+import { Button, Select } from "@mantine/core";
 import React, { memo } from "react";
 import styles from "components/table/table.module.scss";
 import { PaginationState } from "@tanstack/react-table";
@@ -6,12 +6,13 @@ import { PaginationState } from "@tanstack/react-table";
 type PaginationProps = {
     totalElements: number;
     onPaginationChange: (value: PaginationState) => void;
-} & PaginationState;
+    pagination: PaginationState;
+};
 
 function Pagination_(props: PaginationProps) {
     const FIRST_PAGE = 1;
 
-    const { totalElements, pageSize, pageIndex, onPaginationChange } = props;
+    const { totalElements, pagination:{pageIndex,pageSize}, onPaginationChange } = props;
     const TOTAL_PAGES = Math.ceil((totalElements || 20) / pageSize) || 1;
     const LAST_PAGE = TOTAL_PAGES;
 

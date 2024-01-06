@@ -66,20 +66,22 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
         resolver:zodResolver(schema),
     })
 
-    useEffect(()=>{
-        reset(data)
-    },[data])
 
     function clearAll(){
         reset(emptyValues);
-        navigate("../new",{relative:"path"})
     }
 
-    const mutation = useCreateTransaction();
+    const { mutate,isPending } = useCreateTransaction({
+        onSuccess:()=>reset()
+    });
 
     const onSubmit = (data:Transaction) => {
-        return console.log(mutation.mutate(data));
+        return console.log(mutate(data));
     };
+
+    useEffect(()=>{
+        reset(data)
+    },[data])
 
 
     return (
@@ -152,7 +154,7 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
                     size={"xs"}
                     type={"submit"}
                     onClick={handleSubmit(onSubmit)}
-                    loading={mutation.isPending}
+                    loading={isPending}
                 >
                     {getValues("id") ? "Update" : "Add"}
                 </Button>

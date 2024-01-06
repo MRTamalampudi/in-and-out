@@ -1,30 +1,21 @@
-import React, { memo, useContext, useEffect } from "react";
+import React, { memo } from "react";
 import styles from "./table.module.scss";
-import MetaRow, { MetaRowProps } from "./meta-row";
-import TableContextProvider, { TableContext } from "components/table/context";
+import MetaRow from "./meta-row";
+import TableContextProvider from "components/table/context";
 import Pagination_ from "components/table/pagination";
+import Table from "components/table/table";
 
-type TableWrapperProps<T> = {
+type TableWrapperProps= {
     children: React.ReactNode;
     borders?: boolean;
     height?: number;
-    data?: T[];
 };
 
-const TableWrapper_ = memo(<T extends {}>({
+const TableWrapper_ = memo(({
     children,
     borders = true,
     height = undefined,
-    data,
-}: TableWrapperProps<T>) => {
-
-    const { setTableData, setSelectionList } = useContext(TableContext);
-    console.log("Table render");
-
-    useEffect(() => {
-        console.log("Table inside render");
-        setTableData(data || []);
-    }, [data, setTableData]);
+}: TableWrapperProps) => {
     return (
         <div
             className={`${styles.Table}
@@ -38,7 +29,7 @@ const TableWrapper_ = memo(<T extends {}>({
     );
 })
 
-const TableWrapper = (props: TableWrapperProps<any>) => (
+const TableWrapper = (props: TableWrapperProps) => (
     <TableContextProvider>
         <TableWrapper_ {...props}>{props.children}</TableWrapper_>
     </TableContextProvider>
@@ -46,6 +37,7 @@ const TableWrapper = (props: TableWrapperProps<any>) => (
 
 TableWrapper.MetaRow = MetaRow;
 TableWrapper.Pagination = Pagination_;
+TableWrapper.Table = Table
 
 
 export default TableWrapper;

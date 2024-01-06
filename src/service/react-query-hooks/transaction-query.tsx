@@ -18,8 +18,11 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
+import { QueryKeys } from "service/react-query-hooks/query-keys";
+import { toast } from "sonner";
+import Checked from "components/icons/checked";
 
-const TRANSACTIONS = "transactions";
+const TRANSACTIONS = QueryKeys.TRANSACTIONS;
 
 export function useIndexTransactions(
     page: PaginationState,
@@ -35,12 +38,19 @@ export function useIndexTransactions(
     });
 }
 
-export function useCreateTransaction() {
+export function useCreateTransaction(options:CustomMutationOptions) {
+    const {onSuccess,onError} = options;
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: createTransaction,
         onSuccess: () => {
+            onSuccess && onSuccess();
+            toast("Transaction created",{
+                description:"Successfully entered transaction",
+                icon: <Checked className={"primary"}/>
+            });
             queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
+            queryClient.invalidateQueries({queryKey:[QueryKeys.TRANSACTION_SUMMARY]})
         },
     });
 }

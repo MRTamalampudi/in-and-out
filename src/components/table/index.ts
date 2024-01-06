@@ -1,5 +1,5 @@
 import TableWrapper from "./table-wrapper";
-import Table from "./table_";
+import Table from "./table";
 
 export {
     TableWrapper,

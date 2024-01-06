@@ -44,7 +44,7 @@ const TransactionTypeCard = (
                   {className[type].name}
               </div>
               <div className={styles.content}>
-                  {`$${amount}`}
+                  {`$ ${amount}`}
               </div>
           </div>
       </div>
