@@ -10,6 +10,7 @@ import { banner } from "templates/banner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Toaster } from "sonner";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
     defaultOptions: {},
@@ -25,6 +26,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
                 <Toaster />
+                <ReactQueryDevtools initialIsOpen />
                 <div className="App">
                     <NavBar />
                     <div className={"appContainer"}>

@@ -6,15 +6,7 @@ import { z } from "zod";
 import Deserialiser from "./deserialiser";
 
 
-class Transaction implements Deserialiser{
-    deserialize(object: any): this {
-        const transaction:this = {
-            ...object,
-            date:new Date(object.date*1000)
-        };
-
-        return transaction;
-    }
+class Transaction{
 
     public id: number;
     public note: string;
@@ -25,13 +17,9 @@ class Transaction implements Deserialiser{
     public amount: number;
     public paymentMode:PaymentModeEnum;
 
-    static deserialize(object:any):Transaction{
-        const transaction:Transaction = {
-            ...object,
-            date:new Date(object.date*1000)
-        };
-
-        return transaction;
+    static deserialize(object:Transaction){
+        object.date = new Date((object.date as unknown as number) * 1000)
+        return object;
     }
 }
 

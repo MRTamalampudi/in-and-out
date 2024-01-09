@@ -1,10 +1,7 @@
-import React, { FC, memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import styles from "./modal.module.scss";
-import ModalTemplate from "components/modal-template/modal-template";
 import { Modal } from "@mantine/core";
-import { useNavigate } from "react-router";
 import ModalHeader, { ModalHeaderProps } from "components/header/modal-header";
-import Header from "../header";
 import { useWindowEvent } from "utils/use-window-event";
 import { CustomEvents } from "constants/custom-events";
 
@@ -31,7 +28,8 @@ const ModalWrapper = ({
     return (
         <div className={styles.Modal}>
             <div
-                onClick={() => {
+                onClick={(event) => {
+                    event.stopPropagation();
                     setIsModalOpen(true);
                 }}
             >

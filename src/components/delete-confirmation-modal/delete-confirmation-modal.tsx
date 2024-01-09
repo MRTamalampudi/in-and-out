@@ -64,11 +64,25 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
                         size={"xs"}
                         color={"gray"}
                         variant={"outline"}
-                        onClick={simulateEscape}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            simulateEscape();
+                        }}
                     >
                         Cancel
                     </Button>
-                    <Button size={"xs"} color={"c-red"} onClick={primary} loading={isPending}>
+                    <Button
+                        size={"xs"}
+                        color={"c-red"}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            if (primary) {
+                                primary();
+                            }
+                            simulateEscape();
+                        }}
+                        loading={isPending}
+                    >
                         Delete
                     </Button>
                 </div>

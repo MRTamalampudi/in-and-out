@@ -23,7 +23,7 @@ export function indexTransactions(
         sort: "createdAt,desc",
         q: filters.map(filter=>`${filter.id}~${filter.value}`).join(",")
     });
-    sorting.map(sort=>urlSearchParams.append("sort",`${sort.id},${sort.desc ? "desc" : "asc"}`))
+    sorting.map(sort=>urlSearchParams.set("sort",`${sort.id},${sort.desc ? "desc" : "asc"}`))
     return axios
         .get<Page<Transaction>>(
             `${TRANSACTIONS_BASE_URL}?${urlSearchParams.toString()}`,

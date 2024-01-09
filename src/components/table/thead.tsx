@@ -18,7 +18,7 @@ function Thead<T>({ table }: TheadProps<T>) {
 
     const sortIcon = (id: string) =>
         sortIcons[isSorted(id) as unknown as string] ||
-        (canSort(id) && <Sort width={20} height={20} className={"primary"}/>);
+        (canSort(id) ? <Sort width={20} height={20} className={"primary"}/> : null);
 
     return (
         <thead>
@@ -34,7 +34,7 @@ function Thead<T>({ table }: TheadProps<T>) {
                                 header.column.columnDef.header,
                                 header.getContext(),
                             )}
-                            {sortIcon(header.column.id)}
+                            {sortIcon(header.column.id,)}
                         </th>
                     ))}
                 </tr>

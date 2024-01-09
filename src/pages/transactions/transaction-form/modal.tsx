@@ -5,7 +5,7 @@ import {useParams, useSearchParams} from "react-router-dom";
 import {useNavigate} from "react-router";
 
 const TransactionFormModal = () => {
-    const {transactionId} = useParams();
+    const [searchParams,setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
 
@@ -15,7 +15,7 @@ const TransactionFormModal = () => {
       <ModalWrapper
           target={<AddNew/>}
           title={"Transactions"}
-          opened={!!transactionId}
+          opened={!!searchParams.get("view")}
           onClose={()=>navigate("/transactions",{relative:"path"})}
       >
           <TransactionForm/>

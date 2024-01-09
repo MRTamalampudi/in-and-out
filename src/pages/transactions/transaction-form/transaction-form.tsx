@@ -16,88 +16,84 @@ import {
     useFormPlaceholdersTranslations,
 } from "locales/translation-hooks";
 import { useTransactionFormEssentials } from "forms/hooks";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { getTransaction } from "service/transaction.service";
 import { useCreateTransaction } from "service/react-query-hooks/transaction-query";
+import { TransactionQueryKeys } from "service/react-query-hooks/query-keys";
+import Page from "model/page";
+import { useSearchParams } from "react-router-dom";
 
 const TransactionForm = () => {
-    const { transactionId } = useParams();
-    const transactionQuery = useQuery({
-        queryKey: ["transactions", transactionId],
-        queryFn: () => getTransaction(Number.parseInt(transactionId!)),
-        enabled: !!transactionId && !!parseInt(transactionId),
-    });
+    const client = useQueryClient();
+    const [searchParams] = useSearchParams();
+    const cachedData: Page<Transaction> | undefined = client.getQueryData(
+        TransactionQueryKeys.index,
+    );
+
+    const transactionData = cachedData?.content
+        .filter(
+            (transaction) =>
+                transaction.id.toString() == (searchParams.get("view") || ""),
+        )
+        .at(0);
+
+    // @ts-ignore
+    // transactionData && (transactionData.date = new Date(transactionData?.date * 1000))
+
+    console.log("deserialize ==>",Transaction.deserialize(transactionData!),transactionData)
 
     return (
         <TransactionFormPresentation
-            data={transactionId ? transactionQuery.data : undefined}
+            data={transactionData}
         />
     );
 };
 
-
-
 export default TransactionForm;
 
 interface TransactionFormPresentationProps {
-    data?:Transaction;
+    data?: Transaction;
 }
-function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
-
+function TransactionFormPresentation({
+    data,
+}: TransactionFormPresentationProps) {
     const navigate = useNavigate();
-    const {formPlaceholders} = useFormPlaceholdersTranslations();
-    const {formLabels} = useFormLabelsTranslations();
-    let {
-        schema,
-        defaultValues,
-        emptyValues
-    } = useTransactionFormEssentials();
+    const { formPlaceholders } = useFormPlaceholdersTranslations();
+    const { formLabels } = useFormLabelsTranslations();
+    let { schema, defaultValues, emptyValues } = useTransactionFormEssentials();
 
-    const {
-        control,
-        handleSubmit,
-        reset,
-        getValues
-    } = useForm<Transaction>({
-        mode:"onSubmit",
+    const { control, handleSubmit, reset, getValues } = useForm<Transaction>({
+        mode: "onSubmit",
         defaultValues: data || defaultValues,
-        resolver:zodResolver(schema),
-    })
+        resolver: zodResolver(schema),
+    });
 
-
-    function clearAll(){
+    function clearAll() {
         reset(emptyValues);
     }
 
-    const { mutate,isPending } = useCreateTransaction({
-        onSuccess:()=>reset()
+    const { mutate, isPending } = useCreateTransaction({
+        onSuccess: () => reset(),
     });
 
-    const onSubmit = (data:Transaction) => {
+    const onSubmit = (data: Transaction) => {
         return console.log(mutate(data));
     };
 
-    useEffect(()=>{
-        reset(data)
-    },[data])
-
+    useEffect(() => {
+        reset(data);
+    }, [data]);
 
     return (
         <div className={styles.TransactionForm}>
-            <div
-                className={styles.body}
-            >
+            <div className={styles.body}>
                 <NoteInput
                     label={formLabels.NOTE}
                     placeholder={formPlaceholders.NOTE}
                     control={control}
                     name={"note"}
                 />
-                <div
-                    className={styles.col2}
-                >
+                <div className={styles.col2}>
                     <AmountInput
                         label={formLabels.AMOUNT}
                         placeholder={formPlaceholders.AMOUNT}
@@ -123,9 +119,7 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
                     control={control}
                     name={"date"}
                 />
-                <div
-                    className={styles.col2}
-                >
+                <div className={styles.col2}>
                     <CategorySelect
                         label={formLabels.CATEGORY}
                         placeholder={formPlaceholders.CATEGORY}
@@ -140,14 +134,8 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
                     />
                 </div>
             </div>
-            <div
-                className={styles.footer}
-            >
-                <Button
-                    size={"xs"}
-                    variant={"outline"}
-                    onClick={clearAll}
-                >
+            <div className={styles.footer}>
+                <Button size={"xs"} variant={"outline"} onClick={clearAll}>
                     Clear all
                 </Button>
                 <Button
@@ -160,5 +148,5 @@ function TransactionFormPresentation({data}:TransactionFormPresentationProps) {
                 </Button>
             </div>
         </div>
-    )
+    );
 }
