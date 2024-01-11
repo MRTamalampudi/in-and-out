@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Transaction } from "model";
 import React, { useMemo } from "react";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, Tooltip } from "@mantine/core";
 import TransactionTypeBadge from "components/transaction-type";
 
 const columnHelper = createColumnHelper<Transaction>();
@@ -16,6 +16,7 @@ export const columns = [
                 checked={table.getIsAllRowsSelected()}
                 indeterminate={table.getIsSomeRowsSelected()}
                 onChange={table.getToggleAllRowsSelectedHandler()}
+                onClick={(event)=>event.stopPropagation()}
             />
         ),
         //@ts-ignore
@@ -25,6 +26,7 @@ export const columns = [
                 checked={row.getIsSelected()}
                 onChange={row.getToggleSelectedHandler()}
                 disabled={!row.getCanSelect()}
+                onClick={(event)=>event.stopPropagation()}
             />
         ),
     },
@@ -45,9 +47,7 @@ export const columns = [
     }),
     columnHelper.accessor("date", {
         header: "Date",
-        cell: (props) =>
-            //@ts-ignore
-            new Date(props.getValue() * 1000).toLocaleDateString(),
+        cell: (props) => (props.getValue() as unknown as Date).toLocaleDateString(),
         meta: {
             className: "flex-basis-3/20",
         },
@@ -61,9 +61,9 @@ export const columns = [
     }),
     columnHelper.accessor("category.name", {
         header: "Category",
-        cell: (props) => props.getValue(),
+        cell: (props) => <Tooltip position={"top"} label={props.getValue()}><span>{props.getValue()}</span></Tooltip> ,
         meta: {
-            className: "flex-basis-2/20",
+            className: "flex-basis-2/20 truncate",
         },
     }),
     columnHelper.accessor("type", {

@@ -50,6 +50,7 @@ export default function TransactionTableUi({table,totalElements,pagination,actio
                     <tr
                         key={row.id}
                         onClick={() => onRowClick(row.original.id)}
+                        data-selected={row.original.id.toString() == searchParams.get("view")}
                     >
                        {row.getVisibleCells().map((cell) => (
                            <td

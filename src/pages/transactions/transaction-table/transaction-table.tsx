@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
     ColumnFiltersState,
     getCoreRowModel,
@@ -14,7 +14,7 @@ import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { Action } from "components/table/actions-row";
 import { toast } from "sonner";
 import TransactionTableUi from "pages/transactions/transaction-table/transaction-table-ui";
-import { columns } from "pages/transactions/transaction-table/transaction-table-columns";
+import { columns as columns_ } from "pages/transactions/transaction-table/transaction-table-columns";
 import Checked from "components/icons/checked";
 
 interface TransactionTableProps {}
@@ -32,27 +32,27 @@ const TransactionTable = ({}: TransactionTableProps) => {
             table.resetRowSelection();
         },
     });
-    
-    columns.push({
-                    id: "Delete actions",
-                    header: ` `,
-                    //@ts-ignore
-                    cell: ({ row }) => (
-                        <DeleteConfirmationModal
-                            context={"Transactions"}
-                            data={[row.original]}
-                            transformer={(data) => ({
-                                id: data.id,
-                                note: data.note,
-                                amount: data.amount,
-                            })}
-                            primary={() => mutation.mutate([row.original.id])}
-                        />
-                    ),
-                    meta: {
-                        className: "action w48p flex-row jc-center",
-                    },
-                },)
+
+    const columns = useMemo(() => [...columns_,{
+        id: "Delete actions",
+        header: ` `,
+        //@ts-ignore
+        cell: ({ row }) => (
+            <DeleteConfirmationModal
+                context={"Transactions"}
+                data={[row.original]}
+                transformer={(data) => ({
+                    id: data.id,
+                    note: data.note,
+                    amount: data.amount,
+                })}
+                primary={() => mutation.mutate([row.original.id])}
+            />
+        ),
+        meta: {
+            className: "action w48p flex-row jc-center",
+        },
+    }], []);
     
     
 

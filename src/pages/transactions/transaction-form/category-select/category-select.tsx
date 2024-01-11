@@ -55,7 +55,6 @@ const CategorySelect = <T extends FieldValues>(props:InputProps<T>) => {
             size={"xs"}
             placeholder={props.placeholder}
             searchable
-            defaultValue={null}
         />
     )
 }

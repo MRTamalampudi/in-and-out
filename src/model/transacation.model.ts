@@ -3,7 +3,6 @@ import {PaymentModeEnum} from "../enum";
 import Transactee, {transacteeSchema} from "./transactee.model";
 import Category, {categorySchema} from "./category.model";
 import { z } from "zod";
-import Deserialiser from "./deserialiser";
 
 
 class Transaction{
@@ -19,7 +18,6 @@ class Transaction{
 
     static deserialize(object:Transaction){
         object.date = new Date((object.date as unknown as number) * 1000)
-        return object;
     }
 }
 

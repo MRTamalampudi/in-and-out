@@ -13,6 +13,7 @@ const useTransactionFormEssentials = ():formEssentialsType<Transaction> => {
         date:new Date(),
         paymentMode:undefined,
         type:undefined,
+        note:""
     }
 
     const emptyValues:Partial<Transaction>= {

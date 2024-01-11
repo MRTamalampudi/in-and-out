@@ -34,9 +34,8 @@
       "withStory": false,
       "withStyle": true,
       "withTest": false,
-      "withIndex": true,
       "customTemplates": {
-        "index": "src/templates/index.ts"
+        "component": "src/templates/component/TemplateName.tsx"
       }
     },
     "transactions": {
@@ -121,6 +120,16 @@
       "withTest": false,
       "customTemplates": {
         "component": "src/templates/forms/TemplateName.essentials.ts"
+      }
+    },
+    "service": {
+      "path": "src/service",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": false,
+      "withTest": false,
+      "customTemplates": {
+        "component": "src/templates/service/TemplateName.service.ts"
       }
     }
   },

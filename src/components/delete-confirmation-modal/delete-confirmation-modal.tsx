@@ -9,6 +9,7 @@ import ReceiptBill from "components/recipt-bill";
 import { ReceiptBillProps } from "components/recipt-bill/receipt-bill";
 import { WarningSvg } from "components/svg/warning.svg";
 import { isPending } from "@reduxjs/toolkit";
+import { useSimulateEscape } from "utils/useSimulateEscape";
 
 type DeleteConfirmationModalProps = {
     context: string;
@@ -32,18 +33,7 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
         alerts: { DELETE, DELETE_MULTIPLE },
     } = useAlertsTranslations(context);
 
-    function simulateEscape() {
-        const keyBoardEventInit: KeyboardEventInit = {
-            key: "escape-simulator",
-        };
-
-        const keyboardEvent = new KeyboardEvent(
-            CustomEvents.KEYDOWN,
-            keyBoardEventInit,
-        );
-        window.dispatchEvent(keyboardEvent);
-        console.log(keyboardEvent);
-    }
+    const simulateEscape = useSimulateEscape();
 
 
 

@@ -6,6 +6,7 @@ import { Menu } from "@mantine/core";
 
 import { useTranslation } from "react-i18next";
 import { SplitBillConstants } from "./split-bill-constants";
+import Groups from "pages/split-bill/groups/groups";
 
 interface SplitBillProps {}
 
@@ -14,7 +15,7 @@ const SplitBillPage = ({}: SplitBillProps) => {
         <div className={styles.SplitBill}>
             <BillAndGroupFormModal />
             <div className={styles.left}>
-                {/*<Groups />*/}
+                <Groups />
             </div>
             <div className={styles.right}>
                 <BillGroup />

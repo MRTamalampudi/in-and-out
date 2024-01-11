@@ -9,8 +9,8 @@ import {
 } from "@tanstack/react-query";
 import {
     createTransaction,
-    deleteTransaction,
-    indexTransactions,
+    deleteTransaction, getTransaction,
+    indexTransactions
 } from "service/transaction.service";
 import {
     ColumnFiltersState,
@@ -18,12 +18,14 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
-import { QueryKeys } from "service/react-query-hooks/query-keys";
+import { QueryKeys, TransactionQueryKeys } from "service/react-query-hooks/query-keys";
 import { toast } from "sonner";
 import Checked from "components/icons/checked";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useUpdateSearchParams } from "utils/useUpdateSearchParams";
+import { Transaction } from "model";
+import Page from "model/page";
 
 const TRANSACTIONS = QueryKeys.TRANSACTIONS;
 
@@ -65,6 +67,22 @@ export function useIndexTransactions(
     });
 }
 
+export function useGetTransaction(id:number) {
+    const client = useQueryClient();
+    return useQuery({
+        queryKey: [TRANSACTIONS, id],
+        queryFn: () => getTransaction(id),
+        placeholderData: () => (client.getQueryData(
+            TransactionQueryKeys.index,
+        ) as unknown as Page<Transaction>).content.filter(
+            (transaction) =>
+                transaction.id.toString() == (id.toString()),
+        )
+            .at(0),
+        retry:1,
+    });
+}
+
 export function useCreateTransaction(options: CustomMutationOptions) {
     const { onSuccess, onError } = options;
     const queryClient = useQueryClient();
@@ -72,10 +90,6 @@ export function useCreateTransaction(options: CustomMutationOptions) {
         mutationFn: createTransaction,
         onSuccess: () => {
             onSuccess && onSuccess();
-            toast("Transaction created", {
-                description: "Successfully entered transaction",
-                icon: <Checked className={"primary"} />,
-            });
             queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.TRANSACTION_SUMMARY],

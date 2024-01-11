@@ -25,8 +25,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
-                <Toaster />
-                <ReactQueryDevtools initialIsOpen />
+                <Toaster duration={2000}/>
                 <div className="App">
                     <NavBar />
                     <div className={"appContainer"}>

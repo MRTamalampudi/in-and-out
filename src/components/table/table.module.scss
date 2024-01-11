@@ -182,6 +182,14 @@ tbody{
     td{
       @extend .body-text;
     }
+
+    &[data-selected=true]{
+      background-color: colors.$g-300;
+    }
+
+    &:hover{
+      background-color: colors.$g-200;
+    }
   }
 }
 
@@ -189,7 +197,6 @@ tr{
   height: 2.5rem;
   display: flex;
   align-items: center;
-  //justify-content: center;
 
   @extend .border-separator-bottom;
   @extend .column-gap-8;
