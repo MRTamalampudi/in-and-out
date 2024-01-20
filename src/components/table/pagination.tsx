@@ -77,4 +77,4 @@ function Pagination_(props: PaginationProps) {
     );
 }
 
-export default memo(Pagination_);
+export default memo(Pagination_) as typeof Pagination_;

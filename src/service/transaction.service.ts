@@ -1,12 +1,8 @@
-import { BaseService } from "./base.service";
-import { fakerEN_IN } from "@faker-js/faker";
-import { TransactionTypeEnum } from "enum";
 import { Transaction } from "model";
 import axios from "axios";
 import Page from "../model/page";
 import * as process from "process";
 import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
 import {
     ColumnFiltersState,
     PaginationState,

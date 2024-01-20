@@ -10,6 +10,9 @@ class Page <T> {
     public last: boolean;
     public empty: boolean;
 
+    constructor(page:Page<T>) {
+        return Object.assign(this,page)
+    }
 }
 
 export default Page;

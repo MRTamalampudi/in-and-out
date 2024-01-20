@@ -1,19 +1,12 @@
-import React from 'react';
-import styles from './group-bill-header.module.scss';
-import {netflix, scenery} from "assets";
-import {EditIcon} from "components/icons";
+import React from "react";
+import styles from "./group-bill-header.module.scss";
+import { netflix } from "assets";
+import { EditIcon } from "components/icons";
 import DeleteIcon from "components/icons/delete-icon";
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../redux";
-import {group} from "d3";
-import {SPLITBILL_ROUTES} from "../routes";
-import PlusCircle from "../../../components/icons/plus-circle";
-import AddNew from "../../../components/add-new";
+import { useParams } from "react-router-dom";
+import { SPLITBILL_ROUTES } from "../routes";
 
-interface GroupBillHeaderProps {
-
-}
+interface GroupBillHeaderProps {}
 
 const GroupBillHeader = (
     {}:GroupBillHeaderProps
@@ -21,13 +14,13 @@ const GroupBillHeader = (
 
     const {[SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]:groupId}=useParams();
 
-    const data = useSelector((state:RootState)=>{
-        if(groupId){
-            return state.splitBillGroup.find((group)=>group.id.toString()==groupId)
-        } else {
-            return state.splitBillGroup.at(0);
-        }
-    });
+    // const data = useSelector((state:RootState)=>{
+    //     if(groupId){
+    //         return state.splitBillGroup.find((group)=>group.id.toString()==groupId)
+    //     } else {
+    //         return state.splitBillGroup.at(0);
+    //     }
+    // });
 
     return (
         <div className={styles.GroupBillHeader}>
@@ -37,7 +30,7 @@ const GroupBillHeader = (
             />
             <div className={styles.groupDetails}>
                 <div className={styles.title}>
-                    {data?.name}
+                    {"data?.name"}
                 </div>
                 <div className={styles.details}>
                     <div className={styles.left}>

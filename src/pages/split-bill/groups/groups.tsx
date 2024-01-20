@@ -6,7 +6,7 @@ type GroupsProps = {
 }
 const Groups = ({}:GroupsProps) => {
   return (
-      <div className={styles.groups}>
+      <div className={styles.Groups}>
           <GroupsTable/>
       </div>
   )

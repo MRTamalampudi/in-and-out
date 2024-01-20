@@ -2,6 +2,7 @@ export const QueryKeys = {
     TRANSACTIONS : "transactions",
     TRANSACTEE: "transactee",
     TRANSACTION_SUMMARY : "transaction_summary",
+    SPLIT_BILL_GROUP_MEMBERS: "group_members"
 } as const;
 
 function getParamsObject(omit:string[]) {
@@ -14,4 +15,8 @@ function getParamsObject(omit:string[]) {
 
 export const TransactionQueryKeys = {
     index:[QueryKeys.TRANSACTIONS,getParamsObject(["view"])]
+}
+
+export const SplitBillGroupMemberQueryKeys = {
+    index: [QueryKeys.SPLIT_BILL_GROUP_MEMBERS]
 }

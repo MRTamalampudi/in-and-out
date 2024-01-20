@@ -1,9 +1,9 @@
+import SplitBillGroupMember from "model/split-bill-group-member.model";
+
 class SplitBillGroup {
     id: number;
     name: string;
-    avatar: string;
-    lentShare: number;
-    oweShare: number;
+    memberList: SplitBillGroupMember[];
 }
 
 export default SplitBillGroup;
