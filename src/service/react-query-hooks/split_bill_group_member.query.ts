@@ -43,8 +43,11 @@ export function useIndexGroupMembers(
     return useQuery({
         queryKey: SplitBillGroupMemberQueryKeys.index,
         queryFn: () =>
-            new SplitBillGroupMemberService().index(page, filters, sorting),
+            SplitBillGroupMemberService
+                .getInstance()
+                .index(page, filters, sorting),
         placeholderData: () =>
             queryClient.getQueryData(SplitBillGroupMemberQueryKeys.index),
     });
 }
+

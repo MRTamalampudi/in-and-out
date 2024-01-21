@@ -5,7 +5,16 @@ import * as process from "process";
 
 export class SplitBillGroupMemberService extends BaseService<SplitBillGroupMember> {
     public BaseURL: string = URL_CONSTANTS.SPLIT_BILL_GROUP_MEMBERS;
-    constructor() {
+    private static instance:SplitBillGroupMemberService;
+    private constructor() {
         super(URL_CONSTANTS.SPLIT_BILL_GROUP_MEMBERS);
+    }
+
+    public static getInstance():SplitBillGroupMemberService{
+        if(!SplitBillGroupMemberService.instance){
+            SplitBillGroupMemberService.instance = new SplitBillGroupMemberService();
+        }
+
+        return SplitBillGroupMemberService.instance;
     }
 }

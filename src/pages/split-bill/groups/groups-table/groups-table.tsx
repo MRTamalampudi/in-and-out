@@ -7,7 +7,7 @@ import {
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
-import { Checkbox, TextInput } from "@mantine/core";
+import { Avatar, Checkbox, TextInput } from "@mantine/core";
 import React, { useState } from "react";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
@@ -15,6 +15,7 @@ import { TableWrapper } from "components/table";
 import Table from "components/table/table";
 import ActionsRow from "components/table/actions-row";
 import { useSearchParams } from "react-router-dom";
+import TextAvatar from "components/text-avatar";
 
 type GroupsTableProps = {};
 const GroupsTable = ({}:GroupsTableProps) => {
@@ -47,7 +48,10 @@ const GroupsTable = ({}:GroupsTableProps) => {
         },
         columnHelper.accessor("group.name",{
             header: "Name",
-            cell: props => props.getValue(),
+            cell: props => (<div className={"flex-row column-gap-8 align-center"}>
+                <TextAvatar text={props.getValue()}/>
+                <span>{props.getValue()}</span>
+            </div>),
             meta: {
                 className : "flex-basis-10/20"
             }
