@@ -1,0 +1,62 @@
+@use "styles/colors";
+@import "styles/size";
+@import "styles/typography";
+@import "styles/cursor";
+@import "styles/flex";
+@import "styles/borders";
+
+.componentStack{
+  @extend .flex-row;
+  flex-direction: row-reverse;
+
+  .components{
+    @extend .flex-row;
+    flex-direction: row-reverse;
+    > div{
+      width: 24px;
+      position: relative;
+      transition: transform 0.2s;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-left: -8px;
+      background-color: gray;
+    }
+
+    > div:hover{
+      transform: scale(1.2);
+      z-index: 1;
+    }
+  }
+
+  img {
+    width: 24px;
+    position: relative;
+    transition: transform 0.2s;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -8px;
+  }
+
+  img:last-child{
+    margin: 0;
+  }
+
+  img:hover {
+    transform: scale(1.2);
+    z-index: 1;
+  }
+
+  .extra{
+    background-color: colors.$g-300;
+    border: 2px solid white;
+    align-items: center;
+    justify-content: center;
+
+    @extend .ml-8;
+    @extend .px-8;
+    @extend .subtitle;
+    @extend .flex-row;
+    @extend .border-rds-8;
+    @extend .pointer;
+  }
+}
