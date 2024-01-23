@@ -16,11 +16,11 @@
   @extend .column-gap-16;
 
   .groupAvatar{
-    @extend .border-solid-1;
+    //@extend .border-solid-1;
     @include height(100px);
     @include width(100px);
 
-    img{
+    > div{
       height: 100px;
       width: 100px;
     }
@@ -33,7 +33,7 @@
     @extend .row-gap-8;
 
     .title{
-      @extend .heading-4;
+      @extend .heading-3-b;
     }
 
     .details{
@@ -45,6 +45,7 @@
 
         @extend .flex-row;
         @extend .column-gap-8;
+        @extend .ml-8;
 
         .members{
           @extend .flex-row;

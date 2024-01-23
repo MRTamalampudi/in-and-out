@@ -40,7 +40,8 @@ export function constructSearchParams(options: ConstructSearchParamOptions) {
 
 type ConstructSearchParamsHookProps = ConstructSearchParamOptions;
 
-export const useConstructSearchParams = ({ pagination, filters, sorting }: ConstructSearchParamsHookProps) => {
+export const useConstructSearchParams = (options: ConstructSearchParamsHookProps) => {
+    const { pagination, filters, sorting } = options;
     const keys = constructSearchParams({ pagination, filters, sorting });
     const [searchParams, setSearchParams] = useSearchParams();
     const [update, clean] = useUpdateSearchParams();

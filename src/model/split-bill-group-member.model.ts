@@ -6,7 +6,7 @@ class SplitBillGroupMember {
     oweShare: number;
     lentShare: number;
     group: SplitBillGroup;
-    user: User;
+    member: User;
 }
 
 export default SplitBillGroupMember;

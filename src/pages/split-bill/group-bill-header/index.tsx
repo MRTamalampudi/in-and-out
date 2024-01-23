@@ -7,38 +7,30 @@ import { useParams } from "react-router-dom";
 import { SPLITBILL_ROUTES } from "../routes";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
+import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 
 interface GroupBillHeaderProps {}
 
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
     const { [SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]: groupId } = useParams();
 
+    const { data } = useGetSplitBillGroup(1);
 
+    const components = data?.memberList.map((member) => (
+        <TextAvatar text={member.member.getFullName()} />
+    ));
 
     return (
         <div className={styles.GroupBillHeader}>
-            <img className={styles.groupAvatar} src={netflix} />
+            <div className={styles.groupAvatar}>
+                <TextAvatar text={data?.name! || ""} size={"xl"} radius={"md"} />
+            </div>
             <div className={styles.groupDetails}>
-                <div className={styles.title}>{"data?.name"}</div>
+                <div className={styles.title}>{data?.name}</div>
                 <div className={styles.details}>
                     <div className={styles.left}>
-                        {/*<div className={styles.members}>*/}
-                        {/*    <span className={styles.extra}> +1 Other</span>*/}
-                        {/*    <img src={netflix}/>*/}
-                        {/*    <img src={netflix}/>*/}
-                        {/*    <img src={netflix}/>*/}
-                        {/*    <img src={netflix}/>*/}
-                        {/*    <img src={netflix}/>*/}
                         {/*</div>*/}
-                        <ComponentStack
-                            components={[
-                                <TextAvatar text={"testing"} />,
-                                <TextAvatar text={"testing"} />,
-                                <TextAvatar text={"testing"} />,
-                                <TextAvatar text={"testing"} />,
-                                <TextAvatar text={"testing"} />,
-                            ]}
-                        />
+                        <ComponentStack components={components || []} />
                         <div className={styles.billShares}>You and</div>
                     </div>
                     <div className={styles.right}>
