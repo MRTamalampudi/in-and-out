@@ -9,12 +9,14 @@ type TableWrapperProps= {
     children: React.ReactNode;
     borders?: boolean;
     height?: number;
+    compact?: boolean;
 };
 
 const TableWrapper_ = memo(({
     children,
     borders = true,
     height = undefined,
+    compact = false,
 }: TableWrapperProps) => {
     return (
         <div
@@ -23,6 +25,7 @@ const TableWrapper_ = memo(({
              ${borders ? styles.radius : ""}
              ${height ? "h" + height + "p" : styles.defaultHeight}
              `}
+            data-compact={compact}
         >
             {children}
         </div>

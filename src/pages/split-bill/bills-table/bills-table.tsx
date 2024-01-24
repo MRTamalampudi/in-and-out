@@ -1,25 +1,79 @@
+import styles from "./bills-table.module.scss"
 import {
     ColumnFiltersState,
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
+    createColumnHelper, flexRender, getCoreRowModel,
     PaginationState,
     SortingState,
-    useReactTable,
+    useReactTable
 } from "@tanstack/react-table";
-import { Avatar, Checkbox, TextInput } from "@mantine/core";
+import { SplitBill } from "model";
+import { Checkbox, TextInput } from "@mantine/core";
 import React, { useState } from "react";
-import SplitBillGroupMember from "model/split-bill-group-member.model";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
+import { columns } from "pages/split-bill/groups/groups-table/columns";
+import { useSearchParams } from "react-router-dom";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
 import ActionsRow from "components/table/actions-row";
-import { useSearchParams } from "react-router-dom";
-import TextAvatar from "components/text-avatar";
-import { columns } from "./columns";
+import { useIndexBills } from "service/react-query-hooks/split-bill.query";
+import SplitBillShare from "model/split-bill-share.model";
+import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
 
-type GroupsTableProps = {};
-const GroupsTable = ({}:GroupsTableProps) => {
+type BillsTableProps = {
+
+}
+const BillsTable = ({}:BillsTableProps) => {
+    const columnHelper = createColumnHelper<SplitBillShare>();
+
+    const columns = [
+        {
+            id: "select",
+            //@ts-ignore
+            header: ({ table }) => (
+                <Checkbox
+                    size={"xs"}
+                    checked={table.getIsAllRowsSelected()}
+                    indeterminate={table.getIsSomeRowsSelected()}
+                    onChange={table.getToggleAllRowsSelectedHandler()}
+                    onClick={(event)=>event.stopPropagation()}
+                />
+            ),
+            //@ts-ignore
+            cell: ({ row }) => (
+                <Checkbox
+                    size={"xs"}
+                    checked={row.getIsSelected()}
+                    onChange={row.getToggleSelectedHandler()}
+                    disabled={!row.getCanSelect()}
+                    onClick={(event)=>event.stopPropagation()}
+                />
+            ),
+        },
+        columnHelper.accessor("bill.bill",{
+            header: "Bill",
+            cell: props => props.getValue(),
+        }),
+        columnHelper.accessor("bill.paidBy",{
+            header: "Paid By",
+            cell: props => props.getValue().getFullName(),
+        }),
+        columnHelper.accessor("bill.date",{
+            header: "Paid on",
+            cell: props => props.getValue().toLocaleDateString(),
+        }),
+        columnHelper.accessor("amount",{
+            header: "My Share",
+            cell: props => props.getValue()
+        }),
+        columnHelper.accessor("status",{
+            header: "My Status",
+            cell: props => props.getValue()
+        }),
+        columnHelper.accessor("bill.amount",{
+            header: "Amount",
+            cell: props => props.getValue(),
+        })
+    ]
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -29,7 +83,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
         pageSize: 20,
     });
 
-    const {data} = useIndexGroupMembers(pagination,columnFilters,sorting);
+    const {data} = useIndexBillShare(pagination,columnFilters,sorting);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -62,7 +116,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
     }
 
     return (
-        <TableWrapper compact={true}>
+        <TableWrapper borders={false}>
             <TableWrapper.MetaRow
                 totalElements={data?.totalElements || 0}
                 title={"Transactions"}
@@ -87,7 +141,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
                     {table.getRowModel().rows.map((row) => (
                         <tr
                             key={row.id}
-                            onClick={() => onRowClick(row.original.group.id)}
+                            onClick={() => onRowClick(row.original.id)}
                             data-selected={row.original.id.toString() == searchParams.get("view")}
                         >
                             {row.getVisibleCells().map((cell) => (
@@ -116,4 +170,4 @@ const GroupsTable = ({}:GroupsTableProps) => {
     )
 }
 
-export default GroupsTable;
+export default BillsTable;

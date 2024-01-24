@@ -9,14 +9,10 @@ import {
     useConstructSearchParams,
 } from "service/react-query-hooks/base.query";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-    QueryKeys,
-    SplitBillGroupQueryKeys,
-} from "service/react-query-hooks/query-keys";
-import { SplitBillGroupService } from "service/split-bill-group.service";
-import { SplitBillGroup } from "model";
+import { SplitBillShareQueryKeys } from "service/react-query-hooks/query-keys";
+import { SplitBillShareService } from "service/split-bill-share.service";
 
-export function useIndexGroups(
+export function useIndexBillShare(
     pagination: PaginationState,
     filters: ColumnFiltersState,
     sorting: SortingState,
@@ -28,25 +24,14 @@ export function useIndexGroups(
     useConstructSearchParams({ pagination, filters, sorting });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: SplitBillGroupQueryKeys.index,
+        queryKey: SplitBillShareQueryKeys.index,
         queryFn: () =>
-            SplitBillGroupService.getInstance().index(
+            SplitBillShareService.getInstance().index(
                 pagination,
                 filters,
                 sorting,
             ),
         placeholderData: () =>
-            queryClient.getQueryData(SplitBillGroupQueryKeys.index),
-    });
-}
-
-export function useGetSplitBillGroup(id: number) {
-    const client = useQueryClient();
-    const filterById = (entity: SplitBillGroup) =>
-        entity.id.toString() == id.toString();
-    return useQuery({
-        queryKey: [QueryKeys.SPLIT_BILL_GROUP, id],
-        queryFn: () => SplitBillGroupService.getInstance().get(id),
-        retry: 1,
+            queryClient.getQueryData(SplitBillShareQueryKeys.index),
     });
 }

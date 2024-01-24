@@ -7,6 +7,7 @@ import { Menu } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { SplitBillConstants } from "./split-bill-constants";
 import Groups from "pages/split-bill/groups/groups";
+import BillsTable from "pages/split-bill/bills-table/bills-table";
 
 interface SplitBillProps {}
 

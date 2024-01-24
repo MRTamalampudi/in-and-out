@@ -26,10 +26,12 @@ function Pagination_(props: PaginationProps) {
         onPaginationChange({ pageIndex: index, pageSize });
     }
 
+    console.log(styles)
+
     return (
         <div className={styles.pagination}>
             <div className={styles.left}>
-                <span>page size:</span>
+                <span className={styles.pageSize}>page size:</span>
                 <div className={styles.select}>
                     <Select
                         data={["10", "20", "30", "50", "100"]}
@@ -44,6 +46,7 @@ function Pagination_(props: PaginationProps) {
                     onClick={() => setPageIndex(() => FIRST_PAGE)}
                     size={"compact-xs"}
                     variant={"subtle"}
+                    className={styles.goToFirst}
                     disabled={pageIndex == FIRST_PAGE}
                 >
                     {"<<"}
@@ -68,6 +71,7 @@ function Pagination_(props: PaginationProps) {
                     size={"compact-xs"}
                     variant={"subtle"}
                     disabled={pageIndex == LAST_PAGE}
+                    className={styles.goToLast}
                 >
                     {">>"}
                 </Button>

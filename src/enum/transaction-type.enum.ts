@@ -1,4 +1,4 @@
-const enum TransactionTypeEnum {
+enum TransactionTypeEnum {
     CASH_IN = "Cash in",
     CASH_OUT= "Cash out",
     LENT= "Lent",

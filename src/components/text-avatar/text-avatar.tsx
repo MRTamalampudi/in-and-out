@@ -1,7 +1,6 @@
 import { Avatar, MantineRadius, MantineSize } from "@mantine/core";
 import React from "react";
 import styles from "./text-avatar.module.scss";
-import "./text-avatar.scss";
 
 type TextAvatarProps = {
     text: string;

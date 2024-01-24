@@ -4,6 +4,8 @@ export const QueryKeys = {
     TRANSACTION_SUMMARY : "transaction_summary",
     SPLIT_BILL_GROUP_MEMBERS: "group_members",
     SPLIT_BILL_GROUP: "groups",
+    SPLIT_BILL : "bills",
+    SPLIT_BILL_SHARE: "splitBillShare"
 } as const;
 
 function getParamsObject(omit:string[]) {
@@ -24,4 +26,12 @@ export const SplitBillGroupMemberQueryKeys = {
 
 export const SplitBillGroupQueryKeys = {
     index:[QueryKeys.SPLIT_BILL_GROUP]
+}
+
+export const SplitBillQueryKeys = {
+    index:[QueryKeys.SPLIT_BILL]
+}
+
+export const SplitBillShareQueryKeys = {
+    index:[QueryKeys.SPLIT_BILL_SHARE]
 }
