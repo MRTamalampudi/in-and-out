@@ -4,7 +4,30 @@
 
 .BillsForm {
   @extend .flex-column;
-  @extend .row-gap-8;
+}
+
+.body{
   @extend .p-16;
-  @include width(320px);
+  @extend .flex-row;
+  @extend .column-gap-12;
+  @include height(25rem);
+  > * {
+    flex-basis: 100%;
+  }
+}
+
+.left{
+  @extend .flex-column;
+  @extend .row-gap-8;
+
+  .dropzone{
+    flex-basis: 100%;
+  }
+}
+
+.right{
+  @extend .pt-4;
+  @extend .flex-column;
+  @extend .row-gap-4;
+  @include height(100%);
 }

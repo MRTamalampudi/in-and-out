@@ -26,7 +26,7 @@ export function useIndexGroupMembers(
     useConstructSearchParams({ pagination, filters, sorting });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: SplitBillGroupMemberQueryKeys.index,
+        queryKey: [SplitBillGroupMemberQueryKeys.index,filters],
         queryFn: () =>
             SplitBillGroupMemberService.getInstance().index(
                 pagination,

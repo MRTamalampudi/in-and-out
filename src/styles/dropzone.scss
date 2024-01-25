@@ -5,8 +5,8 @@
 
 .mantine-Dropzone-root{
   @include width(100%);
-  @include height(8rem);
-  @extend .flex-row;
+  @include height(100%);
+  @extend .flex-column;
   @extend .subtitle;
   @extend .border-rds-8;
   @extend .border-solid-1;
@@ -15,4 +15,8 @@
   align-items: center;
   justify-content: center;
   color: colors.$g-1000;
+}
+
+.mantine-Dropzone-inner{
+  @extend .flex-column;
 }

@@ -21,7 +21,7 @@ import { columns } from "./columns";
 type GroupsTableProps = {};
 const GroupsTable = ({}:GroupsTableProps) => {
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([{id:"forGroupsList",value:"true"}]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState<PaginationState>({
