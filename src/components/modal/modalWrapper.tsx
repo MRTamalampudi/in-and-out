@@ -1,15 +1,15 @@
 import React, { memo, useCallback, useState } from "react";
 import styles from "./modal.module.scss";
-import { Modal } from "@mantine/core";
+import { Modal, ModalProps as ModalProps_ } from "@mantine/core";
 import ModalHeader, { ModalHeaderProps } from "components/header/modal-header";
 import { useWindowEvent } from "utils/use-window-event";
-import { CustomEvents } from "constants/custom-events";
+import { CLICK_EVENT_KEYS, CustomEvents } from "constants/custom-events";
 
 type ModalProps = {
-    target: React.ReactNode;
+    target?: React.ReactNode;
     children: React.ReactNode;
     opened?: boolean;
-} & ModalHeaderProps;
+} & ModalHeaderProps & Pick<ModalProps_,"size">;
 
 const ModalWrapper = ({
     target,
@@ -17,6 +17,7 @@ const ModalWrapper = ({
     title,
     opened,
     onClose,
+    size
 }: ModalProps) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -35,16 +36,17 @@ const ModalWrapper = ({
             >
                 {target}
             </div>
-            {
-                (opened || isModalOpen) && <ModalWrapper.Root
+            {(opened || isModalOpen) && (
+                <ModalWrapper.Root
                     title={title}
                     isModalOpen={isModalOpen}
                     opened={opened}
                     onCloseHandler={onCloseHandler}
+                    size={size}
                 >
                     {children}
                 </ModalWrapper.Root>
-            }
+            )}
         </div>
     );
 };
@@ -52,24 +54,23 @@ const ModalWrapper = ({
 type ModalWrapperRoot = {
     isModalOpen: boolean;
     onCloseHandler: () => void;
-} & Omit<ModalProps, "target" | "onClose">;
+} & Omit<ModalProps, "target" | "onClose"> & Pick<ModalProps_, "size">;
 
-ModalWrapper.Root = memo(({
+function Root_({
     children,
     title,
     opened,
     isModalOpen,
     onCloseHandler,
-}: ModalWrapperRoot) => {
-
-    const escapeKeydownlistner = (e: any) => {
-        console.log("newShit");
-        if (e.key === "escape-simulator") {
+    size
+}: ModalWrapperRoot) {
+    const closeModalListner = (e: any) => {
+        if (e.key === CLICK_EVENT_KEYS.CLOSE_MODAL) {
             onCloseHandler();
         }
     };
 
-    useWindowEvent(CustomEvents.KEYDOWN,escapeKeydownlistner);
+    useWindowEvent(CustomEvents.CLICK, closeModalListner);
 
     return (
         <Modal
@@ -78,6 +79,7 @@ ModalWrapper.Root = memo(({
             centered={true}
             withCloseButton={false}
             padding={0}
+            size={size}
         >
             {title ? (
                 <ModalWrapper.Header title={title} onClose={onCloseHandler} />
@@ -85,22 +87,27 @@ ModalWrapper.Root = memo(({
             {children}
         </Modal>
     );
-});
+}
 
 type ReactNodeChildren = {
     children: React.ReactNode;
 };
 
-ModalWrapper.Footer = ({ children }: ReactNodeChildren) => {
+function Footer_({ children }: ReactNodeChildren) {
     return <div className={styles.footer}>{children}</div>;
-};
+}
 
-ModalWrapper.Header = (props: ModalHeaderProps) => {
+function Header_(props: ModalHeaderProps) {
     return <ModalHeader {...props} />;
-};
+}
 
-ModalWrapper.Body = ({ children }: ReactNodeChildren) => {
+function Body_({ children }: ReactNodeChildren) {
     return <div className={styles.body}>{children}</div>;
-};
+}
+
+ModalWrapper.Footer = Footer_;
+ModalWrapper.Header = Header_;
+ModalWrapper.Body = Body_;
+ModalWrapper.Root = React.memo(Root_);
 
 export default ModalWrapper;

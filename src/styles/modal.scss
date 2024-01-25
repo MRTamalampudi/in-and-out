@@ -1,0 +1,9 @@
+.footer{
+  height: 3rem;
+  align-items: center;
+
+  @extend .pr-8;
+  @extend .column-gap-8;
+  @extend .flex-row;
+  @extend .border-separator-top
+}

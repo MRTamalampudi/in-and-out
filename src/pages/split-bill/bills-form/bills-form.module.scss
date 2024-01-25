@@ -1,0 +1,10 @@
+@import "styles/borders";
+@import "styles/flex";
+@import "styles/size";
+
+.BillsForm {
+  @extend .flex-column;
+  @extend .row-gap-8;
+  @extend .p-16;
+  @include width(320px);
+}

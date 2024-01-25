@@ -161,6 +161,7 @@ thead{
 
   tr{
     background-color: colors.$g-300;
+    @extend .pr-4;
 
     th{
       @extend .body-text-bold;
@@ -206,7 +207,10 @@ tr{
     @extend .pr-8;
   }
 
-  th:last-child,td:last-child {
+  th:last-child {
+    @extend .pr-16;
+  }
+  td:last-child{
     @extend .pr-16;
   }
 }

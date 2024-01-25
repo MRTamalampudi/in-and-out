@@ -8,9 +8,6 @@ const TransactionFormModal = () => {
     const [searchParams,setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
-
-    console.log("Modal wwww")
-
   return (
       <ModalWrapper
           target={<AddNew/>}

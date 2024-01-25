@@ -1,0 +1,18 @@
+@use "colors";
+@import "flex";
+@import "typography";
+@import "borders";
+
+.mantine-Dropzone-root{
+  @include width(100%);
+  @include height(8rem);
+  @extend .flex-row;
+  @extend .subtitle;
+  @extend .border-rds-8;
+  @extend .border-solid-1;
+
+  background: colors.$g-100;
+  align-items: center;
+  justify-content: center;
+  color: colors.$g-1000;
+}

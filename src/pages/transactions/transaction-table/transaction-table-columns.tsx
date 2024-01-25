@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Transaction } from "model";
-import React, { useMemo } from "react";
+import React from "react";
 import { Checkbox, Tooltip } from "@mantine/core";
 import TransactionTypeBadge from "components/transaction-type";
 

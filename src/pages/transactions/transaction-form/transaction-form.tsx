@@ -23,7 +23,7 @@ import {
     useGetTransaction,
 } from "service/react-query-hooks/transaction-query";
 import { useSearchParams } from "react-router-dom";
-import { useSimulateEscape } from "utils/useSimulateEscape";
+import { useCloseModal } from "utils/useCloseModal";
 import { toast } from "sonner";
 
 const TransactionForm = () => {
@@ -60,7 +60,7 @@ function TransactionFormPresentation({
     });
 
     function clearAll() {
-        simulateEscape();
+        closeModal();
         reset(emptyValues);
     }
 
@@ -75,10 +75,10 @@ function TransactionFormPresentation({
         mutate(data)
         console.log("submitted data ==>",data);
         reset(emptyValues)
-        simulateEscape()
+        closeModal()
     };
 
-    const simulateEscape = useSimulateEscape();
+    const closeModal = useCloseModal();
 
     return (
         <div className={styles.TransactionForm}>

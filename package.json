@@ -9,6 +9,7 @@
     "@iconify/tools": "^3.0.2",
     "@mantine/core": "^7.4.0",
     "@mantine/dates": "^7.4.0",
+    "@mantine/dropzone": "^7.4.0",
     "@mantine/form": "^7.4.0",
     "@mantine/hooks": "^7.4.0",
     "@nivo/core": "^0.80.0",

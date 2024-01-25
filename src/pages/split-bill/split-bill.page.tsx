@@ -8,6 +8,10 @@ import { useTranslation } from "react-i18next";
 import { SplitBillConstants } from "./split-bill-constants";
 import Groups from "pages/split-bill/groups/groups";
 import BillsTable from "pages/split-bill/bills-table/bills-table";
+import BillsForm from "pages/split-bill/bills-form/bills-form";
+import { useDispatchEvent } from "utils/useDispatchEvent";
+import { CLICK_EVENT_KEYS, CustomEvents } from "constants/custom-events";
+import { useSearchParams } from "react-router-dom";
 
 interface SplitBillProps {}
 
@@ -27,23 +31,19 @@ const SplitBillPage = ({}: SplitBillProps) => {
 
 const BillAndGroupFormModal = () => {
     const { locales } = SplitBillConstants();
+    const [searchParams,setSearchParams] = useSearchParams();
 
-    const [billFormOpened, setBillFormOpened] = useState<boolean>(false);
-    const [groupFormOpened, setGroupBillFormOpened] = useState<boolean>(false);
-    const { t } = useTranslation();
+    function setBillForm() {
+        searchParams.set("newBill","true")
+        setSearchParams(searchParams);
+    }
+
+    const dispatchEvent = useDispatchEvent();
+
     return (
         <>
-            <div className={"modal"}>
-                {/*<BillForm*/}
-                {/*    title={locales.NEW_BILL}*/}
-                {/*    opened={billFormOpened}*/}
-                {/*    setOpened={setBillFormOpened}*/}
-                {/*/>*/}
-                {/*<GroupForm*/}
-                {/*    title={locales.NEW_GROUP}*/}
-                {/*    opened={groupFormOpened}*/}
-                {/*    setOpened={setGroupBillFormOpened}*/}
-                {/*/>*/}
+            <div className={"d-none"}>
+                <BillsForm/>
             </div>
             <Menu position={"left-end"}>
                 <Menu.Target>
@@ -52,13 +52,13 @@ const BillAndGroupFormModal = () => {
                     </div>
                 </Menu.Target>
                 <Menu.Dropdown>
-                    <Menu.Item onClick={() => setBillFormOpened(true)}>
-                        {t("new", { name: "Bill" })}
+                    <Menu.Item onClick={setBillForm}>
+                        {"New Bill"}
                     </Menu.Item>
                     <Menu.Divider />
-                    <Menu.Item onClick={() => setGroupBillFormOpened(true)}>
-                        {t("new", { name: "Group" })}
-                    </Menu.Item>
+                    {/*<Menu.Item onClick={() => setGroupBillFormOpened(true)}>*/}
+                    {/*    {t("new", { name: "Group" })}*/}
+                    {/*</Menu.Item>*/}
                 </Menu.Dropdown>
             </Menu>
         </>

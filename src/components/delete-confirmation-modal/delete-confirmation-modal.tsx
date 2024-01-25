@@ -9,7 +9,7 @@ import ReceiptBill from "components/recipt-bill";
 import { ReceiptBillProps } from "components/recipt-bill/receipt-bill";
 import { WarningSvg } from "components/svg/warning.svg";
 import { isPending } from "@reduxjs/toolkit";
-import { useSimulateEscape } from "utils/useSimulateEscape";
+import { useCloseModal } from "utils/useCloseModal";
 
 type DeleteConfirmationModalProps = {
     context: string;
@@ -33,7 +33,7 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
         alerts: { DELETE, DELETE_MULTIPLE },
     } = useAlertsTranslations(context);
 
-    const simulateEscape = useSimulateEscape();
+    const simulateEscape = useCloseModal();
 
 
 

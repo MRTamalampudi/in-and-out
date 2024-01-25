@@ -18,6 +18,7 @@ import ActionsRow from "components/table/actions-row";
 import { useIndexBills } from "service/react-query-hooks/split-bill.query";
 import SplitBillShare from "model/split-bill-share.model";
 import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
+import DeleteConfirmationModal from "components/delete-confirmation-modal";
 
 type BillsTableProps = {
 
@@ -52,27 +53,65 @@ const BillsTable = ({}:BillsTableProps) => {
         columnHelper.accessor("bill.bill",{
             header: "Bill",
             cell: props => props.getValue(),
+            meta:{
+                className:"flex-basis-5/20"
+            }
         }),
         columnHelper.accessor("bill.paidBy",{
             header: "Paid By",
             cell: props => props.getValue().getFullName(),
+            meta:{
+                className:"flex-basis-4/20"
+            }
+        }),
+        columnHelper.accessor("status",{
+            header: "My Status",
+            cell: props => props.getValue(),
+            meta:{
+                className:"flex-basis-3/20"
+            }
         }),
         columnHelper.accessor("bill.date",{
             header: "Paid on",
             cell: props => props.getValue().toLocaleDateString(),
+            meta:{
+                className:"flex-basis-3/20"
+            }
         }),
         columnHelper.accessor("amount",{
             header: "My Share",
-            cell: props => props.getValue()
-        }),
-        columnHelper.accessor("status",{
-            header: "My Status",
-            cell: props => props.getValue()
+            cell: props => props.getValue(),
+            meta:{
+                className:"flex-basis-2/20 text-align-right jc-right"
+            }
         }),
         columnHelper.accessor("bill.amount",{
             header: "Amount",
             cell: props => props.getValue(),
-        })
+            meta:{
+                className:"flex-basis-2/20 text-align-right jc-right"
+            }
+        }),
+        {
+            id: "Delete actions",
+            header: ` `,
+            //@ts-ignore
+            cell: ({ row }) => (
+                <DeleteConfirmationModal
+                    context={"Bills"}
+                    data={[row.original]}
+                    transformer={(data) => ({
+                        id: data.id,
+                        note: data.bill.bill,
+                        amount: data.bill.amount,
+                    })}
+                    primary={() => null}
+                />
+            ),
+            meta: {
+                className: "action w48p flex-row jc-center",
+            },
+        }
     ]
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

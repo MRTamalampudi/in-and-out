@@ -24,7 +24,6 @@ const TransactionsPage = (
               <TransactionTypeCard type={TransactionTypeEnum.BALANCE} amount={(data?.cashIn || 0) - ((data?.cashOut || 0) + (data?.lent || 0))}/>
           </div>
           <div className={styles.bottom}>
-              {/*<TransactionsTable/>*/}
               <TransactionTable/>
           </div>
           <Modal/>
