@@ -3,7 +3,9 @@
 
 .mantine-TextInput-error,
 .mantine-PasswordInput-error,
-.mantine-NumberInput-error
+.mantine-NumberInput-error,
+.mantine-InputWrapper-error,
+.mantine-TagsInput-error
 {
   color: colors.$red-500;
   @extend .subtitle;

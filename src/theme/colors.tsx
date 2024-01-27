@@ -1,4 +1,13 @@
-import { Button, createTheme, CSSVariablesResolver, MantineProvider, rem, Select, TextInput } from "@mantine/core";
+import {
+    Button,
+    createTheme,
+    CSSVariablesResolver,
+    MantineProvider,
+    Pill,
+    rem,
+    Select,
+    TextInput
+} from "@mantine/core";
 import { boolean } from "zod";
 
 interface ColorsProps {
@@ -85,6 +94,12 @@ const theme = createTheme({
         TextInput: TextInput.extend({
             defaultProps: {
                 size: "xs"
+            }
+        }),
+        Pill: Pill.extend({
+            defaultProps:{
+                size:"sm",
+                radius: "sm"
             }
         })
     },

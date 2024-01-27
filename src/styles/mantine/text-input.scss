@@ -4,10 +4,13 @@
 @import "styles/size";
 
 
-.mantine-TextInput-inputt,.mantine-Input-input{
+.mantine-TextInput-input,.mantine-Input-input{
   background-color: colors.$g-100;
   @extend .body-text;
   @extend .border-solid-1;
+}
+
+.mantine-Input-input:not(.mantine-TagsInput-input){
   @include height(1.75rem);
 }
 
