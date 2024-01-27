@@ -12,6 +12,7 @@ import BillsForm from "pages/split-bill/bills-form/bills-form";
 import { useDispatchEvent } from "utils/useDispatchEvent";
 import { CLICK_EVENT_KEYS, CustomEvents } from "constants/custom-events";
 import { useSearchParams } from "react-router-dom";
+import GroupsForm from "pages/split-bill/groups-form/groups-form";
 
 interface SplitBillProps {}
 
@@ -38,12 +39,18 @@ const BillAndGroupFormModal = () => {
         setSearchParams(searchParams);
     }
 
+    function setGroupForm() {
+        searchParams.set("newGroup","true")
+        setSearchParams(searchParams)
+    }
+
     const dispatchEvent = useDispatchEvent();
 
     return (
         <>
             <div className={"d-none"}>
                 <BillsForm/>
+                <GroupsForm/>
             </div>
             <Menu position={"left-end"}>
                 <Menu.Target>
@@ -56,9 +63,9 @@ const BillAndGroupFormModal = () => {
                         {"New Bill"}
                     </Menu.Item>
                     <Menu.Divider />
-                    {/*<Menu.Item onClick={() => setGroupBillFormOpened(true)}>*/}
-                    {/*    {t("new", { name: "Group" })}*/}
-                    {/*</Menu.Item>*/}
+                    <Menu.Item onClick={setGroupForm}>
+                        {"New Group"}
+                    </Menu.Item>
                 </Menu.Dropdown>
             </Menu>
         </>

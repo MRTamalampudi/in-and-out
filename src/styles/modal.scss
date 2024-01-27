@@ -1,9 +1,12 @@
-.footer{
-  height: 3rem;
-  align-items: center;
+@import "size";
 
-  @extend .pr-8;
+.footer{
+  align-items: center;
+  justify-content: right;
+
+  @extend .pr-16;
   @extend .column-gap-8;
   @extend .flex-row;
-  @extend .border-separator-top
+  @extend .border-separator-top;
+  @include height(3rem);
 }

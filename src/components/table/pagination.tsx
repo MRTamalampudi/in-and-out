@@ -58,7 +58,7 @@ function Pagination_(props: PaginationProps) {
                 >
                     {"<"}
                 </Button>
-                <span>{`page ${pageIndex} of ${TOTAL_PAGES}`}</span>
+                <span >{`page ${pageIndex} of ${TOTAL_PAGES}`}</span>
                 <Button
                     onClick={() => setPageIndex(() => pageIndex + 1)}
                     size={"compact-xs"}

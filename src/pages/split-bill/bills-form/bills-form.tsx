@@ -17,11 +17,9 @@ import {
 } from "@tanstack/react-table";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
-import { Checkbox, TextInput } from "@mantine/core";
+import { Button, Checkbox, TextInput } from "@mantine/core";
 import Table from "components/table/table";
-import ActionsRow from "components/table/actions-row";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
-import TextAvatar from "components/text-avatar/text-avatar";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -49,7 +47,7 @@ const BillsFormPresentation = () => {
         mode: "onSubmit",
     });
 
-    const columnHelper = createColumnHelper<SplitBillGroupMember>()
+    const columnHelper = createColumnHelper<SplitBillGroupMember>();
 
     const columns = [
         {
@@ -61,7 +59,7 @@ const BillsFormPresentation = () => {
                     checked={table.getIsAllRowsSelected()}
                     indeterminate={table.getIsSomeRowsSelected()}
                     onChange={table.getToggleAllRowsSelectedHandler()}
-                    onClick={(event)=>event.stopPropagation()}
+                    onClick={(event) => event.stopPropagation()}
                 />
             ),
             //@ts-ignore
@@ -71,20 +69,27 @@ const BillsFormPresentation = () => {
                     checked={row.getIsSelected()}
                     onChange={row.getToggleSelectedHandler()}
                     disabled={!row.getCanSelect()}
-                    onClick={(event)=>event.stopPropagation()}
+                    onClick={(event) => event.stopPropagation()}
                 />
             ),
         },
-        columnHelper.accessor("member",{
+        columnHelper.accessor("member", {
             header: "Name",
-            cell: props => (<div className={"flex-row column-gap-8 align-center"}>
-                <span>{props.getValue().getFullName()}</span>
-            </div>),
+            cell: (props) => (
+                <div className={"flex-row column-gap-8 align-center"}>
+                    <span>{props.getValue().getFullName()}</span>
+                </div>
+            ),
             meta: {
-                className : "flex-basis-10/20"
-            }
+                className: "flex-basis-10/20",
+            },
         }),
-    ]
+        {
+            id:"share",
+            header:"not",
+            cell: ()=> <TextInput/>
+        }
+    ];
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
         { id: "group", value: "1" },
@@ -122,7 +127,9 @@ const BillsFormPresentation = () => {
         enableMultiSort: true,
     });
 
-    console.log(table.getSelectedRowModel().rows.map(row=>row.getVisibleCells()))
+    console.log(
+        table.getSelectedRowModel().rows.map((row) => row.getVisibleCells().map(value => value.getValue())),
+    );
 
     return (
         <div className={styles.BillsForm}>
@@ -132,21 +139,25 @@ const BillsFormPresentation = () => {
                         name={"amount"}
                         control={control}
                         label={"Amount"}
+                        placeholder={"enter amount"}
                     />
                     <TextInputForm
                         name={"bill"}
                         control={control}
                         label={"Bill"}
+                        placeholder={"enter bill"}
                     />
                     <TextInputForm
                         name={"by"}
                         control={control}
                         label={"Paid by"}
+                        placeholder={"select paid by"}
                     />
                     <TextInputForm
                         name={"on"}
                         control={control}
                         label={"Paid on"}
+                        placeholder={"select paid date"}
                     />
                     <div className={styles.dropzone}>
                         <Dropzone onDrop={() => console.log("drop")}>
@@ -184,7 +195,12 @@ const BillsFormPresentation = () => {
                 </div>
             </div>
             <div className={"footer"}>
-                check
+                <Button size={"compact-sm"} variant={"outline"}>
+                    Clear all
+                </Button>
+                <Button size={"compact-sm"} type={"submit"}>
+                    {getValues("id") ? "Update" : "Add"}
+                </Button>
             </div>
         </div>
     );
