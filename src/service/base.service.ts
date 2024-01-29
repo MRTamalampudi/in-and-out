@@ -61,6 +61,7 @@ export abstract class BaseService<Entity> {
     }
 
     public create(entity: Entity): Promise<Entity> {
+        console.log(entity,this.BaseURL)
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {

@@ -1,10 +1,10 @@
+import { z } from "zod";
+
 class User {
     id:number;
     firstName:string;
     lastName:string;
-    mobile:string;
-    darkMode:boolean;
-    currency:number;
+    email:string;
 
     public getFullName(): string{
         return `${this.firstName} ${this.lastName}`;
@@ -17,3 +17,16 @@ class User {
 }
 
 export default User;
+
+//@ts-ignore
+export const userSchema = () => {
+    // @ts-ignore
+    const schema = z.object<User>({
+        id: z.number().optional(),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
+        email: z.string().optional(),
+    });
+
+    return schema;
+};

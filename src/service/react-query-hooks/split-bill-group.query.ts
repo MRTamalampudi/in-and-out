@@ -8,13 +8,15 @@ import {
     constructSearchParams,
     useConstructSearchParams,
 } from "service/react-query-hooks/base.query";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     QueryKeys,
     SplitBillGroupQueryKeys,
 } from "service/react-query-hooks/query-keys";
 import { SplitBillGroupService } from "service/split-bill-group.service";
 import { SplitBillGroup } from "model";
+import { CustomMutationOptions } from "service/react-query-hooks/react-query";
+import { TransactionService } from "service/transaction.service";
 
 export function useIndexGroups(
     pagination: PaginationState,
@@ -48,5 +50,17 @@ export function useGetSplitBillGroup(id: number) {
         queryKey: [QueryKeys.SPLIT_BILL_GROUP, id],
         queryFn: () => SplitBillGroupService.getInstance().get(id),
         retry: 1,
+    });
+}
+
+export function useCreateSplitBillGroup(options: CustomMutationOptions) {
+    const { onSuccess, onError } = options;
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data:SplitBillGroup)=>SplitBillGroupService.getInstance().create(data),
+        onSuccess: () => {
+            onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: SplitBillGroupQueryKeys.index });
+        },
     });
 }
