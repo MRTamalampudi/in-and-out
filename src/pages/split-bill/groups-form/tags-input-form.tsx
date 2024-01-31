@@ -37,6 +37,9 @@ const GroupsTagsInputForm = <T extends FieldValues>(props: InputProps<T>) => {
             clearable
             value={value && value.map((mem:any)=>mem.member.email)}
             onChange={handleOnchange}
+            styles={{
+                input:{height:"10rem"}
+            }}
         />
     );
 };

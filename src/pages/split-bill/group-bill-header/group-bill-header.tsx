@@ -11,18 +11,21 @@ import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group
 interface GroupBillHeaderProps {}
 
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
-    const { [SPLITBILL_ROUTES.SPLITBILL_GROUP_ID]: groupId } = useParams();
 
     const { data } = useGetSplitBillGroup(1);
 
     const components = data?.memberList.map((member) => (
-        <TextAvatar text={member.member.getFullName()} key={member.id}/>
+        <TextAvatar text={member.member.getFullName()} key={member.id} />
     ));
 
     return (
         <div className={styles.GroupBillHeader}>
             <div className={styles.groupAvatar}>
-                <TextAvatar text={data?.name! || ""} size={"xl"} radius={"md"} />
+                <TextAvatar
+                    text={data?.name! || ""}
+                    size={"xl"}
+                    radius={"md"}
+                />
             </div>
             <div className={styles.groupDetails}>
                 <div className={styles.title}>{data?.name}</div>
@@ -30,7 +33,20 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
                     <div className={styles.left}>
                         {/*</div>*/}
                         <ComponentStack components={components || []} />
-                        <div className={styles.billShares}>You and</div>
+                        <div className={styles.billShares}>
+                            You lent{" "}
+                            {
+                                data?.memberList.find(
+                                    (member) => member.member.id == 8,
+                                )?.lentShare
+                            }{" "}
+                            and owe{" "}
+                            {
+                                data?.memberList.find(
+                                    (member) => member.member.id == 8,
+                                )?.oweShare
+                            }
+                        </div>
                     </div>
                     <div className={styles.right}>
                         <EditIcon

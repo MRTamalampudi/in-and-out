@@ -15,6 +15,7 @@ import Login from "./pages/login";
 import PlayGround from "pages/play-ground";
 import "@mantine/core/styles.css";
 import "styles/mantine/index.scss"
+import '@mantine/dates/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,7 +1,7 @@
 @use "styles/colors";
 
 @mixin borderSolid($size){
-  border: #{$size} solid #ededed;
+  border: #{$size} solid #f2f2f2;
 }
 
 @mixin borderRadius($radius){
@@ -28,18 +28,18 @@
 }
 
 .border-separator-bottom{
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .border-separator-right{
-  border-right: 1px solid #ededed;
+  border-right: 1px solid #f2f2f2;
 }
 
 .border-separator-top{
-  border-top: 1px solid #ededed;
+  border-top: 1px solid #f2f2f2;
 }
 .border-separator-left{
-  border-left: 1px solid #ededed;
+  border-left: 1px solid #f2f2f2;
 }
 
 .border-rds-4{

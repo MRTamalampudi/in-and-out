@@ -19,7 +19,7 @@ class User {
 export default User;
 
 //@ts-ignore
-export const userSchema = () => {
+export const useUserSchema = () => {
     // @ts-ignore
     const schema = z.object<User>({
         id: z.number().optional(),

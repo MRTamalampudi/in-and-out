@@ -1,7 +1,6 @@
 enum SplitAlgo {
-    EQUAL,
-    PERCENTAGE,
-    WEIGHTED
+    EQUAL = "EQUAL",
+    WEIGHTED = "WEIGHTED",
 }
 
 export default SplitAlgo;

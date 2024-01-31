@@ -2,10 +2,10 @@
 @import "flex";
 
 tr{
-  th{
-      @extend .flex-row;
-      align-items: center;
-  }
+  //th{
+  //    @extend .flex-row;
+  //    align-items: center;
+  //}
   td{
     &.action{
       visibility: hidden;

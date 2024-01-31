@@ -59,7 +59,7 @@ function GroupsFormPresentation() {
                     control={control}
                     label={"Enter member emails"}
                     name={"memberList"}
-                    placeholder={"email"}
+                    placeholder={"Enter email"}
                 />
             </div>
             <div className={"footer"}>

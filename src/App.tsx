@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./App.scss";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { Outlet } from "react-router";
 import Header from "./components/header";
 import "./i18n";
 import { NavBar } from "components";
@@ -10,7 +10,6 @@ import { banner } from "templates/banner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Toaster } from "sonner";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
     defaultOptions: {},

@@ -8,6 +8,7 @@ import Table from "components/table/table";
 type TableWrapperProps= {
     children: React.ReactNode;
     borders?: boolean;
+    rowBorders?:boolean;
     height?: number;
     compact?: boolean;
 };
@@ -17,6 +18,7 @@ const TableWrapper_ = memo(({
     borders = true,
     height = undefined,
     compact = false,
+    rowBorders = true,
 }: TableWrapperProps) => {
     return (
         <div
@@ -26,6 +28,7 @@ const TableWrapper_ = memo(({
              ${height ? "h" + height + "p" : styles.defaultHeight}
              `}
             data-compact={compact}
+            data-rowBorders={rowBorders}
         >
             {children}
         </div>

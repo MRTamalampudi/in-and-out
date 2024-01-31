@@ -158,7 +158,7 @@ const BillsTable = ({}:BillsTableProps) => {
         <TableWrapper borders={false}>
             <TableWrapper.MetaRow
                 totalElements={data?.totalElements || 0}
-                title={"Transactions"}
+                title={"Bills"}
             >
                 <TextInput
                     placeholder={"search"}

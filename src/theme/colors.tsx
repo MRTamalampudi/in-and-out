@@ -1,5 +1,5 @@
 import {
-    Button,
+    Button, Checkbox,
     createTheme,
     CSSVariablesResolver,
     MantineProvider,
@@ -100,6 +100,11 @@ const theme = createTheme({
             defaultProps:{
                 size:"sm",
                 radius: "sm"
+            }
+        }),
+        Checkbox: Checkbox.extend({
+            defaultProps:{
+                size:"xs"
             }
         })
     },

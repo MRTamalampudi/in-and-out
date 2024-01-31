@@ -1,25 +1,28 @@
 import styles from "./bills-form.module.scss";
 import { TextInputForm } from "forms/inputs";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import ModalWrapper from "components/modal";
 import { useSearchParams } from "react-router-dom";
 import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     ColumnFiltersState,
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
     PaginationState,
     SortingState,
-    useReactTable,
 } from "@tanstack/react-table";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
-import { Button, Checkbox, TextInput } from "@mantine/core";
+import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
+import { SplitBill } from "model";
+import PaidBy from "pages/split-bill/bills-form/transactee-select";
+import DateTimeInputForm from "forms/inputs/date-time-input-form";
+import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
+import { useSplitBillSchema } from "model/split-bill.model";
+import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -43,53 +46,27 @@ const BillsForm = ({}: BillsFormProps) => {
 };
 
 const BillsFormPresentation = () => {
-    const { control, handleSubmit, reset, getValues } = useForm({
+
+    const {schema,defaultValues} = useBillFormEssentials();
+
+    const {
+        formState,
+        watch,
+        setValue,
+        control,
+        handleSubmit,
+        reset,
+        getValues,
+    } = useForm<SplitBill>({
         mode: "onSubmit",
+        defaultValues,
+        resolver:zodResolver(schema)
+    })
+
+    const { remove, append, update, replace } = useFieldArray({
+        control,
+        name: "splitBillShareList",
     });
-
-    const columnHelper = createColumnHelper<SplitBillGroupMember>();
-
-    const columns = [
-        {
-            id: "select",
-            //@ts-ignore
-            header: ({ table }) => (
-                <Checkbox
-                    size={"xs"}
-                    checked={table.getIsAllRowsSelected()}
-                    indeterminate={table.getIsSomeRowsSelected()}
-                    onChange={table.getToggleAllRowsSelectedHandler()}
-                    onClick={(event) => event.stopPropagation()}
-                />
-            ),
-            //@ts-ignore
-            cell: ({ row }) => (
-                <Checkbox
-                    size={"xs"}
-                    checked={row.getIsSelected()}
-                    onChange={row.getToggleSelectedHandler()}
-                    disabled={!row.getCanSelect()}
-                    onClick={(event) => event.stopPropagation()}
-                />
-            ),
-        },
-        columnHelper.accessor("member", {
-            header: "Name",
-            cell: (props) => (
-                <div className={"flex-row column-gap-8 align-center"}>
-                    <span>{props.getValue().getFullName()}</span>
-                </div>
-            ),
-            meta: {
-                className: "flex-basis-10/20",
-            },
-        }),
-        {
-            id:"share",
-            header:"not",
-            cell: ()=> <TextInput/>
-        }
-    ];
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
         { id: "group", value: "1" },
@@ -103,33 +80,31 @@ const BillsFormPresentation = () => {
 
     const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
 
-    const table = useReactTable({
-        data: data?.content || [],
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        enableRowSelection: true,
-        onRowSelectionChange: setRowSelection,
-        state: {
-            rowSelection,
-            pagination,
-            columnFilters,
-            sorting,
-        },
-        manualPagination: true,
-        onPaginationChange: setPagination,
-        onColumnFiltersChange: setColumnFilters,
-        onSortingChange: setSorting,
-        enableFilters: true,
-        enableColumnFilters: true,
-        manualFiltering: true,
-        manualSorting: true,
-        enableSorting: true,
-        enableMultiSort: true,
-    });
+    function handleOnchange(
+        e: string | number,
+        index: number,
+        member: SplitBillGroupMember,
+    ) {
+        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()));
+        setValue(`splitBillShareList.${index}.user`, member.member);
+    }
 
-    console.log(
-        table.getSelectedRowModel().rows.map((row) => row.getVisibleCells().map(value => value.getValue())),
-    );
+    watch("splitBillShareList");
+    watch("amount");
+
+    useEffect(() => {
+        data?.content.forEach((member, index) => {
+            setValue(
+                `splitBillShareList.${index}.amount`,
+                getValues("amount") / data?.numberOfElements,
+            );
+            setValue(`splitBillShareList.${index}.user`, member.member);
+        });
+    }, [getValues("amount")]);
+
+
+
+    console.log(formState.touchedFields);
 
     return (
         <div className={styles.BillsForm}>
@@ -147,18 +122,26 @@ const BillsFormPresentation = () => {
                         label={"Bill"}
                         placeholder={"enter bill"}
                     />
-                    <TextInputForm
-                        name={"by"}
+                    <PaidBy
+                        name={"paidBy"}
                         control={control}
                         label={"Paid by"}
                         placeholder={"select paid by"}
                     />
-                    <TextInputForm
-                        name={"on"}
-                        control={control}
-                        label={"Paid on"}
-                        placeholder={"select paid date"}
-                    />
+                    <div className={"flex-row column-gap-8 flex-basis-equal"}>
+                        <DateTimeInputForm
+                            name={"date"}
+                            control={control}
+                            label={"Paid on"}
+                            placeholder={"select paid date"}
+                        />
+                        <SplitAlgoSelect
+                            name={"splitAlgo"}
+                            control={control}
+                            label={"Split type"}
+                            placeholder={"select split type"}
+                        />
+                    </div>
                     <div className={styles.dropzone}>
                         <Dropzone onDrop={() => console.log("drop")}>
                             <Paperclip width={64} height={64} />
@@ -167,28 +150,50 @@ const BillsFormPresentation = () => {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <span className={"subtitle"}>Members</span>
-                    <TableWrapper compact={true}>
+                    <TableWrapper
+                        compact={true}
+                        borders={false}
+                        rowBorders={false}
+                    >
                         <Table>
                             <Table.Body>
-                                {table.getRowModel().rows.map((row) => (
-                                    <tr key={row.id}>
-                                        {row.getVisibleCells().map((cell) => (
-                                            <td
-                                                key={cell.id}
-                                                className={
-                                                    cell.column.columnDef.meta
-                                                        ?.className
-                                                }
-                                            >
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext(),
-                                                )}
+                                {data?.content.map((member, index) => {
+                                    return (
+                                        <tr
+                                            key={index}
+                                            data-disabled={
+                                                !getValues(
+                                                    `splitBillShareList.${index}`,
+                                                )
+                                            }
+                                        >
+                                            <td>
+                                                <Checkbox checked={!!getValues(
+                                                    `splitBillShareList.${index}.amount`,
+                                                )}/>
                                             </td>
-                                        ))}
-                                    </tr>
-                                ))}
+                                            <td className={"flex-basis-10/20"}>
+                                                {member.member.getFullName()}
+                                            </td>
+                                            <td>
+                                                <NumberInput
+                                                    hideControls
+                                                    value={getValues(
+                                                        `splitBillShareList.${index}.amount`,
+                                                    )}
+                                                    onChange={(e) =>
+                                                        handleOnchange(
+                                                            e,
+                                                            index,
+                                                            member,
+                                                        )
+                                                    }
+                                                    defaultValue={0}
+                                                />
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </Table.Body>
                         </Table>
                     </TableWrapper>
@@ -198,7 +203,11 @@ const BillsFormPresentation = () => {
                 <Button size={"compact-sm"} variant={"outline"}>
                     Clear all
                 </Button>
-                <Button size={"compact-sm"} type={"submit"}>
+                <Button
+                    size={"compact-sm"}
+                    type={"submit"}
+                    onClick={handleSubmit((data) => console.log(data))}
+                >
                     {getValues("id") ? "Update" : "Add"}
                 </Button>
             </div>

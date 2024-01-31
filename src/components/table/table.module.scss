@@ -14,6 +14,71 @@
   justify-content: space-between;
   container-type: inline-size;
   container-name: tableContainer;
+
+  thead{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    @extend .body-text-bold;
+
+    tr{
+      background-color: colors.$g-300;
+      @extend .pr-4;
+
+      th{
+        @extend .body-text-bold;
+        @extend .flex-row;
+        align-items: center;
+      }
+
+      th:last-child{
+        @extend .flex-row;
+      }
+    }
+  }
+
+  tbody{
+    overflow-y: scroll;
+    tr{
+      height: 2.5rem;
+      text-decoration: none;
+
+      @extend .pointer;
+      td{
+        @extend .body-text;
+      }
+
+      &[data-selected=true]{
+        background-color: colors.$g-300;
+      }
+
+      &:hover{
+        background-color: colors.$g-200;
+      }
+    }
+  }
+
+  tr{
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+
+    @extend .border-separator-bottom;
+    @extend .column-gap-8;
+
+    th:first-child,td:first-child{
+      @extend .pl-16;
+      @extend .pr-8;
+    }
+
+    th:last-child {
+      @extend .pr-16;
+    }
+    td:last-child{
+      @extend .pr-16;
+    }
+  }
 }
 
 .pagination {
@@ -152,69 +217,6 @@
   @extend .body-text;
 }
 
-thead{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  @extend .body-text-bold;
-
-  tr{
-    background-color: colors.$g-300;
-    @extend .pr-4;
-
-    th{
-      @extend .body-text-bold;
-    }
-
-    th:last-child{
-      @extend .flex-row;
-    }
-  }
-}
-
-tbody{
-  overflow-y: scroll;
-  tr{
-    height: 2.5rem;
-    text-decoration: none;
-
-    @extend .pointer;
-    td{
-      @extend .body-text;
-    }
-
-    &[data-selected=true]{
-      background-color: colors.$g-300;
-    }
-
-    &:hover{
-      background-color: colors.$g-200;
-    }
-  }
-}
-
-tr{
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-
-  @extend .border-separator-bottom;
-  @extend .column-gap-8;
-
-  th:first-child,td:first-child{
-    @extend .pl-16;
-    @extend .pr-8;
-  }
-
-  th:last-child {
-    @extend .pr-16;
-  }
-  td:last-child{
-    @extend .pr-16;
-  }
-}
-
 .display-none{
   display: none;
 }
@@ -226,6 +228,15 @@ tr{
   .pagination>div:last-child
   {
     display: none;
+  }
+}
+
+.Table[data-rowBorders=false]{
+  tbody{
+    overflow-y: auto;
+  }
+  tr{
+    border: none;
   }
 }
 
