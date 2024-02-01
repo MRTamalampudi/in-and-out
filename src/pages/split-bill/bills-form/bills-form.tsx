@@ -16,7 +16,7 @@ import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
 import { SplitBill, User } from "model";
-import PaidBy from "pages/split-bill/bills-form/transactee-select";
+import PaidBy from "pages/split-bill/bills-form/paid-by";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
 import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
 import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
@@ -48,6 +48,12 @@ const BillsForm = ({}: BillsFormProps) => {
 const BillsFormPresentation = () => {
     const { schema, defaultValues } = useBillFormEssentials();
 
+    const formProps = useForm<SplitBill>({
+        mode: "onSubmit",
+        defaultValues,
+        resolver: zodResolver(schema),
+    });
+
     const {
         formState,
         watch,
@@ -58,13 +64,11 @@ const BillsFormPresentation = () => {
         getValues,
         getFieldState,
         resetField,
-    } = useForm<SplitBill>({
-        mode: "onSubmit",
-        defaultValues,
-        resolver: zodResolver(schema),
-    });
+    } = formProps;
 
-    const { remove, append, update, replace } = useFieldArray({
+    // const {handleAmountChange,handleCheckBoxChange,split} = useSplitLogic(formProps);
+
+    useFieldArray({
         control,
         name: "splitBillShareList",
     });
@@ -107,12 +111,15 @@ const BillsFormPresentation = () => {
 
     function handleChecked(checked: boolean, index: number, member: User) {
         if (checked) {
-            setValue(`splitBillShareList.${index}.amount`, -37, {
+            setValue(`splitBillShareList.${index}.algo`, SplitAlgo.EQUAL, {
                 shouldTouch: true,
-            });
-            reset(undefined,{keepValues:true})
+            })
+            reset(undefined,{keepValues:true,keepTouched:true})
         } else {
             setValue(`splitBillShareList.${index}.amount`, 0, {
+                shouldTouch: true,
+            });
+            setValue(`splitBillShareList.${index}.algo`, SplitAlgo.PERCENTAGE, {
                 shouldTouch: true,
             });
         }
@@ -124,17 +131,13 @@ const BillsFormPresentation = () => {
     }
 
     function getTouchedByIndex(index: number) {
-        console.log(
-            "touched",getFieldState(`splitBillShareList.${index}`).isTouched,
-            "37", getAmountByIndex(index) != -37 ,
-            "algo", getValues(`splitBillShareList.${index}.algo`) == SplitAlgo.WEIGHTED,
-            index
-        )
-        return (
-            (getFieldState(`splitBillShareList.${index}`).isTouched ||
-            (getValues(`splitBillShareList.${index}.algo`)==SplitAlgo.WEIGHTED))  && getAmountByIndex(index)!=37
+        const fieldState = getFieldState(`splitBillShareList.${index}`);
+        const isTouched = fieldState.isTouched;
+        const isWeighted = getValues(`splitBillShareList.${index}.algo`) === SplitAlgo.WEIGHTED;
+        const isPercentage = getValues(`splitBillShareList.${index}.algo`) === SplitAlgo.PERCENTAGE;
+        const isEqual = getValues(`splitBillShareList.${index}.algo`) != SplitAlgo.EQUAL;
 
-        );
+        return (isTouched || isWeighted || isPercentage) && isEqual;
     }
 
     function split() {
@@ -152,6 +155,13 @@ const BillsFormPresentation = () => {
             value: SplitBillShare,
             index: number,
         ) => {
+            console.log(
+                "touched",getFieldState(`splitBillShareList.${index}`).isTouched,
+                "algo", getValues(`splitBillShareList.${index}.algo`) == SplitAlgo.WEIGHTED,
+                "37", getAmountByIndex(index) != -37 ,
+                index,
+                getTouchedByIndex(index)
+            )
             return getTouchedByIndex(index) ? acc + 1 : acc;
         };
 

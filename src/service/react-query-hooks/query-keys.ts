@@ -5,7 +5,8 @@ export const QueryKeys = {
     SPLIT_BILL_GROUP_MEMBERS: "group_members",
     SPLIT_BILL_GROUP: "groups",
     SPLIT_BILL : "bills",
-    SPLIT_BILL_SHARE: "splitBillShare"
+    SPLIT_BILL_SHARE: "splitBillShare",
+    USER: "user"
 } as const;
 
 function getParamsObject(omit:string[]) {

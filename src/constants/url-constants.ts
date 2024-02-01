@@ -9,4 +9,5 @@ export const URL_CONSTANTS = {
     TRANSACTIONS: `${BASE_URL}/transactions`,
     SPLIT_BILL: `${BASE_URL}/split_bill`,
     SPLIT_BILL_SHARE: `${BASE_URL}/split_bill_share`,
+    USER:`${BASE_URL}/user`
 }
