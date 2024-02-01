@@ -15,7 +15,7 @@ export const useBillFormEssentials = ():FormEssentials<SplitBillGroup> => {
         splitAlgo:SplitAlgo.EQUAL,
     }
 
-    const emptyValues:Partial<SplitBillGroup>= defaultValues;
+    const emptyValues:Partial<SplitBill>= defaultValues;
 
     return {
         schema,

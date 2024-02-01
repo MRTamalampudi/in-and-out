@@ -15,14 +15,14 @@ import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
-import SplitBillGroupMember from "model/split-bill-group-member.model";
-import { SplitBill } from "model";
+import { SplitBill, User } from "model";
 import PaidBy from "pages/split-bill/bills-form/transactee-select";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
 import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
-import { useSplitBillSchema } from "model/split-bill.model";
 import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
+import SplitBillShare from "model/split-bill-share.model";
+import { SplitAlgo } from "enum";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -46,8 +46,7 @@ const BillsForm = ({}: BillsFormProps) => {
 };
 
 const BillsFormPresentation = () => {
-
-    const {schema,defaultValues} = useBillFormEssentials();
+    const { schema, defaultValues } = useBillFormEssentials();
 
     const {
         formState,
@@ -57,11 +56,13 @@ const BillsFormPresentation = () => {
         handleSubmit,
         reset,
         getValues,
+        getFieldState,
+        resetField,
     } = useForm<SplitBill>({
         mode: "onSubmit",
         defaultValues,
-        resolver:zodResolver(schema)
-    })
+        resolver: zodResolver(schema),
+    });
 
     const { remove, append, update, replace } = useFieldArray({
         control,
@@ -80,13 +81,12 @@ const BillsFormPresentation = () => {
 
     const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
 
-    function handleOnchange(
-        e: string | number,
-        index: number,
-        member: SplitBillGroupMember,
-    ) {
-        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()));
-        setValue(`splitBillShareList.${index}.user`, member.member);
+    function handleOnchange(e: string | number, index: number) {
+        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
+            shouldTouch: true,
+        });
+        setValue(`splitBillShareList.${index}.algo`, SplitAlgo.WEIGHTED)
+        split();
     }
 
     watch("splitBillShareList");
@@ -100,11 +100,100 @@ const BillsFormPresentation = () => {
             );
             setValue(`splitBillShareList.${index}.user`, member.member);
         });
+        split();
     }, [getValues("amount")]);
 
+    console.log(getValues(`splitBillShareList`));
 
+    function handleChecked(checked: boolean, index: number, member: User) {
+        if (checked) {
+            setValue(`splitBillShareList.${index}.amount`, -37, {
+                shouldTouch: true,
+            });
+            reset(undefined,{keepValues:true})
+        } else {
+            setValue(`splitBillShareList.${index}.amount`, 0, {
+                shouldTouch: true,
+            });
+        }
+        split();
+    }
 
-    console.log(formState.touchedFields);
+    function getAmountByIndex(index: number) {
+        return getValues(`splitBillShareList.${index}.amount`);
+    }
+
+    function getTouchedByIndex(index: number) {
+        console.log(
+            "touched",getFieldState(`splitBillShareList.${index}`).isTouched,
+            "37", getAmountByIndex(index) != -37 ,
+            "algo", getValues(`splitBillShareList.${index}.algo`) == SplitAlgo.WEIGHTED,
+            index
+        )
+        return (
+            (getFieldState(`splitBillShareList.${index}`).isTouched ||
+            (getValues(`splitBillShareList.${index}.algo`)==SplitAlgo.WEIGHTED))  && getAmountByIndex(index)!=37
+
+        );
+    }
+
+    function split() {
+        console.log(getValues(`splitBillShareList`));
+        const calculateTouchedAmount = (
+            acc: number,
+            value: SplitBillShare,
+            index: number,
+        ) => {
+            return getTouchedByIndex(index) ? acc + value.amount : acc;
+        };
+
+        const caluculateTouchedMember = (
+            acc: number,
+            value: SplitBillShare,
+            index: number,
+        ) => {
+            return getTouchedByIndex(index) ? acc + 1 : acc;
+        };
+
+        const touchedMemberCount = getValues(`splitBillShareList`).reduce(
+            caluculateTouchedMember,
+            0,
+        );
+        const untouchedMemberCount =
+            getValues(`splitBillShareList`).length - touchedMemberCount;
+
+        console.log("touchedMemberCount ==> ", touchedMemberCount);
+        console.log("untouchedMemberCount ==>", untouchedMemberCount);
+
+        const amount = getValues("amount");
+        console.log("amount===>", amount);
+        const touchedAmount = getValues(`splitBillShareList`).reduce(
+            calculateTouchedAmount,
+            0,
+        );
+        console.log("touched amount ==>", touchedAmount);
+        const quantum = Math.floor(
+            (amount - touchedAmount) / untouchedMemberCount,
+        );
+        console.log("quantum ===>", quantum);
+        let remaining = amount - touchedAmount - untouchedMemberCount * quantum;
+
+        const distributeMoneyforUntouched = (
+            value: SplitBillShare,
+            index: number,
+        ) => {
+            if (!getTouchedByIndex(index)) {
+                setValue(
+                    `splitBillShareList.${index}.amount`,
+                    quantum + (remaining-- > 0 ? 1 : 0),
+                );
+            }
+        };
+
+        getValues(`splitBillShareList`).forEach(distributeMoneyforUntouched);
+
+        console.log(formState);
+    }
 
     return (
         <div className={styles.BillsForm}>
@@ -162,15 +251,26 @@ const BillsFormPresentation = () => {
                                         <tr
                                             key={index}
                                             data-disabled={
-                                                !getValues(
+                                                getFieldState(
                                                     `splitBillShareList.${index}`,
-                                                )
+                                                ).isTouched &&
+                                                getValues(
+                                                    `splitBillShareList.${index}.amount`,
+                                                ) == 0
                                             }
                                         >
                                             <td>
-                                                <Checkbox checked={!!getValues(
-                                                    `splitBillShareList.${index}.amount`,
-                                                )}/>
+                                                <Checkbox
+                                                    onChange={(event) =>
+                                                        handleChecked(
+                                                            event.currentTarget
+                                                                .checked,
+                                                            index,
+                                                            member.member,
+                                                        )
+                                                    }
+                                                    defaultChecked={true}
+                                                />
                                             </td>
                                             <td className={"flex-basis-10/20"}>
                                                 {member.member.getFullName()}
@@ -182,11 +282,7 @@ const BillsFormPresentation = () => {
                                                         `splitBillShareList.${index}.amount`,
                                                     )}
                                                     onChange={(e) =>
-                                                        handleOnchange(
-                                                            e,
-                                                            index,
-                                                            member,
-                                                        )
+                                                        handleOnchange(e, index)
                                                     }
                                                     defaultValue={0}
                                                 />
