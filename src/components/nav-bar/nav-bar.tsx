@@ -9,6 +9,7 @@ import {NavItem} from "components";
 import {useGlobalConstants} from "constants/index";
 import globals from "../../constants/globals";
 import {Logo} from "components/icons";
+import { useGetUser } from "service/react-query-hooks/user.query";
 
 interface NavBarProps {}
 
@@ -46,6 +47,9 @@ const NavItems = ():navItem[] => {
 }
 
 const NavBar = (props:NavBarProps) => {
+
+    useGetUser();
+
     return (
         <div className={styles.NavBar}>
             <div className={styles.header}>

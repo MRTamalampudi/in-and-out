@@ -28,8 +28,6 @@ class SplitBill {
 
 export const useSplitBillSchema = () => {
 
-    const splitBillGroupMemberSchema = useSplitBillGroupMemberSchema();
-
     // @ts-ignore
     return z.object<SplitBillGroup>({
         id:z.number().optional(),
@@ -38,7 +36,7 @@ export const useSplitBillSchema = () => {
         splitAlgo:z.nativeEnum(SplitAlgo),
         date:z.date(),
         paidBy:useUserSchema(),
-        splitBillShareList:z.array(useSplitBillShareSchema())
+        splitBillShareList:z.array(useSplitBillShareSchema()),
     });
 };
 export default SplitBill;

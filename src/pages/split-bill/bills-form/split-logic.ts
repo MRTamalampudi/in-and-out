@@ -10,7 +10,7 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
         return distribution > 0 ? distribution : 0;
     }
 
-    const { setError, setValue, reset, getValues, getFieldState } = props;
+    const { clearErrors,setError, setValue, reset, getValues, getFieldState } = props;
 
     const amount = getValues("amount");
 
@@ -74,7 +74,7 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
             if(touchedAmount > totalAmount) {
                 setError(`splitBillShareList`,{message:`Split amount exceeded Bill amount by ${touchedAmount - totalAmount}`})
             } else {
-                setError(`splitBillShareList`,{message:""})
+                clearErrors(`splitBillShareList`)
             }
         }
     }

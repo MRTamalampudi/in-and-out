@@ -15,18 +15,16 @@ import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
-import { SplitBill, User } from "model";
+import { SplitBill } from "model";
 import PaidBy from "pages/split-bill/bills-form/paid-by";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
 import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
 import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
-import SplitBillShare from "model/split-bill-share.model";
-import { SplitAlgo } from "enum";
 import FormHelperEnum from "enum/form-helper.enum";
 import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
-import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
+import NumberInputForm from "forms/inputs/number-input-form";
+import SplitBillStatus from "enum/split-bill-status.enum";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -64,10 +62,8 @@ const BillsFormPresentation = () => {
         setValue,
         control,
         handleSubmit,
-        reset,
         getValues,
         getFieldState,
-        resetField,
     } = formProps;
 
     const {handleAmountOnChange,handleChecked,split} = useSplitLogic(formProps);
@@ -99,6 +95,7 @@ const BillsFormPresentation = () => {
 
     watch("splitBillShareList");
     watch("amount");
+    watch("paidBy");
 
     useEffect(() => {
         data?.content.forEach((member, index) => {
@@ -111,98 +108,23 @@ const BillsFormPresentation = () => {
         split();
     }, [getValues("amount")]);
 
-    console.log(getValues(`splitBillShareList`));
+    useEffect(() => {
+        data?.content.forEach((member,index)=>{
+            setValue(`splitBillShareList.${index}.status`,getValues(`paidBy.id`)==member.member.id ? SplitBillStatus.PAID : SplitBillStatus.PENDING)
+        })
+    }, [getValues(`paidBy.id`)]);
 
-    // function handleChecked(checked: boolean, index: number, member: User) {
-    //     if (checked) {
-    //         setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.CHECKED, {
-    //             shouldTouch: true,
-    //         })
-    //         reset(undefined,{keepValues:true,keepTouched:true})
-    //     } else {
-    //         setValue(`splitBillShareList.${index}.amount`, 0, {
-    //             shouldTouch: true,
-    //         });
-    //         setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.UNCHECKED, {
-    //             shouldTouch: true,
-    //         });
-    //     }
-    //     split();
-    // }
 
-    function getTouchedByIndex(index: number) {
-        const fieldState = getFieldState(`splitBillShareList.${index}`);
-        const isTouched = fieldState.isTouched;
-        const isManual = getValues(`splitBillShareList.${index}.algo`) === FormHelperEnum.MANUAL;
-        const isUnchecked = getValues(`splitBillShareList.${index}.algo`) === FormHelperEnum.UNCHECKED;
-        const isChecked = getValues(`splitBillShareList.${index}.algo`) != FormHelperEnum.CHECKED;
-
-        return (isTouched || isManual || isUnchecked) && isChecked;
+    function handleSubmit_(data:SplitBill) {
+        console.log(data)
     }
 
-    function split_() {
-        console.log(getValues(`splitBillShareList`));
-        const calculateTouchedAmount = (
-            acc: number,
-            value: SplitBillShare,
-            index: number,
-        ) => {
-            return getTouchedByIndex(index) ? acc + value.amount : acc;
-        };
-
-        const caluculateTouchedMember = (
-            acc: number,
-            value: SplitBillShare,
-            index: number,
-        ) => {
-            return getTouchedByIndex(index) ? acc + 1 : acc;
-        };
-
-        const touchedMemberCount = getValues(`splitBillShareList`).reduce(
-            caluculateTouchedMember,
-            0,
-        );
-        const untouchedMemberCount =
-            getValues(`splitBillShareList`).length - touchedMemberCount;
-
-        console.log("touchedMemberCount ==> ", touchedMemberCount);
-        console.log("untouchedMemberCount ==>", untouchedMemberCount);
-
-        const amount = getValues("amount");
-        console.log("amount===>", amount);
-        const touchedAmount = getValues(`splitBillShareList`).reduce(
-            calculateTouchedAmount,
-            0,
-        );
-        console.log("touched amount ==>", touchedAmount);
-        const quantum = Math.floor(
-            (amount - touchedAmount) / untouchedMemberCount,
-        );
-        console.log("quantum ===>", quantum);
-        let remaining = amount - touchedAmount - untouchedMemberCount * quantum;
-
-        const distributeMoneyforUntouched = (
-            value: SplitBillShare,
-            index: number,
-        ) => {
-            if (!getTouchedByIndex(index)) {
-                setValue(
-                    `splitBillShareList.${index}.amount`,
-                    quantum + (remaining-- > 0 ? 1 : 0),
-                );
-            }
-        };
-
-        getValues(`splitBillShareList`).forEach(distributeMoneyforUntouched);
-
-        console.log(formState);
-    }
 
     return (
         <div className={styles.BillsForm}>
             <div className={styles.body}>
                 <div className={styles.left}>
-                    <TextInputForm
+                    <NumberInputForm
                         name={"amount"}
                         control={control}
                         label={"Amount"}
@@ -317,7 +239,7 @@ const BillsFormPresentation = () => {
                 <Button
                     size={"compact-sm"}
                     type={"submit"}
-                    onClick={handleSubmit((data) => console.log(data))}
+                    onClick={handleSubmit(handleSubmit_)}
                 >
                     {getValues("id") ? "Update" : "Add"}
                 </Button>

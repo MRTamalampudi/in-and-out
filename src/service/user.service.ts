@@ -7,9 +7,7 @@ import { QueryKeys } from "service/react-query-hooks/query-keys";
 export function getUser() {
     return axios
         .get<User>(URL_CONSTANTS.USER)
-        .then((res) => {
-            res.data = User.deserialise(res.data);
-        })
+        .then((res) => User.deserialise(res.data))
         .catch((err) => {
             throw new Error(err);
         });

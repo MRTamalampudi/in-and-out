@@ -1,6 +1,6 @@
 import { FieldValues, useController } from "react-hook-form";
 import { InputProps } from "forms/inputs/input-props";
-import { TextInput } from "@mantine/core";
+import { NumberInput, TextInput } from "@mantine/core";
 import React from "react";
 import useErrorMessage from "../useErrorMessage";
 
@@ -13,12 +13,13 @@ const NumberInputForm =<T extends FieldValues>(props:InputProps<T>) => {
 
     return(
         <>
-            <TextInput
+            <NumberInput
                 {...field}
                 label={label}
                 size={"xs"}
                 placeholder={placeholder}
                 error={errorMessage}
+                hideControls
             />
         </>
     )

@@ -11,8 +11,8 @@ const PaidBy = <T extends FieldValues>(props: InputProps<T>) => {
     const {data} = useGetSplitBillGroup(1);
     const options = data?.memberList.map((value) => ({
         label: value.member.getFullName(),
-        value: value.id.toString(),
-        entity: value,
+        value: value.member.id.toString(),
+        entity: value.member,
     }));
 
     const getSelectedValue = () => {
