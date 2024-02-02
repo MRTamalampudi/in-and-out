@@ -23,6 +23,10 @@ import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SplitBillShare from "model/split-bill-share.model";
 import { SplitAlgo } from "enum";
+import FormHelperEnum from "enum/form-helper.enum";
+import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -66,7 +70,7 @@ const BillsFormPresentation = () => {
         resetField,
     } = formProps;
 
-    // const {handleAmountChange,handleCheckBoxChange,split} = useSplitLogic(formProps);
+    const {handleAmountOnChange,handleChecked,split} = useSplitLogic(formProps);
 
     useFieldArray({
         control,
@@ -89,7 +93,7 @@ const BillsFormPresentation = () => {
         setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
             shouldTouch: true,
         });
-        setValue(`splitBillShareList.${index}.algo`, SplitAlgo.WEIGHTED)
+        setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.MANUAL)
         split();
     }
 
@@ -109,38 +113,34 @@ const BillsFormPresentation = () => {
 
     console.log(getValues(`splitBillShareList`));
 
-    function handleChecked(checked: boolean, index: number, member: User) {
-        if (checked) {
-            setValue(`splitBillShareList.${index}.algo`, SplitAlgo.EQUAL, {
-                shouldTouch: true,
-            })
-            reset(undefined,{keepValues:true,keepTouched:true})
-        } else {
-            setValue(`splitBillShareList.${index}.amount`, 0, {
-                shouldTouch: true,
-            });
-            setValue(`splitBillShareList.${index}.algo`, SplitAlgo.PERCENTAGE, {
-                shouldTouch: true,
-            });
-        }
-        split();
-    }
-
-    function getAmountByIndex(index: number) {
-        return getValues(`splitBillShareList.${index}.amount`);
-    }
+    // function handleChecked(checked: boolean, index: number, member: User) {
+    //     if (checked) {
+    //         setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.CHECKED, {
+    //             shouldTouch: true,
+    //         })
+    //         reset(undefined,{keepValues:true,keepTouched:true})
+    //     } else {
+    //         setValue(`splitBillShareList.${index}.amount`, 0, {
+    //             shouldTouch: true,
+    //         });
+    //         setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.UNCHECKED, {
+    //             shouldTouch: true,
+    //         });
+    //     }
+    //     split();
+    // }
 
     function getTouchedByIndex(index: number) {
         const fieldState = getFieldState(`splitBillShareList.${index}`);
         const isTouched = fieldState.isTouched;
-        const isWeighted = getValues(`splitBillShareList.${index}.algo`) === SplitAlgo.WEIGHTED;
-        const isPercentage = getValues(`splitBillShareList.${index}.algo`) === SplitAlgo.PERCENTAGE;
-        const isEqual = getValues(`splitBillShareList.${index}.algo`) != SplitAlgo.EQUAL;
+        const isManual = getValues(`splitBillShareList.${index}.algo`) === FormHelperEnum.MANUAL;
+        const isUnchecked = getValues(`splitBillShareList.${index}.algo`) === FormHelperEnum.UNCHECKED;
+        const isChecked = getValues(`splitBillShareList.${index}.algo`) != FormHelperEnum.CHECKED;
 
-        return (isTouched || isWeighted || isPercentage) && isEqual;
+        return (isTouched || isManual || isUnchecked) && isChecked;
     }
 
-    function split() {
+    function split_() {
         console.log(getValues(`splitBillShareList`));
         const calculateTouchedAmount = (
             acc: number,
@@ -155,13 +155,6 @@ const BillsFormPresentation = () => {
             value: SplitBillShare,
             index: number,
         ) => {
-            console.log(
-                "touched",getFieldState(`splitBillShareList.${index}`).isTouched,
-                "algo", getValues(`splitBillShareList.${index}.algo`) == SplitAlgo.WEIGHTED,
-                "37", getAmountByIndex(index) != -37 ,
-                index,
-                getTouchedByIndex(index)
-            )
             return getTouchedByIndex(index) ? acc + 1 : acc;
         };
 
@@ -249,6 +242,12 @@ const BillsFormPresentation = () => {
                     </div>
                 </div>
                 <div className={styles.right}>
+                    <div className={"flex-row jc-space-between"}>
+                        <span className={"subtitle"}>Members</span>
+                        {
+                            formState.errors.splitBillShareList && <span className={"subtitle error-text"}>{formState.errors.splitBillShareList.message}</span>
+                        }
+                    </div>
                     <TableWrapper
                         compact={true}
                         borders={false}
@@ -261,12 +260,9 @@ const BillsFormPresentation = () => {
                                         <tr
                                             key={index}
                                             data-disabled={
-                                                getFieldState(
-                                                    `splitBillShareList.${index}`,
-                                                ).isTouched &&
                                                 getValues(
-                                                    `splitBillShareList.${index}.amount`,
-                                                ) == 0
+                                                    `splitBillShareList.${index}.algo`,
+                                                ) == FormHelperEnum.UNCHECKED
                                             }
                                         >
                                             <td>
@@ -292,7 +288,16 @@ const BillsFormPresentation = () => {
                                                         `splitBillShareList.${index}.amount`,
                                                     )}
                                                     onChange={(e) =>
-                                                        handleOnchange(e, index)
+                                                        handleAmountOnChange(
+                                                            e,
+                                                            index,
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        getValues(
+                                                            `splitBillShareList.${index}.algo`,
+                                                        ) ==
+                                                        FormHelperEnum.UNCHECKED
                                                     }
                                                     defaultValue={0}
                                                 />

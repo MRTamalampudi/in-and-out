@@ -3,6 +3,7 @@ import SplitBill from "model/split-bill.model";
 import SplitBillStatus from "enum/split-bill-status.enum";
 import { z } from "zod";
 import { SplitAlgo } from "enum";
+import FormHelperEnum from "enum/form-helper.enum";
 
 class SplitBillShare {
     id: number;
@@ -10,7 +11,7 @@ class SplitBillShare {
     amount: number;
     user:User;
     status:SplitBillStatus;
-    algo:SplitAlgo;
+    algo:FormHelperEnum;
 }
 
 export const useSplitBillShareSchema = () => {

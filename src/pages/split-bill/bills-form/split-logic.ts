@@ -1,29 +1,89 @@
-import { UseFormReturn } from "react-hook-form/dist/types";
-import { SplitAlgo } from "enum";
+import { UseFormReturn } from "react-hook-form";
 import { SplitBill, User } from "model";
+import FormHelperEnum from "enum/form-helper.enum";
 import SplitBillShare from "model/split-bill-share.model";
-
-
+import { useCallback, useMemo } from "react";
 
 export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
+    function calculateDistribution(quantum: number, remaining: number): number {
+        const distribution = quantum + (remaining-- > 0 ? 1 : 0);
+        return distribution > 0 ? distribution : 0;
+    }
 
-    const { getValues, getFieldState, formState, setValue } = props;
-    function getAmountByIndex(index: number) {
-        return getValues(`splitBillShareList.${index}.amount`);
+    const { setError, setValue, reset, getValues, getFieldState } = props;
+
+    const amount = getValues("amount");
+
+    function handleAmountOnChange(e: string | number, index: number) {
+        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
+            shouldTouch: true,
+        });
+        setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.MANUAL);
+        split();
+    }
+
+    function handleChecked(checked: boolean, index: number, member: User) {
+        if (checked) {
+            setValue(
+                `splitBillShareList.${index}.algo`,
+                FormHelperEnum.CHECKED,
+                {
+                    shouldTouch: true,
+                },
+            );
+            reset(undefined, { keepValues: true, keepTouched: true });
+        } else {
+            setValue(`splitBillShareList.${index}.amount`, 0, {
+                shouldTouch: true,
+            });
+            setValue(
+                `splitBillShareList.${index}.algo`,
+                FormHelperEnum.UNCHECKED,
+                {
+                    shouldTouch: true,
+                },
+            );
+        }
+        split();
     }
 
     function getTouchedByIndex(index: number) {
-        const isTouched = getFieldState(
-            `splitBillShareList.${index}`,
-        ).isTouched;
-        const isWeighted =
-            getValues(`splitBillShareList.${index}.algo`) == SplitAlgo.WEIGHTED;
-        const isAmountValue37 = getAmountByIndex(index) != -37;
-        return (isTouched || isWeighted) && isAmountValue37;
+        const fieldState = getFieldState(`splitBillShareList.${index}`);
+        const isTouched = fieldState.isTouched;
+        const isManual =
+            getValues(`splitBillShareList.${index}.algo`) ===
+            FormHelperEnum.MANUAL;
+        const isUnchecked =
+            getValues(`splitBillShareList.${index}.algo`) ===
+            FormHelperEnum.UNCHECKED;
+        const isChecked =
+            getValues(`splitBillShareList.${index}.algo`) !==
+            FormHelperEnum.CHECKED;
+
+        return (isTouched || isManual || isUnchecked) && isChecked;
     }
 
+    function checkForErrors(touchedAmount:number,touchedCount:number,totalAmount:number,totalCount:number){
+        if(touchedCount == totalCount){
+            if(touchedAmount > totalAmount){
+                setError(`splitBillShareList`,{message:`Split amount exceeded Bill amount by ${touchedAmount - totalAmount}`})
+            } else if (touchedAmount < totalAmount){
+                setError(`splitBillShareList`,{message:`Remaining amount by ${totalAmount - touchedAmount}`})
+            }
+        } else {
+            if(touchedAmount > totalAmount) {
+                setError(`splitBillShareList`,{message:`Split amount exceeded Bill amount by ${touchedAmount - totalAmount}`})
+            } else {
+                setError(`splitBillShareList`,{message:""})
+            }
+        }
+    }
 
     function split() {
+        function calculateDistribution(): number {
+            const distribution = quantum + (remaining-- > 0 ? 1 : 0);
+            return distribution > 0 ? distribution : 0;
+        }
         const calculateTouchedAmount = (
             acc: number,
             value: SplitBillShare,
@@ -64,38 +124,19 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
             if (!getTouchedByIndex(index)) {
                 setValue(
                     `splitBillShareList.${index}.amount`,
-                    quantum + (remaining-- > 0 ? 1 : 0),
+                    calculateDistribution(),
                 );
             }
         };
 
         getValues(`splitBillShareList`).forEach(distributeMoneyforUntouched);
 
-        console.log(formState);
+        checkForErrors(touchedAmount,touchedMemberCount,amount,getValues(`splitBillShareList`).length)
     }
 
-    function handleAmountChange(e: string | number, index: number) {
-        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
-            shouldTouch: true,
-        });
-        setValue(`splitBillShareList.${index}.algo`, SplitAlgo.WEIGHTED)
-        setTimeout(()=>split(),10)
-    }
-
-    function handleCheckBoxChange(checked: boolean, index: number, member: User) {
-        if (checked) {
-            setValue(`splitBillShareList.${index}.amount`, -37, {
-                shouldTouch: true,
-            });
-        } else {
-            setValue(`splitBillShareList.${index}.amount`, 0, {
-                shouldTouch: true,
-            });
-        }
-        setTimeout(()=>split(),10)
-    }
-
-
-
-    return { split, handleAmountChange, handleCheckBoxChange };
+    return {
+        split,
+        handleAmountOnChange,
+        handleChecked,
+    };
 }
