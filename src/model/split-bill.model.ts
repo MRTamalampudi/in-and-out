@@ -9,13 +9,13 @@ class SplitBill {
     id:number;
     bill:string;
     amount:number;
-    splitAlgo:SplitAlgo;
     date:Date;
     paidBy:User;
     createdBy:User;
     createdAt:Date;
     modifiedAt:Date;
     splitBillShareList:SplitBillShare[];
+    group:SplitBillGroup;
 
     static deserialise(object:SplitBill):SplitBill{
         object.date = new Date((object.date as unknown as number) * 1000);
@@ -33,10 +33,13 @@ export const useSplitBillSchema = () => {
         id:z.number().optional(),
         bill:z.string().min(3),
         amount:z.number().min(1),
-        splitAlgo:z.nativeEnum(SplitAlgo),
         date:z.date(),
         paidBy:useUserSchema(),
         splitBillShareList:z.array(useSplitBillShareSchema()),
+        group:z.object({
+            id:z.number(),
+            name:z.string(),
+        })
     });
 };
 export default SplitBill;

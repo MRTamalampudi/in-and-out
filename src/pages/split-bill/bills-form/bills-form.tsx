@@ -5,7 +5,7 @@ import ModalWrapper from "components/modal";
 import { useSearchParams } from "react-router-dom";
 import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
     ColumnFiltersState,
     PaginationState,
@@ -63,7 +63,6 @@ const BillsFormPresentation = () => {
         control,
         handleSubmit,
         getValues,
-        getFieldState,
     } = formProps;
 
     const {handleAmountOnChange,handleChecked,split} = useSplitLogic(formProps);
@@ -73,25 +72,17 @@ const BillsFormPresentation = () => {
         name: "splitBillShareList",
     });
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
-        { id: "group", value: "1" },
-    ]);
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [rowSelection, setRowSelection] = useState({});
-    const [pagination, setPagination] = useState<PaginationState>({
+
+
+
+    const pagination_ = useMemo(()=>({
         pageIndex: 1,
         pageSize: 20,
-    });
+    }),[])
+    const columnFilters = useMemo(()=>[{ id: "group", value: "1" }],[])
+    const sorting = useMemo(()=>[],[])
 
-    const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
-
-    function handleOnchange(e: string | number, index: number) {
-        setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
-            shouldTouch: true,
-        });
-        setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.MANUAL)
-        split();
-    }
+    const { data } = useIndexGroupMembers(pagination_, columnFilters, sorting);
 
     watch("splitBillShareList");
     watch("amount");
@@ -116,8 +107,11 @@ const BillsFormPresentation = () => {
 
 
     function handleSubmit_(data:SplitBill) {
+        console.log(formState)
         console.log(data)
     }
+
+    console.log(formState)
 
 
     return (
@@ -142,20 +136,12 @@ const BillsFormPresentation = () => {
                         label={"Paid by"}
                         placeholder={"select paid by"}
                     />
-                    <div className={"flex-row column-gap-8 flex-basis-equal"}>
-                        <DateTimeInputForm
-                            name={"date"}
-                            control={control}
-                            label={"Paid on"}
-                            placeholder={"select paid date"}
-                        />
-                        <SplitAlgoSelect
-                            name={"splitAlgo"}
-                            control={control}
-                            label={"Split type"}
-                            placeholder={"select split type"}
-                        />
-                    </div>
+                    <DateTimeInputForm
+                        name={"date"}
+                        control={control}
+                        label={"Paid on"}
+                        placeholder={"select paid date"}
+                    />
                     <div className={styles.dropzone}>
                         <Dropzone onDrop={() => console.log("drop")}>
                             <Paperclip width={64} height={64} />

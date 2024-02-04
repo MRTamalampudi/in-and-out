@@ -17,7 +17,7 @@ class SplitBillShare {
 export const useSplitBillShareSchema = () => {
     return z.object({
         id: z.number().optional(),
-        amount: z.number().min(1),
+        amount: z.number().min(0),
         user:useUserSchema(),
         status:z.nativeEnum(SplitBillStatus),
     })

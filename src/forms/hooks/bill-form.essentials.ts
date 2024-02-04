@@ -14,7 +14,6 @@ export const useBillFormEssentials = ():FormEssentials<SplitBillGroup> => {
     const defaultValues:Partial<SplitBill>={
         amount:0,
         date:new Date(),
-        splitAlgo:SplitAlgo.EQUAL,
         paidBy: data.data,
     }
 

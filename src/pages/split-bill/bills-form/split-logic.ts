@@ -5,16 +5,13 @@ import SplitBillShare from "model/split-bill-share.model";
 import { useCallback, useMemo } from "react";
 
 export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
-    function calculateDistribution(quantum: number, remaining: number): number {
-        const distribution = quantum + (remaining-- > 0 ? 1 : 0);
-        return distribution > 0 ? distribution : 0;
-    }
 
     const { clearErrors,setError, setValue, reset, getValues, getFieldState } = props;
 
     const amount = getValues("amount");
 
     function handleAmountOnChange(e: string | number, index: number) {
+        console.log("amount changedd")
         setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
             shouldTouch: true,
         });

@@ -47,7 +47,7 @@ export function useGetTransaction(id: number) {
                 client.getQueryData(
                     TransactionQueryKeys.index,
                 ) as unknown as Page<Transaction>
-            ).content
+            )?.content
                 .filter(filterById)
                 .at(0),
         retry: 1,
@@ -55,10 +55,10 @@ export function useGetTransaction(id: number) {
 }
 
 export function useCreateTransaction(options: CustomMutationOptions) {
-    const { onSuccess, onError } = options;
+    const { onSuccess} = options;
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: TransactionService.getInstance().create,
+        mutationFn: (transaction:Transaction) => TransactionService.getInstance().create(transaction),
         onSuccess: () => {
             onSuccess && onSuccess();
             queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
@@ -74,7 +74,7 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: [TRANSACTIONS, "delete"],
-        mutationFn: TransactionService.getInstance().delete,
+        mutationFn: (entityIds:number[])=>TransactionService.getInstance().delete(entityIds),
         onError: () => {
             if (onError) onError();
         },
