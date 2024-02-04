@@ -1,15 +1,13 @@
-
-import React from 'react';
-import styles from './nav-bar.module.scss';
-import {Link} from "react-router-dom";
-import "../../styles/size.scss"
-import {avatar} from "../../assets/icons";
-import {BaseRoutes} from "../../constants/base-routes";
-import {NavItem} from "components";
-import {useGlobalConstants} from "constants/index";
-import globals from "../../constants/globals";
-import {Logo} from "components/icons";
+import React from "react";
+import styles from "./nav-bar.module.scss";
+import { Link } from "react-router-dom";
+import "styles/size.scss";
+import { avatar } from "assets/icons";
+import { BaseRoutes } from "constants/base-routes";
+import { NavItem } from "components";
+import { Logo } from "components/icons";
 import { useGetUser } from "service/react-query-hooks/user.query";
+import useGlobalConstants from "constants/globals";
 
 interface NavBarProps {}
 

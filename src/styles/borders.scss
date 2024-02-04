@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "colors-vars";
 
 @mixin borderSolid($size){
   border: #{$size} solid #f2f2f2;

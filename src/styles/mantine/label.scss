@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../colors-vars";
 @import "styles/typography";
 
 .mantine-TextInput-label ,
@@ -9,6 +9,6 @@
 .mantine-Textarea-label,
 .mantine-Select-label,
 .mantine-TagsInput-label{
-  color: colors.$g-1000;
+  color: colors-vars.$g-1000;
   @extend .subtitle;
 }

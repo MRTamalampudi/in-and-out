@@ -1,4 +1,4 @@
-@use "colors";
+@use "colors-vars";
 @import "flex";
 @import "typography";
 @import "borders";
@@ -11,10 +11,10 @@
   @extend .border-rds-8;
   @extend .border-solid-1;
 
-  background: colors.$g-100;
+  background: colors-vars.$g-100;
   align-items: center;
   justify-content: center;
-  color: colors.$g-1000;
+  color: colors-vars.$g-1000;
 }
 
 .mantine-Dropzone-inner{

@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../../styles/colors-vars";
 @import "styles/borders";
 @import "styles/size";
 
@@ -31,7 +31,7 @@
 }
 
 .logo{
-  color: colors.$p-700;
+  color: colors-vars.$p-700;
   font-size: 2rem;  
 }
 

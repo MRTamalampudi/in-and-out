@@ -1,4 +1,4 @@
-@use 'styles/colors';
+@use '../colors-vars';
 @import "styles/typography";
 
 .mantine-TextInput-error,
@@ -7,13 +7,13 @@
 .mantine-InputWrapper-error,
 .mantine-TagsInput-error
 {
-  color: colors.$red-500;
+  color: colors-vars.$red-500;
   @extend .subtitle;
 }
 .mantine-Input-invaild,
 .mantine-TextInput-invalid
 {
-  color: colors.$red-500;
-  background-color: colors.$red-100;
+  color: colors-vars.$red-500;
+  background-color: colors-vars.$red-100;
   @extend .border-solid-1;
 }

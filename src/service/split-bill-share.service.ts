@@ -1,5 +1,5 @@
 import { BaseService } from "service/base.service";
-import { URL_CONSTANTS } from "constants/url-constants";
+import { URL_CONSTANTS } from "constants/url.constants";
 import SplitBillShare from "model/split-bill-share.model";
 import { SplitBill, User } from "model";
 

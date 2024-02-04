@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "styles/colors-vars";
 @import "styles/radius";
 @import "styles/borders";
 @import "styles/typography";
@@ -23,7 +23,7 @@
     @extend .body-text-bold;
 
     tr{
-      background-color: colors.$g-300;
+      background-color: colors-vars.$g-300;
       @extend .pr-4;
 
       th{
@@ -50,11 +50,11 @@
       }
 
       &[data-selected=true]{
-        background-color: colors.$g-300;
+        background-color: colors-vars.$g-300;
       }
 
       &:hover{
-        background-color: colors.$g-200;
+        background-color: colors-vars.$g-200;
       }
     }
   }
@@ -171,7 +171,7 @@
 .actionRow{
   display: flex ;
   align-items: center;
-  background-color: colors.$y-200 !important;
+  background-color: colors-vars.$y-200 !important;
 
 
   @include height(2.5rem);
@@ -185,13 +185,13 @@
 }
 
 .cTrSelected{
-  background-color: colors.$g-300;
+  background-color: colors-vars.$g-300;
 }
 
 .cTr {
   &:hover{
 
-    background-color: colors.$g-300;
+    background-color: colors-vars.$g-300;
 
     td[data-action="true"]{
       visibility: visible;

@@ -1,9 +1,9 @@
-@use "styles/colors";
+@use "../colors-vars";
 @import "styles/typography";
 
 .mantine-Table-root{
   thead{
-    background-color: colors.$n-100;
+    background-color: colors-vars.$n-100;
     @extend .body-text;
   }
   tbody{

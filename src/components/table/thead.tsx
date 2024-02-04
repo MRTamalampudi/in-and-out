@@ -12,13 +12,13 @@ function Thead<T>({ table }: TheadProps<T>) {
     const canSort = (id: string) => table.getColumn(id)?.getCanSort();
     const isSorted = (id: string) => table.getColumn(id)?.getIsSorted();
     const sortIcons: Record<string, JSX.Element> = {
-        asc: <SortAsc width={20} height={20} className={"primary"}/>,
-        desc: <SortDesc width={20} height={20} className={"primary"}/>,
+        asc: <SortAsc width={16} height={16} className={"primary"}/>,
+        desc: <SortDesc width={16} height={16} className={"primary"}/>,
     };
 
     const sortIcon = (id: string) =>
         sortIcons[isSorted(id) as unknown as string] ||
-        (canSort(id) ? <Sort width={20} height={20} className={"primary"}/> : null);
+        (canSort(id) ? <Sort width={16} height={16} className={"grayIcon"}/> : null);
 
     return (
         <thead>

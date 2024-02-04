@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "model";
-import { URL_CONSTANTS } from "constants/url-constants";
+import { URL_CONSTANTS } from "constants/url.constants";
 import { useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "service/react-query-hooks/query-keys";
 

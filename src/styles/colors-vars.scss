@@ -1,0 +1,112 @@
+
+
+$white : #F3F3F3;
+$black : #333333;
+
+
+//primary
+$p-1000: #014D40;
+$p-900: #0C6B58;
+$p-800: #147D64;
+$p-700: #199473;
+$p-600: #27AB83;
+$p-500: #3EBD93;
+$p-400: #65D6AD;
+$p-300: #8EEDC7;
+$p-200: #C6F7E2;
+$p-100: #EFFCF6;
+
+//warning
+$red-1000:#610404;
+$red-900:#780A0A;
+$red-800:#911111;
+$red-700:#A61B1B;
+$red-600:#BA2525;
+$red-500:#D64545;
+$red-400:#E66A6A;
+$red-300:#F29B9B;
+$red-200:#FACDCD;
+$red-100:#FFEEEE;
+
+//Neutrals
+$n-1000:#102A43;
+$n-900:#243B53;
+$n-800:#334E68;
+$n-700:#486581;
+$n-600:#627D98;
+$n-500:#829AB1;
+$n-400:#9FB3C8;
+$n-300:#BCCCDC;
+$n-200:#D9E2EC;
+$n-100:#F0F4F8;
+
+
+
+//Blue
+$b-1000:#003E6B;
+$b-900:#0A558C;
+$b-800:#0F609B;
+$b-700:#186FAF;
+$b-600:#2680C2;
+$b-500:#4098D7;
+$b-400:#62B0E8;
+$b-300:#84C5F4;
+$b-200:#B6E0FE;
+$b-100:#DCEEFB;
+
+//yellow
+$y-1000:#513C06;
+$y-900:#7C5E10;
+$y-800:#A27C1A;
+$y-700:#C99A2E;
+$y-600:#E9B949;
+$y-500:#F7D070;
+$y-400:#F9DA8B;
+$y-300:#F8E3A3;
+$y-200:#FCEFC7;
+$y-100:#FFFAEB;
+
+//white
+$g-1000: #565656;
+$g-900:#8C8C8C;
+$g-800:#999999;
+$g-700:#A5A5A5;
+$g-600:#B2B2B2;
+$g-500:#BFBFBF;
+$g-400:#CCCCCC;
+$g-300:#f1f3f5;
+$g-200:#f7f7f7;
+$g-100: #fdfdfd;
+
+//purple
+$purple-1000:#240754;
+$purple-900:#34126F;
+$purple-800:#421987;
+$purple-700:#51279B;
+$purple-600:#653CAD;
+$purple-500:#724BB7;
+$purple-400:#8662C7;
+$purple-300:#A081D9;
+$purple-200:#A081D9;
+$purple-100:#EAE2F8;
+
+
+$pqwe: red;
+
+
+$primary : $p-700;
+$primary-red:$red-700;
+$background-color: #fff;
+
+.primary{
+  color: $primary;
+}
+
+.primary-red{
+  color: $primary-red;
+}
+
+.error-text{
+  color: $red-500;
+}
+

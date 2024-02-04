@@ -1,10 +1,10 @@
-@use "styles/colors";
+@use "../colors-vars";
 @import "styles/typography";
 @import "styles/borders";
 
 .mantine-TimeInput-input{
   @extend .border-solid-1;
-  background-color: colors.$g-100;
+  background-color: colors-vars.$g-100;
 }
 
 

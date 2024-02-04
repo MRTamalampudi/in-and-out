@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../../styles/colors-vars";
 @import "styles/typography";
 @import "styles/size";
 
@@ -12,7 +12,7 @@ $tr-height : 2rem;
 
   tr{
     @include height($tr-height);
-    color: colors.$g-1000;
+    color: colors-vars.$g-1000;
   }
 
   tbody{

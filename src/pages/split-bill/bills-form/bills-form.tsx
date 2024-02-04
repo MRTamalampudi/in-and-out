@@ -15,7 +15,7 @@ import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
-import { SplitBill } from "model";
+import { SplitBill, User } from "model";
 import PaidBy from "pages/split-bill/bills-form/paid-by";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
 import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
@@ -73,7 +73,7 @@ const BillsFormPresentation = () => {
     });
 
 
-
+    console.log(Object.keys(new User()))
 
     const pagination_ = useMemo(()=>({
         pageIndex: 1,

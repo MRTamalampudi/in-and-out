@@ -1,7 +1,7 @@
-@use "styles/colors";
+@use "../colors-vars";
 @import "styles/typography";
 
 .mantine-Pill-root{
-  color: colors.$g-1000;
+  color: colors-vars.$g-1000;
   @extend .body-text;
 }

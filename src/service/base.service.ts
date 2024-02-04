@@ -5,8 +5,6 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import axios from "axios";
-import { URL_CONSTANTS } from "constants/url-constants";
-import { Transaction } from "model";
 
 type SerializerFn<T> = (entity: T) => void;
 

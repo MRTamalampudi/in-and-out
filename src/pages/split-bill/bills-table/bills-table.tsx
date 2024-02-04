@@ -1,21 +1,18 @@
-import styles from "./bills-table.module.scss"
 import {
     ColumnFiltersState,
-    createColumnHelper, flexRender, getCoreRowModel,
+    createColumnHelper,
+    flexRender,
+    getCoreRowModel,
     PaginationState,
     SortingState,
-    useReactTable
+    useReactTable,
 } from "@tanstack/react-table";
-import { SplitBill } from "model";
 import { Checkbox, TextInput } from "@mantine/core";
 import React, { useState } from "react";
-import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
-import { columns } from "pages/split-bill/groups/groups-table/columns";
 import { useSearchParams } from "react-router-dom";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
 import ActionsRow from "components/table/actions-row";
-import { useIndexBills } from "service/react-query-hooks/split-bill.query";
 import SplitBillShare from "model/split-bill-share.model";
 import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";

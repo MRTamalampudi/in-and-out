@@ -1,6 +1,6 @@
 import { Transaction } from "model";
 import { BaseService } from "service/base.service";
-import { URL_CONSTANTS } from "constants/url-constants";
+import { URL_CONSTANTS } from "constants/url.constants";
 
 export class TransactionService extends BaseService<Transaction> {
     private static instance: TransactionService;

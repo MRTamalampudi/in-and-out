@@ -1,6 +1,6 @@
 import { BaseService } from "service/base.service";
 import { SplitBill, SplitBillGroup, User } from "model";
-import { URL_CONSTANTS } from "constants/url-constants";
+import { URL_CONSTANTS } from "constants/url.constants";
 
 export class SplitBillService extends BaseService<SplitBill> {
     public BaseURL: string = URL_CONSTANTS.SPLIT_BILL;

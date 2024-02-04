@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../../styles/colors-vars";
 @import "styles/size";
 @import "styles/typography";
 @import "styles/cursor";
@@ -46,7 +46,7 @@
   }
 
   .extra{
-    background-color: colors.$g-300;
+    background-color: colors-vars.$g-300;
     border: 2px solid white;
     align-items: center;
     justify-content: center;

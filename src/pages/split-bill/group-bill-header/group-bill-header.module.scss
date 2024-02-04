@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../../../styles/colors-vars";
 @import "styles/borders";
 @import "styles/flex";
 @import "styles/size";
@@ -70,7 +70,7 @@
           }
 
           .extra{
-            background-color: colors.$g-300;
+            background-color: colors-vars.$g-300;
             border: 2px solid white;
             align-items: center;
             justify-content: center;
@@ -108,14 +108,14 @@
 }
 
 .lent{
-  color: colors.$primary;
+  color: colors-vars.$primary;
 
   @extend .body-text-bold;
   @extend .pointer;
 }
 
 .owes{
-  color: colors.$primary-red;
+  color: colors-vars.$primary-red;
 
   @extend .body-text-bold;
   @extend .pointer;

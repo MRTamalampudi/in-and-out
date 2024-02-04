@@ -1,9 +1,9 @@
-@use "styles/colors";
+@use "styles/colors-vars";
 @import "styles/borders";
 @import "styles/typography";
 
 .mantine-DatePicker-input{
-  background-color: colors.$g-100;
+  background-color: colors-vars.$g-100;
   @extend .border-solid-1;
   &:focus{
     @extend .border-solid-1;

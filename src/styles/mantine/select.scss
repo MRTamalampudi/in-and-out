@@ -1,21 +1,21 @@
-@use "styles/colors";
+@use "../colors-vars";
 @import "styles/typography";
 @import "font_custom";
 @import "styles/borders";
 
 .mantine-Select-label{
   @extend .subtitle;
-  color: colors.$black;
+  color: colors-vars.$black;
 }
 .mantine-Select-item{
   @extend .body-text;
   &:hover{
-    background-color: colors.$p-200;
+    background-color: colors-vars.$p-200;
   }
 }
 .mantine-Select-input{
   //@extend .border-solid-1;
-  background: colors.$g-100;
+  background: colors-vars.$g-100;
 }
 .mantine-Select-itemsWrapper{
   border-radius: 0.25rem;

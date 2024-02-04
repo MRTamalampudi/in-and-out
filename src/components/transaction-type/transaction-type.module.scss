@@ -1,4 +1,4 @@
-@use "styles/colors";
+@use "../../styles/colors-vars";
 @import "styles/borders";
 @import "styles/typography";
 @import "styles/flex";
@@ -20,19 +20,19 @@
 }
 
 .cashIn {
-  @include common-style(colors.$p-700, colors.$p-200);
+  @include common-style(colors-vars.$p-700, colors-vars.$p-200);
 }
 
 .cashOut {
-  @include common-style(colors.$red-700, colors.$red-200);
+  @include common-style(colors-vars.$red-700, colors-vars.$red-200);
 }
 
 .lent {
-  @include common-style(colors.$purple-700, colors.$purple-100);
+  @include common-style(colors-vars.$purple-700, colors-vars.$purple-100);
 }
 
 .owe {
-  @include common-style(colors.$y-700, colors.$y-200);
+  @include common-style(colors-vars.$y-700, colors-vars.$y-200);
 }
 
 .container{
