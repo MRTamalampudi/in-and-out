@@ -7,12 +7,19 @@ import {
 import axios from "axios";
 
 type SerializerFn<T> = (entity: T) => void;
+type DeserializerFn<T> = (entity:T) => void;
 
 export abstract class BaseService<Entity> {
     protected BaseURL: string;
+    protected deserializerFn: DeserializerFn<Entity>;
     protected serializerFn: SerializerFn<Entity>;
-    protected constructor(BaseURL: string, serializerFn: SerializerFn<Entity>) {
+    protected constructor(
+        BaseURL: string,
+        deserializerFn: SerializerFn<Entity>,
+        serializerFn: DeserializerFn<Entity> = ()=>null
+    ) {
         this.BaseURL = BaseURL;
+        this.deserializerFn = deserializerFn;
         this.serializerFn = serializerFn;
     }
 
@@ -40,7 +47,7 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Page<Entity>>(`${this.BaseURL}?${urlSearchParams.toString()}`)
             .then((result) => {
-                result.data.content.forEach(this.serializerFn);
+                result.data.content.forEach(this.deserializerFn);
                 return result.data;
             })
             .catch((error) => error);
@@ -50,7 +57,7 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Entity>(`${this.BaseURL}/${id}`)
             .then((response) => {
-                this.serializerFn(response.data);
+                this.deserializerFn(response.data);
                 return response.data;
             })
             .catch((error) => {
@@ -60,10 +67,11 @@ export abstract class BaseService<Entity> {
 
     public create(entity: Entity): Promise<Entity> {
         console.log(entity,this.BaseURL)
+        this.serializerFn(entity);
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {
-                this.serializerFn(response.data);
+                this.deserializerFn(response.data);
                 return response.data;
             })
             .catch((error) => {

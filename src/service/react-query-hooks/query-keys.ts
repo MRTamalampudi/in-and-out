@@ -26,7 +26,8 @@ export const SplitBillGroupMemberQueryKeys = {
 }
 
 export const SplitBillGroupQueryKeys = {
-    index:[QueryKeys.SPLIT_BILL_GROUP]
+    index:[QueryKeys.SPLIT_BILL_GROUP],
+    get:(id:number)=>[QueryKeys.SPLIT_BILL_GROUP,id]
 }
 
 export const SplitBillQueryKeys = {

@@ -19,7 +19,7 @@ export const useSplitBillShareSchema = () => {
         id: z.number().optional(),
         amount: z.number().min(0),
         user:useUserSchema(),
-        status:z.nativeEnum(SplitBillStatus),
+        status:z.nativeEnum(SplitBillStatus).optional(),
     })
 }
 

@@ -43,9 +43,6 @@ export function useIndexGroups(
 }
 
 export function useGetSplitBillGroup(id: number) {
-    const client = useQueryClient();
-    const filterById = (entity: SplitBillGroup) =>
-        entity.id.toString() == id.toString();
     return useQuery({
         queryKey: [QueryKeys.SPLIT_BILL_GROUP, id],
         queryFn: () => SplitBillGroupService.getInstance().get(id),

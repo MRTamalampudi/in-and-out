@@ -25,6 +25,8 @@ import FormHelperEnum from "enum/form-helper.enum";
 import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
 import SplitBillStatus from "enum/split-bill-status.enum";
+import { useCreateSplitBill } from "service/react-query-hooks/split-bill.query";
+import { toast } from "sonner";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -49,7 +51,7 @@ const BillsForm = ({}: BillsFormProps) => {
 
 const BillsFormPresentation = () => {
     const { schema, defaultValues } = useBillFormEssentials();
-
+    const mutation = useCreateSplitBill({onSuccess:()=>toast.success("successfully created bill")})
     const formProps = useForm<SplitBill>({
         mode: "onSubmit",
         defaultValues,
@@ -71,9 +73,6 @@ const BillsFormPresentation = () => {
         control,
         name: "splitBillShareList",
     });
-
-
-    console.log(Object.keys(new User()))
 
     const pagination_ = useMemo(()=>({
         pageIndex: 1,
@@ -99,16 +98,11 @@ const BillsFormPresentation = () => {
         split();
     }, [getValues("amount")]);
 
-    useEffect(() => {
-        data?.content.forEach((member,index)=>{
-            setValue(`splitBillShareList.${index}.status`,getValues(`paidBy.id`)==member.member.id ? SplitBillStatus.PAID : SplitBillStatus.PENDING)
-        })
-    }, [getValues(`paidBy.id`)]);
-
 
     function handleSubmit_(data:SplitBill) {
         console.log(formState)
         console.log(data)
+        mutation.mutate(data)
     }
 
     console.log(formState)

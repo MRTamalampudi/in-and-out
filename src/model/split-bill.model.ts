@@ -24,6 +24,19 @@ class SplitBill {
 
         return Object.assign(new SplitBill(),object);
     }
+
+    static serialise(object:SplitBill):any{
+        const splitBill: any = {
+            ...object,
+            splitBillGroupId: object.group.id,
+            paidUserId: object.paidBy.id,
+        }
+
+        delete splitBill.group;
+        delete splitBill.paidBy;
+
+        return splitBill
+    }
 }
 
 export const useSplitBillSchema = () => {

@@ -84,27 +84,3 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
         },
     });
 }
-
-export function useIndexTransactionQueryKeys() {
-    const [searchParams] = useSearchParams();
-    const pagination = {
-        pageIndex: searchParams.get("page"),
-        pageSize: searchParams.get("size"),
-    };
-    const filter = { q: searchParams.get("q") };
-    const sorting = searchParams
-        .get("sort")
-        ?.split(",")
-        .reduce(
-            (acc, value, currentIndex) => {
-                if (currentIndex == 0) {
-                    acc["id"] = value;
-                } else if (currentIndex == 1) {
-                    acc["desc"] = Boolean(value);
-                }
-                return acc;
-            },
-            { desc: false, id: "" },
-        );
-    return [TRANSACTIONS, pagination, [filter], [sorting]];
-}
