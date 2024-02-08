@@ -12,6 +12,16 @@ class SplitBillShare {
     user:User;
     status:SplitBillStatus;
     algo:FormHelperEnum;
+    userId:number;
+
+    static serialise(share:SplitBillShare):SplitBillShare{
+        share.userId = share.user.id;
+
+        //@ts-ignore
+        share.user = null;
+
+        return share;
+    }
 }
 
 export const useSplitBillShareSchema = () => {

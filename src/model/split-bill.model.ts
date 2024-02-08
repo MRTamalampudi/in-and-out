@@ -16,6 +16,9 @@ class SplitBill {
     modifiedAt:Date;
     splitBillShareList:SplitBillShare[];
     group:SplitBillGroup;
+    splitBillGroupId:number;
+    paidUserId:number;
+
 
     static deserialise(object:SplitBill):SplitBill{
         object.date = new Date((object.date as unknown as number) * 1000);
@@ -25,15 +28,15 @@ class SplitBill {
         return Object.assign(new SplitBill(),object);
     }
 
-    static serialise(object:SplitBill):any{
-        const splitBill: any = {
-            ...object,
-            splitBillGroupId: object.group.id,
-            paidUserId: object.paidBy.id,
-        }
+    static serialise(splitBill:SplitBill):SplitBill{
+        splitBill.splitBillGroupId = splitBill.group.id;
+        splitBill.paidUserId = splitBill.paidBy.id;
+        splitBill.splitBillShareList.forEach(share=> share = SplitBillShare.serialise(share))
 
-        delete splitBill.group;
-        delete splitBill.paidBy;
+        // @ts-ignore
+        splitBill.group = null;
+        // @ts-ignore
+        splitBill.paidBy = null;
 
         return splitBill
     }

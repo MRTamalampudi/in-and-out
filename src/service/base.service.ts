@@ -7,7 +7,7 @@ import {
 import axios from "axios";
 
 type SerializerFn<T> = (entity: T) => void;
-type DeserializerFn<T> = (entity:T) => void;
+type DeserializerFn<T> = SerializerFn<T>
 
 export abstract class BaseService<Entity> {
     protected BaseURL: string;
@@ -15,8 +15,8 @@ export abstract class BaseService<Entity> {
     protected serializerFn: SerializerFn<Entity>;
     protected constructor(
         BaseURL: string,
-        deserializerFn: SerializerFn<Entity>,
-        serializerFn: DeserializerFn<Entity> = ()=>null
+        deserializerFn: DeserializerFn<Entity>,
+        serializerFn: SerializerFn<Entity> = ()=>null
     ) {
         this.BaseURL = BaseURL;
         this.deserializerFn = deserializerFn;
@@ -66,8 +66,8 @@ export abstract class BaseService<Entity> {
     }
 
     public create(entity: Entity): Promise<Entity> {
+        this.serializerFn(entity)
         console.log(entity,this.BaseURL)
-        this.serializerFn(entity);
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {
