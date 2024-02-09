@@ -1,15 +1,12 @@
 @use "styles/colors-vars";
 
-@mixin svg($color){
-  svg{
-    fill: $color;
-
-    path{
-      fill: $color;
-    }
+@mixin iconColor($color){
+  > *{
+    fill : $color;
   }
 }
 
+
 .grayIcon{
-  @include svg($g-500)
+  @include iconColor(colors-vars.$g-700)
 }
