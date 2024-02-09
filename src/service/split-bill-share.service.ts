@@ -12,6 +12,7 @@ export class SplitBillShareService extends BaseService<SplitBillShare> {
             entity.bill.paidBy = User.deserialise(entity.bill.paidBy);
             entity.user = User.deserialise(entity.user);
             entity.bill = SplitBill.deserialise(entity.bill)
+            return entity;
         });
     }
 

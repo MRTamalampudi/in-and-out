@@ -1,8 +1,9 @@
 export function useUpdateSearchParams() {
     const updateSearchParams = (searchParams:URLSearchParams,keys:Record<string, any>)=>{
         console.log("effect ==>", searchParams.toString())
-        Object.entries(keys).map((value) =>
-            searchParams.set(value[0], value[1].toString()),
+        Object.entries(keys).map((value) => {
+                if(!!value[1]) searchParams.set(value[0], value[1].toString())
+            }
         );
         return searchParams;
     }

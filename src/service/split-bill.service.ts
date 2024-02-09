@@ -13,7 +13,7 @@ export class SplitBillService extends BaseService<SplitBill> {
             URL_CONSTANTS.SPLIT_BILL,
             (entity) => {
                 entity.paidBy = User.deserialise(entity.paidBy);
-                entity = SplitBill.deserialise(entity);
+                return SplitBill.deserialise(entity);
             },
             (entity) => {
                 entity = SplitBill.serialise(entity);

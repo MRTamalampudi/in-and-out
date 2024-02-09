@@ -16,8 +16,9 @@ class Transaction{
     public amount: number;
     public paymentMode:PaymentModeEnum;
 
-    static deserialize(object:Transaction){
-        object.date = new Date((object.date as unknown as number) * 1000)
+    static deserialize(entity:Transaction){
+        entity.date = new Date((entity.date as unknown as number) * 1000)
+        return Object.assign(new Transaction(),entity)
     }
 }
 

@@ -5,9 +5,10 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import axios from "axios";
+import { en } from "@faker-js/faker";
 
 type SerializerFn<T> = (entity: T) => void;
-type DeserializerFn<T> = SerializerFn<T>
+type DeserializerFn<T> = (entity: T) => T;
 
 export abstract class BaseService<Entity> {
     protected BaseURL: string;
@@ -47,7 +48,7 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Page<Entity>>(`${this.BaseURL}?${urlSearchParams.toString()}`)
             .then((result) => {
-                result.data.content.forEach(this.deserializerFn);
+                result.data.content.forEach(entity=>entity = this.deserializerFn(entity));
                 return result.data;
             })
             .catch((error) => error);
@@ -57,7 +58,7 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Entity>(`${this.BaseURL}/${id}`)
             .then((response) => {
-                this.deserializerFn(response.data);
+                response.data = this.deserializerFn(response.data);
                 return response.data;
             })
             .catch((error) => {
@@ -71,7 +72,7 @@ export abstract class BaseService<Entity> {
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {
-                this.deserializerFn(response.data);
+                response.data = this.deserializerFn(response.data);
                 return response.data;
             })
             .catch((error) => {

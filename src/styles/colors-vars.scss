@@ -91,12 +91,21 @@ $purple-200:#A081D9;
 $purple-100:#EAE2F8;
 
 
-$pqwe: red;
-
-
 $primary : $p-700;
 $primary-red:$red-700;
 $background-color: #fff;
+
+.bg-green{
+  background: $p-200;
+}
+
+.bg-red{
+  background: $red-200;
+}
+
+.bg-gray{
+  background: $g-200;
+}
 
 .primary{
   color: $primary;

@@ -87,16 +87,6 @@
 
         }
 
-        .billShares{
-          align-items: center;
-
-          @extend .flex-row;
-          @extend .column-gap-8;
-          @extend .body-text;
-
-
-        }
-
       }
       .right{
         @extend .flex-row;
@@ -109,15 +99,22 @@
 
 .lent{
   color: colors-vars.$primary;
-
-  @extend .body-text-bold;
-  @extend .pointer;
 }
 
 .owes{
   color: colors-vars.$primary-red;
+}
 
-  @extend .body-text-bold;
-  @extend .pointer;
+.billShares{
+  align-items: center;
 
+  @extend .flex-row;
+  @extend .column-gap-4;
+  @extend .body-text;
+
+  .lent,.owes{
+    @extend .body-text-bold;
+    @extend .pointer;
+    @extend .currency;
+  }
 }

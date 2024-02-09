@@ -7,12 +7,16 @@ import { SPLITBILL_ROUTES } from "../routes";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
+import { useGetUser } from "service/react-query-hooks/user.query";
 
 interface GroupBillHeaderProps {}
 
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
     const { data } = useGetSplitBillGroup(1);
+    const { data:currentUser} = useGetUser();
+    const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!).lentShare || 0;
+    const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;
 
     const components = data?.memberList.map((member) => (
         <TextAvatar text={member.member.getFullName()} key={member.id} />
@@ -31,22 +35,8 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
                 <div className={styles.title}>{data?.name}</div>
                 <div className={styles.details}>
                     <div className={styles.left}>
-                        {/*</div>*/}
                         <ComponentStack components={components || []} />
-                        <div className={styles.billShares}>
-                            You lent{" "}
-                            {
-                                data?.memberList.find(
-                                    (member) => member.member.id == 8,
-                                )?.lentShare
-                            }{" "}
-                            and owe{" "}
-                            {
-                                data?.memberList.find(
-                                    (member) => member.member.id == 8,
-                                )?.oweShare
-                            }
-                        </div>
+                        <GroupShareSummary lentShare={lentShare} oweShare={oweShare}/>
                     </div>
                     <div className={styles.right}>
                         <EditIcon
@@ -65,5 +55,19 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
         </div>
     );
 };
+
+type GroupShareSummary = {
+    lentShare:number;
+    oweShare:number;
+}
+
+const GroupShareSummary = ({ lentShare, oweShare }:GroupShareSummary) => (
+    <div className={styles.billShares}>
+        You lent
+        <span className={styles.lent}>${lentShare}</span>
+        and owe
+        <span className={styles.owes}>${oweShare}</span>
+    </div>
+);
 
 export default GroupBillHeader;

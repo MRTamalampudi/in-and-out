@@ -8,6 +8,7 @@ export class SplitBillGroupMemberService extends BaseService<SplitBillGroupMembe
     private constructor() {
         super(URL_CONSTANTS.SPLIT_BILL_GROUP_MEMBERS, (entity) => {
             entity.member = User.deserialise(entity.member);
+            return entity;
         });
     }
 
