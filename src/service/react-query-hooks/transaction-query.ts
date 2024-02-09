@@ -14,8 +14,8 @@ import { useSearchParams } from "react-router-dom";
 import { Transaction } from "model";
 import Page from "model/page";
 import {
-    constructSearchParams,
     useConstructSearchParams,
+    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 
 const TRANSACTIONS = QueryKeys.TRANSACTIONS;
@@ -25,8 +25,8 @@ export function useIndexTransactions(
     filters: ColumnFiltersState,
     sorting: SortingState,
 ) {
-    const keys = constructSearchParams({ pagination, filters, sorting });
-    useConstructSearchParams({ pagination, filters, sorting });
+    const keys = useConstructSearchParams({ pagination, filters, sorting });
+    useUpdateSearchParams({ keys });
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: [TRANSACTIONS, keys],

@@ -8,8 +8,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { SplitBillGroupMemberQueryKeys } from "service/react-query-hooks/query-keys";
 import { SplitBillGroupMemberService } from "service/split-bill-group-member.service";
 import {
-    constructSearchParams,
     useConstructSearchParams,
+    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 
 export function useIndexGroupMembers(
@@ -17,14 +17,13 @@ export function useIndexGroupMembers(
     filters: ColumnFiltersState,
     sorting: SortingState,
 ) {
-    const keys = useMemo(
-        () => constructSearchParams({ pagination, filters, sorting }),
-        [pagination, filters, sorting],
-    );
-    useConstructSearchParams({ pagination, filters, sorting });
+    const keys = useConstructSearchParams({ pagination, filters, sorting })
+    keys["gpage"]=keys.page;
+    keys["gsize"]=keys.size;
+    useUpdateSearchParams({ keys,omit:["page","size","forGroupsList"] });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: [SplitBillGroupMemberQueryKeys.index, filters],
+        queryKey: [SplitBillGroupMemberQueryKeys.index, keys],
         queryFn: () =>
             SplitBillGroupMemberService.getInstance().index(
                 pagination,

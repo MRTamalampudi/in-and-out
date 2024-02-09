@@ -4,8 +4,8 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { useSearchParams } from "react-router-dom";
-import { useUpdateSearchParams } from "utils/useUpdateSearchParams";
-import { useEffect } from "react";
+import { updateSearchParams } from "utils/updateSearchParams";
+import { useEffect, useMemo } from "react";
 
 type ConstructSearchParamOptions = {
     pagination?: PaginationState;
@@ -13,7 +13,7 @@ type ConstructSearchParamOptions = {
     sorting?: SortingState;
 };
 
-export function constructSearchParams(options: ConstructSearchParamOptions) {
+export function useConstructSearchParams(options: ConstructSearchParamOptions) {
     const { pagination, filters, sorting } = options;
 
     const filterKeys = filters?.reduce(
@@ -28,29 +28,32 @@ export function constructSearchParams(options: ConstructSearchParamOptions) {
         {},
     );
 
-    const keys: Record<string, string> = {
-        page:String(pagination?.pageIndex) ?? "1",
-        size:String(pagination?.pageSize) ?? "20",
+    return useMemo(() => ({
+        page: String(pagination?.pageIndex) ?? "1",
+        size: String(pagination?.pageSize) ?? "20",
         ...filterKeys,
         ...sortingKeys,
-    };
-
-    return keys;
+    }), [pagination, filters, sorting]) as Record<string, string>;
 }
 
 type ConstructSearchParamsHookProps = ConstructSearchParamOptions;
 
-export const useConstructSearchParams = (options: ConstructSearchParamsHookProps) => {
-    const { pagination, filters, sorting } = options;
-    const keys = constructSearchParams({ pagination, filters, sorting });
+type UpdateSearchParamsOptions = {
+    keys:Record<string, string>;
+    omit?:string[];
+    pick?:string[];
+}
+
+export const useUpdateSearchParams = (options:UpdateSearchParamsOptions) => {
+    const {keys} = options;
     const [searchParams, setSearchParams] = useSearchParams();
-    const [update, clean] = useUpdateSearchParams();
+    const [update, clean] = updateSearchParams({searchParams,...options});
 
     useEffect(() => {
-        update(searchParams, keys);
+        update();
         setSearchParams(searchParams);
-        return () => clean(searchParams, keys);
-    }, [pagination, filters, sorting, searchParams]);
+        return () => clean();
+    }, [keys, searchParams]);
 
     return { keys, searchParams };
 };

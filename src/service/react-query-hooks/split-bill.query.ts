@@ -5,8 +5,8 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import {
-    constructSearchParams,
     useConstructSearchParams,
+    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -25,18 +25,15 @@ export function useIndexBills(
     filters: ColumnFiltersState,
     sorting: SortingState,
 ) {
-    const keys = useMemo(
-        () => constructSearchParams({ pagination, filters, sorting }),
-        [pagination, filters, sorting],
-    );
-    useConstructSearchParams({ pagination, filters, sorting });
+    const keys = useConstructSearchParams({ pagination, filters, sorting });
+    useUpdateSearchParams({ keys });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: SplitBillQueryKeys.index,
+        queryKey: SplitBillQueryKeys.index(keys),
         queryFn: () =>
             SplitBillService.getInstance().index(pagination, filters, sorting),
         placeholderData: () =>
-            queryClient.getQueryData(SplitBillQueryKeys.index),
+            queryClient.getQueryData(SplitBillQueryKeys.index(keys)),
     });
 }
 

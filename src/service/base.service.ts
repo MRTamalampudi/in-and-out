@@ -16,7 +16,7 @@ export abstract class BaseService<Entity> {
     protected serializerFn: SerializerFn<Entity>;
     protected constructor(
         BaseURL: string,
-        deserializerFn: DeserializerFn<Entity>,
+        deserializerFn: DeserializerFn<Entity> = (entity:Entity)=>entity,
         serializerFn: SerializerFn<Entity> = ()=>null
     ) {
         this.BaseURL = BaseURL;

@@ -5,8 +5,8 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import {
-    constructSearchParams,
     useConstructSearchParams,
+    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -23,14 +23,11 @@ export function useIndexGroups(
     filters: ColumnFiltersState,
     sorting: SortingState,
 ) {
-    const keys = useMemo(
-        () => constructSearchParams({ pagination, filters, sorting }),
-        [pagination, filters, sorting],
-    );
-    useConstructSearchParams({ pagination, filters, sorting });
+    const keys = useConstructSearchParams({ pagination, filters, sorting });
+    useUpdateSearchParams({ keys });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: SplitBillGroupQueryKeys.index,
+        queryKey: SplitBillGroupQueryKeys.index(keys),
         queryFn: () =>
             SplitBillGroupService.getInstance().index(
                 pagination,
@@ -38,7 +35,7 @@ export function useIndexGroups(
                 sorting,
             ),
         placeholderData: () =>
-            queryClient.getQueryData(SplitBillGroupQueryKeys.index),
+            queryClient.getQueryData(SplitBillGroupQueryKeys.index(keys)),
     });
 }
 
@@ -57,7 +54,7 @@ export function useCreateSplitBillGroup(options: CustomMutationOptions) {
         mutationFn: (data:SplitBillGroup)=>SplitBillGroupService.getInstance().create(data),
         onSuccess: () => {
             onSuccess && onSuccess();
-            queryClient.invalidateQueries({ queryKey: SplitBillGroupQueryKeys.index });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL_GROUP] });
         },
     });
 }
