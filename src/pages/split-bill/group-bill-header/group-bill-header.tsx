@@ -2,18 +2,22 @@ import React from "react";
 import styles from "./group-bill-header.module.scss";
 import { EditIcon } from "components/icons";
 import DeleteIcon from "components/icons/delete-icon";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { SPLITBILL_ROUTES } from "../routes";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 import { useGetUser } from "service/react-query-hooks/user.query";
+import { useSearchParamsConstants } from "constants/use-search-params.constants";
 
 interface GroupBillHeaderProps {}
 
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
-    const { data } = useGetSplitBillGroup(1);
+    const [searchParams] = useSearchParams();
+    const {GROUP} = useSearchParamsConstants();
+    const group = parseInt(searchParams.get(GROUP)!)
+    const { data } = useGetSplitBillGroup(group);
     const { data:currentUser} = useGetUser();
     const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!).lentShare || 0;
     const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;

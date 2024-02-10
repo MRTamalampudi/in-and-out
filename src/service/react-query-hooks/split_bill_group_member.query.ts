@@ -12,7 +12,7 @@ import {
     useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 
-export function useIndexGroupMembers(
+export function useIndexGroupMembers (
     pagination: PaginationState,
     filters: ColumnFiltersState,
     sorting: SortingState,

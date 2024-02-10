@@ -17,7 +17,7 @@ export function updateSearchParams(options: UpdateSearchParamsOptions) {
                 searchParams.set(value[0], value[1]);
             }
         });
-        return searchParams;
+        console.log(searchParams.toString(),options)
     };
 
     const cleanUpParams = () => {

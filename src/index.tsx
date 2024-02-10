@@ -27,9 +27,7 @@ root.render(
                   <Route  path={'/'}  element={
                       <App/>
                   }>
-                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}>
-                          {SplitBillRoutes()}
-                      </Route>
+                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}/>
                       <Route path={BaseRoutes.TRANSACTIONS} element={<TransactionsPage/>}>
                           {TransactionRoutes()}
                       </Route>

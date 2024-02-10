@@ -5,7 +5,7 @@ import BillsTable from "pages/split-bill/bills-table/bills-table";
 
 interface BillGroupProps {}
 
-const BillGroup: FC<BillGroupProps> = () => (
+const BillGroup = () => (
   <div className={styles.BillGroup}>
       <div className={styles.header}>
           <GroupBillHeader/>

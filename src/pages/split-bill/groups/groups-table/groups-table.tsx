@@ -8,7 +8,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { Avatar, Checkbox, TextInput } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
@@ -17,6 +17,9 @@ import ActionsRow from "components/table/actions-row";
 import { useSearchParams } from "react-router-dom";
 import TextAvatar from "components/text-avatar";
 import { columns } from "./columns";
+import { useNavigate } from "react-router";
+import { SPLITBILL_ROUTES } from "pages/split-bill/routes";
+import { useSearchParamsConstants } from "constants/use-search-params.constants";
 
 type GroupsTableProps = {};
 const GroupsTable = ({}:GroupsTableProps) => {
@@ -28,8 +31,16 @@ const GroupsTable = ({}:GroupsTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
+    const [searchParams, setSearchParams] = useSearchParams();
+    const {GROUP} = useSearchParamsConstants();
 
     const {data} = useIndexGroupMembers(pagination,columnFilters,sorting);
+
+    useEffect(() => {
+        const groupId = data?.content?.at(0)?.group.id
+        searchParams.set(GROUP,String(groupId!))
+        setSearchParams(searchParams)
+    }, [data?.content]);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -54,10 +65,8 @@ const GroupsTable = ({}:GroupsTableProps) => {
         enableSorting: true,
         enableMultiSort: true,
     });
-
-    const [searchParams, setSearchParams] = useSearchParams();
     function onRowClick(id: number) {
-        searchParams.set("view", id.toString());
+        searchParams.set(GROUP, id.toString());
         setSearchParams(searchParams);
     }
 
@@ -88,7 +97,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.group.id)}
-                            data-selected={row.original.id.toString() == searchParams.get("view")}
+                            data-selected={row.original.group.id.toString() == searchParams.get(GROUP)}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <td

@@ -46,6 +46,7 @@ type UpdateSearchParamsOptions = {
 
 export const useUpdateSearchParams = (options:UpdateSearchParamsOptions) => {
     const {keys} = options;
+    console.log(keys)
     const [searchParams, setSearchParams] = useSearchParams();
     const [update, clean] = updateSearchParams({searchParams,...options});
 
