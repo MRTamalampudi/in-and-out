@@ -8,7 +8,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { Checkbox, TextInput } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
@@ -23,7 +23,7 @@ type BillsTableProps = {
 const BillsTable = ({}:BillsTableProps) => {
     const columnHelper = createColumnHelper<SplitBillShare>();
 
-    const columns = [
+    const columns = useMemo(()=>([
         {
             id: "select",
             //@ts-ignore
@@ -109,7 +109,7 @@ const BillsTable = ({}:BillsTableProps) => {
                 className: "action w48p flex-row jc-center",
             },
         }
-    ]
+    ]),[])
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);

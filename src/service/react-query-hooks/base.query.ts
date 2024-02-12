@@ -4,8 +4,7 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { useSearchParams } from "react-router-dom";
-import { updateSearchParams } from "utils/updateSearchParams";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 type ConstructSearchParamOptions = {
     pagination?: PaginationState;
@@ -36,25 +35,39 @@ export function useConstructSearchParams(options: ConstructSearchParamOptions) {
     }), [pagination, filters, sorting]) as Record<string, string>;
 }
 
-type ConstructSearchParamsHookProps = ConstructSearchParamOptions;
-
 type UpdateSearchParamsOptions = {
     keys:Record<string, string>;
     omit?:string[];
     pick?:string[];
-}
+};
 
 export const useUpdateSearchParams = (options:UpdateSearchParamsOptions) => {
-    const {keys} = options;
-    console.log(keys)
+    const {keys,pick,omit} = options;
     const [searchParams, setSearchParams] = useSearchParams();
-    const [update, clean] = updateSearchParams({searchParams,...options});
 
+    const updateSearchParams = useCallback(()=> {
+        Object.entries(keys).map((value) => {
+            if (!!omit) {
+                if(!omit.includes(value[0])){
+                    searchParams.set(value[0], value[1]);
+                }
+            } else if (!!pick) {
+                pick.includes(value[0]) && searchParams.set(value[0], value[1]);
+            } else {
+                setSearchParams(prev => {
+                    prev.set(value[0], value[1]);
+                    return prev
+                });
+            }
+        });
+    },[keys,searchParams]) ;
+
+    const cleanUpParams = useCallback(() => {
+        Object.entries(keys).forEach((value) => searchParams.delete(value[0]));
+    },[keys,searchParams]);
+    
     useEffect(() => {
-        update();
-        setSearchParams(searchParams);
-        return () => clean();
-    }, [keys, searchParams]);
-
-    return { keys, searchParams };
+        updateSearchParams()
+        return () => cleanUpParams();
+    }, [searchParams,keys]);
 };

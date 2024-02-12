@@ -3,7 +3,6 @@ import {
     PaginationState,
     SortingState,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
 import {
     useConstructSearchParams,
     useUpdateSearchParams,
@@ -16,7 +15,6 @@ import {
 import { SplitBillGroupService } from "service/split-bill-group.service";
 import { SplitBillGroup } from "model";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
-import { TransactionService } from "service/transaction.service";
 
 export function useIndexGroups(
     pagination: PaginationState,
