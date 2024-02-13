@@ -5,35 +5,54 @@ import { Colors } from "theme/colors";
 import "@mantine/core/styles.css";
 import "styles/mantine/index.scss";
 import "@mantine/dates/styles.css";
-import { RouterProvider } from "@tanstack/react-router";
-import { router } from "router";
+import { createRootRouteWithContext, createRouter, RouterProvider } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import App from "App";
+import { transactionRoute } from "pages/transactions/routes";
+import { splitBillRoute } from "pages/split-bill/routes";
+import { loginRoute } from "pages/login/routes";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+export const queryClient = new QueryClient({
+    defaultOptions: {},
+});
+
+export const rootRoute = createRootRouteWithContext<{
+    queryClient: QueryClient;
+}>()({
+    component: App,
+});
+
+
+
+const routeTree = rootRoute.addChildren([
+    transactionRoute,
+    splitBillRoute,
+    loginRoute
+])
+
+export const router = createRouter({
+    routeTree,
+    defaultPreloadStaleTime:0,
+    context:{
+        queryClient
+    }
+})
+
+declare module '@tanstack/react-router' {
+    interface Register {
+        // This infers the type of our router and registers it across your entire project
+        router: typeof router
+    }
+}
+
 root.render(
       <Colors>
-          {/*<BrowserRouter>*/}
-          {/*    <Routes>*/}
-          {/*        <Route  path={'/'}  element={*/}
-          {/*            <App/>*/}
-          {/*        }>*/}
-          {/*            <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}/>*/}
-          {/*            <Route path={BaseRoutes.TRANSACTIONS} element={<TransactionsPage/>}>*/}
-          {/*                {TransactionRoutes()}*/}
-          {/*            </Route>*/}
-          {/*            <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>*/}
-          {/*            <Route path={BaseRoutes.PLAY_GROUND} element={<PlayGround/>} />*/}
-          {/*        </Route>*/}
-          {/*        <Route path={BaseRoutes.LOGIN} element={<Login/>}/>*/}
-          {/*    </Routes>*/}
-          {/*</BrowserRouter>*/}
-          <RouterProvider router={router}/>
+          <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router}/>
+          </QueryClientProvider>
       </Colors>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

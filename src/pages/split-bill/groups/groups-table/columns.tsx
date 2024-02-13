@@ -36,6 +36,7 @@ export const columns = [
             <TextAvatar text={props.getValue()}/>
             <span>{props.getValue()}</span>
         </div>),
+        enableSorting:false,
         meta: {
             className : "flex-basis-10/20"
         }

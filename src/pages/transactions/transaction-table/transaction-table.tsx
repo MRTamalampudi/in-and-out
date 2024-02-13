@@ -7,8 +7,9 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import {
+    transactionQueryOptions,
     useDeleteTransaction,
-    useIndexTransactions,
+    useIndexTransactions
 } from "service/react-query-hooks/transaction-query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { Action } from "components/table/actions-row";
@@ -18,6 +19,7 @@ import { columns as columns_ } from "pages/transactions/transaction-table/transa
 import Checked from "components/icons/checked";
 import { useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface TransactionTableProps {}
 
@@ -67,7 +69,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
-    const { data } = useIndexTransactions(pagination, columnFilters, sorting);
+    const { data } = useSuspenseQuery(transactionQueryOptions)
 
     const table = useReactTable({
         data: data?.content || [],

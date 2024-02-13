@@ -51,6 +51,7 @@ const BillsTable = ({}:BillsTableProps) => {
         columnHelper.accessor("bill.bill",{
             header: "Bill",
             cell: props => props.getValue(),
+            enableSorting:false,
             meta:{
                 className:"flex-basis-5/20"
             }
@@ -60,14 +61,16 @@ const BillsTable = ({}:BillsTableProps) => {
             cell: props => props.getValue().getFullName(),
             meta:{
                 className:"flex-basis-4/20"
-            }
+            },
+            enableSorting:false
         }),
         columnHelper.accessor("status",{
             header: "My Status",
             cell: props => props.getValue(),
             meta:{
                 className:"flex-basis-3/20"
-            }
+            },
+            enableSorting:false
         }),
         columnHelper.accessor("bill.date",{
             header: "Paid on",

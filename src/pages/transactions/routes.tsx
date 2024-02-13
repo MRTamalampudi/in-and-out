@@ -1,7 +1,9 @@
 import TransactionsPage from "./transactions.page";
 import { createRoute } from "@tanstack/react-router";
-import { rootRoute } from "router";
 import { z } from "zod";
+import { transactionQueryOptions } from "service/react-query-hooks/transaction-query";
+import { rootRoute } from "index";
+import { transactionSummaryQueryOptions } from "service/react-query-hooks/transaction-summary.query";
 
 
 export const TRANSACTIONS_SLUGS = {
@@ -19,4 +21,9 @@ export const transactionRoute = createRoute({
     component:TransactionsPage,
     path:"transactions",
     validateSearch:searchParamsSchema,
+    loader: ({context:{queryClient}})=>{
+        queryClient.ensureQueryData(transactionQueryOptions)
+        queryClient.ensureQueryData(transactionSummaryQueryOptions)
+    },
+    pendingComponent:()=><div>Loading...</div>,
 });

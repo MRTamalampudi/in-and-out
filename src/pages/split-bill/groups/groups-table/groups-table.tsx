@@ -17,19 +17,20 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 
 type GroupsTableProps = {};
-const GroupsTable = ({}:GroupsTableProps) => {
-
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([{id:"forGroupsList",value:"true"}]);
+const GroupsTable = ({}: GroupsTableProps) => {
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
+        { id: "forGroupsList", value: "true" },
+    ]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 20,
     });
-    const {group} = splitBillRoute.useSearch();
+    const { group } = splitBillRoute.useSearch();
     const navigate = useNavigate();
 
-    const {data} = useIndexGroupMembers(pagination,columnFilters,sorting);
+    const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -55,7 +56,18 @@ const GroupsTable = ({}:GroupsTableProps) => {
         enableMultiSort: true,
     });
     function onRowClick(id: number) {
-        navigate({search:(prev)=>({...prev,group:id})})
+        navigate({ search: (prev) => ({ ...prev, group: id }) });
+    }
+
+    function handlePaginationChange(value: PaginationState) {
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                gpage: value.pageIndex,
+                gsize: value.pageSize,
+            }),
+        });
+        table.setPagination(value);
     }
 
     return (
@@ -76,7 +88,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
             <Table>
                 {table.getIsSomeRowsSelected() ||
                 table.getIsAllRowsSelected() ? (
-                    <ActionsRow table={table}/>
+                    <ActionsRow table={table} />
                 ) : (
                     <Table.Head table={table} />
                 )}
@@ -107,10 +119,10 @@ const GroupsTable = ({}:GroupsTableProps) => {
             <TableWrapper.Pagination
                 totalElements={data?.totalElements || 0}
                 pagination={pagination}
-                onPaginationChange={table.setPagination}
+                onPaginationChange={handlePaginationChange}
             />
         </TableWrapper>
-    )
-}
+    );
+};
 
 export default GroupsTable;

@@ -1,7 +1,7 @@
 import SplitBillPage from "./split-bill.page";
 import { createRoute } from "@tanstack/react-router";
-import { rootRoute } from "router";
 import { z } from "zod";
+import { rootRoute } from "index";
 
 export const SPLITBILL_ROUTES = {
     SPLITBILL_GROUP_ID: "splitBillGroupId",

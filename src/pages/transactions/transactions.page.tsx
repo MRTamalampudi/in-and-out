@@ -4,8 +4,12 @@ import { TransactionTypeCard } from "components";
 import { TransactionTypeEnum } from "enum";
 import Modal from "./transaction-form/modal";
 import TransactionTable from "pages/transactions/transaction-table/transaction-table";
-import { useGetTransactionSummary } from "service/react-query-hooks/transaction-summary.query";
+import {
+    transactionSummaryQueryOptions,
+    useGetTransactionSummary
+} from "service/react-query-hooks/transaction-summary.query";
 import { transactionRoute } from "pages/transactions/routes";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface TransactionsProps {}
 
@@ -13,8 +17,7 @@ const TransactionsPage = (
     {}:TransactionsProps
 ) => {
 
-    const {data} = useGetTransactionSummary();
-    console.log({fullpath:transactionRoute.fullPath,path:transactionRoute.path})
+    const {data} = useSuspenseQuery(transactionSummaryQueryOptions);
 
     return (
       <div className={styles.Transactions}>

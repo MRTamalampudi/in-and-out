@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+    queryOptions,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from "@tanstack/react-query";
 import { TransactionService } from "service/transaction.service";
 import {
     ColumnFiltersState,
@@ -29,8 +34,13 @@ export function useIndexTransactions(
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: [TRANSACTIONS, keys],
-        queryFn: () => TransactionService.getInstance().index(pagination, filters, sorting),
-        placeholderData: () => queryClient.getQueryData([TRANSACTIONS, keys])
+        queryFn: () =>
+            TransactionService.getInstance().index(
+                pagination,
+                filters,
+                sorting,
+            ),
+        placeholderData: () => queryClient.getQueryData([TRANSACTIONS, keys]),
     });
 }
 
@@ -54,10 +64,11 @@ export function useGetTransaction(id: number) {
 }
 
 export function useCreateTransaction(options: CustomMutationOptions) {
-    const { onSuccess} = options;
+    const { onSuccess } = options;
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (transaction:Transaction) => TransactionService.getInstance().create(transaction),
+        mutationFn: (transaction: Transaction) =>
+            TransactionService.getInstance().create(transaction),
         onSuccess: () => {
             onSuccess && onSuccess();
             queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
@@ -73,7 +84,8 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: [TRANSACTIONS, "delete"],
-        mutationFn: (entityIds:number[])=>TransactionService.getInstance().delete(entityIds),
+        mutationFn: (entityIds: number[]) =>
+            TransactionService.getInstance().delete(entityIds),
         onError: () => {
             if (onError) onError();
         },
@@ -83,3 +95,13 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
         },
     });
 }
+
+export const transactionQueryOptions = queryOptions({
+    queryKey: [QueryKeys.TRANSACTIONS],
+    queryFn: () =>
+        TransactionService.getInstance().index(
+            { pageIndex: 1, pageSize: 20 },
+            [],
+            [],
+        ),
+});
