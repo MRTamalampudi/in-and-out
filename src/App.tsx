@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.scss";
-import { Outlet } from "react-router";
+import { Outlet } from "@tanstack/react-router";
 import Header from "./components/header";
 import "./i18n";
 import { NavBar } from "components";

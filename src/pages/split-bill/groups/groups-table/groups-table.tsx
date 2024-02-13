@@ -1,25 +1,20 @@
 import {
     ColumnFiltersState,
-    createColumnHelper,
     flexRender,
     getCoreRowModel,
     PaginationState,
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
-import { Avatar, Checkbox, TextInput } from "@mantine/core";
+import { TextInput } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import SplitBillGroupMember from "model/split-bill-group-member.model";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
 import ActionsRow from "components/table/actions-row";
-import { useSearchParams } from "react-router-dom";
-import TextAvatar from "components/text-avatar";
 import { columns } from "./columns";
-import { useNavigate } from "react-router";
-import { SPLITBILL_ROUTES } from "pages/split-bill/routes";
-import { useSearchParamsConstants } from "constants/use-search-params.constants";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { splitBillRoute } from "pages/split-bill/routes";
 
 type GroupsTableProps = {};
 const GroupsTable = ({}:GroupsTableProps) => {
@@ -31,15 +26,14 @@ const GroupsTable = ({}:GroupsTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
-    const [searchParams, setSearchParams] = useSearchParams();
-    const {GROUP} = useSearchParamsConstants();
+    const {group} = useSearch({from:splitBillRoute.fullPath});
+    const navigate = useNavigate({from:splitBillRoute.fullPath});
 
     const {data} = useIndexGroupMembers(pagination,columnFilters,sorting);
 
     useEffect(() => {
         const groupId = data?.content?.at(0)?.group.id
-        searchParams.set(GROUP,String(groupId!))
-        setSearchParams(searchParams)
+        navigate({search:{group:groupId}})
     }, [data?.content]);
 
     const table = useReactTable({
@@ -66,8 +60,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
         enableMultiSort: true,
     });
     function onRowClick(id: number) {
-        searchParams.set(GROUP, id.toString());
-        setSearchParams(searchParams);
+        navigate({search:{group:id}})
     }
 
     return (
@@ -97,7 +90,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.group.id)}
-                            data-selected={row.original.group.id.toString() == searchParams.get(GROUP)}
+                            data-selected={row.original.group.id == group}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <td

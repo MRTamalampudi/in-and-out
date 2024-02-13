@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./transaction-form.module.scss";
 import { Button } from "@mantine/core";
 import PaymentModeSelect from "./payment-mode-select";
@@ -16,24 +16,25 @@ import {
     useFormPlaceholdersTranslations,
 } from "locales/translation-hooks";
 import { useTransactionFormEssentials } from "forms/hooks";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 import {
     useCreateTransaction,
     useGetTransaction,
 } from "service/react-query-hooks/transaction-query";
-import { useSearchParams } from "react-router-dom";
 import { useCloseModal } from "utils/useCloseModal";
 import { toast } from "sonner";
+import { useSearch } from "@tanstack/react-router";
+import { transactionRoute } from "pages/transactions/routes";
 
 const TransactionForm = () => {
-    const [searchParams] = useSearchParams();
+    const { transaction } = useSearch({ from: transactionRoute.fullPath });
 
-    const data = useGetTransaction(
-        parseInt(searchParams.get("view") || "0"),
+    const data = useGetTransaction(transaction || 0);
+    console.log(data);
+    return (
+        <TransactionFormPresentation
+            transactionData={data.isError ? undefined : data.data}
+        />
     );
-    console.log(data)
-    return <TransactionFormPresentation transactionData={data.isError ? undefined : data.data} />;
 };
 
 export default TransactionForm;
@@ -45,10 +46,9 @@ function TransactionFormPresentation({
     transactionData,
 }: TransactionFormPresentationProps) {
 
+    
 
-    console.log("fetchedd data ==>",transactionData)
-
-    const navigate = useNavigate();
+    
     const { formPlaceholders } = useFormPlaceholdersTranslations();
     const { formLabels } = useFormLabelsTranslations();
     let { schema, defaultValues, emptyValues } = useTransactionFormEssentials();

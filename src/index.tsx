@@ -1,42 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
-import {Colors} from "theme/colors";
-import {Route, Routes} from "react-router";
-import { BrowserRouter } from "react-router-dom";
-import TransactionsPage from "./pages/transactions/transactions.page";
-import SplitBillPage from "./pages/split-bill/split-bill.page";
-import Demo from "./pages/demo/demo";
-import {BaseRoutes} from "constants/base-routes";
-import SplitBillRoutes from "./pages/split-bill/routes";
-import TransactionRoutes from "./pages/transactions/routes";
-import Login from "./pages/login";
-import PlayGround from "pages/play-ground";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import { Colors } from "theme/colors";
 import "@mantine/core/styles.css";
-import "styles/mantine/index.scss"
-import '@mantine/dates/styles.css';
+import "styles/mantine/index.scss";
+import "@mantine/dates/styles.css";
+import { RouterProvider } from "@tanstack/react-router";
+import { router } from "router";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
       <Colors>
-          <BrowserRouter>
-              <Routes>
-                  <Route  path={'/'}  element={
-                      <App/>
-                  }>
-                      <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}/>
-                      <Route path={BaseRoutes.TRANSACTIONS} element={<TransactionsPage/>}>
-                          {TransactionRoutes()}
-                      </Route>
-                      <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>
-                      <Route path={BaseRoutes.PLAY_GROUND} element={<PlayGround/>} />
-                  </Route>
-                  <Route path={BaseRoutes.LOGIN} element={<Login/>}/>
-              </Routes>
-          </BrowserRouter>
+          {/*<BrowserRouter>*/}
+          {/*    <Routes>*/}
+          {/*        <Route  path={'/'}  element={*/}
+          {/*            <App/>*/}
+          {/*        }>*/}
+          {/*            <Route path={BaseRoutes.SPLIT_BILL} element={<SplitBillPage/>}/>*/}
+          {/*            <Route path={BaseRoutes.TRANSACTIONS} element={<TransactionsPage/>}>*/}
+          {/*                {TransactionRoutes()}*/}
+          {/*            </Route>*/}
+          {/*            <Route path={BaseRoutes.SETTINGS} element={<Demo/>}/>*/}
+          {/*            <Route path={BaseRoutes.PLAY_GROUND} element={<PlayGround/>} />*/}
+          {/*        </Route>*/}
+          {/*        <Route path={BaseRoutes.LOGIN} element={<Login/>}/>*/}
+          {/*    </Routes>*/}
+          {/*</BrowserRouter>*/}
+          <RouterProvider router={router}/>
       </Colors>
 );
 

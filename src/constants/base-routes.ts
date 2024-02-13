@@ -1,7 +1,7 @@
 export const BaseRoutes = {
     TRANSACTIONS: "transactions",
     SETTINGS: "settings",
-    SPLIT_BILL: "split-bill",
+    SPLIT_BILL: "split_bill",
     BUDGET: "budget",
     USER_PROFILE: "user-profile",
     LOGIN: "login",

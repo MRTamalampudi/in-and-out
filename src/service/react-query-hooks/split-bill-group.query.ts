@@ -37,6 +37,8 @@ export function useIndexGroups(
     });
 }
 
+
+//todo:by default show recent created bill handle this in backend if there is no bill searchparam then request ?recent?=true;
 export function useGetSplitBillGroup(id: number) {
     return useQuery({
         queryKey: [QueryKeys.SPLIT_BILL_GROUP, id],

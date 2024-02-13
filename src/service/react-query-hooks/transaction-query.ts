@@ -10,7 +10,6 @@ import {
     QueryKeys,
     TransactionQueryKeys,
 } from "service/react-query-hooks/query-keys";
-import { useSearchParams } from "react-router-dom";
 import { Transaction } from "model";
 import Page from "model/page";
 import {

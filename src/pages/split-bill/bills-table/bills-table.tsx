@@ -9,13 +9,14 @@ import {
 } from "@tanstack/react-table";
 import { Checkbox, TextInput } from "@mantine/core";
 import React, { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
 import ActionsRow from "components/table/actions-row";
 import SplitBillShare from "model/split-bill-share.model";
 import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { splitBillRoute } from "pages/split-bill/routes";
 
 type BillsTableProps = {
 
@@ -145,10 +146,10 @@ const BillsTable = ({}:BillsTableProps) => {
         enableMultiSort: true,
     });
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const {bill} = useSearch({from:splitBillRoute.fullPath});
+    const navigate = useNavigate({from:splitBillRoute.fullPath});
     function onRowClick(id: number) {
-        searchParams.set("view", id.toString());
-        setSearchParams(searchParams);
+        navigate({search:{bill:id}})
     }
 
     return (
@@ -178,7 +179,7 @@ const BillsTable = ({}:BillsTableProps) => {
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.id)}
-                            data-selected={row.original.id.toString() == searchParams.get("view")}
+                            data-selected={row.original.id == bill}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <td

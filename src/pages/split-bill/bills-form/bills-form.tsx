@@ -2,44 +2,38 @@ import styles from "./bills-form.module.scss";
 import { TextInputForm } from "forms/inputs";
 import { useFieldArray, useForm } from "react-hook-form";
 import ModalWrapper from "components/modal";
-import { useSearchParams } from "react-router-dom";
 import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
-import React, { useEffect, useMemo, useState } from "react";
-import {
-    ColumnFiltersState,
-    PaginationState,
-    SortingState,
-} from "@tanstack/react-table";
+import React, { useEffect, useMemo } from "react";
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
-import { SplitBill, User } from "model";
+import { SplitBill } from "model";
 import PaidBy from "pages/split-bill/bills-form/paid-by";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
-import SplitAlgoSelect from "pages/split-bill/bills-form/split-algo-select";
 import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormHelperEnum from "enum/form-helper.enum";
 import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
-import SplitBillStatus from "enum/split-bill-status.enum";
 import { useCreateSplitBill } from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { splitBillRoute } from "pages/split-bill/routes";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const {newBill} = useSearch({from:splitBillRoute.fullPath});
+    const navigate = useNavigate({from:splitBillRoute.fullPath})
 
     function handleOnClose() {
-        searchParams.delete("newBill");
-        setSearchParams(searchParams);
+        navigate({search:{newBill:false}})
     }
 
     return (
         <ModalWrapper
-            opened={!!searchParams.get("newBill")}
+            opened={newBill}
             onClose={handleOnClose}
             title={"Add Bill"}
             size={"50rem"}

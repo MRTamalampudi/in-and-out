@@ -1,15 +1,13 @@
-import { useLocation } from "react-router";
 import styles from "./header.module.scss";
 import { backOutline, notificationOutline } from "assets/icons";
 import { Menu, Tooltip } from "@mantine/core";
 import React from "react";
-import { BaseRoutes } from "../../constants/base-routes";
-import { useGlobalTranslations } from "../../locales/translation-hooks";
-import TransactionTypeBadge from "components/transaction-type";
-import { TransactionTypeEnum } from "enum";
+import { BaseRoutes } from "constants/base-routes";
+import { useGlobalTranslations } from "locales/translation-hooks";
 import { toast } from "sonner";
 import DeleteIcon from "components/icons/delete-icon";
 import Checked from "components/icons/checked";
+import { useRouterState } from "@tanstack/react-router";
 
 interface PageHeaderProps {
 
@@ -17,18 +15,11 @@ interface PageHeaderProps {
 
 const PageHeader = ({}:PageHeaderProps) => {
 
-    const {pathname} = useLocation();
 
+    const pathname = useRouterState().location.pathname;
     const baseRoute = pathname.split("/")[1];
 
     const honorBackButton = () => {
-        toast('My action toast', {
-            icon:<DeleteIcon height={24} width={24}/>
-        });
-        toast("Transaction created",{
-            description:"Successfully entered transaction",
-            icon: <Checked />
-        });
         window.history.back();
     }
 

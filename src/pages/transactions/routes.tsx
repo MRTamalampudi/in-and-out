@@ -1,18 +1,20 @@
 import TransactionsPage from "./transactions.page";
-import {Route} from "react-router";
-import React from "react";
+import { createRoute } from "@tanstack/react-router";
+import { rootRoute } from "router";
+import { z } from "zod";
 
 
 export const TRANSACTIONS_SLUGS = {
     TRANSACTION_ID:"transactionId",
 }
 
-const TransactionRoutes = () => {
-  return (
-      <>
-          <Route path={`:${TRANSACTIONS_SLUGS.TRANSACTION_ID}`} element={<TransactionsPage/>}/>
-      </>
-  )
-}
+const searchParamsSchema = z.object({
+    transaction:z.number().optional(),
+})
 
-export default TransactionRoutes;
+export const transactionRoute = createRoute({
+    getParentRoute:()=>rootRoute,
+    component:TransactionsPage,
+    path:"transactions",
+    validateSearch:searchParamsSchema
+});

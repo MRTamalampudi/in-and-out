@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./nav-bar.module.scss";
-import { Link } from "react-router-dom";
 import "styles/size.scss";
 import { avatar } from "assets/icons";
 import { BaseRoutes } from "constants/base-routes";
@@ -8,6 +7,9 @@ import { NavItem } from "components";
 import { Logo } from "components/icons";
 import { useGetUser } from "service/react-query-hooks/user.query";
 import useGlobalConstants from "constants/globals";
+import { Link } from "@tanstack/react-router";
+import { splitBillRoute } from "pages/split-bill/routes";
+import { transactionRoute } from "pages/transactions/routes";
 
 interface NavBarProps {}
 
@@ -25,17 +27,17 @@ const NavItems = ():navItem[] => {
 
     const items:navItem[] = [
         {
-            link:BaseRoutes.TRANSACTIONS,
+            link:transactionRoute.path,
             label:globalLocales.TRANSACTIONS,
             icon:"transactionsOutline"
         },
         {
-            link:BaseRoutes.SPLIT_BILL,
+            link:splitBillRoute.path,
             label:globalLocales.SPLIT_BILL,
             icon:"invoiceOutline"
         },
         {
-            link:BaseRoutes.BUDGET,
+            link:splitBillRoute.path,
             label:globalLocales.BUDGET,
             icon:"budgetOutline"
         },
@@ -61,7 +63,7 @@ const NavBar = (props:NavBarProps) => {
                 {
                     NavItems().map(navItem => {
                         return (
-                            <Link key={navItem.label} to={`/${navItem.link}`}>
+                            <Link key={navItem.label} to={navItem.link}>
                                 <NavItem label={navItem.label} icon={navItem.icon}/>
                             </Link>
                         )
@@ -69,13 +71,13 @@ const NavBar = (props:NavBarProps) => {
                 }
             </div>
             <div className={styles.footer}>
-                <Link to={`/${BaseRoutes.SETTINGS}`}>
+                <Link to={splitBillRoute.fullPath}>
                     <NavItem label={"Settings"} icon={"settingsOutline"}/>
                 </Link>
-                <Link to={'/settings'}>
+                <Link to={splitBillRoute.fullPath}>
                     <NavItem label={"Settings"} icon={"logoutOutline"}/>
                 </Link>
-                <Link to={'/profile'} className={styles.profile}>
+                <Link to={splitBillRoute.fullPath} className={styles.profile}>
                     <img src={avatar} className={"icon32 mt-8"}/>
                 </Link>
             </div>

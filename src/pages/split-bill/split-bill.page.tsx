@@ -3,12 +3,11 @@ import styles from "./split-bill.module.scss";
 import BillGroup from "./bill-group";
 import { plusOutline } from "../../assets/icons";
 import { Menu } from "@mantine/core";
-import { SplitBillConstants } from "./split-bill-constants";
 import Groups from "pages/split-bill/groups/groups";
 import BillsForm from "pages/split-bill/bills-form/bills-form";
-import { useDispatchEvent } from "utils/useDispatchEvent";
-import { useSearchParams } from "react-router-dom";
 import GroupsForm from "pages/split-bill/groups-form/groups-form";
+import { useNavigate } from "@tanstack/react-router";
+import { splitBillRoute } from "pages/split-bill/routes";
 
 interface SplitBillProps {}
 
@@ -27,20 +26,15 @@ const SplitBillPage = ({}: SplitBillProps) => {
 };
 
 const BillAndGroupFormModal = () => {
-    const { locales } = SplitBillConstants();
-    const [searchParams,setSearchParams] = useSearchParams();
+    const navigate = useNavigate({from:splitBillRoute.fullPath});
 
     function setBillForm() {
-        searchParams.set("newBill","true")
-        setSearchParams(searchParams);
+        navigate({search:{newBill:true}})
     }
 
     function setGroupForm() {
-        searchParams.set("newGroup","true")
-        setSearchParams(searchParams)
+        navigate({search:{newGroup:true}})
     }
-
-    const dispatchEvent = useDispatchEvent();
 
     return (
         <>

@@ -2,10 +2,15 @@ import { TableWrapper } from "components/table";
 import { TextInput } from "@mantine/core";
 import Table from "components/table/table";
 import ActionsRow, { Action } from "components/table/actions-row";
-import { flexRender, PaginationState, Table as Table_ } from "@tanstack/react-table";
+import {
+    flexRender,
+    PaginationState,
+    Table as Table_,
+} from "@tanstack/react-table";
 import React from "react";
 import { Transaction } from "model";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { transactionRoute } from "pages/transactions/routes";
 
 
 type TransactionTableUiProps = {
@@ -16,11 +21,11 @@ type TransactionTableUiProps = {
 }
 
 export default function TransactionTableUi({table,totalElements,pagination,actions}:TransactionTableUiProps) {
-   const [searchParams, setSearchParams] = useSearchParams();
+    const {transaction} = useSearch({from:transactionRoute.fullPath})
+    const navigate = useNavigate({from:transactionRoute.fullPath});
 
    function onRowClick(id: number) {
-      searchParams.set("view", id.toString());
-      setSearchParams(searchParams);
+       navigate({search:{transaction:id}})
    }
 
    return (
@@ -50,7 +55,7 @@ export default function TransactionTableUi({table,totalElements,pagination,actio
                     <tr
                         key={row.id}
                         onClick={() => onRowClick(row.original.id)}
-                        data-selected={row.original.id.toString() == searchParams.get("view")}
+                        data-selected={row.original.id == transaction}
                     >
                        {row.getVisibleCells().map((cell) => (
                            <td

@@ -5,6 +5,7 @@ import { TransactionTypeEnum } from "enum";
 import Modal from "./transaction-form/modal";
 import TransactionTable from "pages/transactions/transaction-table/transaction-table";
 import { useGetTransactionSummary } from "service/react-query-hooks/transaction-summary.query";
+import { transactionRoute } from "pages/transactions/routes";
 
 interface TransactionsProps {}
 
@@ -13,6 +14,7 @@ const TransactionsPage = (
 ) => {
 
     const {data} = useGetTransactionSummary();
+    console.log({fullpath:transactionRoute.fullPath,path:transactionRoute.path})
 
     return (
       <div className={styles.Transactions}>
