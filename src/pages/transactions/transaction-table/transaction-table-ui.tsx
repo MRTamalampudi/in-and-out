@@ -21,11 +21,11 @@ type TransactionTableUiProps = {
 }
 
 export default function TransactionTableUi({table,totalElements,pagination,actions}:TransactionTableUiProps) {
-    const {transaction} = useSearch({from:transactionRoute.fullPath})
+    const {transaction,...searchParams} = useSearch({from:transactionRoute.fullPath})
     const navigate = useNavigate({from:transactionRoute.fullPath});
 
    function onRowClick(id: number) {
-       navigate({search:{transaction:id}})
+       navigate({search:{...searchParams,transaction:id}})
    }
 
    return (

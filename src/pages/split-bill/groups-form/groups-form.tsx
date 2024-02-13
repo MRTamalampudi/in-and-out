@@ -19,7 +19,7 @@ const GroupsForm = ({}: GroupsFormProps) => {
     const navigate = useNavigate({from:splitBillRoute.fullPath})
 
     function handleOnClose() {
-        navigate({search:{newGroup:false}})
+        navigate({search:(prev)=>({...prev,newGroup:false})})
     }
 
     return (

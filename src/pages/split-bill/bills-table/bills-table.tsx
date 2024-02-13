@@ -149,7 +149,7 @@ const BillsTable = ({}:BillsTableProps) => {
     const {bill} = useSearch({from:splitBillRoute.fullPath});
     const navigate = useNavigate({from:splitBillRoute.fullPath});
     function onRowClick(id: number) {
-        navigate({search:{bill:id}})
+        navigate({search:(prev)=>({...prev,bill:id})})
     }
 
     return (

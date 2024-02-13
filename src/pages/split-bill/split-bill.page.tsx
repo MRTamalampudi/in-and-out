@@ -29,11 +29,11 @@ const BillAndGroupFormModal = () => {
     const navigate = useNavigate({from:splitBillRoute.fullPath});
 
     function setBillForm() {
-        navigate({search:{newBill:true}})
+        navigate({search:(prev)=>({...prev,newBill:true})})
     }
 
     function setGroupForm() {
-        navigate({search:{newGroup:true}})
+        navigate({search:(prev)=>({...prev,newGroup:true})})
     }
 
     return (

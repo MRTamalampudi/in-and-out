@@ -8,6 +8,7 @@ import TransactionsPage from "pages/transactions/transactions.page";
 import SplitBillPage from "pages/split-bill/split-bill.page";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { transactionRoute } from "pages/transactions/routes";
+import { loginRoute } from "pages/login/routes";
 
 export const rootRoute = createRootRoute({
     component:App,
@@ -17,7 +18,8 @@ export const rootRoute = createRootRoute({
 
 const routeTree = rootRoute.addChildren([
     transactionRoute,
-    splitBillRoute
+    splitBillRoute,
+    loginRoute
 ])
 
 export const router = createRouter({

@@ -5,15 +5,15 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
 
 const TransactionFormModal = () => {
-    const {transaction} = useSearch({from:transactionRoute.fullPath});
-    const navigate = useNavigate();
+    const {transaction,...searchParams} = useSearch({from:transactionRoute.fullPath});
+    const navigate = useNavigate({from:transactionRoute.fullPath});
 
   return (
       <ModalWrapper
           target={<AddNew/>}
           title={"Transactions"}
           opened={!!transaction}
-          onClose={()=>navigate({to:transactionRoute.fullPath})}
+          onClose={()=>navigate({to:transactionRoute.fullPath,search:{...searchParams,transaction:undefined}})}
       >
           <TransactionForm/>
       </ModalWrapper>

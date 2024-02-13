@@ -26,15 +26,10 @@ const GroupsTable = ({}:GroupsTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
-    const {group} = useSearch({from:splitBillRoute.fullPath});
-    const navigate = useNavigate({from:splitBillRoute.fullPath});
+    const {group} = splitBillRoute.useSearch();
+    const navigate = useNavigate();
 
     const {data} = useIndexGroupMembers(pagination,columnFilters,sorting);
-
-    useEffect(() => {
-        const groupId = data?.content?.at(0)?.group.id
-        navigate({search:{group:groupId}})
-    }, [data?.content]);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -60,7 +55,7 @@ const GroupsTable = ({}:GroupsTableProps) => {
         enableMultiSort: true,
     });
     function onRowClick(id: number) {
-        navigate({search:{group:id}})
+        navigate({search:(prev)=>({...prev,group:id})})
     }
 
     return (

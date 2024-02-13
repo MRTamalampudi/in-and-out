@@ -12,12 +12,12 @@ import {
 } from "locales/translation-hooks";
 import useLoginFormEssentials from "../../forms/hooks/login-form.essentials";
 import axios from "axios";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { transactionRoute } from "pages/transactions/routes";
 
 const LoginPage = () => {
     const { formLabels } = useFormLabelsTranslations();
     const { formPlaceholders } = useFormPlaceholdersTranslations();
-
     const { schema, defaultValues, emptyValues } = useLoginFormEssentials();
 
     const { control, handleSubmit, formState, setValue, reset, getValues } =
@@ -25,7 +25,8 @@ const LoginPage = () => {
             mode: "onSubmit",
             resolver: zodResolver(schema),
         });
-    const navigate = useNavigate();
+    const navigate = useNavigate({from:"/login"});
+    const transactionSearchParams = useSearch({from:transactionRoute.fullPath});
 
     const onSubmit = (data: UsernamePassword) => {
         axios
@@ -35,7 +36,7 @@ const LoginPage = () => {
                 },
                 withCredentials: true,
             })
-            .then((response) => navigate({ to:"/transactions" }))
+            .then((response) => navigate({ to:"/transactions",search:{...transactionSearchParams}}))
             .catch((error) => console.log(error));
     };
 

@@ -23,4 +23,8 @@ export class SplitBillGroupService extends BaseService<SplitBillGroup> {
 
         return SplitBillGroupService.instance;
     }
+
+    get(id: number): Promise<SplitBillGroup> {
+        return super.get(id ?? 0);
+    }
 }

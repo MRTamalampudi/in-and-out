@@ -16,6 +16,8 @@ import { toast } from "sonner";
 import TransactionTableUi from "pages/transactions/transaction-table/transaction-table-ui";
 import { columns as columns_ } from "pages/transactions/transaction-table/transaction-table-columns";
 import Checked from "components/icons/checked";
+import { useSearch } from "@tanstack/react-router";
+import { transactionRoute } from "pages/transactions/routes";
 
 interface TransactionTableProps {}
 
@@ -32,6 +34,8 @@ const TransactionTable = ({}: TransactionTableProps) => {
             table.resetRowSelection();
         },
     });
+
+    const {page,size}=useSearch({from:transactionRoute.fullPath})
 
     const columns = useMemo(() => [...columns_,{
         id: "Delete actions",

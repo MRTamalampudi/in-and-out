@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./nav-bar.module.scss";
 import "styles/size.scss";
 import { avatar } from "assets/icons";
-import { BaseRoutes } from "constants/base-routes";
 import { NavItem } from "components";
 import { Logo } from "components/icons";
 import { useGetUser } from "service/react-query-hooks/user.query";
@@ -20,35 +19,10 @@ type navItem = {
     icon:string
 }
 
-
-const NavItems = ():navItem[] => {
-
-    const {globalLocales} = useGlobalConstants();
-
-    const items:navItem[] = [
-        {
-            link:transactionRoute.path,
-            label:globalLocales.TRANSACTIONS,
-            icon:"transactionsOutline"
-        },
-        {
-            link:splitBillRoute.path,
-            label:globalLocales.SPLIT_BILL,
-            icon:"invoiceOutline"
-        },
-        {
-            link:splitBillRoute.path,
-            label:globalLocales.BUDGET,
-            icon:"budgetOutline"
-        },
-    ]
-
-    return items;
-}
-
 const NavBar = (props:NavBarProps) => {
 
     useGetUser();
+    const {globalLocales} = useGlobalConstants();
 
     return (
         <div className={styles.NavBar}>
@@ -60,24 +34,24 @@ const NavBar = (props:NavBarProps) => {
                 />
             </div>
             <div className={styles.body}>
-                {
-                    NavItems().map(navItem => {
-                        return (
-                            <Link key={navItem.label} to={navItem.link}>
-                                <NavItem label={navItem.label} icon={navItem.icon}/>
-                            </Link>
-                        )
-                    })
-                }
+                <Link  to={"/transactions"} search={{page:1,size:20}}>
+                    <NavItem label={globalLocales.TRANSACTIONS} icon={"transactionsOutline"}/>
+                </Link>
+                <Link  to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
+                    <NavItem label={globalLocales.SPLIT_BILL} icon={"invoiceOutline"}/>
+                </Link>
+                <Link  to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
+                    <NavItem label={globalLocales.SPLIT_BILL} icon={"budgetOutline"}/>
+                </Link>
             </div>
             <div className={styles.footer}>
-                <Link to={splitBillRoute.fullPath}>
+                <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
                     <NavItem label={"Settings"} icon={"settingsOutline"}/>
                 </Link>
-                <Link to={splitBillRoute.fullPath}>
+                <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
                     <NavItem label={"Settings"} icon={"logoutOutline"}/>
                 </Link>
-                <Link to={splitBillRoute.fullPath} className={styles.profile}>
+                <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}} className={styles.profile}>
                     <img src={avatar} className={"icon32 mt-8"}/>
                 </Link>
             </div>

@@ -28,7 +28,7 @@ const BillsForm = ({}: BillsFormProps) => {
     const navigate = useNavigate({from:splitBillRoute.fullPath})
 
     function handleOnClose() {
-        navigate({search:{newBill:false}})
+        navigate({search:(prev)=>({...prev,newBill:false})})
     }
 
     return (
