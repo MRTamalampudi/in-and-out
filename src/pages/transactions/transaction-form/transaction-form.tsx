@@ -18,7 +18,7 @@ import {
 import { useTransactionFormEssentials } from "forms/hooks";
 import {
     useCreateTransaction,
-    useGetTransaction,
+    useGetTransaction, useUpdateTransaction
 } from "service/react-query-hooks/transaction-query";
 import { useCloseModal } from "utils/useCloseModal";
 import { toast } from "sonner";
@@ -26,7 +26,7 @@ import { useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
 
 const TransactionForm = () => {
-    const { transaction } = useSearch({ from: transactionRoute.fullPath });
+    const { transaction } = transactionRoute.useSearch();
 
     const data = useGetTransaction(transaction || 0);
     console.log(data);
@@ -46,9 +46,6 @@ function TransactionFormPresentation({
     transactionData,
 }: TransactionFormPresentationProps) {
 
-    
-
-    
     const { formPlaceholders } = useFormPlaceholdersTranslations();
     const { formLabels } = useFormLabelsTranslations();
     let { schema, defaultValues, emptyValues } = useTransactionFormEssentials();
@@ -66,16 +63,18 @@ function TransactionFormPresentation({
 
     const { mutate, isPending } = useCreateTransaction({
         onSuccess: () => {
-            console.log("default ==>",transactionData);
-            toast.success(`${transactionData ? "Updated" : "Created"} successfully`)
+            closeModal()
+        },
+    });
+    const { mutate:updateMutate, isPending:isUpdatePending } = useUpdateTransaction({
+        onSuccess: () => {
+            closeModal()
         },
     });
 
     const onSubmit = (data: Transaction) => {
-        mutate(data)
+        data.id ? updateMutate(data) : mutate(data);
         console.log("submitted data ==>",data);
-        reset(emptyValues)
-        closeModal()
     };
 
     const closeModal = useCloseModal();
@@ -138,7 +137,7 @@ function TransactionFormPresentation({
                     size={"xs"}
                     type={"submit"}
                     onClick={handleSubmit(onSubmit)}
-                    loading={isPending}
+                    loading={isPending || isUpdatePending}
                 >
                     {getValues("id") ? "Update" : "Add"}
                 </Button>

@@ -17,8 +17,8 @@ export abstract class BaseService<Entity> {
     protected serializerFn: SerializerFn<Entity>;
     protected constructor(
         BaseURL: string,
-        deserializerFn: DeserializerFn<Entity> = (entity:Entity)=>entity,
-        serializerFn: SerializerFn<Entity> = ()=>null
+        deserializerFn: DeserializerFn<Entity> = (entity: Entity) => entity,
+        serializerFn: SerializerFn<Entity> = () => null,
     ) {
         this.BaseURL = BaseURL;
         this.deserializerFn = deserializerFn;
@@ -49,7 +49,9 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Page<Entity>>(`${this.BaseURL}?${urlSearchParams.toString()}`)
             .then((result) => {
-                result.data.content.forEach(entity=>entity = this.deserializerFn(entity));
+                result.data.content.forEach(
+                    (entity) => (entity = this.deserializerFn(entity)),
+                );
                 return result.data;
             })
             .catch((error) => error);
@@ -68,8 +70,8 @@ export abstract class BaseService<Entity> {
     }
 
     public create(entity: Entity): Promise<Entity> {
-        this.serializerFn(entity)
-        console.log(entity,this.BaseURL)
+        this.serializerFn(entity);
+        console.log(entity, this.BaseURL);
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {
@@ -81,11 +83,19 @@ export abstract class BaseService<Entity> {
             });
     }
 
-    public delete(entityIds:number[]):Promise<unknown>{
+    public delete(entityIds: number[]): Promise<unknown> {
         const searchParams = new URLSearchParams();
         searchParams.set("q", `id@${entityIds.join(",")}`);
         return axios
             .delete(`${this.BaseURL}?${searchParams.toString()}`)
+            .catch((error) => {
+                throw new Error(error);
+            });
+    }
+    public update(entity: Entity) {
+        return axios
+            .put(`${this.BaseURL}`, entity)
+            .then((res) => res.data)
             .catch((error) => {
                 throw new Error(error);
             });

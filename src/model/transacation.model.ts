@@ -20,6 +20,10 @@ class Transaction{
         entity.date = new Date((entity.date as unknown as number) * 1000)
         return Object.assign(new Transaction(),entity)
     }
+
+    static serialize(entity:Transaction){
+
+    }
 }
 
 // @ts-ignore

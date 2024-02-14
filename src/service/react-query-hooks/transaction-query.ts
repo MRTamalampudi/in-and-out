@@ -21,6 +21,7 @@ import {
     useConstructSearchParams,
     useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
+import { transactionRoute } from "pages/transactions/routes";
 
 const TRANSACTIONS = QueryKeys.TRANSACTIONS;
 
@@ -46,6 +47,7 @@ export function useIndexTransactions(
 
 export function useGetTransaction(id: number) {
     const client = useQueryClient();
+    const {page,size} =transactionRoute.useSearch();
     const filterById = (entity: Transaction) =>
         entity.id.toString() == id.toString();
     return useQuery({
@@ -54,7 +56,7 @@ export function useGetTransaction(id: number) {
         placeholderData: () =>
             (
                 client.getQueryData(
-                    TransactionQueryKeys.index,
+                    [QueryKeys.TRANSACTIONS,{page,size}]
                 ) as unknown as Page<Transaction>
             )?.content
                 .filter(filterById)
@@ -96,11 +98,27 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
     });
 }
 
-export const transactionQueryOptions = queryOptions({
-    queryKey: [QueryKeys.TRANSACTIONS],
+export function useUpdateTransaction(options: CustomMutationOptions){
+    const { onSuccess } = options;
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (transaction: Transaction) =>
+            TransactionService.getInstance().update(transaction),
+        onSuccess: () => {
+            onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.TRANSACTION_SUMMARY],
+            });
+        },
+    });
+}
+
+export const transactionQueryOptions = ({pageIndex,pageSize}:PaginationState)=>queryOptions({
+    queryKey: [QueryKeys.TRANSACTIONS,{page:pageIndex,size:pageSize}],
     queryFn: () =>
         TransactionService.getInstance().index(
-            { pageIndex: 1, pageSize: 20 },
+            { pageIndex, pageSize },
             [],
             [],
         ),

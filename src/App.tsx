@@ -7,6 +7,8 @@ import { NavBar } from "components";
 import { banner } from "templates/banner";
 
 import { Toaster } from "sonner";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { queryClient } from "index";
 
 function App() {
     useEffect(() => {
@@ -25,6 +27,7 @@ function App() {
                     </div>
                 </div>
             </div>
+            {/*<ReactQueryDevtools client={queryClient} position={"left"}/>*/}
         </>
     );
 }

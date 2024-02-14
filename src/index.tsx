@@ -17,7 +17,11 @@ const root = ReactDOM.createRoot(
 );
 
 export const queryClient = new QueryClient({
-    defaultOptions: {},
+    defaultOptions: {
+        queries:{
+            refetchOnWindowFocus:false
+        }
+    },
 });
 
 export const rootRoute = createRootRouteWithContext<{
@@ -36,7 +40,6 @@ const routeTree = rootRoute.addChildren([
 
 export const router = createRouter({
     routeTree,
-    defaultPreloadStaleTime:0,
     context:{
         queryClient
     }

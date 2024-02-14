@@ -28,6 +28,11 @@ export default function TransactionTableUi({table,totalElements,pagination,actio
        navigate({search:{...searchParams,transaction:id}})
    }
 
+   function handlePagination(pagination_:PaginationState){
+       table.setPagination(pagination_);
+       navigate({search:{page:pagination_.pageIndex,size:pagination_.pageSize}})
+   }
+
    return (
        <TableWrapper>
           <TableWrapper.MetaRow
@@ -77,7 +82,7 @@ export default function TransactionTableUi({table,totalElements,pagination,actio
           <TableWrapper.Pagination
               totalElements={totalElements!}
               pagination={pagination}
-              onPaginationChange={table.setPagination}
+              onPaginationChange={handlePagination}
           />
        </TableWrapper>
    )

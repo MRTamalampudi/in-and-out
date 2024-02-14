@@ -14,6 +14,7 @@ import useLoginFormEssentials from "../../forms/hooks/login-form.essentials";
 import axios from "axios";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
+import { undefined } from "zod";
 
 const LoginPage = () => {
     const { formLabels } = useFormLabelsTranslations();
@@ -25,8 +26,7 @@ const LoginPage = () => {
             mode: "onSubmit",
             resolver: zodResolver(schema),
         });
-    const navigate = useNavigate({from:"/login"});
-    const transactionSearchParams = useSearch({from:transactionRoute.fullPath});
+    const navigate = useNavigate();
 
     const onSubmit = (data: UsernamePassword) => {
         axios
@@ -36,7 +36,7 @@ const LoginPage = () => {
                 },
                 withCredentials: true,
             })
-            .then((response) => navigate({ to:"/transactions",search:{...transactionSearchParams}}))
+            .then((response) => navigate({ search: {page:1,size:20}, to:"/transactions" }))
             .catch((error) => console.log(error));
     };
 

@@ -19,7 +19,8 @@ import { columns as columns_ } from "pages/transactions/transaction-table/transa
 import Checked from "components/icons/checked";
 import { useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { queryClient } from "index";
 
 interface TransactionTableProps {}
 
@@ -66,11 +67,10 @@ const TransactionTable = ({}: TransactionTableProps) => {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 1,
-        pageSize: 20,
+        pageIndex: page,
+        pageSize: size,
     });
-    const { data } = useSuspenseQuery(transactionQueryOptions)
-
+    const { data } = useQuery(transactionQueryOptions({pageIndex:page,pageSize:size}));
     const table = useReactTable({
         data: data?.content || [],
         columns,
