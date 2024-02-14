@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-table";
 import {
     useConstructSearchParams,
-    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -22,15 +21,12 @@ export function useIndexGroups(
     sorting: SortingState,
 ) {
     const keys = useConstructSearchParams({ pagination, filters, sorting });
-    useUpdateSearchParams({ keys });
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: SplitBillGroupQueryKeys.index(keys),
         queryFn: () =>
             SplitBillGroupService.getInstance().index(
-                pagination,
-                filters,
-                sorting,
+                {}
             ),
         placeholderData: () =>
             queryClient.getQueryData(SplitBillGroupQueryKeys.index(keys)),

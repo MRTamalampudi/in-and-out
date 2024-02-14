@@ -19,9 +19,7 @@ export function useIndexGroupMembers(
         queryKey: [SplitBillGroupMemberQueryKeys.index, keys],
         queryFn: () =>
             SplitBillGroupMemberService.getInstance().index(
-                pagination,
-                filters,
-                sorting,
+                {}
             ),
         placeholderData: () =>
             queryClient.getQueryData(SplitBillGroupMemberQueryKeys.index),

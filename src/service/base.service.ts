@@ -26,28 +26,14 @@ export abstract class BaseService<Entity> {
     }
 
     public index(
-        { pageIndex, pageSize }: PaginationState,
-        filters: ColumnFiltersState,
-        sorting: SortingState,
+        params:Record<string, any>
     ): Promise<Page<Entity>> {
-        const adjustedPage = pageIndex !== 0 ? pageIndex - 1 : 0;
-        const urlSearchParams = new URLSearchParams({
-            page: adjustedPage.toString(),
-            size: pageSize.toString(),
-            sort: "createdAt,desc",
-            q: filters
-                .map((filter) => `${filter.id}~${filter.value}`)
-                .join(","),
-        });
-        sorting.map((sort) =>
-            urlSearchParams.set(
-                "sort",
-                `${sort.id},${sort.desc ? "desc" : "asc"}`,
-            ),
-        );
-
+        const adjustedPage:number = parseInt(params["page"])
+        params["page"] = adjustedPage !== 0 ? adjustedPage - 1 : 0;
+        const searchParams:URLSearchParams = new URLSearchParams(params);
+        console.log(searchParams.toString())
         return axios
-            .get<Page<Entity>>(`${this.BaseURL}?${urlSearchParams.toString()}`)
+            .get<Page<Entity>>(`${this.BaseURL}?${searchParams.toString()}`)
             .then((result) => {
                 result.data.content.forEach(
                     (entity) => (entity = this.deserializerFn(entity)),

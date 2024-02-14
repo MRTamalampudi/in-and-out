@@ -9,7 +9,7 @@ import {
 import {
     transactionQueryOptions,
     useDeleteTransaction,
-    useIndexTransactions
+    useIndexTransactions,
 } from "service/react-query-hooks/transaction-query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { Action } from "components/table/actions-row";
@@ -32,45 +32,53 @@ const TransactionTable = ({}: TransactionTableProps) => {
         onSuccess: () => {
             toast.success("Deleted successfully", {
                 description: "successfully deleted this transaction",
-                icon: <Checked height={20} width={20} className={"primary"}/>
+                icon: <Checked height={20} width={20} className={"primary"} />,
             });
             table.resetRowSelection();
         },
     });
 
-    const {page,size}=useSearch({from:transactionRoute.fullPath})
+    const params = useSearch({ from: transactionRoute.fullPath });
 
-    const columns = useMemo(() => [...columns_,{
-        id: "Delete actions",
-        header: ` `,
-        //@ts-ignore
-        cell: ({ row }) => (
-            <DeleteConfirmationModal
-                context={"Transactions"}
-                data={[row.original]}
-                transformer={(data) => ({
-                    id: data.id,
-                    note: data.note,
-                    amount: data.amount,
-                })}
-                primary={() => mutation.mutate([row.original.id])}
-            />
-        ),
-        meta: {
-            className: "action w48p flex-row jc-center",
-        },
-    }], []);
-    
-    
+    const columns = useMemo(
+        () => [
+            ...columns_,
+            {
+                id: "Delete actions",
+                header: ` `,
+                //@ts-ignore
+                cell: ({ row }) => (
+                    <DeleteConfirmationModal
+                        context={"Transactions"}
+                        data={[row.original]}
+                        transformer={(data) => ({
+                            id: data.id,
+                            note: data.note,
+                            amount: data.amount,
+                        })}
+                        primary={() => mutation.mutate([row.original.id])}
+                    />
+                ),
+                meta: {
+                    className: "action w48p flex-row jc-center",
+                },
+            },
+        ],
+        [],
+    );
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
+        { id: "note", value: params.q },
+    ]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: page,
-        pageSize: size,
+        pageIndex: params.page,
+        pageSize: params.size,
     });
-    const { data } = useQuery(transactionQueryOptions({pageIndex:page,pageSize:size}));
+    const { data } = useQuery(
+        transactionQueryOptions({ ...params }),
+    );
     const table = useReactTable({
         data: data?.content || [],
         columns,

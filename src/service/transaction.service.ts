@@ -1,6 +1,7 @@
 import { Transaction } from "model";
 import { BaseService } from "service/base.service";
 import { URL_CONSTANTS } from "constants/url.constants";
+import Page from "model/page";
 
 export class TransactionService extends BaseService<Transaction> {
     private static instance: TransactionService;
@@ -15,5 +16,11 @@ export class TransactionService extends BaseService<Transaction> {
             TransactionService.instance = new TransactionService();
         }
         return TransactionService.instance;
+    }
+
+    index(params: Record<string, any>): Promise<Page<Transaction>> {
+        const note =  params["q"]
+        note && (params["q"] = `note~${note}`)
+        return super.index(params);
     }
 }

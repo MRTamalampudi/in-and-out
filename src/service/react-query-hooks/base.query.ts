@@ -34,39 +34,17 @@ export function useConstructSearchParams(options: ConstructSearchParamOptions) {
     }), [pagination, filters, sorting]) as Record<string, string>;
 }
 
-type UpdateSearchParamsOptions = {
-    keys:Record<string, string>;
-    omit?:string[];
-    pick?:string[];
-};
+type PaginationOptions = {
+    page:number,
+    size:number
+}
 
-export const useUpdateSearchParams = (options:UpdateSearchParamsOptions) => {
-    // const {keys,pick,omit} = options;
-    // const [searchParams, setSearchParams] = useSearchParams();
-    //
-    // const updateSearchParams = useCallback(()=> {
-    //     Object.entries(keys).map((value) => {
-    //         if (!!omit) {
-    //             if(!omit.includes(value[0])){
-    //                 searchParams.set(value[0], value[1]);
-    //             }
-    //         } else if (!!pick) {
-    //             pick.includes(value[0]) && searchParams.set(value[0], value[1]);
-    //         } else {
-    //             setSearchParams(prev => {
-    //                 prev.set(value[0], value[1]);
-    //                 return prev
-    //             });
-    //         }
-    //     });
-    // },[keys,searchParams]) ;
-    //
-    // const cleanUpParams = useCallback(() => {
-    //     Object.entries(keys).forEach((value) => searchParams.delete(value[0]));
-    // },[keys,searchParams]);
-    //
-    // useEffect(() => {
-    //     updateSearchParams()
-    //     return () => cleanUpParams();
-    // }, [searchParams,keys]);
-};
+type SortingOptions = {
+    sort?:string
+}
+
+type SearchOptions = {
+    q?:string
+}
+
+export type BasicIndexOptions = PaginationOptions & SortingOptions & SearchOptions;

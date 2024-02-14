@@ -11,53 +11,48 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
-import {
-    QueryKeys,
-    TransactionQueryKeys,
-} from "service/react-query-hooks/query-keys";
+import { QueryKeys } from "service/react-query-hooks/query-keys";
 import { Transaction } from "model";
 import Page from "model/page";
 import {
+    BasicIndexOptions,
     useConstructSearchParams,
-    useUpdateSearchParams,
 } from "service/react-query-hooks/base.query";
 import { transactionRoute } from "pages/transactions/routes";
 
-const TRANSACTIONS = QueryKeys.TRANSACTIONS;
+type IndexOptions = {
+    q?: string;
+} & BasicIndexOptions;
 
 export function useIndexTransactions(
-    pagination: PaginationState,
-    filters: ColumnFiltersState,
-    sorting: SortingState,
+    options:IndexOptions
 ) {
-    const keys = useConstructSearchParams({ pagination, filters, sorting });
-    useUpdateSearchParams({ keys });
     const queryClient = useQueryClient();
     return useQuery({
-        queryKey: [TRANSACTIONS, keys],
+        queryKey: [QueryKeys.TRANSACTIONS, options],
         queryFn: () =>
             TransactionService.getInstance().index(
-                pagination,
-                filters,
-                sorting,
+                {...options}
             ),
-        placeholderData: () => queryClient.getQueryData([TRANSACTIONS, keys]),
+        placeholderData: () =>
+            queryClient.getQueryData([QueryKeys.TRANSACTIONS, options]),
     });
 }
 
 export function useGetTransaction(id: number) {
     const client = useQueryClient();
-    const {page,size} =transactionRoute.useSearch();
+    const { page, size } = transactionRoute.useSearch();
     const filterById = (entity: Transaction) =>
         entity.id.toString() == id.toString();
     return useQuery({
-        queryKey: [TRANSACTIONS, id],
+        queryKey: [QueryKeys.TRANSACTIONS, id],
         queryFn: () => TransactionService.getInstance().get(id),
         placeholderData: () =>
             (
-                client.getQueryData(
-                    [QueryKeys.TRANSACTIONS,{page,size}]
-                ) as unknown as Page<Transaction>
+                client.getQueryData([
+                    QueryKeys.TRANSACTIONS,
+                    { page, size },
+                ]) as unknown as Page<Transaction>
             )?.content
                 .filter(filterById)
                 .at(0),
@@ -73,7 +68,9 @@ export function useCreateTransaction(options: CustomMutationOptions) {
             TransactionService.getInstance().create(transaction),
         onSuccess: () => {
             onSuccess && onSuccess();
-            queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.TRANSACTIONS],
+            });
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.TRANSACTION_SUMMARY],
             });
@@ -85,7 +82,7 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
     const { onSuccess, onError } = options;
     const queryClient = useQueryClient();
     return useMutation({
-        mutationKey: [TRANSACTIONS, "delete"],
+        mutationKey: [QueryKeys.TRANSACTIONS, "delete"],
         mutationFn: (entityIds: number[]) =>
             TransactionService.getInstance().delete(entityIds),
         onError: () => {
@@ -93,12 +90,14 @@ export function useDeleteTransaction(options: CustomMutationOptions) {
         },
         onSuccess: () => {
             onSuccess && onSuccess();
-            queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.TRANSACTIONS],
+            });
         },
     });
 }
 
-export function useUpdateTransaction(options: CustomMutationOptions){
+export function useUpdateTransaction(options: CustomMutationOptions) {
     const { onSuccess } = options;
     const queryClient = useQueryClient();
     return useMutation({
@@ -106,7 +105,9 @@ export function useUpdateTransaction(options: CustomMutationOptions){
             TransactionService.getInstance().update(transaction),
         onSuccess: () => {
             onSuccess && onSuccess();
-            queryClient.invalidateQueries({ queryKey: [TRANSACTIONS] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.TRANSACTIONS],
+            });
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.TRANSACTION_SUMMARY],
             });
@@ -114,12 +115,11 @@ export function useUpdateTransaction(options: CustomMutationOptions){
     });
 }
 
-export const transactionQueryOptions = ({pageIndex,pageSize}:PaginationState)=>queryOptions({
-    queryKey: [QueryKeys.TRANSACTIONS,{page:pageIndex,size:pageSize}],
-    queryFn: () =>
-        TransactionService.getInstance().index(
-            { pageIndex, pageSize },
-            [],
-            [],
-        ),
-});
+export const transactionQueryOptions = (options: IndexOptions) =>
+    queryOptions({
+        queryKey: [QueryKeys.TRANSACTIONS, { ...options }],
+        queryFn: () =>
+            TransactionService.getInstance().index({
+                ...options,
+            }),
+    });

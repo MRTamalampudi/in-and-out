@@ -15,6 +15,7 @@ const searchParamsSchema = z.object({
     transaction:z.number().optional(),
     page:z.number().default(1).catch(1),
     size:z.number().default(20).catch(20),
+    q:z.string().default("").catch("").optional(),
 })
 
 export const transactionRoute = createRoute({
@@ -22,9 +23,9 @@ export const transactionRoute = createRoute({
     component:TransactionsPage,
     path:"transactions",
     validateSearch:searchParamsSchema,
-    loaderDeps:({search:{page,size}})=>({page,size}),
-    loader: ({context:{queryClient},deps:{page,size}})=>{
-        queryClient.ensureQueryData(transactionQueryOptions({pageSize:size,pageIndex:page}))
+    loaderDeps:({search})=>search,
+    loader: ({context:{queryClient},deps:search})=>{
+        queryClient.ensureQueryData(transactionQueryOptions({ ...search }));
         queryClient.ensureQueryData(transactionSummaryQueryOptions)
     },
     pendingComponent:()=><div>Loading...</div>,

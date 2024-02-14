@@ -4,10 +4,13 @@
 .DeleteConfirmationModal {}
 
 .footer{
-  justify-content: right;
   @extend .flex-row;
   @extend .p-8;
   @extend .column-gap-8;
+
+  > * {
+    flex-basis: 100%;
+  }
 }
 
 .body{
