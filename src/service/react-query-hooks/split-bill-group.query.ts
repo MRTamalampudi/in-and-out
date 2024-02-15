@@ -6,7 +6,7 @@ import {
 import {
     useConstructSearchParams,
 } from "service/react-query-hooks/base.query";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     QueryKeys,
     SplitBillGroupQueryKeys,
@@ -37,9 +37,10 @@ export function useIndexGroups(
 
 
 export function useGetSplitBillGroup(id: number) {
+    const {queryKey,queryFn}=getGroupQueryOptions(id);
     return useQuery({
-        queryKey: [QueryKeys.SPLIT_BILL_GROUP, id],
-        queryFn: () => SplitBillGroupService.getInstance().get(id),
+        queryKey,
+        queryFn,
         retry: 1,
     });
 }
@@ -54,4 +55,12 @@ export function useCreateSplitBillGroup(options: CustomMutationOptions) {
             queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL_GROUP] });
         },
     });
+}
+
+export function getGroupQueryOptions(groupId:number) {
+    return queryOptions({
+        queryKey:[QueryKeys.SPLIT_BILL_GROUP,groupId],
+        queryFn:(id)=>SplitBillGroupService.getInstance().get(groupId)
+    })
+
 }

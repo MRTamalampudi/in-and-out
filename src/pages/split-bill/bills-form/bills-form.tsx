@@ -45,7 +45,13 @@ const BillsForm = ({}: BillsFormProps) => {
 
 const BillsFormPresentation = () => {
     const { schema, defaultValues } = useBillFormEssentials();
-    const mutation = useCreateSplitBill({onSuccess:()=>toast.success("successfully created bill")})
+    const navigate = useNavigate();
+    const mutation = useCreateSplitBill({
+        onSuccess: () => {
+            navigate({search:(prev)=>({...prev,newBill:false})})
+            toast.success("successfully created bill");
+        },
+    });
     const formProps = useForm<SplitBill>({
         mode: "onSubmit",
         defaultValues,
@@ -87,8 +93,6 @@ const BillsFormPresentation = () => {
 
 
     function handleSubmit_(data:SplitBill) {
-        console.log(formState)
-        console.log(data)
         mutation.mutate(data)
     }
 

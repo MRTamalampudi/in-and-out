@@ -8,5 +8,5 @@
 
 
 .grayIcon{
-  @include iconColor(colors-vars.$g-700)
+  color: colors-vars.$g-700;
 }

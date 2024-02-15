@@ -1,8 +1,10 @@
 import SplitBillPage from "./split-bill.page";
 import { createRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { rootRoute } from "index";
+import { appRoute, rootRoute } from "index";
 import { memberIndexQueryOptions } from "service/react-query-hooks/split_bill_group_member.query";
+import { shareIndexQueryOptions } from "service/react-query-hooks/split-bill-share.query";
+import { getGroupQueryOptions } from "service/react-query-hooks/split-bill-group.query";
 
 export const SPLITBILL_ROUTES = {
     SPLITBILL_GROUP_ID: "splitBillGroupId",
@@ -23,7 +25,7 @@ const searchParamsSchema = z.object({
 })
 
 export const splitBillRoute = createRoute({
-    getParentRoute:()=>rootRoute,
+    getParentRoute:()=>appRoute,
     component:SplitBillPage,
     path:"split_bill",
     validateSearch:searchParamsSchema,
@@ -31,5 +33,7 @@ export const splitBillRoute = createRoute({
     loaderDeps:({search})=>(search),
     loader:({context:{queryClient},deps:{bill,group,...search}})=>{
         queryClient.ensureQueryData(memberIndexQueryOptions(search));
+        queryClient.ensureQueryData(shareIndexQueryOptions({ ...search,group:(group || 0)}));
+        queryClient.ensureQueryData(getGroupQueryOptions(group || 0))
     }
 })

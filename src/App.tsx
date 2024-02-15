@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.scss";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useRouterState } from "@tanstack/react-router";
 import Header from "./components/header";
 import "./i18n";
 import { NavBar } from "components";
@@ -14,6 +14,12 @@ function App() {
     useEffect(() => {
         console.log(banner);
     },[]);
+
+    const pathname = useRouterState().location.pathname;
+    const baseRoute = pathname.split("/")[1];
+
+    console.log(pathname)
+
 
     return (
         <>

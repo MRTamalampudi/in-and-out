@@ -14,7 +14,7 @@ interface GroupBillHeaderProps {}
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
     const {group} = useSearch({from:splitBillRoute.fullPath});
-    const { data } = useGetSplitBillGroup(group!);
+    const { data } = useGetSplitBillGroup(group || 0);
     const { data:currentUser} = useGetUser();
     const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!).lentShare || 0;
     const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;

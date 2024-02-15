@@ -2,14 +2,12 @@ import TransactionsPage from "./transactions.page";
 import { createRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { transactionQueryOptions } from "service/react-query-hooks/transaction-query";
-import { rootRoute } from "index";
+import { appRoute, rootRoute } from "index";
 import { transactionSummaryQueryOptions } from "service/react-query-hooks/transaction-summary.query";
-import page from "model/page";
-
 
 export const TRANSACTIONS_SLUGS = {
-    TRANSACTION_ID:"transactionId",
-}
+    TRANSACTION_ID: "transactionId",
+};
 
 const searchParamsSchema = z.object({
     transaction:z.number().optional(),
@@ -19,7 +17,7 @@ const searchParamsSchema = z.object({
 })
 
 export const transactionRoute = createRoute({
-    getParentRoute:()=>rootRoute,
+    getParentRoute:()=>appRoute,
     component:TransactionsPage,
     path:"transactions",
     validateSearch:searchParamsSchema,

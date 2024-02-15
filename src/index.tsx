@@ -5,12 +5,13 @@ import { Colors } from "theme/colors";
 import "@mantine/core/styles.css";
 import "styles/mantine/index.scss";
 import "@mantine/dates/styles.css";
-import { createRootRouteWithContext, createRouter, RouterProvider } from "@tanstack/react-router";
+import { createRootRouteWithContext, createRoute, createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "App";
 import { transactionRoute } from "pages/transactions/routes";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { loginRoute } from "pages/login/routes";
+import TransactionsPage from "pages/transactions/transactions.page";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -27,14 +28,20 @@ export const queryClient = new QueryClient({
 export const rootRoute = createRootRouteWithContext<{
     queryClient: QueryClient;
 }>()({
-    component: App,
+    component: ()=><><Outlet/></>,
 });
+
+
+export const appRoute = createRoute({
+    getParentRoute:()=>rootRoute,
+    component:App,
+    path:"/",
+})
 
 
 
 const routeTree = rootRoute.addChildren([
-    transactionRoute,
-    splitBillRoute,
+    appRoute.addChildren([transactionRoute,splitBillRoute]),
     loginRoute
 ])
 

@@ -19,8 +19,6 @@
     justify-content: center;
 
     @extend .flex-row;
-    @extend .w#{$i*4}p;
-    @extend .h#{$i*4}p;
     @extend .border-rds-8;
     @extend .pointer;
   }
