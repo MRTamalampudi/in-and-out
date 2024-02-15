@@ -23,7 +23,7 @@ export const transactionRoute = createRoute({
     component:TransactionsPage,
     path:"transactions",
     validateSearch:searchParamsSchema,
-    loaderDeps:({search})=>search,
+    loaderDeps:({search:{transaction,...search}})=>search,
     loader: ({context:{queryClient},deps:search})=>{
         queryClient.ensureQueryData(transactionQueryOptions({ ...search }));
         queryClient.ensureQueryData(transactionSummaryQueryOptions)

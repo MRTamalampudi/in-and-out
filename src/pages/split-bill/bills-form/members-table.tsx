@@ -7,6 +7,7 @@ import {
 import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import Table from "components/table/table";
 import { TableWrapper } from "components/table";
+import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 
 function MembersTable() {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
@@ -19,14 +20,14 @@ function MembersTable() {
         pageSize: 20,
     });
 
-    const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
+    const { data } = useGetSplitBillGroup(0)
 
     return (
         <TableWrapper compact={true} borders={false} rowBorders={false}>
             <Table>
                 <Table.Body>
                     {
-                        data?.content.map((member,index)=>{
+                        data?.memberList.map((member,index)=>{
                             return (
                                 <tr>
                                     <td>

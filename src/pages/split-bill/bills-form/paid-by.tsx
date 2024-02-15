@@ -3,12 +3,14 @@ import { FieldValues, useController } from "react-hook-form";
 import { Select } from "@mantine/core";
 import { InputProps } from "forms/inputs/input-props";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
+import { splitBillRoute } from "pages/split-bill/routes";
 
 const PaidBy = <T extends FieldValues>(props: InputProps<T>) => {
     const {
         field: { value: selectedValue, onChange: onFieldChange, ...field },
     } = useController<T>(props);
-    const {data} = useGetSplitBillGroup(1);
+    const {group} = splitBillRoute.useSearch();
+    const {data} = useGetSplitBillGroup(group || 0);
     const options = data?.memberList.map((value) => ({
         label: value.member.getFullName(),
         value: value.member.id.toString(),

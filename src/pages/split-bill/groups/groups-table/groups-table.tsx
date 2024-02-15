@@ -27,10 +27,10 @@ const GroupsTable = ({}: GroupsTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
-    const { group } = splitBillRoute.useSearch();
+    const { group,bill,newGroup,newBill,...searchParams } = splitBillRoute.useSearch();
     const navigate = useNavigate();
 
-    const { data } = useIndexGroupMembers(pagination, columnFilters, sorting);
+    const { data } = useIndexGroupMembers(searchParams);
 
     const table = useReactTable({
         data: data?.content || [],

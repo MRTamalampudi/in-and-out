@@ -13,7 +13,7 @@ import { queryClient } from "index";
 function App() {
     useEffect(() => {
         console.log(banner);
-    });
+    },[]);
 
     return (
         <>

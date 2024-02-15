@@ -38,7 +38,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
         },
     });
 
-    const params = useSearch({ from: transactionRoute.fullPath });
+    const { transaction,...params } = useSearch({ from: transactionRoute.fullPath });
 
     const columns = useMemo(
         () => [

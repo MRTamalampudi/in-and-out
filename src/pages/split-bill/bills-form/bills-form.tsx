@@ -5,7 +5,6 @@ import ModalWrapper from "components/modal";
 import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
 import React, { useEffect, useMemo } from "react";
-import { useIndexGroupMembers } from "service/react-query-hooks/split_bill_group_member.query";
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
@@ -21,6 +20,7 @@ import { useCreateSplitBill } from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
+import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -68,24 +68,17 @@ const BillsFormPresentation = () => {
         name: "splitBillShareList",
     });
 
-    const pagination_ = useMemo(()=>({
-        pageIndex: 1,
-        pageSize: 20,
-    }),[])
-    const columnFilters = useMemo(()=>[{ id: "group", value: "1" }],[])
-    const sorting = useMemo(()=>[],[])
-
-    const { data } = useIndexGroupMembers(pagination_, columnFilters, sorting);
+    const { data } = useGetSplitBillGroup(0);
 
     watch("splitBillShareList");
     watch("amount");
     watch("paidBy");
 
     useEffect(() => {
-        data?.content.forEach((member, index) => {
+        data?.memberList.forEach((member, index) => {
             setValue(
                 `splitBillShareList.${index}.amount`,
-                getValues("amount") / data?.numberOfElements,
+                getValues("amount") / data?.memberList.length,
             );
             setValue(`splitBillShareList.${index}.user`, member.member);
         });
@@ -151,7 +144,7 @@ const BillsFormPresentation = () => {
                     >
                         <Table>
                             <Table.Body>
-                                {data?.content.map((member, index) => {
+                                {data?.memberList.map((member, index) => {
                                     return (
                                         <tr
                                             key={index}

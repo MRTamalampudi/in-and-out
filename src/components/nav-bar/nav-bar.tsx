@@ -8,7 +8,6 @@ import { useGetUser } from "service/react-query-hooks/user.query";
 import useGlobalConstants from "constants/globals";
 import { Link } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
-import { transactionRoute } from "pages/transactions/routes";
 
 interface NavBarProps {}
 
@@ -23,6 +22,8 @@ const NavBar = (props:NavBarProps) => {
 
     useGetUser();
     const {globalLocales} = useGlobalConstants();
+
+    console.log("ok test")
 
     return (
         <div className={styles.NavBar}>
@@ -59,4 +60,4 @@ const NavBar = (props:NavBarProps) => {
     )
 }
 
-export default NavBar;
+export default React.memo(NavBar);

@@ -17,6 +17,7 @@ import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.qu
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
+import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
 
 type BillsTableProps = {
 
@@ -115,6 +116,8 @@ const BillsTable = ({}:BillsTableProps) => {
         }
     ]),[])
 
+    const searchParams = splitBillRoute.useSearch();
+
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
@@ -123,7 +126,7 @@ const BillsTable = ({}:BillsTableProps) => {
         pageSize: 20,
     });
 
-    const {data} = useIndexBillShare(pagination,columnFilters,sorting);
+    const {data} = useIndexBillShare({ ...transformSplitBillSearchParams(searchParams),group:(searchParams.group || 0) });
 
     const table = useReactTable({
         data: data?.content || [],
@@ -148,8 +151,6 @@ const BillsTable = ({}:BillsTableProps) => {
         enableSorting: true,
         enableMultiSort: true,
     });
-
-    const {bill} = useSearch({from:splitBillRoute.fullPath});
     const navigate = useNavigate({from:splitBillRoute.fullPath});
     function onRowClick(id: number) {
         navigate({search:(prev)=>({...prev,bill:id})})
@@ -182,7 +183,7 @@ const BillsTable = ({}:BillsTableProps) => {
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.id)}
-                            data-selected={row.original.id == bill}
+                            data-selected={row.original.id == searchParams.bill}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <td

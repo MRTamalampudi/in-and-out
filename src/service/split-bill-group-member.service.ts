@@ -2,6 +2,7 @@ import { BaseService } from "service/base.service";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
 import { URL_CONSTANTS } from "constants/url.constants";
 import { User } from "model";
+import Page from "model/page";
 
 export class SplitBillGroupMemberService extends BaseService<SplitBillGroupMember> {
     private static instance: SplitBillGroupMemberService;
@@ -18,5 +19,11 @@ export class SplitBillGroupMemberService extends BaseService<SplitBillGroupMembe
                 new SplitBillGroupMemberService();
         }
         return SplitBillGroupMemberService.instance;
+    }
+
+    index(params: Record<string, any>): Promise<Page<SplitBillGroupMember>> {
+        const name = params["q"];
+        name && (params["q"] = `name~${name}`);
+        return super.index(params);
     }
 }

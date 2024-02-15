@@ -15,6 +15,7 @@ import { SplitBillGroupService } from "service/split-bill-group.service";
 import { SplitBillGroup } from "model";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
 
+
 export function useIndexGroups(
     pagination: PaginationState,
     filters: ColumnFiltersState,

@@ -35,8 +35,8 @@ export function useConstructSearchParams(options: ConstructSearchParamOptions) {
 }
 
 type PaginationOptions = {
-    page:number,
-    size:number
+    page?:number,
+    size?:number
 }
 
 type SortingOptions = {

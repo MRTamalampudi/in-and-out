@@ -33,7 +33,7 @@ export abstract class BaseService<Entity> {
         const searchParams:URLSearchParams = new URLSearchParams(params);
         console.log(searchParams.toString())
         return axios
-            .get<Page<Entity>>(`${this.BaseURL}?${searchParams.toString()}`)
+            .get<Page<Entity>>(`${this.BaseURL}?${searchParams.toString()}&sort=createdAt,desc`)
             .then((result) => {
                 result.data.content.forEach(
                     (entity) => (entity = this.deserializerFn(entity)),
