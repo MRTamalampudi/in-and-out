@@ -11,10 +11,7 @@ export class SplitBillService extends BaseService<SplitBill> {
     private constructor() {
         super(
             URL_CONSTANTS.SPLIT_BILL,
-            (entity) => {
-                entity.paidBy = User.deserialise(entity.paidBy);
-                return SplitBill.deserialise(entity);
-            },
+            (entity) => SplitBill.deserialise(entity),
             (entity) => {
                 entity = SplitBill.serialise(entity);
             },

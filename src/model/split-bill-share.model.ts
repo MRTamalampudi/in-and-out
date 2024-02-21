@@ -14,6 +14,15 @@ class SplitBillShare {
     algo:FormHelperEnum;
     userId:number;
 
+    static deserialize(object:SplitBillShare):SplitBillShare{
+        object.user = User.deserialise(object.user);
+        if(object.bill) {
+            object.bill = SplitBill.deserialise(object.bill);
+        }
+        console.log(Object.assign(new SplitBillShare(),object));
+        return object;
+    }
+
     static serialise(share:SplitBillShare):SplitBillShare{
         share.userId = share.user.id;
 

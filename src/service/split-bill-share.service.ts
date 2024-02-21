@@ -9,12 +9,7 @@ export class SplitBillShareService extends BaseService<SplitBillShare> {
     private static instance: SplitBillShareService;
 
     private constructor() {
-        super(URL_CONSTANTS.SPLIT_BILL_SHARE, (entity) => {
-            entity.bill.paidBy = User.deserialise(entity.bill.paidBy);
-            entity.user = User.deserialise(entity.user);
-            entity.bill = SplitBill.deserialise(entity.bill);
-            return entity;
-        });
+        super(URL_CONSTANTS.SPLIT_BILL_SHARE, (entity) => SplitBillShare.deserialize(entity));
     }
 
     public static getInstance(): SplitBillShareService {

@@ -18,6 +18,7 @@ import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
+import { BillView } from "pages/split-bill/bill-view/bill-view";
 
 type BillsTableProps = {
 
@@ -156,58 +157,63 @@ const BillsTable = ({}:BillsTableProps) => {
         navigate({search:(prev)=>({...prev,bill:id})})
     }
 
+    console.log("dataaaa",data?.content)
+
     return (
-        <TableWrapper borders={false}>
-            <TableWrapper.MetaRow
-                totalElements={data?.totalElements || 0}
-                title={"Bills"}
-            >
-                <TextInput
-                    placeholder={"search"}
-                    onChange={(value) =>
-                        table
-                            .getColumn("note")
-                            ?.setFilterValue(value?.target?.value)
-                    }
+        <>
+            <BillView/>
+            <TableWrapper borders={false}>
+                <TableWrapper.MetaRow
+                    totalElements={data?.totalElements || 0}
+                    title={"Bills"}
+                >
+                    <TextInput
+                        placeholder={"search"}
+                        onChange={(value) =>
+                            table
+                                .getColumn("note")
+                                ?.setFilterValue(value?.target?.value)
+                        }
+                    />
+                </TableWrapper.MetaRow>
+                <Table>
+                    {table.getIsSomeRowsSelected() ||
+                    table.getIsAllRowsSelected() ? (
+                        <ActionsRow table={table}/>
+                    ) : (
+                        <Table.Head table={table} />
+                    )}
+                    <Table.Body>
+                        {table.getRowModel().rows.map((row) => (
+                            <tr
+                                key={row.id}
+                                onClick={() => onRowClick(row.original.bill.id)}
+                                data-selected={row.original.id == searchParams.bill}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td
+                                        key={cell.id}
+                                        className={
+                                            cell.column.columnDef.meta?.className
+                                        }
+                                    >
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext(),
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </Table.Body>
+                </Table>
+                <TableWrapper.Pagination
+                    totalElements={data?.totalElements || 0}
+                    pagination={pagination}
+                    onPaginationChange={table.setPagination}
                 />
-            </TableWrapper.MetaRow>
-            <Table>
-                {table.getIsSomeRowsSelected() ||
-                table.getIsAllRowsSelected() ? (
-                    <ActionsRow table={table}/>
-                ) : (
-                    <Table.Head table={table} />
-                )}
-                <Table.Body>
-                    {table.getRowModel().rows.map((row) => (
-                        <tr
-                            key={row.id}
-                            onClick={() => onRowClick(row.original.id)}
-                            data-selected={row.original.id == searchParams.bill}
-                        >
-                            {row.getVisibleCells().map((cell) => (
-                                <td
-                                    key={cell.id}
-                                    className={
-                                        cell.column.columnDef.meta?.className
-                                    }
-                                >
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext(),
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </Table.Body>
-            </Table>
-            <TableWrapper.Pagination
-                totalElements={data?.totalElements || 0}
-                pagination={pagination}
-                onPaginationChange={table.setPagination}
-            />
-        </TableWrapper>
+            </TableWrapper>
+        </>
     )
 }
 

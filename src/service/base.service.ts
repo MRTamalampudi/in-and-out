@@ -35,9 +35,14 @@ export abstract class BaseService<Entity> {
         return axios
             .get<Page<Entity>>(`${this.BaseURL}?${searchParams.toString()}&sort=createdAt,desc`)
             .then((result) => {
+                console.log("trrrrrrr",result.data);
                 result.data.content.forEach(
-                    (entity) => (entity = this.deserializerFn(entity)),
+                    (entity) => {
+                        entity = this.deserializerFn(entity);
+                        console.log("for each,",entity)
+                    },
                 );
+                console.log("trrrrrrr",result.data);
                 return result.data;
             })
             .catch((error) => error);

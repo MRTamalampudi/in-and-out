@@ -93,3 +93,7 @@
   font-family: RobotoMono,monospace;
   @extend .body-text;
 }
+
+.f-40{
+  @include typography(2.5rem,600);
+}

@@ -24,6 +24,11 @@ class SplitBill {
         object.date = new Date((object.date as unknown as number) * 1000);
         object.createdAt = new Date((object.createdAt as unknown as number) * 1000);
         object.modifiedAt = new Date((object.modifiedAt as unknown as number) * 1000);
+        object.paidBy = User.deserialise(object.paidBy);
+        if(object.splitBillShareList) {
+            object.splitBillShareList.forEach(splitBillShare=>SplitBillShare.deserialize(splitBillShare));
+        }
+        console.log("splitbill deserialize,",Object.assign(new SplitBill(),object),object);
 
         return Object.assign(new SplitBill(),object);
     }

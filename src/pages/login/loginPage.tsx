@@ -12,9 +12,7 @@ import {
 } from "locales/translation-hooks";
 import useLoginFormEssentials from "../../forms/hooks/login-form.essentials";
 import axios from "axios";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import { transactionRoute } from "pages/transactions/routes";
-import { undefined } from "zod";
+import { useNavigate } from "@tanstack/react-router";
 
 const LoginPage = () => {
     const { formLabels } = useFormLabelsTranslations();
@@ -36,7 +34,12 @@ const LoginPage = () => {
                 },
                 withCredentials: true,
             })
-            .then((response) => navigate({ search: {page:1,size:20}, to:"/transactions" }))
+            .then((response) =>
+                navigate({
+                    search: { page: 1, size: 20 },
+                    to: "/transactions",
+                }),
+            )
             .catch((error) => console.log(error));
     };
 

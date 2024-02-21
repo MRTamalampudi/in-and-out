@@ -5,7 +5,14 @@ import { Colors } from "theme/colors";
 import "@mantine/core/styles.css";
 import "styles/mantine/index.scss";
 import "@mantine/dates/styles.css";
-import { createRootRouteWithContext, createRoute, createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
+import {
+    createRootRouteWithContext,
+    createRoute,
+    createRouteMask,
+    createRouter,
+    Outlet,
+    RouterProvider
+} from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "App";
 import { transactionRoute } from "pages/transactions/routes";
@@ -38,18 +45,23 @@ export const appRoute = createRoute({
     path:"/",
 })
 
-
-
 const routeTree = rootRoute.addChildren([
     appRoute.addChildren([transactionRoute,splitBillRoute]),
     loginRoute
 ])
 
+// const newBillMask = createRouteMask({
+//     routeTree,
+//     from: "/split_bill",
+//     to: "/split_bill",
+//     params:true,
+// });
+
 export const router = createRouter({
     routeTree,
     context:{
         queryClient
-    }
+    },
 })
 
 declare module '@tanstack/react-router' {

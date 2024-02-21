@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import ModalWrapper from "components/modal";
 import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput } from "@mantine/core";
 import Table from "components/table/table";
@@ -18,18 +18,19 @@ import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
 import { useCreateSplitBill } from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
-    const {newBill} = useSearch({from:splitBillRoute.fullPath});
     const navigate = useNavigate({from:splitBillRoute.fullPath})
 
     function handleOnClose() {
         navigate({search:(prev)=>({...prev,newBill:false})})
     }
+
+    const {newBill} = splitBillRoute.useSearch();
 
     return (
         <ModalWrapper
@@ -38,7 +39,7 @@ const BillsForm = ({}: BillsFormProps) => {
             title={"Add Bill"}
             size={"50rem"}
         >
-            <BillsFormPresentation />
+            {newBill && <BillsFormPresentation />}
         </ModalWrapper>
     );
 };
@@ -54,7 +55,7 @@ const BillsFormPresentation = () => {
     });
     const formProps = useForm<SplitBill>({
         mode: "onSubmit",
-        defaultValues,
+        defaultValues: defaultValues,
         resolver: zodResolver(schema),
     });
 
