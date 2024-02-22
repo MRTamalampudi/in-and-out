@@ -33,16 +33,16 @@ const BillsForm = ({}: BillsFormProps) => {
     }
 
     const {newBill,bill} = splitBillRoute.useSearch();
-    const {data} = useGetSplitBill(bill!);
+    const {data,isLoading,isFetching} = useGetSplitBill(bill!);
 
     return (
         <ModalWrapper
-            opened={newBill || (!!bill)}
+            opened={newBill || (!!bill && !isLoading)}
             onClose={handleOnClose}
             title={"Add Bill"}
             size={"55rem"}
         >
-            {(newBill || bill) && <BillsFormPresentation splitBill={data||undefined}/>}
+            {(newBill || (bill && !isLoading)) && <BillsFormPresentation splitBill={data||undefined}/>}
         </ModalWrapper>
     );
 };
@@ -50,6 +50,7 @@ const BillsForm = ({}: BillsFormProps) => {
 const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
     const { schema, defaultValues } = useBillFormEssentials();
     const navigate = useNavigate();
+    const {bill,group} = splitBillRoute.useSearch()
     const mutation = useCreateSplitBill({
         onSuccess: () => {
             navigate({search:(prev)=>({...prev,newBill:false})})
@@ -78,7 +79,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
         name: "splitBillShareList",
     });
 
-    const { data } = useGetSplitBillGroup(0);
+    const { data } = useGetSplitBillGroup(group || 0);
 
     watch("splitBillShareList");
     watch("amount");
