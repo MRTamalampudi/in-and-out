@@ -15,14 +15,11 @@ import ActionsRow from "components/table/actions-row";
 import SplitBillShare from "model/split-bill-share.model";
 import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
-import { BillView } from "pages/split-bill/bill-view/bill-view";
 
-type BillsTableProps = {
-
-}
+type BillsTableProps = {};
 const BillsTable = ({}:BillsTableProps) => {
     const columnHelper = createColumnHelper<SplitBillShare>();
 
@@ -161,7 +158,6 @@ const BillsTable = ({}:BillsTableProps) => {
 
     return (
         <>
-            <BillView/>
             <TableWrapper borders={false}>
                 <TableWrapper.MetaRow
                     totalElements={data?.totalElements || 0}

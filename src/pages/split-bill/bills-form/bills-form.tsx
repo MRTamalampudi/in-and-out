@@ -6,7 +6,7 @@ import { Dropzone } from "@mantine/dropzone";
 import Paperclip from "components/icons/paperclip";
 import React, { useEffect } from "react";
 import { TableWrapper } from "components/table";
-import { Button, Checkbox, NumberInput } from "@mantine/core";
+import { Button, Checkbox, NumberInput, Select } from "@mantine/core";
 import Table from "components/table/table";
 import { SplitBill } from "model";
 import PaidBy from "pages/split-bill/bills-form/paid-by";
@@ -16,35 +16,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormHelperEnum from "enum/form-helper.enum";
 import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
-import { useCreateSplitBill } from "service/react-query-hooks/split-bill.query";
+import { useCreateSplitBill, useGetSplitBill } from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
+import SplitBillStatus from "enum/split-bill-status.enum";
+import SplitBillGroupMember from "model/split-bill-group-member.model";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
     const navigate = useNavigate({from:splitBillRoute.fullPath})
 
     function handleOnClose() {
-        navigate({search:(prev)=>({...prev,newBill:false})})
+        navigate({ search: ({ bill,...prev }) => ({ ...prev, newBill: false }) });
     }
 
-    const {newBill} = splitBillRoute.useSearch();
+    const {newBill,bill} = splitBillRoute.useSearch();
+    const {data} = useGetSplitBill(bill!);
 
     return (
         <ModalWrapper
-            opened={newBill}
+            opened={newBill || (!!bill)}
             onClose={handleOnClose}
             title={"Add Bill"}
-            size={"50rem"}
+            size={"55rem"}
         >
-            {newBill && <BillsFormPresentation />}
+            {(newBill || bill) && <BillsFormPresentation splitBill={data||undefined}/>}
         </ModalWrapper>
     );
 };
 
-const BillsFormPresentation = () => {
+const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
     const { schema, defaultValues } = useBillFormEssentials();
     const navigate = useNavigate();
     const mutation = useCreateSplitBill({
@@ -55,7 +58,7 @@ const BillsFormPresentation = () => {
     });
     const formProps = useForm<SplitBill>({
         mode: "onSubmit",
-        defaultValues: defaultValues,
+        defaultValues: splitBill || defaultValues,
         resolver: zodResolver(schema),
     });
 
@@ -68,7 +71,7 @@ const BillsFormPresentation = () => {
         getValues,
     } = formProps;
 
-    const {handleAmountOnChange,handleChecked,split} = useSplitLogic(formProps);
+    const {handleAmountOnChange,handleStatusChange,handleChecked,split} = useSplitLogic(formProps);
 
     useFieldArray({
         control,
@@ -97,7 +100,12 @@ const BillsFormPresentation = () => {
         mutation.mutate(data)
     }
 
+    function getStatusValues(index:number,member:SplitBillGroupMember) {
+        return getValues(`splitBillShareList.${index}.status`) || (member.member.id == getValues("paidBy").id ? SplitBillStatus.PAID : SplitBillStatus.PENDING)
+    }
+
     console.log(formState)
+    console.log(getValues("splitBillShareList"))
 
 
     return (
@@ -172,10 +180,23 @@ const BillsFormPresentation = () => {
                                                     defaultChecked={true}
                                                 />
                                             </td>
-                                            <td className={"flex-basis-10/20"}>
+                                            <td className={"flex-basis-7/20"}>
                                                 {member.member.getFullName()}
                                             </td>
-                                            <td>
+                                            <td className={"flex-basis-8/20"}>
+                                                <Select
+                                                    data={Object.keys(SplitBillStatus)}
+                                                    disabled={
+                                                        getValues(
+                                                            `splitBillShareList.${index}.algo`,
+                                                        ) ==
+                                                        FormHelperEnum.UNCHECKED
+                                                    }
+                                                    value={getStatusValues(index,member)}
+                                                    onChange={(e)=>handleStatusChange(e||"PENDING",index)}
+                                                />
+                                            </td>
+                                            <td className={"flex-basis-5/20"}>
                                                 <NumberInput
                                                     hideControls
                                                     value={getValues(
@@ -193,6 +214,7 @@ const BillsFormPresentation = () => {
                                                         ) ==
                                                         FormHelperEnum.UNCHECKED
                                                     }
+                                                    leftSection={<span className={"f-13"}>₹</span>}
                                                     defaultValue={0}
                                                 />
                                             </td>

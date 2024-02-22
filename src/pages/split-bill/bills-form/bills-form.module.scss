@@ -11,12 +11,10 @@
   @extend .flex-row;
   @extend .column-gap-12;
   @include height(25rem);
-  > * {
-    flex-basis: 100%;
-  }
 }
 
 .left{
+  @extend .flex-basis-6\/20;
   @extend .flex-column;
   @extend .row-gap-8;
 
@@ -26,6 +24,7 @@
 }
 
 .right{
+  @extend .flex-basis-14\/20;
   @extend .pt-4;
   @extend .flex-column;
   @extend .row-gap-4;

@@ -3,14 +3,15 @@ import { InputProps } from "forms/inputs/input-props";
 import { Select } from "@mantine/core";
 import React from "react";
 import { SplitAlgo } from "enum";
+import SplitBillStatus from "enum/split-bill-status.enum";
 
-const SplitAlgoSelect = <T extends FieldValues>(props: InputProps<T>) => {
+const SplitBillStatusSelect = <T extends FieldValues>(props: InputProps<T>) => {
     const {
         field,
     } = useController<T>(props);
 
 
-    const options = Object.values(SplitAlgo).map((value) => ({
+    const options = Object.values(SplitBillStatus).map((value) => ({
         label: value,
         value: value,
     }));
@@ -28,4 +29,4 @@ const SplitAlgoSelect = <T extends FieldValues>(props: InputProps<T>) => {
     );
 };
 
-export default SplitAlgoSelect;
+export default SplitBillStatusSelect;

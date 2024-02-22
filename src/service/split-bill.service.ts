@@ -1,5 +1,5 @@
 import { BaseService } from "service/base.service";
-import { SplitBill, User } from "model";
+import { SplitBill } from "model";
 import { URL_CONSTANTS } from "constants/url.constants";
 import SplitBillShare from "model/split-bill-share.model";
 import SplitBillStatus from "enum/split-bill-status.enum";
@@ -29,10 +29,11 @@ export class SplitBillService extends BaseService<SplitBill> {
     create(entity: SplitBill): Promise<SplitBill> {
         const filterByShare = (share: SplitBillShare) => share.amount > 0;
         const updateSplitBillShareStatus = (share: SplitBillShare) => {
-            share.status =
-                share.user.id === entity.paidBy.id
-                    ? SplitBillStatus.PAID
-                    : SplitBillStatus.PENDING;
+            if (share.user.id === entity.paidBy.id) {
+                share.status = SplitBillStatus.PAID;
+            } else if (!share.status) {
+                share.status = SplitBillStatus.PENDING;
+            }
             return share;
         };
 

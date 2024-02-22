@@ -3,6 +3,7 @@ import { SplitBill, User } from "model";
 import FormHelperEnum from "enum/form-helper.enum";
 import SplitBillShare from "model/split-bill-share.model";
 import { useCallback, useMemo } from "react";
+import SplitBillStatus from "enum/split-bill-status.enum";
 
 export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
 
@@ -11,12 +12,15 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
     const amount = getValues("amount");
 
     function handleAmountOnChange(e: string | number, index: number) {
-        console.log("amount changedd")
         setValue(`splitBillShareList.${index}.amount`, parseInt(e.toString()), {
             shouldTouch: true,
         });
         setValue(`splitBillShareList.${index}.algo`, FormHelperEnum.MANUAL);
         split();
+    }
+
+    function handleStatusChange(e:string,index:number){
+        setValue(`splitBillShareList.${index}.status`,e as SplitBillStatus);
     }
 
     function handleChecked(checked: boolean, index: number, member: User) {
@@ -135,5 +139,6 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
         split,
         handleAmountOnChange,
         handleChecked,
+        handleStatusChange,
     };
 }
