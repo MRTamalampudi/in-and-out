@@ -23,7 +23,7 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
         setValue(`splitBillShareList.${index}.status`,e as SplitBillStatus);
     }
 
-    function handleChecked(checked: boolean, index: number, member: User) {
+    function handleChecked(checked: boolean, index: number) {
         if (checked) {
             setValue(
                 `splitBillShareList.${index}.algo`,
@@ -70,6 +70,8 @@ export function useSplitLogic(props: UseFormReturn<SplitBill, any, undefined>) {
                 setError(`splitBillShareList`,{message:`Split amount exceeded Bill amount by ${touchedAmount - totalAmount}`})
             } else if (touchedAmount < totalAmount){
                 setError(`splitBillShareList`,{message:`Remaining amount by ${totalAmount - touchedAmount}`})
+            } else {
+                clearErrors(`splitBillShareList`)
             }
         } else {
             if(touchedAmount > totalAmount) {

@@ -2,7 +2,6 @@ import User, { useUserSchema } from "model/user.model";
 import SplitBill from "model/split-bill.model";
 import SplitBillStatus from "enum/split-bill-status.enum";
 import { z } from "zod";
-import { SplitAlgo } from "enum";
 import FormHelperEnum from "enum/form-helper.enum";
 
 class SplitBillShare {
@@ -15,12 +14,12 @@ class SplitBillShare {
     userId:number;
 
     static deserialize(object:SplitBillShare):SplitBillShare{
+        object.algo = FormHelperEnum.MANUAL;
         object.user = User.deserialise(object.user);
         if(object.bill) {
             object.bill = SplitBill.deserialise(object.bill);
         }
-        console.log(Object.assign(new SplitBillShare(),object));
-        return object;
+        return Object.assign(new SplitBillShare(),object);
     }
 
     static serialise(share:SplitBillShare):SplitBillShare{

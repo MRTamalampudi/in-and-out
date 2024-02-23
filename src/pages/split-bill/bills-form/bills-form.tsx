@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 import { TableWrapper } from "components/table";
 import { Button, Checkbox, NumberInput, Select } from "@mantine/core";
 import Table from "components/table/table";
-import { SplitBill } from "model";
+import { SplitBill, User } from "model";
 import PaidBy from "pages/split-bill/bills-form/paid-by";
 import DateTimeInputForm from "forms/inputs/date-time-input-form";
 import { useBillFormEssentials } from "forms/hooks/bill-form.essentials";
@@ -16,13 +16,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormHelperEnum from "enum/form-helper.enum";
 import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
-import { useCreateSplitBill, useGetSplitBill } from "service/react-query-hooks/split-bill.query";
+import {
+    useCreateSplitBill,
+    useGetSplitBill,
+} from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 import SplitBillStatus from "enum/split-bill-status.enum";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
+import SplitBillShare from "model/split-bill-share.model";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -32,8 +36,23 @@ const BillsForm = ({}: BillsFormProps) => {
         navigate({ search: ({ bill,...prev }) => ({ ...prev, newBill: false }) });
     }
 
-    const {newBill,bill} = splitBillRoute.useSearch();
+    const {newBill,group:groupId,bill} = splitBillRoute.useSearch();
     const {data,isLoading,isFetching} = useGetSplitBill(bill!);
+    const {data:group} = useGetSplitBillGroup(groupId || 0);
+    
+    group?.memberList.forEach(member=>{
+        let pass = false;
+        data?.splitBillShareList.forEach(share=>{
+            share.user.id == member.member.id && (pass=true)
+        })
+        if(!pass){
+            const splitBillShare = new SplitBillShare();
+            splitBillShare.user = member.member;
+            splitBillShare.algo = FormHelperEnum.UNCHECKED;
+            splitBillShare.amount = 0;
+            data?.splitBillShareList.push(splitBillShare)
+        }
+    })
 
     return (
         <ModalWrapper
@@ -50,7 +69,7 @@ const BillsForm = ({}: BillsFormProps) => {
 const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
     const { schema, defaultValues } = useBillFormEssentials();
     const navigate = useNavigate();
-    const {bill,group} = splitBillRoute.useSearch()
+    const {group} = splitBillRoute.useSearch()
     const mutation = useCreateSplitBill({
         onSuccess: () => {
             navigate({search:(prev)=>({...prev,newBill:false})})
@@ -86,13 +105,18 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
     watch("paidBy");
 
     useEffect(() => {
-        data?.memberList.forEach((member, index) => {
-            setValue(
-                `splitBillShareList.${index}.amount`,
-                getValues("amount") / data?.memberList.length,
-            );
-            setValue(`splitBillShareList.${index}.user`, member.member);
-        });
+        console.log("sppltubbill",splitBill)
+        if(!splitBill){
+            data?.memberList.forEach((member, index) => {
+                if(!getValues(`splitBillShareList.${index}.user`)){
+                    setValue(
+                        `splitBillShareList.${index}.amount`,
+                        getValues("amount") / data?.memberList.length,
+                    );
+                    setValue(`splitBillShareList.${index}.user`, member.member);
+                }
+            });
+        }
         split();
     }, [getValues("amount")]);
 
@@ -101,13 +125,65 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
         mutation.mutate(data)
     }
 
-    function getStatusValues(index:number,member:SplitBillGroupMember) {
-        return getValues(`splitBillShareList.${index}.status`) || (member.member.id == getValues("paidBy").id ? SplitBillStatus.PAID : SplitBillStatus.PENDING)
+    function getStatusValues(index:number,member:User) {
+        return getValues(`splitBillShareList.${index}.status`) || (member.id == getValues("paidBy").id ? SplitBillStatus.PAID : SplitBillStatus.PENDING)
     }
 
     console.log(formState)
     console.log(getValues("splitBillShareList"))
-
+    
+    function renderSplitBill() {
+        return splitBill?.splitBillShareList.map((share,index) => (
+            <tr
+                key={index}
+                data-disabled={
+                    getValues(`splitBillShareList.${index}.algo`) ==
+                    FormHelperEnum.UNCHECKED
+                }
+            >
+                <td>
+                    <Checkbox
+                        onChange={(event) =>
+                            handleChecked(
+                                event.currentTarget.checked,
+                                index
+                            )
+                        }
+                        defaultChecked={getValues(`splitBillShareList.${index}.algo`) != FormHelperEnum.UNCHECKED}
+                    />
+                </td>
+                <td className={"flex-basis-7/20"}>
+                    {share.user.getFullName()}
+                </td>
+                <td className={"flex-basis-8/20"}>
+                    <Select
+                        data={Object.keys(SplitBillStatus)}
+                        disabled={
+                            getValues(`splitBillShareList.${index}.algo`) ==
+                            FormHelperEnum.UNCHECKED
+                        }
+                        value={getStatusValues(index, share.user)}
+                        onChange={(e) =>
+                            handleStatusChange(e || "PENDING", index)
+                        }
+                    />
+                </td>
+                <td className={"flex-basis-5/20"}>
+                    <NumberInput
+                        hideControls
+                        value={getValues(`splitBillShareList.${index}.amount`)}
+                        onChange={(e) => handleAmountOnChange(e, index)}
+                        disabled={
+                            getValues(`splitBillShareList.${index}.algo`) ==
+                            FormHelperEnum.UNCHECKED
+                        }
+                        leftSection={<span className={"f-13"}>₹</span>}
+                        defaultValue={0}
+                    />
+                </td>
+            </tr>
+        ));
+    }
 
     return (
         <div className={styles.BillsForm}>
@@ -147,9 +223,11 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                 <div className={styles.right}>
                     <div className={"flex-row jc-space-between"}>
                         <span className={"subtitle"}>Members</span>
-                        {
-                            formState.errors.splitBillShareList && <span className={"subtitle error-text"}>{formState.errors.splitBillShareList.message}</span>
-                        }
+                        {formState.errors.splitBillShareList && (
+                            <span className={"subtitle error-text"}>
+                                {formState.errors.splitBillShareList.message}
+                            </span>
+                        )}
                     </div>
                     <TableWrapper
                         compact={true}
@@ -158,7 +236,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                     >
                         <Table>
                             <Table.Body>
-                                {data?.memberList.map((member, index) => {
+                                {splitBill ? renderSplitBill() : data?.memberList.map((member, index) => {
                                     return (
                                         <tr
                                             key={index}
@@ -174,8 +252,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                                                         handleChecked(
                                                             event.currentTarget
                                                                 .checked,
-                                                            index,
-                                                            member.member,
+                                                            index
                                                         )
                                                     }
                                                     defaultChecked={true}
@@ -186,15 +263,25 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                                             </td>
                                             <td className={"flex-basis-8/20"}>
                                                 <Select
-                                                    data={Object.keys(SplitBillStatus)}
+                                                    data={Object.keys(
+                                                        SplitBillStatus,
+                                                    )}
                                                     disabled={
                                                         getValues(
                                                             `splitBillShareList.${index}.algo`,
                                                         ) ==
                                                         FormHelperEnum.UNCHECKED
                                                     }
-                                                    value={getStatusValues(index,member)}
-                                                    onChange={(e)=>handleStatusChange(e||"PENDING",index)}
+                                                    value={getStatusValues(
+                                                        index,
+                                                        member.member,
+                                                    )}
+                                                    onChange={(e) =>
+                                                        handleStatusChange(
+                                                            e || "PENDING",
+                                                            index,
+                                                        )
+                                                    }
                                                 />
                                             </td>
                                             <td className={"flex-basis-5/20"}>
@@ -215,7 +302,13 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                                                         ) ==
                                                         FormHelperEnum.UNCHECKED
                                                     }
-                                                    leftSection={<span className={"f-13"}>₹</span>}
+                                                    leftSection={
+                                                        <span
+                                                            className={"f-13"}
+                                                        >
+                                                            ₹
+                                                        </span>
+                                                    }
                                                     defaultValue={0}
                                                 />
                                             </td>
