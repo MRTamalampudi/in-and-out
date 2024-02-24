@@ -18,7 +18,7 @@ import { useSplitLogic } from "pages/split-bill/bills-form/split-logic";
 import NumberInputForm from "forms/inputs/number-input-form";
 import {
     useCreateSplitBill,
-    useGetSplitBill,
+    useGetSplitBill, useUpdateSplitBill
 } from "service/react-query-hooks/split-bill.query";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
@@ -27,6 +27,7 @@ import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group
 import SplitBillStatus from "enum/split-bill-status.enum";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
 import SplitBillShare from "model/split-bill-share.model";
+import AmountInputForm from "forms/inputs/amount-input-form/amount-input-form";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -76,6 +77,12 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
             toast.success("successfully created bill");
         },
     });
+    const updateMutation = useUpdateSplitBill({
+        onSuccess: () => {
+            navigate({search:(prev)=>({...prev,newBill:false})})
+            toast.success("successfully updated bill");
+        },
+    });
     const formProps = useForm<SplitBill>({
         mode: "onSubmit",
         defaultValues: splitBill || defaultValues,
@@ -122,7 +129,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
 
 
     function handleSubmit_(data:SplitBill) {
-        mutation.mutate(data)
+        splitBill ? updateMutation.mutate(data) : mutation.mutate(data)
     }
 
     function getStatusValues(index:number,member:User) {
@@ -189,7 +196,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
         <div className={styles.BillsForm}>
             <div className={styles.body}>
                 <div className={styles.left}>
-                    <NumberInputForm
+                    <AmountInputForm
                         name={"amount"}
                         control={control}
                         label={"Amount"}

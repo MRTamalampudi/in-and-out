@@ -39,6 +39,27 @@ export function useCreateSplitBill(options: CustomMutationOptions) {
             SplitBillService.getInstance().create(bill),
         onSuccess: () => {
             onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL_SHARE] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.SPLIT_BILL_GROUP],
+            });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.TRANSACTION_SUMMARY],
+            });
+        },
+    });
+}
+
+export function useUpdateSplitBill(options: CustomMutationOptions) {
+    const { onSuccess } = options;
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (bill: SplitBill) =>
+            SplitBillService.getInstance().update(bill),
+        onSuccess: () => {
+            onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL_SHARE] });
             queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL] });
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.SPLIT_BILL_GROUP],

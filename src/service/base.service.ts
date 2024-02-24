@@ -55,7 +55,6 @@ export abstract class BaseService<Entity> {
 
     public create(entity: Entity): Promise<Entity> {
         this.serializerFn(entity);
-        console.log(entity, this.BaseURL);
         return axios
             .post(this.BaseURL, entity)
             .then((response) => {
@@ -77,6 +76,7 @@ export abstract class BaseService<Entity> {
             });
     }
     public update(entity: Entity) {
+        this.serializerFn(entity);
         return axios
             .put(`${this.BaseURL}`, entity)
             .then((res) => res.data)

@@ -25,6 +25,8 @@ class SplitBill {
         object.createdAt = new Date((object.createdAt as unknown as number) * 1000);
         object.modifiedAt = new Date((object.modifiedAt as unknown as number) * 1000);
         object.paidBy = User.deserialise(object.paidBy);
+        // @ts-ignore
+        object.group = object.splitBillGroup;
         if(object.splitBillShareList) {
             object.splitBillShareList = object.splitBillShareList.map((splitBillShare) => {
                 return SplitBillShare.deserialize(splitBillShare);
@@ -36,9 +38,14 @@ class SplitBill {
     }
 
     static serialise(splitBill:SplitBill):SplitBill{
-        splitBill.splitBillGroupId = splitBill.group.id;
+        splitBill.splitBillGroupId = splitBill?.group?.id;
         splitBill.paidUserId = splitBill.paidBy.id;
-        splitBill.splitBillShareList.forEach(share=> share = SplitBillShare.serialise(share))
+        splitBill.splitBillShareList.forEach((share) => {
+            const bill = new SplitBill();
+            bill.id = splitBill?.id;
+            share.bill = bill
+            share = SplitBillShare.serialise(share);
+        });
 
         // @ts-ignore
         splitBill.group = null;
@@ -62,7 +69,7 @@ export const useSplitBillSchema = () => {
         group:z.object({
             id:z.number(),
             name:z.string(),
-        })
+        }).optional()
     });
 };
 export default SplitBill;
