@@ -45,7 +45,6 @@ export class SplitBillService extends BaseService<SplitBill> {
     }
 
     update(entity: SplitBill): Promise<SplitBill> {
-        const filterByShare = (share: SplitBillShare) => share.amount > 0;
         const updateSplitBillShareStatus = (share: SplitBillShare) => {
             if (share.user.id === entity.paidBy.id) {
                 share.status = SplitBillStatus.PAID;
@@ -56,7 +55,6 @@ export class SplitBillService extends BaseService<SplitBill> {
         };
 
         entity.splitBillShareList = entity.splitBillShareList
-            .filter(filterByShare)
             .map(updateSplitBillShareStatus);
 
         return super.update(entity);

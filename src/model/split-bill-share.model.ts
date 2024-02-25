@@ -14,7 +14,7 @@ class SplitBillShare {
     userId:number;
 
     static deserialize(object:SplitBillShare):SplitBillShare{
-        object.algo = FormHelperEnum.MANUAL;
+        object.algo = object.amount > 0 ? FormHelperEnum.MANUAL : FormHelperEnum.UNCHECKED;
         object.user = User.deserialise(object.user);
         if(object.bill) {
             object.bill = SplitBill.deserialise(object.bill);
