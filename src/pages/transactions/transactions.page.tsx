@@ -10,6 +10,7 @@ import {
 } from "service/react-query-hooks/transaction-summary.query";
 import { transactionRoute } from "pages/transactions/routes";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { createLazyRoute } from "@tanstack/react-router";
 
 interface TransactionsProps {}
 
@@ -36,4 +37,6 @@ const TransactionsPage = (
   )
 }
 
-export default TransactionsPage;
+export const TransactionLazyRoute = createLazyRoute("/transactions")({
+    component:TransactionsPage
+});

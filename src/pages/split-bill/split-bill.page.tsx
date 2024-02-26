@@ -6,7 +6,7 @@ import { Menu } from "@mantine/core";
 import Groups from "pages/split-bill/groups/groups";
 import BillsForm from "pages/split-bill/bills-form/bills-form";
 import GroupsForm from "pages/split-bill/groups-form/groups-form";
-import { useNavigate } from "@tanstack/react-router";
+import { createLazyRoute, useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 
 interface SplitBillProps {}
@@ -62,4 +62,6 @@ const BillAndGroupFormModal = () => {
     );
 };
 
-export default SplitBillPage;
+export const LazyRoute = createLazyRoute("/split_bill")({
+    component:SplitBillPage
+});

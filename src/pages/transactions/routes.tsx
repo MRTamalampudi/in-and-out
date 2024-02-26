@@ -1,4 +1,3 @@
-import TransactionsPage from "./transactions.page";
 import { createRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { transactionQueryOptions } from "service/react-query-hooks/transaction-query";
@@ -18,7 +17,6 @@ const searchParamsSchema = z.object({
 
 export const transactionRoute = createRoute({
     getParentRoute:()=>appRoute,
-    component:TransactionsPage,
     path:"transactions",
     validateSearch:searchParamsSchema,
     loaderDeps:({search:{transaction,...search}})=>search,
@@ -27,4 +25,4 @@ export const transactionRoute = createRoute({
         queryClient.ensureQueryData(transactionSummaryQueryOptions)
     },
     pendingComponent:()=><div>Loading...</div>,
-});
+}).lazy(()=>import("./transactions.page").then((d)=>d.TransactionLazyRoute))

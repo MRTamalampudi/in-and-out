@@ -12,7 +12,7 @@ import {
 } from "locales/translation-hooks";
 import useLoginFormEssentials from "../../forms/hooks/login-form.essentials";
 import axios from "axios";
-import { useNavigate } from "@tanstack/react-router";
+import { createLazyRoute, useNavigate } from "@tanstack/react-router";
 
 const LoginPage = () => {
     const { formLabels } = useFormLabelsTranslations();
@@ -75,4 +75,6 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export const LoginPageLazyRoute = createLazyRoute("/login")({
+    component:LoginPage
+});
