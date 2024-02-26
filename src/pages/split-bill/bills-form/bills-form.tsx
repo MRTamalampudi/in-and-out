@@ -28,6 +28,7 @@ import SplitBillStatus from "enum/split-bill-status.enum";
 import SplitBillGroupMember from "model/split-bill-group-member.model";
 import SplitBillShare from "model/split-bill-share.model";
 import AmountInputForm from "forms/inputs/amount-input-form/amount-input-form";
+import { StatusSelect } from "pages/split-bill/bills-form/status-select";
 
 type BillsFormProps = {};
 const BillsForm = ({}: BillsFormProps) => {
@@ -163,17 +164,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                     {share.user.getFullName()}
                 </td>
                 <td className={"flex-basis-8/20"}>
-                    <Select
-                        data={Object.keys(SplitBillStatus)}
-                        disabled={
-                            getValues(`splitBillShareList.${index}.algo`) ==
-                            FormHelperEnum.UNCHECKED
-                        }
-                        value={getStatusValues(index, share.user)}
-                        onChange={(e) =>
-                            handleStatusChange(e || "PENDING", index)
-                        }
-                    />
+                    <StatusSelect formProps={formProps} index={index} member={share.user} />
                 </td>
                 <td className={"flex-basis-5/20"}>
                     <NumberInput
@@ -269,27 +260,7 @@ const BillsFormPresentation = ({splitBill}:{splitBill?:SplitBill}) => {
                                                 {member.member.getFullName()}
                                             </td>
                                             <td className={"flex-basis-8/20"}>
-                                                <Select
-                                                    data={Object.keys(
-                                                        SplitBillStatus,
-                                                    )}
-                                                    disabled={
-                                                        getValues(
-                                                            `splitBillShareList.${index}.algo`,
-                                                        ) ==
-                                                        FormHelperEnum.UNCHECKED
-                                                    }
-                                                    value={getStatusValues(
-                                                        index,
-                                                        member.member,
-                                                    )}
-                                                    onChange={(e) =>
-                                                        handleStatusChange(
-                                                            e || "PENDING",
-                                                            index,
-                                                        )
-                                                    }
-                                                />
+                                                <StatusSelect formProps={formProps} index={index} member={member.member} />
                                             </td>
                                             <td className={"flex-basis-5/20"}>
                                                 <NumberInput
