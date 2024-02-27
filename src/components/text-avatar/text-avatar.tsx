@@ -1,13 +1,13 @@
 import { Avatar, MantineRadius, MantineSize } from "@mantine/core";
-import React from "react";
+import React, { ForwardedRef, forwardRef } from "react";
 import styles from "./text-avatar.module.scss";
 
-type TextAvatarProps = {
+interface TextAvatarProps {
     text: string;
     size?: MantineSize;
     radius?: MantineRadius;
 };
-const TextAvatar = ({ text, size, radius }: TextAvatarProps) => {
+const TextAvatar = forwardRef(({ text, size, radius }: TextAvatarProps,ref:ForwardedRef<HTMLDivElement>) => {
     const splittedText = text && text.split(" ");
     const textContainsMoreThanOneWord = splittedText.length > 1;
     const firstCharacter = (str: string) => str.charAt(0);
@@ -34,6 +34,7 @@ const TextAvatar = ({ text, size, radius }: TextAvatarProps) => {
 
     return (
         <Avatar
+            ref={ref}
             color={"red"}
             size={size || "sm"}
             radius={radius || "sm"}
@@ -42,6 +43,7 @@ const TextAvatar = ({ text, size, radius }: TextAvatarProps) => {
             {transformedText}
         </Avatar>
     );
-};
+});
+
 
 export default React.memo(TextAvatar);

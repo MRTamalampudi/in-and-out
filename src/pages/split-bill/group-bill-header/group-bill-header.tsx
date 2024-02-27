@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./group-bill-header.module.scss";
-import { EditIcon } from "components/icons";
 import DeleteIcon from "components/icons/delete-icon";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
@@ -8,6 +7,7 @@ import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group
 import { useGetUser } from "service/react-query-hooks/user.query";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useSearch } from "@tanstack/react-router";
+import { Tooltip } from "@mantine/core";
 
 interface GroupBillHeaderProps {}
 
@@ -20,7 +20,9 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
     const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;
 
     const components = data?.memberList.map((member) => (
-        <TextAvatar text={member.member.getFullName()} key={member.id} />
+        <Tooltip label={member.member.getFullName()} position={"bottom-start"}>
+            <TextAvatar text={member.member.getFullName()} key={member.id} />
+        </Tooltip>
     ));
 
     return (
@@ -40,15 +42,10 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
                         <GroupShareSummary lentShare={lentShare} oweShare={oweShare}/>
                     </div>
                     <div className={styles.right}>
-                        <EditIcon
-                            width={24}
-                            height={24}
-                            className={"error-text"}
-                        />
                         <DeleteIcon
                             width={24}
                             height={24}
-                            className={"error-text"}
+                            className={"grayIcon"}
                         />
                     </div>
                 </div>
