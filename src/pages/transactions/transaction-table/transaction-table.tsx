@@ -9,7 +9,6 @@ import {
 import {
     transactionQueryOptions,
     useDeleteTransaction,
-    useIndexTransactions,
 } from "service/react-query-hooks/transaction-query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { Action } from "components/table/actions-row";
@@ -18,9 +17,7 @@ import TransactionTableUi from "pages/transactions/transaction-table/transaction
 import { columns as columns_ } from "pages/transactions/transaction-table/transaction-table-columns";
 import Checked from "components/icons/checked";
 import { useSearch } from "@tanstack/react-router";
-import { transactionRoute } from "pages/transactions/routes";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { queryClient } from "index";
+import { useQuery } from "@tanstack/react-query";
 
 interface TransactionTableProps {}
 

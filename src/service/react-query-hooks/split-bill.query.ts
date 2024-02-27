@@ -80,6 +80,18 @@ export function useGetSplitBill(id: number) {
     });
 }
 
+export function useDeleteSplitBill(options:CustomMutationOptions) {
+    const { onSuccess, onError } = options;
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (entityIds:number[])=>SplitBillService.getInstance().delete(entityIds),
+        onSuccess: () => {
+            onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL] });
+        },
+    });
+}
+
 export function getBillQueryOptions(billId:number) {
     return queryOptions({
         queryKey:[QueryKeys.SPLIT_BILL_GROUP,billId],

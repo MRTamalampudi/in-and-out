@@ -11,17 +11,24 @@ import { Checkbox, TextInput } from "@mantine/core";
 import React, { useMemo, useState } from "react";
 import { TableWrapper } from "components/table";
 import Table from "components/table/table";
-import ActionsRow from "components/table/actions-row";
+import ActionsRow, { Action } from "components/table/actions-row";
 import SplitBillShare from "model/split-bill-share.model";
 import { useIndexBillShare } from "service/react-query-hooks/split-bill-share.query";
 import DeleteConfirmationModal from "components/delete-confirmation-modal";
 import { useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
+import { toast } from "sonner";
+import { useDeleteSplitBill } from "service/react-query-hooks/split-bill.query";
 
 type BillsTableProps = {};
 const BillsTable = ({}:BillsTableProps) => {
     const columnHelper = createColumnHelper<SplitBillShare>();
+    const deleteMutation = useDeleteSplitBill({
+        onSuccess:()=>{
+            toast.success("Deleted group successfully")
+        }
+    })
 
     const columns = useMemo(()=>([
         {
@@ -98,14 +105,14 @@ const BillsTable = ({}:BillsTableProps) => {
             //@ts-ignore
             cell: ({ row }) => (
                 <DeleteConfirmationModal
-                    context={"Bills"}
+                    context={"Bill"}
                     data={[row.original]}
                     transformer={(data) => ({
                         id: data.id,
                         note: data.bill.bill,
                         amount: data.bill.amount,
                     })}
-                    primary={() => null}
+                    primary={() => deleteMutation.mutate([row.original.bill.id])}
                 />
             ),
             meta: {
@@ -113,6 +120,33 @@ const BillsTable = ({}:BillsTableProps) => {
             },
         }
     ]),[])
+
+    const ActionRowComponents:Action[] = [
+        {
+            label:"Delete",
+            component: ()=>(
+                <DeleteConfirmationModal
+                    context={"Bills"}
+                    transformer={(data) => ({
+                        id: data.id,
+                        note: data.bill.bill,
+                        amount: data.bill.amount,
+                    })}
+                    data={table
+                        .getFilteredSelectedRowModel()
+                        .rows.map((rowData) => rowData.original)}
+                    primary={() => {
+                        deleteMutation.mutate(
+                            table
+                                .getFilteredSelectedRowModel()
+                                .rows.map((rowData) => rowData.original.bill.id),
+                        );
+                    }}
+                    isPending={deleteMutation.isPending}
+                />
+            )
+        }
+    ]
 
     const searchParams = splitBillRoute.useSearch();
 
@@ -175,7 +209,7 @@ const BillsTable = ({}:BillsTableProps) => {
                 <Table>
                     {table.getIsSomeRowsSelected() ||
                     table.getIsAllRowsSelected() ? (
-                        <ActionsRow table={table}/>
+                        <ActionsRow table={table} actions={ActionRowComponents}/>
                     ) : (
                         <Table.Head table={table} />
                     )}
