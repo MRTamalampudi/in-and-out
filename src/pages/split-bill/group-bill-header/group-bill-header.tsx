@@ -6,10 +6,29 @@ import TextAvatar from "components/text-avatar";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 import { useGetUser } from "service/react-query-hooks/user.query";
 import { splitBillRoute } from "pages/split-bill/routes";
-import { useSearch } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Tooltip } from "@mantine/core";
+import AddUserIcon from "components/icons/add-user-icon";
+import { AddMembers } from "pages/split-bill/groups-form/add-members";
 
 interface GroupBillHeaderProps {}
+
+function AddMember() {
+    const navigate = useNavigate();
+    const handleOnClick = ()=> {
+        navigate({search:(prev)=>({...prev,addMembers:true})})
+    }
+    return (
+        <>
+            <div onClick={handleOnClick} className={"pointer"} style={{display:"flex",justifyContent:"center"}}>
+                <Tooltip label={"Add members"}>
+                    <AddUserIcon className={"grayIcon"}/>
+                </Tooltip>
+            </div>
+            <AddMembers />
+        </>
+    );
+}
 
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
@@ -20,7 +39,7 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
     const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;
 
     const components = data?.memberList.map((member) => (
-        <Tooltip label={member.member.getFullName()} position={"bottom-start"}>
+        <Tooltip label={member.member.getFullName()} position={"bottom"}>
             <TextAvatar text={member.member.getFullName()} key={member.id} />
         </Tooltip>
     ));
@@ -39,7 +58,8 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
                 <div className={styles.details}>
                     <div className={styles.left}>
                         <ComponentStack components={components || []} />
-                        <GroupShareSummary lentShare={lentShare} oweShare={oweShare}/>
+                        <AddMember/>
+                        <GroupShareSummary lentShare={lentShare} oweShare={oweShare} />
                     </div>
                     <div className={styles.right}>
                         <DeleteIcon

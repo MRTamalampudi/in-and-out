@@ -57,6 +57,18 @@ export function useCreateSplitBillGroup(options: CustomMutationOptions) {
     });
 }
 
+export function useUpdateSplitBillGroup(options: CustomMutationOptions) {
+    const { onSuccess, onError } = options;
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data:SplitBillGroup)=>SplitBillGroupService.getInstance().update(data),
+        onSuccess: () => {
+            onSuccess && onSuccess();
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.SPLIT_BILL_GROUP] });
+        },
+    });
+}
+
 
 
 export function getGroupQueryOptions(groupId:number) {

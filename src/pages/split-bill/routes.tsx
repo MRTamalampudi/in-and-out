@@ -22,6 +22,7 @@ const searchParamsSchema = z.object({
     bill: z.number().optional(),
     newGroup: z.boolean().catch(false).optional(),
     newBill: z.boolean().catch(false).optional(),
+    addMembers: z.boolean().catch(false).optional(),
 });
 
 export const splitBillRoute = createRoute({
