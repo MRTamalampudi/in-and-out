@@ -23,7 +23,7 @@ export type ModalFooterButtonProps = {
 };
 
 const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
-    const { context, primary,isPending = false } = props;
+    const { context, primary,isPending = false} = props;
     const reciptBillProps: ReceiptBillProps = {
         data: props.data,
         transformer: props.transformer,
@@ -46,7 +46,7 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
                         ? DELETE_MULTIPLE
                         : DELETE}
                 </div>
-                <ReceiptBill {...reciptBillProps} />
+                {props.transformer && <ReceiptBill {...reciptBillProps} />}
             </ModalWrapper.Body>
             <ModalWrapper.Footer>
                 <div className={styles.footer}>

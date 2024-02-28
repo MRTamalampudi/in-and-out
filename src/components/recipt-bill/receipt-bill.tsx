@@ -4,8 +4,8 @@ import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "
 import React from "react";
 
 export type ReceiptBillProps = {
-    data?: any[];
-    transformer: (data: any) => ReceiptData;
+    data?: any[];} & {
+    transformer?: (data: any) => ReceiptData;
 };
 
 export type ReceiptData = {
@@ -42,7 +42,7 @@ const ReceiptBill = ({ data, transformer }: ReceiptBillProps) => {
     ]
 
     const table = useReactTable({
-        data:data?.map((rowData) => transformer(rowData)) || [],
+        data:data?.map((rowData) => transformer!(rowData)) || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
         enableSorting:false,

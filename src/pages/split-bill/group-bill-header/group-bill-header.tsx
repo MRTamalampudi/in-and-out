@@ -3,13 +3,15 @@ import styles from "./group-bill-header.module.scss";
 import DeleteIcon from "components/icons/delete-icon";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
-import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
+import { useDeleteSplitBillGroup, useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 import { useGetUser } from "service/react-query-hooks/user.query";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Tooltip } from "@mantine/core";
 import AddUserIcon from "components/icons/add-user-icon";
 import { AddMembers } from "pages/split-bill/groups-form/add-members";
+import DeleteConfirmationModal from "components/delete-confirmation-modal";
+import { toast } from "sonner";
 
 interface GroupBillHeaderProps {}
 
@@ -34,6 +36,11 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
     const {group} = useSearch({from:splitBillRoute.fullPath});
     const { data } = useGetSplitBillGroup(group || 0);
+    const deleteGroup = useDeleteSplitBillGroup({
+        onSuccess:()=>{
+            toast("Successfully deleted group");
+        }
+    })
     const { data:currentUser} = useGetUser();
     const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!).lentShare || 0;
     const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;
@@ -62,11 +69,7 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
                         <GroupShareSummary lentShare={lentShare} oweShare={oweShare} />
                     </div>
                     <div className={styles.right}>
-                        <DeleteIcon
-                            width={24}
-                            height={24}
-                            className={"grayIcon"}
-                        />
+                        <DeleteConfirmationModal context={"Group"} primary={()=>deleteGroup.mutate([data?.id!])}/>
                     </div>
                 </div>
             </div>
