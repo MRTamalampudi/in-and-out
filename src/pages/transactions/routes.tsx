@@ -3,6 +3,7 @@ import { z } from "zod";
 import { transactionQueryOptions } from "service/react-query-hooks/transaction-query";
 import { appRoute, rootRoute } from "index";
 import { transactionSummaryQueryOptions } from "service/react-query-hooks/transaction-summary.query";
+import { userQueryOptions } from "service/react-query-hooks/user.query";
 
 export const TRANSACTIONS_SLUGS = {
     TRANSACTION_ID: "transactionId",
@@ -19,6 +20,13 @@ export const transactionRoute = createRoute({
     getParentRoute:()=>appRoute,
     path:"transactions",
     validateSearch:searchParamsSchema,
+    beforeLoad: ({ context: { queryClient }, navigate }) => {
+        if (!queryClient.getQueryData(userQueryOptions().queryKey)) {
+            queryClient
+                .ensureQueryData(userQueryOptions())
+                .catch(() => navigate({ to: "/login" }));
+        }
+    },
     loaderDeps:({search:{transaction,...search}})=>search,
     loader: ({context:{queryClient},deps:search})=>{
         queryClient.ensureQueryData(transactionQueryOptions({ ...search }));

@@ -1,10 +1,7 @@
-import SplitBillGroup, {
-    useSplitBillGroupSchema,
-} from "model/split-bill-group.model";
+import SplitBillGroup from "model/split-bill-group.model";
 import User, { useUserSchema } from "model/user.model";
 import { z } from "zod";
 import { splitBillRoute } from "pages/split-bill/routes";
-import { useGetSplitBill } from "service/react-query-hooks/split-bill.query";
 import { useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
 
 class SplitBillGroupMember {
@@ -12,7 +9,7 @@ class SplitBillGroupMember {
     oweShare: number;
     lentShare: number;
     group: SplitBillGroup;
-    groupId:number;
+    groupId: number;
     member: User;
 }
 
