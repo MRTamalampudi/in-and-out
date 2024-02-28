@@ -6,7 +6,7 @@ import {
     Pill,
     rem,
     Select,
-    TextInput
+    TextInput, Tooltip
 } from "@mantine/core";
 import { boolean } from "zod";
 
@@ -105,6 +105,11 @@ const theme = createTheme({
         Checkbox: Checkbox.extend({
             defaultProps:{
                 size:"xs"
+            }
+        }),
+        Tooltip: Tooltip.extend({
+            defaultProps:{
+                position: "bottom"
             }
         })
     },

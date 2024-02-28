@@ -3,7 +3,7 @@ import styles from "./delete-confirmation-modal.module.scss";
 import ModalWrapper from "../modal";
 import DeleteIcon from "../icons/delete-icon";
 import useAlertsTranslations from "locales/translation-hooks/alerts.locales";
-import { Button } from "@mantine/core";
+import { Button, Tooltip } from "@mantine/core";
 import { CustomEvents } from "constants/custom-events";
 import ReceiptBill from "components/recipt-bill";
 import { ReceiptBillProps } from "components/recipt-bill/receipt-bill";
@@ -19,11 +19,11 @@ type DeleteConfirmationModalProps = {
 export type ModalFooterButtonProps = {
     primary?: () => void;
     secondary?: () => void;
-    isPending?:boolean;
+    isPending?: boolean;
 };
 
 const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
-    const { context, primary,isPending = false} = props;
+    const { context, primary, isPending = false } = props;
     const reciptBillProps: ReceiptBillProps = {
         data: props.data,
         transformer: props.transformer,
@@ -35,10 +35,14 @@ const DeleteConfirmationModal = (props: DeleteConfirmationModalProps) => {
 
     const simulateEscape = useCloseModal();
 
-
-
     return (
-        <ModalWrapper target={<DeleteIcon />}>
+        <ModalWrapper
+            target={
+                <Tooltip label={`Delete ${context}`}>
+                    <DeleteIcon />
+                </Tooltip>
+            }
+        >
             <ModalWrapper.Body>
                 <div className={styles.body}>
                     <WarningSvg width={64} height={64} />
