@@ -6,8 +6,10 @@ import { NavItem } from "components";
 import { Logo } from "components/icons";
 import { useGetUser } from "service/react-query-hooks/user.query";
 import useGlobalConstants from "constants/globals";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
+import axios from "axios";
+import * as process from "process";
 
 interface NavBarProps {}
 
@@ -24,6 +26,14 @@ const NavBar = (props:NavBarProps) => {
     const {globalLocales} = useGlobalConstants();
 
     console.log("ok test")
+
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        axios
+            .get(`${process.env.REACT_APP_BASE_URL}/logout`!)
+            .then((result) => navigate({ to: "/login" }));
+    }
 
     return (
         <div className={styles.NavBar}>
@@ -49,9 +59,9 @@ const NavBar = (props:NavBarProps) => {
                 <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
                     <NavItem label={"Settings"} icon={"settingsOutline"}/>
                 </Link>
-                <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}}>
-                    <NavItem label={"Settings"} icon={"logoutOutline"}/>
-                </Link>
+                <div onClick={handleLogout}>
+                    <NavItem label={"Logout"} icon={"logoutOutline"}/>
+                </div>
                 <Link to={splitBillRoute.fullPath} search={{page:1,size:20,gpage:1,gsize:20}} className={styles.profile}>
                     <img src={avatar} className={"icon32 mt-8"}/>
                 </Link>
