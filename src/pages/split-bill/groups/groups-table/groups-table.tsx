@@ -18,16 +18,14 @@ import { splitBillRoute } from "pages/split-bill/routes";
 
 type GroupsTableProps = {};
 const GroupsTable = ({}: GroupsTableProps) => {
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
-        { id: "forGroupsList", value: "true" },
-    ]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 20,
     });
-    const { group,bill,newGroup,newBill,...searchParams } = splitBillRoute.useSearch();
+    const { group,bill,newGroup,newBill,bname,...searchParams } = splitBillRoute.useSearch();
     const navigate = useNavigate();
 
     const { data } = useIndexGroupMembers(searchParams);
@@ -59,6 +57,13 @@ const GroupsTable = ({}: GroupsTableProps) => {
         navigate({ search: (prev) => ({ ...prev, group: id }) });
     }
 
+    function handleSearch(value: React.ChangeEvent<HTMLInputElement>) {
+        table.getColumn("note")?.setFilterValue(value?.target?.value);
+        navigate({
+            search: (prev) => ({ ...prev, gname: value?.target.value || "" }),
+        });
+    }
+
     function handlePaginationChange(value: PaginationState) {
         navigate({
             search: (prev) => ({
@@ -77,12 +82,9 @@ const GroupsTable = ({}: GroupsTableProps) => {
                 title={"Transactions"}
             >
                 <TextInput
+                    value={searchParams.gname}
                     placeholder={"search"}
-                    onChange={(value) =>
-                        table
-                            .getColumn("note")
-                            ?.setFilterValue(value?.target?.value)
-                    }
+                    onChange={handleSearch}
                 />
             </TableWrapper.MetaRow>
             <Table>

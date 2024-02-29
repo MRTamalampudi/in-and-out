@@ -22,8 +22,8 @@ export class SplitBillGroupMemberService extends BaseService<SplitBillGroupMembe
     }
 
     index(params: Record<string, any>): Promise<Page<SplitBillGroupMember>> {
-        const name = params["q"];
-        name && (params["q"] = `name~${name}`);
+        const name = params["gname"];
+        name && (params["q"] = `groupName~${name}`);
         return super.index(params);
     }
 }

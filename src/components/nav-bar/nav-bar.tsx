@@ -31,7 +31,12 @@ const NavBar = (props:NavBarProps) => {
 
     function handleLogout() {
         axios
-            .get(`${process.env.REACT_APP_BASE_URL}/logout`!)
+            .post(`${process.env.REACT_APP_BASE_URL}/logout`,{
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
             .then((result) => navigate({ to: "/login" }));
     }
 

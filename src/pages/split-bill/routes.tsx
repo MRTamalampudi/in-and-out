@@ -14,6 +14,8 @@ export const SPLITBILL_ROUTES = {
 };
 
 const searchParamsSchema = z.object({
+    gname:z.string().catch("").optional(),
+    bname:z.string().catch("").optional(),
     page: z.number().catch(1),
     gpage: z.number().catch(1),
     size: z.number().catch(1),
@@ -40,11 +42,11 @@ export const splitBillRoute = createRoute({
     },
     loader: ({
         context: { queryClient },
-        deps: { bill, group, ...search },
+        deps: { bill, group,gname, bname,...search },
     }) => {
-        queryClient.ensureQueryData(memberIndexQueryOptions(search));
+        queryClient.ensureQueryData(memberIndexQueryOptions({ ...search,gname: gname || "" }));
         queryClient.ensureQueryData(
-            shareIndexQueryOptions({ ...search, group: group || 0 }),
+            shareIndexQueryOptions({ ...search,bname:bname, group: group || 0 }),
         );
         queryClient.ensureQueryData(getGroupQueryOptions(group || 0));
     },

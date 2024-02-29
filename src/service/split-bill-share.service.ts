@@ -1,7 +1,6 @@
 import { BaseService } from "service/base.service";
 import { URL_CONSTANTS } from "constants/url.constants";
 import SplitBillShare from "model/split-bill-share.model";
-import { SplitBill, User } from "model";
 import Page from "model/page";
 
 export class SplitBillShareService extends BaseService<SplitBillShare> {
@@ -9,7 +8,9 @@ export class SplitBillShareService extends BaseService<SplitBillShare> {
     private static instance: SplitBillShareService;
 
     private constructor() {
-        super(URL_CONSTANTS.SPLIT_BILL_SHARE, (entity) => SplitBillShare.deserialize(entity));
+        super(URL_CONSTANTS.SPLIT_BILL_SHARE, (entity) =>
+            SplitBillShare.deserialize(entity),
+        );
     }
 
     public static getInstance(): SplitBillShareService {
@@ -21,14 +22,14 @@ export class SplitBillShareService extends BaseService<SplitBillShare> {
     }
 
     index(params: Record<string, any>): Promise<Page<SplitBillShare>> {
-        const name = params["q"];
+        const name = params["bname"];
         const group = params["group"];
 
-        params["q"] = ""
-        name && (params["q"] = `name~${name}`);
-        (group>=0) && (params["q"] = params["q"] + `,group:${group}`)
+        params["q"] = "";
+        name && (params["q"] = `;billName~${name}`);
+        group >= 0 && (params["q"] = params["q"] + `;group:${group}`);
 
-        delete params["group"]
+        delete params["group"];
         return super.index(params);
     }
 }

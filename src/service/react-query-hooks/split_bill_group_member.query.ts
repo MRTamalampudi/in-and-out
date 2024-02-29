@@ -10,6 +10,7 @@ type IndexOptions = {
     q?: string;
     gpage?: number;
     gsize?: number;
+    gname?: string;
 } & BasicIndexOptions;
 
 export function useIndexGroupMembers(
@@ -42,6 +43,6 @@ export const memberIndexQueryOptions = (options: IndexOptions) =>{
 }
 
 export function transformSplitBillSearchParams(options:Record<string, any>){
-    const {group,bill,newBill,newGroup,...opt} = options;
+    const {group,bill,newBill,newGroup,gname,...opt} = options;
     return opt
 }

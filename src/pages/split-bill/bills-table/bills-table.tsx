@@ -139,7 +139,9 @@ const BillsTable = ({}:BillsTableProps) => {
                         deleteMutation.mutate(
                             table
                                 .getFilteredSelectedRowModel()
-                                .rows.map((rowData) => rowData.original.bill.id),
+                                .rows.map(
+                                    (rowData) => rowData.original.bill.id,
+                                ),
                         );
                     }}
                     isPending={deleteMutation.isPending}
@@ -148,7 +150,7 @@ const BillsTable = ({}:BillsTableProps) => {
         }
     ]
 
-    const searchParams = splitBillRoute.useSearch();
+    const { gname,...searchParams } = splitBillRoute.useSearch();
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -188,6 +190,13 @@ const BillsTable = ({}:BillsTableProps) => {
         navigate({search:(prev)=>({...prev,bill:id})})
     }
 
+    function handleSearch(value: React.ChangeEvent<HTMLInputElement>) {
+        table.getColumn("note")?.setFilterValue(value?.target?.value);
+        navigate({
+            search: (prev) => ({ ...prev, bname: value?.target.value || "" }),
+        });
+    }
+
     console.log("dataaaa",data?.content)
 
     return (
@@ -198,12 +207,9 @@ const BillsTable = ({}:BillsTableProps) => {
                     title={"Bills"}
                 >
                     <TextInput
+                        value={searchParams.bname}
                         placeholder={"search"}
-                        onChange={(value) =>
-                            table
-                                .getColumn("note")
-                                ?.setFilterValue(value?.target?.value)
-                        }
+                        onChange={handleSearch}
                     />
                 </TableWrapper.MetaRow>
                 <Table>
