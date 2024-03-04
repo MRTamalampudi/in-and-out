@@ -1,4 +1,18 @@
+@import "styles/typography";
+@import "styles/size";
+
 .mantine-Checkbox-root{
   display: flex;
   align-items: center;
+}
+
+.mantine-Checkbox-root[data-label-position=right]{
+  .mantine-Checkbox-body{
+    align-items: center;
+  }
+
+  .mantine-Checkbox-label{
+    @extend .pl-8;
+    @extend .subtitle;
+  }
 }

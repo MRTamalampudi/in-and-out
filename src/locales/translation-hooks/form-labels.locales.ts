@@ -17,7 +17,9 @@ const useFormLabelsTranslations = () => {
         LABELS: t(FORM_LABELS + "labels"),
         NOTE: t(FORM_LABELS + "note"),
         EMAIL: t(FORM_LABELS + "email"),
-        PASSWORD: t(FORM_LABELS + "password")
+        PASSWORD: t(FORM_LABELS + "password"),
+        FIRST_NAME: t(FORM_LABELS + "firstName"),
+        LAST_NAME: t(FORM_LABELS + "lastName"),
     }),[])
 
     return {

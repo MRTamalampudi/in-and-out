@@ -17,6 +17,7 @@ import App from "App";
 import { transactionRoute } from "pages/transactions/routes";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { loginRoute } from "pages/login/routes";
+import { signUpRoute } from "pages/sign-up/routes";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -45,15 +46,9 @@ export const appRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
     appRoute.addChildren([transactionRoute,splitBillRoute]),
-    loginRoute
+    loginRoute,
+    signUpRoute
 ])
-
-// const newBillMask = createRouteMask({
-//     routeTree,
-//     from: "/split_bill",
-//     to: "/split_bill",
-//     params:true,
-// });
 
 export const router = createRouter({
     routeTree,

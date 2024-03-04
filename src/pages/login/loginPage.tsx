@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./login.module.scss";
-import { Button } from "@mantine/core";
+import { Button, Checkbox } from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { Logo } from "../../components/icons";
 import { UsernamePassword } from "model";
@@ -47,22 +47,33 @@ const LoginPage = () => {
         <div className={styles.Login}>
             <div className={styles.left}>
                 <div className={styles.form}>
-                    <TextInputForm
-                        label={formLabels.EMAIL}
-                        placeholder={formPlaceholders.EMAIL}
-                        name={"username"}
-                        control={control}
-                    />
-                    <PasswordInputForm
-                        label={formLabels.PASSWORD}
-                        placeholder={formPlaceholders.PASSWORD}
-                        name={"password"}
-                        control={control}
-                    />
-                    <div className={styles.seperator} />
-                    <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
-                        Log in
-                    </Button>
+                    <span className={"heading-2"}>Login</span>
+                    <div className={styles.formContainer}>
+                        <TextInputForm
+                            label={formLabels.EMAIL}
+                            placeholder={formPlaceholders.EMAIL}
+                            name={"username"}
+                            control={control}
+                        />
+                        <PasswordInputForm
+                            label={formLabels.PASSWORD}
+                            placeholder={formPlaceholders.PASSWORD}
+                            name={"password"}
+                            control={control}
+                        />
+                        <div className={"flex-row justify-between align-middle"}>
+                            <Checkbox label={"Remember me"} labelPosition={"right"}/>
+                            <span className={"subtitle"}>
+                                Forgot password
+                            </span>
+                        </div>
+                        <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
+                            Log in
+                        </Button>
+                        <div>
+                            New user Signup
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className={styles.right}>
@@ -76,5 +87,5 @@ const LoginPage = () => {
 };
 
 export const LoginPageLazyRoute = createLazyRoute("/login")({
-    component:LoginPage
+    component: LoginPage,
 });

@@ -53,7 +53,9 @@
       "labels": "Labels",
       "note": "Note",
       "email": "Email",
-      "password": "Password"
+      "password": "Password",
+      "firstName": "Firstname",
+      "lastName": "Lastname"
     },
     "placeholders": {
       "amount": "37",
