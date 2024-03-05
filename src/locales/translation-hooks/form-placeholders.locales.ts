@@ -15,6 +15,9 @@ const useFormPlaceholdersTranslations = () => {
         TIME_DATE: t(FORM_PLACEHOLDERS + "timeDate"),
         EMAIL: t(FORM_PLACEHOLDERS + "email"),
         PASSWORD: t(FORM_PLACEHOLDERS + "password"),
+        FIRST_NAME: t(FORM_PLACEHOLDERS + "firstName"),
+        LAST_NAME: t(FORM_PLACEHOLDERS + "lastName"),
+        CONFIRM_PASSWORD:t(FORM_PLACEHOLDERS + "confirmPassword")
     }),[]);
 
     return {

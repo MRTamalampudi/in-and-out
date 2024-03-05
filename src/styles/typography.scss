@@ -45,11 +45,11 @@
 }
 
 .subtitle{
-  @extend .f-12-b;
+  @apply text-xs font-medium antialiased;
 }
 
 .subtitle-bold{
-  @extend .f-12-bb;
+  @apply text-xs font-semibold antialiased;
 }
 
 .body-text{

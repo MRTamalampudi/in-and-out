@@ -12,7 +12,7 @@ import {
 } from "locales/translation-hooks";
 import useLoginFormEssentials from "../../forms/hooks/login-form.essentials";
 import axios from "axios";
-import { createLazyRoute, useNavigate } from "@tanstack/react-router";
+import { createLazyRoute, Link, useNavigate } from "@tanstack/react-router";
 
 const LoginPage = () => {
     const { formLabels } = useFormLabelsTranslations();
@@ -47,7 +47,7 @@ const LoginPage = () => {
         <div className={styles.Login}>
             <div className={styles.left}>
                 <div className={styles.form}>
-                    <span className={"heading-2"}>Login</span>
+                    <span className={"heading-2 text-teal-700"}>Login</span>
                     <div className={styles.formContainer}>
                         <TextInputForm
                             label={formLabels.EMAIL}
@@ -61,17 +61,32 @@ const LoginPage = () => {
                             name={"password"}
                             control={control}
                         />
-                        <div className={"flex-row justify-between align-middle"}>
-                            <Checkbox label={"Remember me"} labelPosition={"right"}/>
-                            <span className={"subtitle"}>
-                                Forgot password
-                            </span>
+                        <div
+                            className={"flex-row justify-between align-middle"}
+                        >
+                            <Checkbox
+                                label={"Remember me"}
+                                labelPosition={"right"}
+                            />
+                            <span className={"subtitle"}>Forgot password</span>
                         </div>
                         <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
                             Log in
                         </Button>
-                        <div>
-                            New user Signup
+                        <div
+                            className={
+                                "text-sm font-medium body-text text-gray-500"
+                            }
+                        >
+                            new user{" "}
+                            <Link
+                                to={"/signup"}
+                                className={
+                                    "text-teal-700 cursor-pointer no-underline hover:underline"
+                                }
+                            >
+                                Signup
+                            </Link>
                         </div>
                     </div>
                 </div>

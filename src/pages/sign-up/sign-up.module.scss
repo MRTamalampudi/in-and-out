@@ -15,10 +15,24 @@
   flex-basis: 100%;
 
   .form{
+    background-color: #fff;
     display: flex;
     flex-direction: column;
+    align-items: center;
     row-gap: 24px;
-    width: 300px;
+
+    @extend .py-16;
+    @extend .border-solid-1;
+    @extend .border-rds-8;
+    @include width(30rem);
+
+    .formContainer{
+      @apply flex-col w-[20rem] space-y-3;
+
+      > *{
+        @apply w-full;
+      }
+    }
   }
 }
 

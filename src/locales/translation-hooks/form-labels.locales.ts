@@ -20,6 +20,7 @@ const useFormLabelsTranslations = () => {
         PASSWORD: t(FORM_LABELS + "password"),
         FIRST_NAME: t(FORM_LABELS + "firstName"),
         LAST_NAME: t(FORM_LABELS + "lastName"),
+        CONFIRM_PASSWORD:t(FORM_LABELS + "confirmPassword")
     }),[])
 
     return {

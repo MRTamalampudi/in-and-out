@@ -55,7 +55,8 @@
       "email": "Email",
       "password": "Password",
       "firstName": "Firstname",
-      "lastName": "Lastname"
+      "lastName": "Lastname",
+      "confirmPassword": "Confirm Password"
     },
     "placeholders": {
       "amount": "37",
@@ -66,7 +67,10 @@
       "timeDate": "select Time & Date",
       "note": "eg: purchased fruits",
       "email": "msdhoni@email.com",
-      "password": "enter password"
+      "password": "enter password",
+      "firstName": "Mahendra Singh",
+      "lastName": "Dhoni",
+      "confirmPassword": "re-enter password"
     },
     "errors": {
       "email": "Please enter a valid email",

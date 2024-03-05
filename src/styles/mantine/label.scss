@@ -1,4 +1,4 @@
-@use "../colors-vars";
+@use "styles/colors-vars";
 @import "styles/typography";
 
 .mantine-TextInput-label ,
@@ -8,7 +8,8 @@
 .mantine-TimeInput-label,
 .mantine-Textarea-label,
 .mantine-Select-label,
-.mantine-TagsInput-label{
+.mantine-TagsInput-label,
+.mantine-PasswordInput-label{
   color: colors-vars.$g-1000;
   @extend .subtitle;
 }

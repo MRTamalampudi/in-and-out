@@ -60,34 +60,43 @@ const SignUpPage = (props:SignUpProps) => {
         <div className={styles.SignUp}>
             <div className={styles.left}>
                 <div className={styles.form}>
-                    <TextInputForm
-                        label={formLabels.FIRST_NAME}
-                        placeholder={formPlaceholders.EMAIL}
-                        name={"firstName"}
-                        control={control}
-                    />
-                    <TextInputForm
-                        label={formLabels.LAST_NAME}
-                        placeholder={formPlaceholders.EMAIL}
-                        name={"lastName"}
-                        control={control}
-                    />
-                    <TextInputForm
-                        label={formLabels.EMAIL}
-                        placeholder={formPlaceholders.EMAIL}
-                        name={"email"}
-                        control={control}
-                    />
-                    <PasswordInputForm
-                        label={formLabels.PASSWORD}
-                        placeholder={formPlaceholders.PASSWORD}
-                        name={"password"}
-                        control={control}
-                    />
-                    <div className={styles.seperator} />
-                    <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
-                        Log in
-                    </Button>
+                    <span className={"heading-2 text-teal-700"}>Signup</span>
+                    <div className={styles.formContainer}>
+                        <TextInputForm
+                            label={formLabels.FIRST_NAME}
+                            placeholder={formPlaceholders.FIRST_NAME}
+                            name={"firstName"}
+                            control={control}
+                        />
+                        <TextInputForm
+                            label={formLabels.LAST_NAME}
+                            placeholder={formPlaceholders.LAST_NAME}
+                            name={"lastName"}
+                            control={control}
+                        />
+                        <TextInputForm
+                            label={formLabels.EMAIL}
+                            placeholder={formPlaceholders.EMAIL}
+                            name={"email"}
+                            control={control}
+                        />
+                        <PasswordInputForm
+                            label={formLabels.PASSWORD}
+                            placeholder={formPlaceholders.PASSWORD}
+                            name={"password"}
+                            control={control}
+                        />
+                        <PasswordInputForm
+                            label={formLabels.CONFIRM_PASSWORD}
+                            placeholder={formPlaceholders.CONFIRM_PASSWORD}
+                            name={"password"}
+                            control={control}
+                        />
+                        <div className={styles.seperator} />
+                        <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
+                            Log in
+                        </Button>
+                    </div>
                 </div>
             </div>
             <div className={styles.right}>
@@ -97,9 +106,9 @@ const SignUpPage = (props:SignUpProps) => {
                 <span>Expenses Management App</span>
             </div>
         </div>
-    )
+    );
 };
 
-export const SignUpPageLazyRoute = createLazyRoute("/login")({
+export const SignUpPageLazyRoute = createLazyRoute("/signup")({
     component: SignUpPage
 });
