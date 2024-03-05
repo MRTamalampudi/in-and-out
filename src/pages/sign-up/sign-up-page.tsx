@@ -41,7 +41,7 @@ const SignUpPage = (props:SignUpProps) => {
 
     const onSubmit = (data: SignUp) => {
         axios
-            .post("http://dev.expenses.io/api/login", data, {
+            .post("http://dev.expenses.io/api/user/signup", data, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -49,8 +49,7 @@ const SignUpPage = (props:SignUpProps) => {
             })
             .then((response) =>
                 navigate({
-                    search: { page: 1, size: 20 },
-                    to: "/transactions",
+                    to: "/login",
                 }),
             )
             .catch((error) => console.log(error));
@@ -60,7 +59,13 @@ const SignUpPage = (props:SignUpProps) => {
         <div className={styles.SignUp}>
             <div className={styles.left}>
                 <div className={styles.form}>
-                    <span className={"heading-2 text-teal-700"}>Signup</span>
+                    <div className={"flex items-center space-x-2"}>
+                        <div className={"bg-gradient-to-l from-gray-200 w-[5rem] h-0.5"}/>
+                        <span className={"heading-2 text-teal-700"}>
+                            Signup
+                        </span>
+                        <div className={"w-[5rem] h-0.5 bg-gradient-to-r from-gray-200"}/>
+                    </div>
                     <div className={styles.formContainer}>
                         <TextInputForm
                             label={formLabels.FIRST_NAME}
@@ -89,12 +94,11 @@ const SignUpPage = (props:SignUpProps) => {
                         <PasswordInputForm
                             label={formLabels.CONFIRM_PASSWORD}
                             placeholder={formPlaceholders.CONFIRM_PASSWORD}
-                            name={"password"}
+                            name={"confirm"}
                             control={control}
                         />
-                        <div className={styles.seperator} />
                         <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
-                            Log in
+                            Signup
                         </Button>
                     </div>
                 </div>

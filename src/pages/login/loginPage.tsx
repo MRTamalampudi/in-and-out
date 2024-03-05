@@ -47,7 +47,21 @@ const LoginPage = () => {
         <div className={styles.Login}>
             <div className={styles.left}>
                 <div className={styles.form}>
-                    <span className={"heading-2 text-teal-700"}>Login</span>
+                    <div className={"flex items-center space-x-2"}>
+                        <div
+                            className={
+                                "bg-gradient-to-l from-gray-200 w-[5rem] h-0.5"
+                            }
+                        />
+                        <span className={"heading-2 text-teal-700"}>
+                            Login
+                        </span>
+                        <div
+                            className={
+                                "w-[5rem] h-0.5 bg-gradient-to-r from-gray-200"
+                            }
+                        />
+                    </div>
                     <div className={styles.formContainer}>
                         <TextInputForm
                             label={formLabels.EMAIL}
@@ -62,7 +76,7 @@ const LoginPage = () => {
                             control={control}
                         />
                         <div
-                            className={"flex-row justify-between align-middle"}
+                            className={"flex-row justify-between items-center "}
                         >
                             <Checkbox
                                 label={"Remember me"}
