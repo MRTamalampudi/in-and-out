@@ -11,7 +11,7 @@
 
   @include height(3rem);
   @extend .border-separator-top;
-  @extend .px-16;
+  @apply px-4;
 
   .left{
     @extend .flex-row;

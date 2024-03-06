@@ -144,7 +144,7 @@
   align-items: center;
 
   @include height(3rem);
-  @extend .px-16;
+  @apply px-4;
   @extend .border-separator-bottom;
 
   .right{

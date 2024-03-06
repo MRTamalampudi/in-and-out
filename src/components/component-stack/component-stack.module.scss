@@ -51,10 +51,10 @@
     justify-content: center;
 
     @extend .ml-8;
-    @extend .px-8;
     @extend .subtitle;
     @extend .flex-row;
     @extend .border-rds-8;
     @extend .pointer;
+    @apply px-2;
   }
 }

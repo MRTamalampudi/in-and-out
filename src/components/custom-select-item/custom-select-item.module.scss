@@ -22,7 +22,7 @@
     }
   }
   .value{
-    @extend .px-8;
     @extend .body-text;
+    @apply px-2;
   }
 }

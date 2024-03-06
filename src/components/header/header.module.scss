@@ -10,7 +10,7 @@
   width: 100%;
   justify-content: space-between;
   @extend .border-separator-bottom;
-  @extend .px-16;
+  @apply px-4;
   @include height(3rem)
 }
 

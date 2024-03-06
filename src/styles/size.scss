@@ -86,13 +86,6 @@
 }
 
 @for $i from 0 through 60 {
-  .px-#{$i*2}{
-    padding-left: $i*2px;
-    padding-right: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
   .p-#{$i*2}{
     padding: $i*2px;
   }
