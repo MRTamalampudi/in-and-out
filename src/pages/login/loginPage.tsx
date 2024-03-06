@@ -53,9 +53,7 @@ const LoginPage = () => {
                                 "bg-gradient-to-l from-gray-200 w-[5rem] h-0.5"
                             }
                         />
-                        <span className={"heading-2 text-teal-700"}>
-                            Login
-                        </span>
+                        <span className={"heading-2 text-teal-700"}>Login</span>
                         <div
                             className={
                                 "w-[5rem] h-0.5 bg-gradient-to-r from-gray-200"
@@ -82,25 +80,22 @@ const LoginPage = () => {
                                 label={"Remember me"}
                                 labelPosition={"right"}
                             />
-                            <span className={"subtitle"}>Forgot password</span>
+                            <span className={"subtitle text-gray-500"}>Forgot password</span>
                         </div>
                         <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
                             Log in
                         </Button>
                         <div
                             className={
-                                "text-sm font-medium body-text text-gray-500"
+                                "subtitle text-gray-500 flex justify-center mt-4"
                             }
                         >
-                            new user{" "}
-                            <Link
-                                to={"/signup"}
-                                className={
-                                    "text-teal-700 cursor-pointer no-underline hover:underline"
-                                }
-                            >
-                                Signup
-                            </Link>
+                            <span>
+                                Dont have an account{" "}
+                                <Link to={"/signup"} className={"link"}>
+                                    Signup
+                                </Link>
+                            </span>
                         </div>
                     </div>
                 </div>

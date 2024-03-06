@@ -20,13 +20,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 24px;
     width: 300px;
 
-    @extend .py-16;
     @extend .border-solid-1;
     @extend .border-rds-8;
     @include width(30rem);
+    @apply shadow-md py-16 space-y-10;
 
     .formContainer{
       @apply flex-col w-[20rem] space-y-5;

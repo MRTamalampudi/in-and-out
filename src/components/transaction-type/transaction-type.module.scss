@@ -15,8 +15,7 @@
   @include border($text-color, 1px, dashed);
   @extend .border-rds-4;
   @extend .subtitle-bold;
-  @extend .px-8;
-  @extend .py-4;
+  @apply py-1 px-2;
 }
 
 .cashIn {

@@ -21,10 +21,9 @@
     align-items: center;
     row-gap: 24px;
 
-    @extend .py-16;
-    @extend .border-solid-2;
     @extend .border-rds-8;
     @include width(30rem);
+    @apply shadow-md py-10;
 
     .formContainer{
       @apply flex-col w-[20rem] space-y-3;

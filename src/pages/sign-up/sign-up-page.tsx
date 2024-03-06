@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./sign-up.module.scss";
-import { createLazyRoute, useNavigate } from "@tanstack/react-router";
+import { createLazyRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PasswordInputForm, TextInputForm } from "forms/inputs";
 import { Button } from "@mantine/core";
 import { Logo } from "components/icons";
@@ -97,9 +97,22 @@ const SignUpPage = (props:SignUpProps) => {
                             name={"confirm"}
                             control={control}
                         />
+                        <div />
                         <Button size={"xs"} onClick={handleSubmit(onSubmit)}>
                             Signup
                         </Button>
+                        <div
+                            className={
+                                "subtitle text-gray-500 flex justify-center mt-4"
+                            }
+                        >
+                            <span>
+                                Already have an account{" "}
+                                <Link to={"/login"} className={"link"}>
+                                    Login
+                                </Link>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,5 +127,6 @@ const SignUpPage = (props:SignUpProps) => {
 };
 
 export const SignUpPageLazyRoute = createLazyRoute("/signup")({
-    component: SignUpPage
+    component: SignUpPage,
+    pendingComponent: ()=> <div>Loading</div>,
 });

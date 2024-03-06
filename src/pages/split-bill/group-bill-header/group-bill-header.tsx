@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./group-bill-header.module.scss";
-import DeleteIcon from "components/icons/delete-icon";
 import ComponentStack from "components/component-stack";
 import TextAvatar from "components/text-avatar";
-import { useDeleteSplitBillGroup, useGetSplitBillGroup } from "service/react-query-hooks/split-bill-group.query";
+import {
+    useDeleteSplitBillGroup,
+    useGetSplitBillGroup,
+} from "service/react-query-hooks/split-bill-group.query";
 import { useGetUser } from "service/react-query-hooks/user.query";
 import { splitBillRoute } from "pages/split-bill/routes";
 import { useNavigate, useSearch } from "@tanstack/react-router";
@@ -42,8 +44,8 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
         }
     })
     const { data:currentUser} = useGetUser();
-    const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!).lentShare || 0;
-    const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!).oweShare || 0;
+    const lentShare = data?.getCurrentLoggedInGroupMember(currentUser!)?.lentShare || 0;
+    const oweShare = data?.getCurrentLoggedInGroupMember(currentUser!)?.oweShare || 0;
 
     const components = data?.memberList.map((member) => (
         <Tooltip label={member.member.getFullName()} position={"bottom"}>
