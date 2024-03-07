@@ -18,18 +18,15 @@
 }
 
 .icon24{
-  @extend .w24p;
-  @extend .h24p;
+  @apply w-6 h-6;
 }
 
 .icon32{
-  @extend .w32p;
-  @extend .h32p;
+  @apply w-8 h-8;
 }
 
 .icon20{
-   @extend .w20p;
-   @extend .h20p;
+  @apply w-5 h-5;
  }
 
 

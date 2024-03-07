@@ -53,20 +53,20 @@
 }
 
 .body-text{
-  @extend .f-13-b;
+  text-rendering: optimizeLegibility;
+  @apply text-[13px] font-[450] antialiased;
 }
 
 .body-text-bold{
-  @extend .f-13-bb;
+  @apply text-[13px] font-semibold antialiased;
 }
 
 .button-text{
-  @extend .f-13-b;
+  @apply text-[13px] font-medium antialiased;
 }
 
 .heading-4{
-  letter-spacing: -0.2px;
-  @extend .f-14-b;
+  @apply text-sm font-medium antialiased;
 }
 
 .heading-3{
