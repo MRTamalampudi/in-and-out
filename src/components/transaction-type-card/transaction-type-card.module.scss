@@ -63,7 +63,7 @@ $gradients: (
 
 @mixin titleMixin($context){
   @extend .subtitle;
-  @extend .mb-2;
+  @apply mb-0.5;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}

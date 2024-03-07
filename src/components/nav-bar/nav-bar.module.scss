@@ -27,7 +27,7 @@
   display: flex;
   flex-direction: column;
   flex-basis: 15%;
-  @extend .mb-24;
+  @apply mb-6;
 }
 
 .logo{

@@ -14,44 +14,6 @@
   }
 }
 
-@for $i from 0 through 60 {
-  .mr-#{$i*2}{
-    margin-right: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
-  .mt-#{$i*2}{
-    margin-top: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
-  .mb-#{$i*2}{
-    margin-bottom: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
-  .mx-#{$i*2}{
-    margin-left: $i*2px;
-    margin-right: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
-  .my-#{$i*2}{
-    margin-top: $i*2px;
-    margin-bottom: $i*2px;
-  }
-}
-
-@for $i from 0 through 60 {
-  .m-#{$i*2}{
-    margin: $i*2px;
-  }
-}
-
 .defaultPadding{
   @apply p-3;
 }
