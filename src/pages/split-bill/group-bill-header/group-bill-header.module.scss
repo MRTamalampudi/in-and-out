@@ -12,7 +12,7 @@
 
   @extend .flex-row;
   @extend .border-separator-bottom;
-  @extend .p-16;
+  @apply p-4;
   @extend .column-gap-16;
 
   .groupAvatar{
@@ -45,7 +45,7 @@
 
         @extend .flex-row;
         @extend .column-gap-8;
-        @extend .ml-8;
+        @apply ml-2;
 
         .members{
           @extend .flex-row;
@@ -75,12 +75,11 @@
             align-items: center;
             justify-content: center;
 
-            @extend .ml-8;
             @extend .subtitle;
             @extend .flex-row;
             @extend .border-rds-8;
             @extend .pointer;
-            @apply px-2;
+            @apply px-2 ml-2;
           }
 
 

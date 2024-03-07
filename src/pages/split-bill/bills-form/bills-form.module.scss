@@ -7,7 +7,7 @@
 }
 
 .body{
-  @extend .p-16;
+  @apply p-4;
   @extend .flex-row;
   @extend .column-gap-12;
   @include height(25rem);
@@ -25,7 +25,7 @@
 
 .right{
   @extend .flex-basis-14\/20;
-  @extend .pt-4;
+  @apply pt-1;
   @extend .flex-column;
   @extend .row-gap-4;
   @include height(100%);

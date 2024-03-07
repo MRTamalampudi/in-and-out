@@ -10,7 +10,5 @@
 
 .body{
   @extend .body-text;
-  @apply px-4;
-  @extend .pt-16;
-  @extend .pb-32;
+  @apply px-4 pb-8 pt-4;
 }

@@ -14,7 +14,7 @@
     @include height(2rem);
     @include width(2rem);
     @extend .border-separator-right;
-    @extend .p-4;
+    @apply p-1;
 
     img{
       margin:auto 0;

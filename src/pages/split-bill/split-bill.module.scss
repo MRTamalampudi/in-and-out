@@ -8,7 +8,7 @@
 .SplitBill {
   height: 100%;
 
-  @extend .p-16;
+  @apply p-4;
   @extend .flex-row;
   @extend .column-gap-16;
 

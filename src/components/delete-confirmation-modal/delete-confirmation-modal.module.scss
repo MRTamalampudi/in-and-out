@@ -5,7 +5,7 @@
 
 .footer{
   @extend .flex-row;
-  @extend .p-8;
+  @apply p-2;
   @extend .column-gap-8;
 
   > * {
@@ -18,5 +18,5 @@
   justify-content: center;
   @extend .flex-column;
   @include width(100%);
-  @extend .pb-16;
+  @apply pb-4;
 }

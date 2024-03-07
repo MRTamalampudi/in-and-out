@@ -16,7 +16,7 @@
     //@extend .my-8;
     @extend .flex-column;
     @extend .row-gap-4;
-    @extend .p-16;
+    @apply p-4;
     > * {
       width: 100%;
     }
@@ -38,7 +38,7 @@
    align-items: center;
    justify-content: right;
 
-   @extend .pr-8;
+   @apply pr-2;
    @extend .column-gap-8;
    @extend .flex-row;
    @extend .border-separator-top

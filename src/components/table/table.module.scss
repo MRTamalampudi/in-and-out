@@ -24,7 +24,7 @@
 
     tr{
       background-color: colors-vars.$g-300;
-      @extend .pr-4;
+      @apply pr-1;
 
       th{
         @extend .body-text-bold;
@@ -68,15 +68,14 @@
     @extend .column-gap-8;
 
     th:first-child,td:first-child{
-      @extend .pl-16;
-      @extend .pr-8;
+      @apply pr-2 pl-4;
     }
 
     th:last-child {
-      @extend .pr-16;
+      @apply pr-4;
     }
     td:last-child{
-      @extend .pr-16;
+      @apply pr-4;
     }
   }
 }
@@ -102,7 +101,7 @@
   }
 
   .left{
-    @extend .pl-16;
+    @apply pl-4;
     align-items: center;
     height: 100%;
     .select{

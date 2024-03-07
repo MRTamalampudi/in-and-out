@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: right;
 
-  @extend .pr-16;
+  @apply pr-4;
   @extend .column-gap-8;
   @extend .flex-row;
   @extend .border-separator-top;

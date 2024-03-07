@@ -71,7 +71,7 @@ $gradients: (
 
 @mixin contentMixin($context){
   @extend .heading-2;
-  @extend .pr-2;
+  @apply pr-0.5;
   //@if $context != strings.$balance {
   //  @include gradientTextMixin($context);
   //}

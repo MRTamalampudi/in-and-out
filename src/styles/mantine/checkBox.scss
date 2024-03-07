@@ -12,7 +12,7 @@
   }
 
   .mantine-Checkbox-label{
-    @extend .pl-8;
+    @apply pl-2;
     @extend .subtitle;
   }
 }
