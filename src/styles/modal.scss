@@ -1,12 +1,7 @@
 @import "size";
 
 .footer{
-  align-items: center;
-  justify-content: right;
-
-  @apply pr-4;
-  @extend .column-gap-8;
-  @extend .flex-row;
+  @apply pr-4 space-x-2 flex flex-row items-center justify-end;
   @extend .border-separator-top;
   @include height(3rem);
 }

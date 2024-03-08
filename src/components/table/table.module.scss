@@ -1,5 +1,4 @@
 @use "styles/colors-vars";
-@import "styles/radius";
 @import "styles/borders";
 @import "styles/typography";
 @import "styles/size";
@@ -128,7 +127,7 @@
 }
 
 .radius{
-  @extend .radius-8;
+  @apply rounded-lg;
 }
 
 .defaultHeight{

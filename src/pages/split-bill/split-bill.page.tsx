@@ -38,7 +38,7 @@ const BillAndGroupFormModal = () => {
 
     return (
         <>
-            <div className={"d-none"}>
+            <div className={"hidden"}>
                 <BillsForm/>
                 <GroupsForm/>
             </div>
