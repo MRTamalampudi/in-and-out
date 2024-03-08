@@ -1,7 +1,6 @@
 @use "../../styles/colors-vars";
 @import "styles/size";
 @import "styles/borders";
-@import "styles/cursor";
 @import "styles/typography";
 
 .Header {
@@ -26,5 +25,5 @@
 }
 
 .close{
-  @extend .pointer;
+  @apply cursor-pointer;
 }

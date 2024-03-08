@@ -1,9 +1,6 @@
 @use "colors-vars";
-@import "colors";
 @import "typography";
 @import "borders";
-@import "shadows";
-@import "cursor";
 @import "icons";
 @import "size";
 @import "flex";
@@ -11,8 +8,7 @@
 @import "radius";
 @import "scrollbar";
 @import "table";
-@import "animations";
 @import "general";
-@import "dropzone";
+@import "mantine/dropzone";
 @import "modal";
 @import "links";

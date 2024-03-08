@@ -26,7 +26,7 @@ function AddMember() {
         <>
             <div onClick={handleOnClick} className={"pointer"} style={{display:"flex",justifyContent:"center"}}>
                 <Tooltip label={"Add members"}>
-                    <AddUserIcon className={"grayIcon"}/>
+                    <AddUserIcon className={"text-gray-500"}/>
                 </Tooltip>
             </div>
             <AddMembers />

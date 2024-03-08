@@ -1,7 +1,7 @@
-@use "colors-vars";
-@import "flex";
-@import "typography";
-@import "borders";
+@use "../colors-vars";
+@import "../flex";
+@import "../typography";
+@import "../borders";
 
 .mantine-Dropzone-root{
   @include width(100%);

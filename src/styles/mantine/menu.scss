@@ -1,9 +1,8 @@
-@import "../shadows";
 @import "../borders";
 @import "../typography";
 
 .mantine-Menu-dropdown{
-  @extend .shadow-1;
+  @apply shadow-md;
   @extend .border-solid-1;
 }
 

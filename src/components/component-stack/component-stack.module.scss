@@ -1,7 +1,6 @@
 @use "../../styles/colors-vars";
 @import "styles/size";
 @import "styles/typography";
-@import "styles/cursor";
 @import "styles/flex";
 @import "styles/borders";
 
@@ -53,7 +52,6 @@
     @extend .subtitle;
     @extend .flex-row;
     @extend .border-rds-8;
-    @extend .pointer;
-    @apply px-2 ml-2;
+    @apply px-2 ml-2 cursor-pointer;
   }
 }

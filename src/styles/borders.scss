@@ -16,7 +16,7 @@
 }
 
 .border-solid-1{
-  @include borderSolid(1px);
+  @apply border border-gray-100;
 }
 
 .border-solid-2{
@@ -28,18 +28,18 @@
 }
 
 .border-separator-bottom{
-  border-bottom: 1px solid #f2f2f2;
+  @apply border-b border-gray-100;
 }
 
 .border-separator-right{
-  border-right: 1px solid #f2f2f2;
+  @apply border-r border-gray-100;
 }
 
 .border-separator-top{
-  border-top: 1px solid #f2f2f2;
+  @apply border-t border-gray-100;
 }
 .border-separator-left{
-  border-left: 1px solid #f2f2f2;
+  @apply border-l border-gray-100;
 }
 
 .border-rds-4{

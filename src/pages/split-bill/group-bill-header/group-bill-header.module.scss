@@ -3,7 +3,6 @@
 @import "styles/flex";
 @import "styles/size";
 @import "styles/typography";
-@import "styles/cursor";
 
 .GroupBillHeader{
   min-height: 8rem;
@@ -78,8 +77,7 @@
             @extend .subtitle;
             @extend .flex-row;
             @extend .border-rds-8;
-            @extend .pointer;
-            @apply px-2 ml-2;
+            @apply px-2 ml-2 cursor-pointer;
           }
 
 
@@ -112,7 +110,7 @@
 
   .lent,.owes{
     @extend .body-text-bold;
-    @extend .pointer;
     @extend .currency;
+    @apply cursor-pointer;
   }
 }
