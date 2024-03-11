@@ -4,12 +4,9 @@
 @import "styles/typography";
 
 .Header {
-  display: flex;
-  align-items: center;
   width: 100%;
-  justify-content: space-between;
   @extend .border-separator-bottom;
-  @apply px-4;
+  @apply px-4 bg-white justify-between items-center flex;
   @include height(3rem)
 }
 

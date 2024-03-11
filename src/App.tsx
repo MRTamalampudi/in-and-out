@@ -7,19 +7,16 @@ import { NavBar } from "components";
 import { banner } from "templates/banner";
 
 import { Toaster } from "sonner";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { queryClient } from "index";
 
 function App() {
     useEffect(() => {
         console.log(banner);
-    },[]);
+    }, []);
 
     const pathname = useRouterState().location.pathname;
     const baseRoute = pathname.split("/")[1];
 
-    console.log(pathname)
-
+    console.log(pathname);
 
     return (
         <>

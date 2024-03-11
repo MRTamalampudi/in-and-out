@@ -8,6 +8,7 @@
   width: 3.5rem;
   height: 100vh;
   @extend .border-separator-right;
+  @apply bg-white;
 }
 
 .header{

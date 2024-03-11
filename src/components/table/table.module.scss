@@ -12,6 +12,7 @@
   justify-content: space-between;
   container-type: inline-size;
   container-name: tableContainer;
+  @apply bg-white;
 
   thead{
     position: sticky;
@@ -58,12 +59,8 @@
   }
 
   tr{
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
 
-    @extend .border-separator-bottom;
-    @extend .column-gap-8;
+    @apply border-b border-gray-100 flex items-center h-10 space-x-2;
 
     th:first-child,td:first-child{
       @apply pr-2 pl-4;
@@ -79,13 +76,8 @@
 }
 
 .pagination {
-  align-items: center;
-  justify-content: space-between;
-
   @include height(3rem);
-  @extend .border-separator-top;
-  @extend .flex-row;
-  @extend .column-gap-12;
+  @apply border-t border-gray-100 flex-row items-center justify-between space-x-3;
 
   span{
     @extend .subtitle;

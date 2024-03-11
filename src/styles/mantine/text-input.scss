@@ -5,9 +5,8 @@
 
 
 .mantine-TextInput-input,.mantine-Input-input{
-  background-color: colors-vars.$g-100;
   @extend .body-text;
-  @extend .border-solid-1;
+  @apply border border-gray-100 bg-gray-50;
 }
 
 .mantine-Input-input:not(.mantine-TagsInput-input){
