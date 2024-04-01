@@ -42,7 +42,7 @@ export const splitBillRoute = createRoute({
     },
     loader: ({
         context: { queryClient },
-        deps: { bill, group,gname, bname,...search },
+        deps: { bill, group,gname, bname,addMembers,...search },
     }) => {
         queryClient.ensureQueryData(memberIndexQueryOptions({ ...search,gname: gname || "" }));
         queryClient.ensureQueryData(

@@ -43,6 +43,6 @@ export const memberIndexQueryOptions = (options: IndexOptions) =>{
 }
 
 export function transformSplitBillSearchParams(options:Record<string, any>){
-    const {group,bill,newBill,newGroup,gname,...opt} = options;
+    const {group,bill,newBill,newGroup,gname,addMembers,...opt} = options;
     return opt
 }

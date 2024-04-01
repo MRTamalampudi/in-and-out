@@ -25,7 +25,7 @@ const GroupsTable = ({}: GroupsTableProps) => {
         pageIndex: 1,
         pageSize: 20,
     });
-    const { group,bill,newGroup,newBill,bname,...searchParams } = splitBillRoute.useSearch();
+    const { group,bill,addMembers,newGroup,newBill,bname,...searchParams } = splitBillRoute.useSearch();
     const navigate = useNavigate();
 
     const { data } = useIndexGroupMembers(searchParams);
