@@ -11,6 +11,8 @@ import React from "react";
 import { Transaction } from "model";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
+import { TransactionSvg } from "components/svg/transaction.svg";
+import { TransactionTableEmpty } from "pages/transactions/transaction-table/transaction-table-empty";
 
 type TransactionTableUiProps = {
     table: Table_<Transaction>;
@@ -51,6 +53,8 @@ export default function TransactionTableUi({
             search: (prev) => ({ ...prev, q: value?.target.value || "" }),
         });
     }
+    
+    const isTableEmpty = table.getRowModel().rows.length == 0;
 
     return (
         <TableWrapper>
@@ -68,7 +72,9 @@ export default function TransactionTableUi({
                     <Table.Head table={table} />
                 )}
                 <Table.Body>
-                    {table.getRowModel().rows.map((row) => (
+                    {isTableEmpty ? (
+                        <TransactionTableEmpty/>
+                    ) : table.getRowModel().rows.map((row) => (
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.id)}

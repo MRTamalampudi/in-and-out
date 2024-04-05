@@ -11,6 +11,8 @@ class SplitBillGroupMember {
     group: SplitBillGroup;
     groupId: number;
     member: User;
+
+
 }
 
 // @ts-ignore

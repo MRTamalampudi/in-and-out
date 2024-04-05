@@ -4,11 +4,7 @@ import { TransactionTypeCard } from "components";
 import { TransactionTypeEnum } from "enum";
 import Modal from "./transaction-form/modal";
 import TransactionTable from "pages/transactions/transaction-table/transaction-table";
-import {
-    transactionSummaryQueryOptions,
-    useGetTransactionSummary
-} from "service/react-query-hooks/transaction-summary.query";
-import { transactionRoute } from "pages/transactions/routes";
+import { transactionSummaryQueryOptions } from "service/react-query-hooks/transaction-summary.query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyRoute } from "@tanstack/react-router";
 
@@ -32,7 +28,9 @@ const TransactionsPage = (
           <div className={styles.bottom}>
               <TransactionTable/>
           </div>
-          <Modal/>
+          <div className={"absolute z-10 bottom-8 right-8"}>
+              <Modal/>
+          </div>
       </div>
   )
 }

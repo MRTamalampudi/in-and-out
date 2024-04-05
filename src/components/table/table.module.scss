@@ -39,6 +39,7 @@
 
   tbody{
     overflow-y: scroll;
+    flex-basis: 100%;
     tr{
       height: 2.5rem;
       text-decoration: none;

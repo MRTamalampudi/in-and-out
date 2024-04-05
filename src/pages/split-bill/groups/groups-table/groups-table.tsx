@@ -15,6 +15,7 @@ import ActionsRow from "components/table/actions-row";
 import { columns } from "./columns";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { splitBillRoute } from "pages/split-bill/routes";
+import { GroupsTableEmpty } from "pages/split-bill/groups/groups-table/groups-table-empty";
 
 type GroupsTableProps = {};
 const GroupsTable = ({}: GroupsTableProps) => {
@@ -75,6 +76,8 @@ const GroupsTable = ({}: GroupsTableProps) => {
         table.setPagination(value);
     }
 
+    const isEmpty = table.getRowModel().rows.length == 0;
+
     return (
         <TableWrapper compact={true}>
             <TableWrapper.MetaRow
@@ -95,27 +98,31 @@ const GroupsTable = ({}: GroupsTableProps) => {
                     <Table.Head table={table} />
                 )}
                 <Table.Body>
-                    {table.getRowModel().rows.map((row) => (
-                        <tr
-                            key={row.id}
-                            onClick={() => onRowClick(row.original.group.id)}
-                            data-selected={row.original.group.id == group}
-                        >
-                            {row.getVisibleCells().map((cell) => (
-                                <td
-                                    key={cell.id}
-                                    className={
-                                        cell.column.columnDef.meta?.className
-                                    }
-                                >
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext(),
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
+                    {
+                        isEmpty ? (
+                            <GroupsTableEmpty/>
+                        ) : table.getRowModel().rows.map((row) => (
+                            <tr
+                                key={row.id}
+                                onClick={() => onRowClick(row.original.group.id)}
+                                data-selected={row.original.group.id == group}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td
+                                        key={cell.id}
+                                        className={
+                                            cell.column.columnDef.meta?.className
+                                        }
+                                    >
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext(),
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    }
                 </Table.Body>
             </Table>
             <TableWrapper.Pagination

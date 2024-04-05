@@ -70,7 +70,7 @@
 }
 
 .heading-3{
-  @extend .f-18-b;
+  @apply text-lg font-semibold antialiased;
 }
 
 .heading-3-b{

@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { transactionQueryOptions } from "service/react-query-hooks/transaction-query";
 import { appRoute, rootRoute } from "index";
 import { transactionSummaryQueryOptions } from "service/react-query-hooks/transaction-summary.query";
@@ -14,6 +14,7 @@ const searchParamsSchema = z.object({
     page:z.number().default(1).catch(1),
     size:z.number().default(20).catch(20),
     q:z.string().default("").catch("").optional(),
+    addNew:boolean().default(false).catch(false).optional(),
 })
 
 export const transactionRoute = createRoute({

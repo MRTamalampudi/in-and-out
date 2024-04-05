@@ -4,7 +4,12 @@ import {
     SortingState,
 } from "@tanstack/react-table";
 import { useConstructSearchParams } from "service/react-query-hooks/base.query";
-import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+    queryOptions,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from "@tanstack/react-query";
 import {
     QueryKeys,
     SplitBillQueryKeys,
@@ -12,8 +17,6 @@ import {
 import { SplitBillService } from "service/split-bill.service";
 import { CustomMutationOptions } from "service/react-query-hooks/react-query";
 import { SplitBill } from "model";
-import { getGroupQueryOptions } from "service/react-query-hooks/split-bill-group.query";
-import { SplitBillGroupService } from "service/split-bill-group.service";
 
 export function useIndexBills(
     pagination: PaginationState,
@@ -24,8 +27,7 @@ export function useIndexBills(
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: SplitBillQueryKeys.index(keys),
-        queryFn: () =>
-            SplitBillService.getInstance().index({}),
+        queryFn: () => SplitBillService.getInstance().index({}),
         placeholderData: () =>
             queryClient.getQueryData(SplitBillQueryKeys.index(keys)),
     });
