@@ -48,7 +48,6 @@ export const splitBillRoute = createRoute({
         queryClient.ensureQueryData(
             shareIndexQueryOptions({ ...search,bname:bname, group: group || 0 }),
         );
-        queryClient.ensureQueryData(getGroupQueryOptions(group || 0));
     },
     preSearchFilters:[({gsize,gpage,page,size})=>({gsize,gpage,page,size})],
 }).lazy(()=>import("./split-bill.page").then((d)=>d.LazyRoute))

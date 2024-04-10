@@ -12,13 +12,16 @@
   @extend .column-gap-16;
 
   .left{
+    flex-basis: 25rem;
     min-width: 25rem;
-    max-width: 25rem;
+    flex-grow: 1;
+    width: 100%;
     background: colors-vars.$background-color;
 
     @extend .border-rds-8;
   }
   .right{
+    flex-basis: 100%;
     width: 100%;
     background: colors-vars.$background-color;
 

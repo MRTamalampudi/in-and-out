@@ -37,7 +37,7 @@ function AddMember() {
 const GroupBillHeader = ({}: GroupBillHeaderProps) => {
 
     const {group} = useSearch({from:splitBillRoute.fullPath});
-    const { data } = useGetSplitBillGroup(group || 0);
+    const { data,error,isLoading } = useGetSplitBillGroup(group || 0);
     const deleteGroup = useDeleteSplitBillGroup({
         onSuccess:()=>{
             toast("Successfully deleted group");
@@ -52,6 +52,15 @@ const GroupBillHeader = ({}: GroupBillHeaderProps) => {
             <TextAvatar text={member.member.getFullName()} key={member.id} />
         </Tooltip>
     ));
+
+    if(isLoading){
+        return <div>isLoadingg</div>
+    }
+
+    if(error){
+        console.log(error)
+        return (<div>{error.message}</div>);
+    }
 
     return (
         <div className={styles.GroupBillHeader}>

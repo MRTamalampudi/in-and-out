@@ -1,5 +1,5 @@
 import Page from "../model/page";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 type SerializerFn<T> = (entity: T) => void;
 type DeserializerFn<T> = (entity: T) => T;
@@ -38,7 +38,9 @@ export abstract class BaseService<Entity> {
                 console.log("trrrrrrr",result.data);
                 return result.data;
             })
-            .catch((error) => error);
+            .catch((error) => {
+                throw new AxiosError(error.response.data.error,error.response.status)
+            });
     }
 
     public get(id: number): Promise<Entity> {
@@ -49,7 +51,7 @@ export abstract class BaseService<Entity> {
                 return response.data;
             })
             .catch((error) => {
-                throw new Error(error);
+                throw new AxiosError(error.response.data.error,error.response.status)
             });
     }
 
@@ -62,7 +64,7 @@ export abstract class BaseService<Entity> {
                 return response.data;
             })
             .catch((error) => {
-                throw new Error(error);
+                throw new AxiosError(error.response.data.error,error.response.status)
             });
     }
 
@@ -72,7 +74,7 @@ export abstract class BaseService<Entity> {
         return axios
             .delete(`${this.BaseURL}?${searchParams.toString()}`)
             .catch((error) => {
-                throw new Error(error);
+                throw new AxiosError(error.response.data.error,error.response.status)
             });
     }
     public update(entity: Entity) {
@@ -81,7 +83,7 @@ export abstract class BaseService<Entity> {
             .put(`${this.BaseURL}`, entity)
             .then((res) => res.data)
             .catch((error) => {
-                throw new Error(error);
+                throw new AxiosError(error.response.data.error,error.response.status)
             });
     }
 }
