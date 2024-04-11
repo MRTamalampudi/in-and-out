@@ -4,6 +4,8 @@
     "splitBill": "Split Bill",
     "budget": "Budget",
     "settings": "Settings",
+    "groups": "Groups",
+    "bills": "Bills",
     "userProfile": "User Profile",
     "timeDate": "Time & Date",
     "transactee": "Transactee",
@@ -28,7 +30,11 @@
     "sort": "Sort {{context}}",
     "new": "New {{context}}"
   },
-
+  "empty": {
+    "message": "Looks like you dont have any {{context}}",
+    "description": "Its easy to create new {{context}}",
+    "clickHere": "Click here"
+  },
   "transactions": {
     "transactions": "Transactions",
     "transaction": "Transaction",

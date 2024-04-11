@@ -16,7 +16,9 @@ const useGlobalTranslations = () => {
         TRANSACTEE: t(GLOBAL+ "transactee"),
         TIME_DATE: t(GLOBAL + "timeDate"),
         AMOUNT:t(GLOBAL + "amount"),
-        TRANSACTION_TYPE: t(GLOBAL + "transactionType")
+        TRANSACTION_TYPE: t(GLOBAL + "transactionType"),
+        GROUPS: t(GLOBAL + "groups"),
+        BILLS: t(GLOBAL + "bills")
     }),[])
 
     return {

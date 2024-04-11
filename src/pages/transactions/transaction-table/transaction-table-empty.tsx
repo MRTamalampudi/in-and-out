@@ -3,9 +3,13 @@ import React from "react";
 import TransactionFormModal from "pages/transactions/transaction-form/modal";
 import { transactionRoute } from "pages/transactions/routes";
 import { useNavigate } from "@tanstack/react-router";
+import { useGlobalTranslations } from "locales/translation-hooks";
+import useEmptyTranslations from "locales/translation-hooks/empty.locales";
 
 export function TransactionTableEmpty() {
     const navigate = useNavigate({from:transactionRoute.fullPath});
+    const {global:{TRANSACTIONS}} = useGlobalTranslations();
+    const {empty:{MESSAGE,DESCRIPTION,CLICK_HERE}} = useEmptyTranslations(TRANSACTIONS);
     return (
         <div
             className={
@@ -16,12 +20,12 @@ export function TransactionTableEmpty() {
                 <TransactionSvg width={230} height={280} />
             </div>
             <span className={"heading-3 text-emerald-700 font-semibold"}>
-                Looks like you dont have any Transactions
+                {MESSAGE}
             </span>
             <div className={"flex space-x-2 items-center font-semibold"}>
                 <span className={"body-text text-gray-500"}
                 >
-                    It's easy to create new Transaction
+                    {DESCRIPTION}
                 </span>
                 <span
                     className={
@@ -29,7 +33,7 @@ export function TransactionTableEmpty() {
                     }
                     onClick={()=>navigate({search:(prev)=>({addNew:true,...prev})})}
                 >
-                    Click here
+                    {CLICK_HERE}
                 </span>
             </div>
         </div>

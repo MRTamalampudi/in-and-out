@@ -20,111 +20,118 @@ import { splitBillRoute } from "pages/split-bill/routes";
 import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
 import { toast } from "sonner";
 import { useDeleteSplitBill } from "service/react-query-hooks/split-bill.query";
+import { BillSvg } from "components/svg/bill.svg";
+import { BillsTableEmpty } from "pages/split-bill/bills-table/bills-table-empty";
 
 type BillsTableProps = {};
-const BillsTable = ({}:BillsTableProps) => {
+const BillsTable = ({}: BillsTableProps) => {
     const columnHelper = createColumnHelper<SplitBillShare>();
     const deleteMutation = useDeleteSplitBill({
-        onSuccess:()=>{
-            toast.success("Deleted group successfully")
-        }
-    })
-
-    const columns = useMemo(()=>([
-        {
-            id: "select",
-            //@ts-ignore
-            header: ({ table }) => (
-                <Checkbox
-                    size={"xs"}
-                    checked={table.getIsAllRowsSelected()}
-                    indeterminate={table.getIsSomeRowsSelected()}
-                    onChange={table.getToggleAllRowsSelectedHandler()}
-                    onClick={(event)=>event.stopPropagation()}
-                />
-            ),
-            //@ts-ignore
-            cell: ({ row }) => (
-                <Checkbox
-                    size={"xs"}
-                    checked={row.getIsSelected()}
-                    onChange={row.getToggleSelectedHandler()}
-                    disabled={!row.getCanSelect()}
-                    onClick={(event)=>event.stopPropagation()}
-                />
-            ),
+        onSuccess: () => {
+            toast.success("Deleted group successfully");
         },
-        columnHelper.accessor("bill.bill",{
-            header: "Bill",
-            cell: props => props.getValue(),
-            enableSorting:false,
-            meta:{
-                className:"flex-basis-5/20"
-            }
-        }),
-        columnHelper.accessor("bill.paidBy",{
-            header: "Paid By",
-            cell: props => props.getValue().getFullName(),
-            meta:{
-                className:"flex-basis-4/20"
-            },
-            enableSorting:false
-        }),
-        columnHelper.accessor("status",{
-            header: "My Status",
-            cell: props => props.getValue(),
-            meta:{
-                className:"flex-basis-3/20"
-            },
-            enableSorting:false
-        }),
-        columnHelper.accessor("bill.date",{
-            header: "Paid on",
-            cell: props => props.getValue().toLocaleDateString(),
-            meta:{
-                className:"flex-basis-3/20"
-            }
-        }),
-        columnHelper.accessor("amount",{
-            header: "My Share",
-            cell: props => props.getValue(),
-            meta:{
-                className:"flex-basis-2/20 text-align-right jc-right"
-            }
-        }),
-        columnHelper.accessor("bill.amount",{
-            header: "Amount",
-            cell: props => props.getValue(),
-            meta:{
-                className:"flex-basis-2/20 text-align-right jc-right"
-            }
-        }),
-        {
-            id: "Delete actions",
-            header: ` `,
-            //@ts-ignore
-            cell: ({ row }) => (
-                <DeleteConfirmationModal
-                    context={"Bill"}
-                    data={[row.original]}
-                    transformer={(data) => ({
-                        id: data.id,
-                        note: data.bill.bill,
-                        amount: data.bill.amount,
-                    })}
-                    primary={() => deleteMutation.mutate([row.original.bill.id])}
-                />
-            ),
-            meta: {
-                className: "action w48p flex-row jc-center",
-            },
-        }
-    ]),[])
+    });
 
-    const ActionRowComponents:Action[] = [
+    const columns = useMemo(
+        () => [
+            {
+                id: "select",
+                //@ts-ignore
+                header: ({ table }) => (
+                    <Checkbox
+                        size={"xs"}
+                        checked={table.getIsAllRowsSelected()}
+                        indeterminate={table.getIsSomeRowsSelected()}
+                        onChange={table.getToggleAllRowsSelectedHandler()}
+                        onClick={(event) => event.stopPropagation()}
+                    />
+                ),
+                //@ts-ignore
+                cell: ({ row }) => (
+                    <Checkbox
+                        size={"xs"}
+                        checked={row.getIsSelected()}
+                        onChange={row.getToggleSelectedHandler()}
+                        disabled={!row.getCanSelect()}
+                        onClick={(event) => event.stopPropagation()}
+                    />
+                ),
+            },
+            columnHelper.accessor("bill.bill", {
+                header: "Bill",
+                cell: (props) => props.getValue(),
+                enableSorting: false,
+                meta: {
+                    className: "flex-basis-5/20",
+                },
+            }),
+            columnHelper.accessor("bill.paidBy", {
+                header: "Paid By",
+                cell: (props) => props.getValue().getFullName(),
+                meta: {
+                    className: "flex-basis-4/20",
+                },
+                enableSorting: false,
+            }),
+            columnHelper.accessor("status", {
+                header: "My Status",
+                cell: (props) => props.getValue(),
+                meta: {
+                    className: "flex-basis-3/20",
+                },
+                enableSorting: false,
+            }),
+            columnHelper.accessor("bill.date", {
+                header: "Paid on",
+                cell: (props) => props.getValue().toLocaleDateString(),
+                meta: {
+                    className: "flex-basis-3/20",
+                },
+            }),
+            columnHelper.accessor("amount", {
+                header: "My Share",
+                cell: (props) => props.getValue(),
+                meta: {
+                    className: "flex-basis-2/20 text-align-right jc-right",
+                },
+            }),
+            columnHelper.accessor("bill.amount", {
+                header: "Amount",
+                cell: (props) => props.getValue(),
+                meta: {
+                    className: "flex-basis-2/20 text-align-right jc-right",
+                },
+            }),
+            {
+                id: "Delete actions",
+                header: ` `,
+                //@ts-ignore
+                cell: ({ row }) => (
+                    <DeleteConfirmationModal
+                        context={"Bill"}
+                        data={[row.original]}
+                        transformer={(data) => ({
+                            id: data.id,
+                            note: data.bill.bill,
+                            amount: data.bill.amount,
+                        })}
+                        primary={() =>
+                            deleteMutation.mutate([row.original.bill.id])
+                        }
+                    />
+                ),
+                meta: {
+                    className: "action w48p flex-row jc-center",
+                },
+            },
+        ],
+        [],
+    );
+
+    const ActionRowComponents: Action[] = [
         {
-            label:"Delete",
-            component: ()=>(
+            label: "Delete",
+            component: () => (
                 <DeleteConfirmationModal
                     context={"Bills"}
                     transformer={(data) => ({
@@ -146,11 +153,11 @@ const BillsTable = ({}:BillsTableProps) => {
                     }}
                     isPending={deleteMutation.isPending}
                 />
-            )
-        }
-    ]
+            ),
+        },
+    ];
 
-    const { gname,...searchParams } = splitBillRoute.useSearch();
+    const { gname, ...searchParams } = splitBillRoute.useSearch();
 
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -160,7 +167,10 @@ const BillsTable = ({}:BillsTableProps) => {
         pageSize: 20,
     });
 
-    const {data} = useIndexBillShare({ ...transformSplitBillSearchParams(searchParams),group:(searchParams.group || 0) });
+    const { data } = useIndexBillShare({
+        ...transformSplitBillSearchParams(searchParams),
+        group: searchParams.group || 0,
+    });
 
     const table = useReactTable({
         data: data?.content || [],
@@ -185,9 +195,9 @@ const BillsTable = ({}:BillsTableProps) => {
         enableSorting: true,
         enableMultiSort: true,
     });
-    const navigate = useNavigate({from:splitBillRoute.fullPath});
+    const navigate = useNavigate({ from: splitBillRoute.fullPath });
     function onRowClick(id: number) {
-        navigate({search:(prev)=>({...prev,bill:id})})
+        navigate({ search: (prev) => ({ ...prev, bill: id }) });
     }
 
     function handleSearch(value: React.ChangeEvent<HTMLInputElement>) {
@@ -197,7 +207,7 @@ const BillsTable = ({}:BillsTableProps) => {
         });
     }
 
-    console.log("dataaaa",data?.content)
+    const isEmpty = table.getRowModel().rows.length == 0;
 
     return (
         <>
@@ -213,34 +223,39 @@ const BillsTable = ({}:BillsTableProps) => {
                     />
                 </TableWrapper.MetaRow>
                 <Table>
-                    {table.getIsSomeRowsSelected() ||
-                    table.getIsAllRowsSelected() ? (
-                        <ActionsRow table={table} actions={ActionRowComponents}/>
-                    ) : (
-                        <Table.Head table={table} />
-                    )}
+                    <ActionsRow table={table} actions={ActionRowComponents} />
+                    <Table.Head table={table} />
                     <Table.Body>
-                        {table.getRowModel().rows.map((row) => (
-                            <tr
-                                key={row.id}
-                                onClick={() => onRowClick(row.original.bill.id)}
-                                data-selected={row.original.id == searchParams.bill}
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <td
-                                        key={cell.id}
-                                        className={
-                                            cell.column.columnDef.meta?.className
-                                        }
-                                    >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext(),
-                                        )}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
+                        {isEmpty ? (
+                            <BillsTableEmpty />
+                        ) : (
+                            table.getRowModel().rows.map((row) => (
+                                <tr
+                                    key={row.id}
+                                    onClick={() =>
+                                        onRowClick(row.original.bill.id)
+                                    }
+                                    data-selected={
+                                        row.original.id == searchParams.bill
+                                    }
+                                >
+                                    {row.getVisibleCells().map((cell) => (
+                                        <td
+                                            key={cell.id}
+                                            className={
+                                                cell.column.columnDef.meta
+                                                    ?.className
+                                            }
+                                        >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        )}
                     </Table.Body>
                 </Table>
                 <TableWrapper.Pagination
@@ -250,7 +265,7 @@ const BillsTable = ({}:BillsTableProps) => {
                 />
             </TableWrapper>
         </>
-    )
-}
+    );
+};
 
 export default BillsTable;

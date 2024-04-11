@@ -82,7 +82,7 @@ const GroupsTable = ({}: GroupsTableProps) => {
         <TableWrapper compact={true}>
             <TableWrapper.MetaRow
                 totalElements={data?.totalElements || 0}
-                title={"Transactions"}
+                title={"Groups"}
             >
                 <TextInput
                     value={searchParams.gname}
@@ -91,12 +91,8 @@ const GroupsTable = ({}: GroupsTableProps) => {
                 />
             </TableWrapper.MetaRow>
             <Table>
-                {table.getIsSomeRowsSelected() ||
-                table.getIsAllRowsSelected() ? (
-                    <ActionsRow table={table} />
-                ) : (
-                    <Table.Head table={table} />
-                )}
+                <ActionsRow table={table} />
+                <Table.Head table={table} />
                 <Table.Body>
                     {
                         isEmpty ? (

@@ -12,35 +12,45 @@ function Thead<T>({ table }: TheadProps<T>) {
     const canSort = (id: string) => table.getColumn(id)?.getCanSort();
     const isSorted = (id: string) => table.getColumn(id)?.getIsSorted();
     const sortIcons: Record<string, JSX.Element> = {
-        asc: <SortAsc width={16} height={16} className={"primary"}/>,
-        desc: <SortDesc width={16} height={16} className={"primary"}/>,
+        asc: <SortAsc width={16} height={16} className={"primary"} />,
+        desc: <SortDesc width={16} height={16} className={"primary"} />,
     };
 
     const sortIcon = (id: string) =>
         sortIcons[isSorted(id) as unknown as string] ||
-        (canSort(id) ? <Sort width={16} height={16} className={"grayIcon"}/> : null);
+        (canSort(id) ? (
+            <Sort width={16} height={16} className={"grayIcon"} />
+        ) : null);
 
-    return (
-        <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                        <th
-                            key={header.id}
-                            className={header.column.columnDef.meta?.className}
-                            onClick={header.column.getToggleSortingHandler()}
-                        >
-                            {flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                            )}
-                            {sortIcon(header.column.id,)}
-                        </th>
-                    ))}
-                </tr>
-            ))}
-        </thead>
-    );
+    function renderRow() {
+        return (
+            <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                            <th
+                                key={header.id}
+                                className={
+                                    header.column.columnDef.meta?.className
+                                }
+                                onClick={header.column.getToggleSortingHandler()}
+                            >
+                                {flexRender(
+                                    header.column.columnDef.header,
+                                    header.getContext(),
+                                )}
+                                {sortIcon(header.column.id)}
+                            </th>
+                        ))}
+                    </tr>
+                ))}
+            </thead>
+        );
+    }
+
+    return table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()
+        ? null
+        : renderRow();
 }
 
 export default Thead;

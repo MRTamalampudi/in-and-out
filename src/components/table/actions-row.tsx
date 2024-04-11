@@ -15,38 +15,44 @@ export type Action = {
 };
 
 function ActionsRow<T>({ table, actions }: ActionsRowProps<T>) {
+
+    function renderRow() {
+        return (<thead>
+        <tr className={styles.actionRow}>
+            <th>
+                <Checkbox
+                    checked={table.getIsAllRowsSelected()}
+                    size={"xs"}
+                    onChange={(event) =>
+                        table.toggleAllRowsSelected(event?.target.checked)
+                    }
+                    indeterminate={table.getIsSomeRowsSelected()}
+                />
+            </th>
+            <th className={"flex-basis-19/20"}>
+                {`${
+                    table.getFilteredSelectedRowModel().rows.length
+                } selected`}
+            </th>
+            <th className={`flex-basis-1/20 ${styles.actions}`}>
+                {actions?.map((action) => {
+                    return (
+                        <div key={action.label}>
+                            <Tooltip label={action.label} position={"top"}>
+                                {action.component()}
+                            </Tooltip>
+                        </div>
+                    );
+                })}
+            </th>
+        </tr>
+        </thead>)
+    }
+
     return (
-        <thead>
-            <tr className={styles.actionRow}>
-                <th>
-                    <Checkbox
-                        checked={table.getIsAllRowsSelected()}
-                        size={"xs"}
-                        onChange={(event) =>
-                            table.toggleAllRowsSelected(event?.target.checked)
-                        }
-                        indeterminate={table.getIsSomeRowsSelected()}
-                    />
-                </th>
-                <th className={"flex-basis-19/20"}>
-                    {`${
-                        table.getFilteredSelectedRowModel().rows.length
-                    } selected`}
-                </th>
-                <th className={`flex-basis-1/20 ${styles.actions}`}>
-                    {actions?.map((action) => {
-                        return (
-                            <div key={action.label}>
-                                <Tooltip label={action.label} position={"top"}>
-                                    {action.component()}
-                                </Tooltip>
-                            </div>
-                        );
-                    })}
-                </th>
-            </tr>
-        </thead>
-    );
+        (table.getIsSomeRowsSelected() ||
+                table.getIsAllRowsSelected()) ? renderRow() : null
+    )
 }
 
 export default ActionsRow;
