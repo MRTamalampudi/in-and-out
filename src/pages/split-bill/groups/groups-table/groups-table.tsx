@@ -29,7 +29,7 @@ const GroupsTable = ({}: GroupsTableProps) => {
     const { group,bill,addMembers,newGroup,newBill,bname,...searchParams } = splitBillRoute.useSearch();
     const navigate = useNavigate();
 
-    const { data } = useIndexGroupMembers(searchParams);
+    const { data,isLoading } = useIndexGroupMembers(searchParams);
 
     const table = useReactTable({
         data: data?.content || [],
@@ -53,6 +53,12 @@ const GroupsTable = ({}: GroupsTableProps) => {
         manualSorting: true,
         enableSorting: true,
         enableMultiSort: true,
+        meta:{
+            emptyComponent:GroupsTableEmpty,
+            isLoading,
+            selected:(row)=> row.group.id == group,
+            onRowClick:(row)=> onRowClick(row.group.id)
+        }
     });
     function onRowClick(id: number) {
         navigate({ search: (prev) => ({ ...prev, group: id }) });
@@ -93,33 +99,7 @@ const GroupsTable = ({}: GroupsTableProps) => {
             <Table>
                 <ActionsRow table={table} />
                 <Table.Head table={table} />
-                <Table.Body>
-                    {
-                        isEmpty ? (
-                            <GroupsTableEmpty/>
-                        ) : table.getRowModel().rows.map((row) => (
-                            <tr
-                                key={row.id}
-                                onClick={() => onRowClick(row.original.group.id)}
-                                data-selected={row.original.group.id == group}
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <td
-                                        key={cell.id}
-                                        className={
-                                            cell.column.columnDef.meta?.className
-                                        }
-                                    >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext(),
-                                        )}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))
-                    }
-                </Table.Body>
+                <Table.Body table={table}/>
             </Table>
             <TableWrapper.Pagination
                 totalElements={data?.totalElements || 0}

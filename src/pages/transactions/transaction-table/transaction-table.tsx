@@ -18,6 +18,7 @@ import { columns as columns_ } from "pages/transactions/transaction-table/transa
 import Checked from "components/icons/checked";
 import { useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { TransactionTableEmpty } from "pages/transactions/transaction-table/transaction-table-empty";
 
 interface TransactionTableProps {}
 
@@ -74,7 +75,7 @@ const TransactionTable = ({}: TransactionTableProps) => {
         pageIndex: params.page,
         pageSize: params.size,
     });
-    const { data } = useQuery(
+    const { data,isLoading,isError } = useQuery(
         transactionQueryOptions({ ...params }),
     );
     const table = useReactTable({
@@ -99,6 +100,10 @@ const TransactionTable = ({}: TransactionTableProps) => {
         manualSorting: true,
         enableSorting: true,
         enableMultiSort: true,
+        meta:{
+            emptyComponent:TransactionTableEmpty,
+            isLoading,
+        }
     });
 
     const actions: Action[] = [

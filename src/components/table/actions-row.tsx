@@ -1,7 +1,6 @@
 import styles from "./table.module.scss";
 import { Checkbox, Tooltip } from "@mantine/core";
-import React, { memo, useContext, useMemo } from "react";
-import { TableContext } from "components/table/context";
+import React from "react";
 import { Table } from "@tanstack/react-table";
 
 export type ActionsRowProps<T> = {

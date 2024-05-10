@@ -20,7 +20,6 @@ import { splitBillRoute } from "pages/split-bill/routes";
 import { transformSplitBillSearchParams } from "service/react-query-hooks/split_bill_group_member.query";
 import { toast } from "sonner";
 import { useDeleteSplitBill } from "service/react-query-hooks/split-bill.query";
-import { BillSvg } from "components/svg/bill.svg";
 import { BillsTableEmpty } from "pages/split-bill/bills-table/bills-table-empty";
 
 type BillsTableProps = {};
@@ -167,7 +166,7 @@ const BillsTable = ({}: BillsTableProps) => {
         pageSize: 20,
     });
 
-    const { data } = useIndexBillShare({
+    const { data, isLoading, isError } = useIndexBillShare({
         ...transformSplitBillSearchParams(searchParams),
         group: searchParams.group || 0,
     });
@@ -194,6 +193,12 @@ const BillsTable = ({}: BillsTableProps) => {
         manualSorting: true,
         enableSorting: true,
         enableMultiSort: true,
+        meta:{
+            emptyComponent: BillsTableEmpty,
+            isLoading,
+            selected: (row)=>row.bill.id === searchParams.bill,
+            onRowClick : (row)=> onRowClick(row.bill.id)
+        }
     });
     const navigate = useNavigate({ from: splitBillRoute.fullPath });
     function onRowClick(id: number) {
@@ -225,37 +230,31 @@ const BillsTable = ({}: BillsTableProps) => {
                 <Table>
                     <ActionsRow table={table} actions={ActionRowComponents} />
                     <Table.Head table={table} />
-                    <Table.Body>
-                        {isEmpty ? (
-                            <BillsTableEmpty />
-                        ) : (
-                            table.getRowModel().rows.map((row) => (
-                                <tr
-                                    key={row.id}
-                                    onClick={() =>
-                                        onRowClick(row.original.bill.id)
-                                    }
-                                    data-selected={
-                                        row.original.id == searchParams.bill
-                                    }
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <td
-                                            key={cell.id}
-                                            className={
-                                                cell.column.columnDef.meta
-                                                    ?.className
-                                            }
-                                        >
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext(),
-                                            )}
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))
-                        )}
+                    <Table.Body table={table} >
+                        {table.getRowModel().rows.map((row) => (
+                            <tr
+                                key={row.id}
+                                onClick={() => onRowClick(row.original.bill.id)}
+                                data-selected={
+                                    row.original.id == searchParams.bill
+                                }
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td
+                                        key={cell.id}
+                                        className={
+                                            cell.column.columnDef.meta
+                                                ?.className
+                                        }
+                                    >
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext(),
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
                     </Table.Body>
                 </Table>
                 <TableWrapper.Pagination

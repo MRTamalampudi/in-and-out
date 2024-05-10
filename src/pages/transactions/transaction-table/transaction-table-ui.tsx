@@ -1,7 +1,12 @@
-import { TableWrapper } from "components/table";
-import { TextInput } from "@mantine/core";
-import Table from "components/table/table";
-import ActionsRow, { Action } from "components/table/actions-row";
+import {
+    TableWrapper,
+    Thead,
+    MetaRow,
+    ActionsRow,
+    Action,
+    Table,
+} from "components/table";
+import { Loader, TextInput } from "@mantine/core";
 import {
     flexRender,
     PaginationState,
@@ -11,8 +16,8 @@ import React from "react";
 import { Transaction } from "model";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { transactionRoute } from "pages/transactions/routes";
-import { TransactionSvg } from "components/svg/transaction.svg";
 import { TransactionTableEmpty } from "pages/transactions/transaction-table/transaction-table-empty";
+import CustomLoader from "components/custom-loader";
 
 type TransactionTableUiProps = {
     table: Table_<Transaction>;
@@ -53,28 +58,17 @@ export default function TransactionTableUi({
             search: (prev) => ({ ...prev, q: value?.target.value || "" }),
         });
     }
-    
-    const isTableEmpty = table.getRowModel().rows.length == 0;
 
     return (
         <TableWrapper>
-            <TableWrapper.MetaRow
-                totalElements={totalElements}
-                title={"Transactions"}
-            >
+            <MetaRow totalElements={totalElements} title={"Transactions"}>
                 <TextInput placeholder={"search"} onChange={handleSearch} />
-            </TableWrapper.MetaRow>
+            </MetaRow>
             <Table>
-                {table.getIsSomeRowsSelected() ||
-                table.getIsAllRowsSelected() ? (
-                    <ActionsRow table={table} actions={actions} />
-                ) : (
-                    <Table.Head table={table} />
-                )}
-                <Table.Body>
-                    {isTableEmpty ? (
-                        <TransactionTableEmpty/>
-                    ) : table.getRowModel().rows.map((row) => (
+                <ActionsRow table={table} actions={actions} />
+                <Thead table={table} />
+                <Table.Body table={table}>
+                    {table.getRowModel().rows.map((row) => (
                         <tr
                             key={row.id}
                             onClick={() => onRowClick(row.original.id)}

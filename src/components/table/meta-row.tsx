@@ -1,9 +1,6 @@
 import styles from "./table.module.scss";
-import { Select, Skeleton, TextInput, Tooltip } from "@mantine/core";
-import { filterOutline, sortOutline } from "../../assets/icons";
-import React, { memo, useCallback, useContext, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { TableContext } from "components/table/context";
+import { Skeleton } from "@mantine/core";
+import React, { memo } from "react";
 
 export type MetaRowProps = {
     title: string;
